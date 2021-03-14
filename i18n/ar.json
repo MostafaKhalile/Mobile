@@ -1,7 +1,29 @@
 {
     "arabic": "اللغة العربية",
     "english": "English",
-    "title": "مرحبا!",
-    "Message": "هذه هي اللغة العربي"
-
+    "Message": "هذه هي اللغة العربي",
+    "loginPage": "صفحة تسجيل الدخول",
+    "skip": "تخطى",
+    "login": "دخول",
+    "signup": "تسجيل",
+    "companyRegister": "تسجيل شركة",
+    "mobile/email": "موبايل/ بريدإلكترونى",
+    "userName": "اسم المستخدم",
+    "mobile": "موبايل",
+    "email": "بريدإلكترونى",
+    "password": "كلمة السر",
+    "Repassword": "إعادة كلمة السر",
+    "facebookLogin": "متابعة بواسطة فيسبوك",
+    "googleLogin": "متابعة بواسطة جوجل",
+    "newAccount": "حساب جديد",
+    "forgotPassword": "نسيت كلمة السر",
+    "hello": "مرحباً,",
+    "codeError": "الرجاء التحقق من الرمز وإعادة المحاولة",
+    "yourLocation": "موقعك",
+    "Alex": "الإسكندرية",
+    "categories": "التصنيفات",
+    "viewAll": "مشاهدة الكل",
+    "topRated": "الأعلى تقييماً",
+    "newStores": "أحدث المتاجر",
+    "Egypt": "مصر"
 }
