@@ -6,8 +6,8 @@ const double KDefaultPadding = 20.0;
 
 // #############Strings################
 const String KAppName = "Tech Time";
-const String KAPIURL = "https://www.techtime.app";
-// const String KAPIURL = "http://174.138.14.14";
+// const String KAPIURL = "https://www.techtime.app";
+const String KAPIURL = "http://174.138.14.14";
 
 // ###############Colors###############
 const Color KPrimaryColor = Color(0xffFFDC00);
