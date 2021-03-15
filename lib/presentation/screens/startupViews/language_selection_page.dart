@@ -1,11 +1,13 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import 'package:techtime/constants/app_consts.dart';
 import 'package:techtime/data/models/AppConfgModels/app_language_model.dart';
 import 'package:techtime/data/models/AppConfgModels/app_localizations_delegates.dart';
+import 'package:techtime/logic/cubit/LocaleCubit/locale_cubit.dart';
 
 class LanguageSelectionPage extends StatefulWidget {
   @override
@@ -15,7 +17,7 @@ class LanguageSelectionPage extends StatefulWidget {
 class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
   @override
   Widget build(BuildContext context) {
-    var appLanguage = Provider.of<AppLanguage>(context);
+    // var appLanguage = Provider.of<AppLanguage>(context);
     return Scaffold(
         body: Container(
       decoration: BoxDecoration(
@@ -57,7 +59,7 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: RaisedButton(
                         onPressed: () {
-                          appLanguage.changeLanguage(Locale("ar"));
+                          BlocProvider.of<LocaleCubit>(context).toArabic();
                           Navigator.of(context).pushReplacementNamed(
                             '/loginModerator',
                           );
@@ -72,7 +74,7 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: RaisedButton(
                       onPressed: () {
-                        appLanguage.changeLanguage(Locale("en"));
+                        BlocProvider.of<LocaleCubit>(context).toEnglish();
                         Navigator.of(context).pushReplacementNamed(
                           '/loginModerator',
                         );

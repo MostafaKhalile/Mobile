@@ -9,7 +9,7 @@ import 'package:techtime/data/models/AppConfgModels/theme_model.dart';
 import 'package:techtime/logic/blocs/categorisBloc/categories_bloc.dart';
 import 'package:techtime/logic/blocs/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/logic/blocs/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
-import 'package:techtime/logic/cubit/theme_cubit.dart';
+import 'package:techtime/logic/cubit/ThemeCubit/theme_cubit.dart';
 import 'package:techtime/presentation/components/least_company_card.dart';
 import 'package:techtime/presentation/components/skeleton.dart';
 import 'package:techtime/presentation/screens/ClientApp/HomeScreen/widgets/section_header.dart';
