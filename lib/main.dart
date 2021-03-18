@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:techtime/data/repositories/user_home_repo.dart';
-import 'package:techtime/logic/blocs/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
-import 'package:techtime/presentation/route_generator.dart';
-import 'constants/app_consts.dart';
-import 'data/models/AppConfgModels/app_localizations_delegates.dart';
-import 'data/models/AppConfgModels/theme_model.dart';
-import 'logic/blocs/ads_bloc/ads_bloc.dart';
-import 'logic/blocs/categorisBloc/categories_bloc.dart';
-import 'logic/blocs/leastCompaniesBloc/leastcompanies_bloc.dart';
-import 'logic/cubit/LocaleCubit/locale_cubit.dart';
+import 'package:techtime/Controllers/blocs/client/companies_list_bloc.dart/companieslist_bloc.dart';
+import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
+import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
+import 'package:techtime/Controllers/repositories/client/companies/companies_repository.dart';
+import 'package:techtime/Helpers/themes/theme_model.dart';
+import 'package:techtime/route_generator.dart';
+
+import 'Controllers/blocs/client/ads_bloc/ads_bloc.dart';
+import 'Controllers/blocs/client/categorisBloc/categories_bloc.dart';
+import 'Controllers/cubits/LocaleCubit/locale_cubit.dart';
+import 'Controllers/repositories/client/user_home_repo.dart';
+import 'Helpers/APIUrls.dart';
+import 'Helpers/localization/app_localizations_delegates.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +30,7 @@ class MyApp extends StatelessWidget {
     precacheImage(AssetImage("assets/images/background.png"), context);
     precacheImage(AssetImage("assets/images/splashscreen.png"), context);
     APIClientHomeRepository apiClientHomeRepository = APIClientHomeRepository();
+    APICompaniesRepository apiCompaniesRepository = APICompaniesRepository();
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => AdsBloc(apiClientHomeRepository)),
@@ -37,6 +41,8 @@ class MyApp extends StatelessWidget {
                   RecommendedcompaniesBloc(apiClientHomeRepository)),
           BlocProvider(
               create: (context) => LeastcompaniesBloc(apiClientHomeRepository)),
+          BlocProvider(
+              create: (context) => CompanieslistBloc(apiCompaniesRepository)),
           BlocProvider<LocaleCubit>(create: (_) => LocaleCubit()),
         ],
         child: BlocBuilder<LocaleCubit, LocaleState>(

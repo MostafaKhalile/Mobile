@@ -25,5 +25,11 @@
     "viewAll": "مشاهدة الكل",
     "topRated": "الأعلى تقييماً",
     "newStores": "أحدث المتاجر",
-    "Egypt": "مصر"
+    "Egypt": "مصر",
+    "profile": "الملف الشخصى",
+    "myWallet": "محفظتى",
+    "language": "اللغة",
+    "darkMode": "الوضع المطلم",
+    "contactUs": "اتصل بنا",
+    "signOut": "تسجيل خروج"
 }

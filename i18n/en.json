@@ -25,5 +25,11 @@
     "viewAll": "view all",
     "topRated": "Top Rated",
     "newStores": "new Stores",
-    "Egypt": "EGYPT"
+    "Egypt": "EGYPT",
+    "profile": "profile",
+    "myWallet": "My Wallet",
+    "language": "language",
+    "darkMode": "dark Mode",
+    "contactUs": "contact Us",
+    "signOut": "sign out"
 }
