@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 
-import 'localWidgets/categories_body.dart';
+import 'components/categories_body.dart';
 
 class ClientCategoriesScreen extends StatelessWidget {
   @override
