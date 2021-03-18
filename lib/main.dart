@@ -5,14 +5,14 @@ import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/blocs/client/companies_list_bloc.dart/companieslist_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
-import 'package:techtime/Controllers/repositories/client/companies/companies_repository.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/route_generator.dart';
 
 import 'Controllers/blocs/client/ads_bloc/ads_bloc.dart';
 import 'Controllers/blocs/client/categorisBloc/categories_bloc.dart';
 import 'Controllers/cubits/LocaleCubit/locale_cubit.dart';
-import 'Controllers/repositories/client/user_home_repo.dart';
+import 'Controllers/repositories/client/companies/companies_repository.dart';
+import 'Controllers/repositories/client/home/user_home_repo.dart';
 import 'Helpers/APIUrls.dart';
 import 'Helpers/localization/app_localizations_delegates.dart';
 

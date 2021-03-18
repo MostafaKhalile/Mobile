@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:techtime/Controllers/repositories/client/user_home_repo.dart';
+import 'package:techtime/Controllers/repositories/client/home/user_home_repo.dart';
 import 'package:techtime/models/client/company.dart';
 
 part 'recommendedcompanies_event.dart';

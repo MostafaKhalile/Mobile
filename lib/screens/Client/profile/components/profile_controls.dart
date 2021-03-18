@@ -7,13 +7,13 @@ import 'package:techtime/Helpers/themes/dark_theme.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 
 class ProfileControls extends StatelessWidget {
-  final ThemeModel appTheme = ThemeModel();
   ProfileControls({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var appTheme = Provider.of<ThemeModel>(context);
     ThemeData _theme = Theme.of(context);
     return Expanded(
       flex: 2,
@@ -53,7 +53,9 @@ class ProfileControls extends StatelessWidget {
                   activeColor: KPrimaryColor,
                   // trackColor: KPrimaryColor,
                   value: appTheme.currentTheme == darkTheme ? true : false,
-                  onChanged: (value) => appTheme.toggleTheme(),
+                  onChanged: (value) =>
+                      Provider.of<ThemeModel>(context, listen: false)
+                          .toggleTheme(),
                 ),
               ),
               // Contact us

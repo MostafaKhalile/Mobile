@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/companies_list_bloc.dart/companieslist_bloc.dart';
+import 'package:techtime/Helpers/utils/custom_snackbar.dart';
 import 'package:techtime/models/client/category.dart';
 
 import 'components/companies_list_view.dart';
 
-class CompaniesListScreen extends StatefulWidget {
+class CategoryCompaniesScreen extends StatefulWidget {
   final Category category;
 
-  const CompaniesListScreen({Key key, this.category}) : super(key: key);
+  const CategoryCompaniesScreen({Key key, this.category}) : super(key: key);
 
   @override
-  _CompaniesListScreenState createState() => _CompaniesListScreenState();
+  _CategoryCompaniesScreenState createState() =>
+      _CategoryCompaniesScreenState();
 }
 
-class _CompaniesListScreenState extends State<CompaniesListScreen> {
+class _CategoryCompaniesScreenState extends State<CategoryCompaniesScreen> {
   @override
   void initState() {
     BlocProvider.of<CompanieslistBloc>(context)
@@ -24,12 +26,22 @@ class _CompaniesListScreenState extends State<CompaniesListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Snackbar _snackbar = Snackbar();
     return Scaffold(
       appBar: buildAppBar(context),
-      body: BlocBuilder<CompanieslistBloc, CompanieslistState>(
+      body: BlocConsumer<CompanieslistBloc, CompanieslistState>(
+        listener: (context, state) {
+          if (state is CompanieslistError) {
+            _snackbar.showSnackBar(context, state.message);
+          }
+        },
         builder: (context, state) {
           if (state is CompanieslistFinished) {
-            return CompaniesListView(companies: state.companies);
+            if (state.companies.isNotEmpty) {
+              return CompaniesListView(companies: state.companies);
+            } else {
+              return Center(child: Text("No Data Yet"));
+            }
           } else {
             return Center(
               child: CircularProgressIndicator(),

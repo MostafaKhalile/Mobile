@@ -5,12 +5,12 @@ import 'package:techtime/models/client/company.dart';
 
 abstract class CompaniesRepository {
   /// Throws [NetworkException].
-  Future<List<Company>> fetchCompaniesList(int id);
+  Future<List<Company>> fetchCategoryCompanies(int id);
 }
 
 class APICompaniesRepository implements CompaniesRepository {
   @override
-  Future<List<Company>> fetchCompaniesList(int id) async {
+  Future<List<Company>> fetchCategoryCompanies(int id) async {
     final response = await http.post(
       "$KAPIURL$KCompaniesList$id",
     );

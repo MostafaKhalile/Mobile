@@ -42,7 +42,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var appTheme = Provider.of<ThemeModel>(context, listen: false);
+    var appTheme = Provider.of<ThemeModel>(context);
     Snackbar _snackBar = Snackbar();
     Size size = MediaQuery.of(context).size;
 
@@ -312,7 +312,6 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
                       Icon(Icons.brightness_5),
                       Switch(
                         activeColor: KPrimaryColor,
-                        // trackColor: KPrimaryColor,
                         value:
                             appTheme.currentTheme == darkTheme ? true : false,
                         onChanged: (toggle) =>

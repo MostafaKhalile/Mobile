@@ -24,6 +24,12 @@ class FooterCard extends StatelessWidget {
       height: height,
       margin: EdgeInsets.symmetric(horizontal: KdefaultPadding / 2),
       decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+              bgImage,
+            ),
+            fit: BoxFit.fill,
+          ),
           borderRadius: BorderRadius.all(
             Radius.circular(KdefaultRadius),
           ),
@@ -36,16 +42,6 @@ class FooterCard extends StatelessWidget {
           ]),
       child: Stack(
         children: [
-          FadeInImage.assetNetwork(
-            placeholder: 'assets/images/default_cover.png',
-            imageErrorBuilder: (_, error, er) {
-              return Text(error.toString());
-            },
-            image: "$bgImage",
-            fit: BoxFit.fill,
-            width: width,
-            height: height,
-          ),
           Container(
             decoration: BoxDecoration(
               border: Border.all(color: Colors.white, width: 2.0),

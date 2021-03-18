@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'screens/Client/Categories/client_categories_screen.dart';
-import 'screens/Client/Companieslist/companies_list.dart';
+import 'screens/Client/CategoryCompanies/category_companies.dart';
 import 'screens/Client/home_page.dart';
 import 'screens/Core/startupViews/client_signup_page.dart';
 import 'screens/Core/startupViews/language_selection_page.dart';
@@ -61,7 +61,7 @@ class RouteGenerator {
       case '/CompaniesListPage':
         return CupertinoPageRoute(
           fullscreenDialog: true,
-          builder: (_) => CompaniesListScreen(
+          builder: (_) => CategoryCompaniesScreen(
             category: args,
           ),
         );
