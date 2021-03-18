@@ -13,39 +13,42 @@ class TitleImageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: KdefaultPadding),
-      height: 200,
-      decoration: BoxDecoration(
-          border: Border.all(color: KPrimaryColor, width: 1),
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).shadowColor.withOpacity(0.1),
-              spreadRadius: 4,
-              blurRadius: 4,
-              offset: Offset(0, 3), // changes position of shadow
-            ),
-          ],
-          borderRadius: BorderRadius.all(Radius.circular(KdefaultRadius)),
-          image: DecorationImage(
-              image: NetworkImage(KAPIURL + category.image),
-              colorFilter: new ColorFilter.mode(
-                  Colors.black.withOpacity(0.5), BlendMode.darken),
-              repeat: ImageRepeat.noRepeat,
-              // alignment: Alignment.center,
-              fit: BoxFit.fill)),
-      child: Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: KdefaultPadding),
-            child: Text(
-              category.categoryEn ?? '',
-              style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
-            ),
-          )),
-    );
+    return InkWell(
+        onTap: () => Navigator.pushNamed(context, "/CompaniesListPage",
+            arguments: category),
+        child: Container(
+          margin: EdgeInsets.symmetric(vertical: KdefaultPadding),
+          height: 200,
+          decoration: BoxDecoration(
+              border: Border.all(color: KPrimaryColor, width: 1),
+              boxShadow: [
+                BoxShadow(
+                  color: Theme.of(context).shadowColor.withOpacity(0.1),
+                  spreadRadius: 4,
+                  blurRadius: 4,
+                  offset: Offset(0, 3), // changes position of shadow
+                ),
+              ],
+              borderRadius: BorderRadius.all(Radius.circular(KdefaultRadius)),
+              image: DecorationImage(
+                  image: NetworkImage(KAPIURL + category.image),
+                  colorFilter: new ColorFilter.mode(
+                      Colors.black.withOpacity(0.5), BlendMode.darken),
+                  repeat: ImageRepeat.noRepeat,
+                  // alignment: Alignment.center,
+                  fit: BoxFit.fill)),
+          child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: KdefaultPadding),
+                child: Text(
+                  category.categoryEn ?? '',
+                  style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              )),
+        ));
   }
 }

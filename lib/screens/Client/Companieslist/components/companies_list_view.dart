@@ -17,7 +17,7 @@ class CompaniesListView extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.fromLTRB(0.0, KDefaultPadding, 0.0, KDefaultPadding),
       child: ListView.builder(
-          itemCount: 3,
+          itemCount: companies.length,
           itemBuilder: (_, i) {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -47,14 +47,20 @@ class CompaniesListView extends StatelessWidget {
                             style: _theme.textTheme.subtitle2
                                 .copyWith(color: Colors.black),
                           ),
-                          Text(
-                            companies[i].categoryRegionAr +
-                                " " +
-                                companies[i].categoryCityEn,
-                            overflow: TextOverflow.ellipsis,
-                            style: _theme.textTheme.subtitle2
-                                .copyWith(color: Colors.black),
-                          ),
+                          RichText(
+                              overflow: TextOverflow.clip,
+                              textScaleFactor: 0.9,
+                              text: TextSpan(
+                                text: '${companies[i].categoryRegionEn}   ',
+                                style: _theme.textTheme.subtitle2
+                                    .copyWith(color: Colors.black),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: '${companies[i].categoryCityEn} ',
+                                      style: _theme.textTheme.subtitle2
+                                          .copyWith(color: Colors.black)),
+                                ],
+                              )),
                         ],
                       ),
                     ),
