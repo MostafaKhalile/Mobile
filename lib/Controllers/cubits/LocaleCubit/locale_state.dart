@@ -7,5 +7,6 @@ abstract class LocaleState {
 }
 
 class SelectedLocale extends LocaleState {
-  SelectedLocale(Locale locale) : super(locale);
+  final Locale userLocale;
+  SelectedLocale(this.userLocale) : super(null);
 }

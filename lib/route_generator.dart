@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:techtime/screens/Client/CompanyProfile/company_profile.dart';
 
 import 'screens/Client/Categories/client_categories_screen.dart';
 import 'screens/Client/CategoryCompanies/category_companies.dart';
@@ -63,6 +64,13 @@ class RouteGenerator {
           fullscreenDialog: true,
           builder: (_) => CategoryCompaniesScreen(
             category: args,
+          ),
+        );
+      case CompanyProfile.routeName:
+        return CupertinoPageRoute(
+          fullscreenDialog: true,
+          builder: (_) => CompanyProfile(
+            id: args,
           ),
         );
 

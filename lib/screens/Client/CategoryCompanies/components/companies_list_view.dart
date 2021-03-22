@@ -24,7 +24,7 @@ class CompaniesListView extends StatelessWidget {
               child: FooterCard(
                 width: size.width * 0.95,
                 height: 300,
-                bgImage: KAPIURL + companies[i].coverImage,
+                bgImage: companies[i]?.coverImage,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -33,7 +33,7 @@ class CompaniesListView extends StatelessWidget {
                       child: CustomCircleAvatar(
                         width: 80,
                         height: 80,
-                        image: KAPIURL + companies[i]?.logo ?? KPlaceHolder,
+                        image: companies[i].logo,
                       ),
                     ),
                     Expanded(

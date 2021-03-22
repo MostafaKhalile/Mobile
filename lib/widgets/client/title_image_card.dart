@@ -31,7 +31,9 @@ class TitleImageCard extends StatelessWidget {
               ],
               borderRadius: BorderRadius.all(Radius.circular(KdefaultRadius)),
               image: DecorationImage(
-                  image: NetworkImage(KAPIURL + category.image),
+                  image: category.image != null
+                      ? NetworkImage(KAPIURL + category.image)
+                      : AssetImage(KPlaceHolderImage),
                   colorFilter: new ColorFilter.mode(
                       Colors.black.withOpacity(0.5), BlendMode.darken),
                   repeat: ImageRepeat.noRepeat,

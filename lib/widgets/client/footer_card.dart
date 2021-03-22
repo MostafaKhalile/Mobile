@@ -20,14 +20,16 @@ class FooterCard extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemeData _theme = Theme.of(context);
     return Container(
-      width: width * 0.95,
+      width: width * 0.90,
       height: height,
       margin: EdgeInsets.symmetric(horizontal: KdefaultPadding / 2),
       decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(
-              bgImage,
-            ),
+            image: bgImage != null
+                ? NetworkImage(
+                    KAPIURL + bgImage,
+                  )
+                : AssetImage(KPlaceHolderCover),
             fit: BoxFit.fill,
           ),
           borderRadius: BorderRadius.all(

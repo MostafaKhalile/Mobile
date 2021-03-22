@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/screens/Client/profile/profile.dart';
-import 'package:techtime/screens/Core/search_screen.dart';
 import 'Categories/client_categories_screen.dart';
 import 'HomeScreen/client_home_screen.dart';
 import 'Offres/client_offers_screen.dart';
@@ -76,6 +75,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
           letIndexChange: (index) => true,
         ),
         body: PageView(
+          physics: NeverScrollableScrollPhysics(),
           controller: _pageController,
           onPageChanged: (index) {
             setState(() {

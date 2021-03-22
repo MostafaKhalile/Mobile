@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import "company_branches.dart";
+import 'company_branche.dart';
 import "company_data.dart";
 
 class CompanyProfile extends Equatable {
