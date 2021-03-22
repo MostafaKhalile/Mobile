@@ -1,4 +1,5 @@
 {
+    "changeLanguage": "change Language",
     "arabic": "اللغة العربية",
     "english": "English",
     "Message": "This is English",
@@ -22,6 +23,7 @@
     "yourLocation": "Your Location",
     "Alex": "Alexandria",
     "categories": "Categories",
+    "offers": "offers",
     "viewAll": "view all",
     "topRated": "Top Rated",
     "newStores": "new Stores",

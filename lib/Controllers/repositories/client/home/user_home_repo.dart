@@ -13,16 +13,15 @@ abstract class ClientHomeRepository {
   Future<List<Company>> get fetchLeastCo;
 }
 
-//  headers: {
-//       HttpHeaders.authorizationHeader:
-//           "Token 8483e30d2158a5a78746f88c9fbd119057faa5cc"
-//     },
-
 class APIClientHomeRepository implements ClientHomeRepository {
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    "Accept": "*/*",
+    'Accept-Encoding': "gzip, deflate, br"
+  };
   Future<List<Category>> get fetchCategories async {
-    final response = await http.post(
-      KAPIURL + KHomeAllCategories,
-    );
+    final response =
+        await http.post(KAPIURL + KHomeAllCategories, headers: headers);
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body) as List;
@@ -35,9 +34,8 @@ class APIClientHomeRepository implements ClientHomeRepository {
   }
 
   Future<List<Company>> get fetchRecommendedCo async {
-    final response = await http.post(
-      KAPIURL + KHomeRecommendedCo,
-    );
+    final response =
+        await http.post(KAPIURL + KHomeRecommendedCo, headers: headers);
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body) as List;
@@ -51,7 +49,7 @@ class APIClientHomeRepository implements ClientHomeRepository {
 
   Future<List<Advertise>> get fetchAdsAbove async {
     final response = await http.post(KAPIURL + KHomeAdsAbove,
-        body: {"RequestType": "API", "LanguageCode": "EN"});
+        headers: headers, body: {"RequestType": "API", "LanguageCode": "EN"});
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body) as List;
@@ -64,9 +62,7 @@ class APIClientHomeRepository implements ClientHomeRepository {
   }
 
   Future<List<Company>> get fetchLeastCo async {
-    final response = await http.post(
-      KAPIURL + KHomeRecommendedCo,
-    );
+    final response = await http.post(KAPIURL + KHomeLeastCo, headers: headers);
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body) as List;

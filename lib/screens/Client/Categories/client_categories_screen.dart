@@ -16,7 +16,8 @@ class ClientCategoriesScreen extends StatelessWidget {
     return AppBar(
       title: Text(
         AppLocalizations.of(context).translate('categories'),
-        style: TextStyle(color: Colors.black),
+        style:
+            Theme.of(context).textTheme.headline6.copyWith(color: Colors.black),
       ),
       automaticallyImplyLeading: false,
       // leading: Container(),

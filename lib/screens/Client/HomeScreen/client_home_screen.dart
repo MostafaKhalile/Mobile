@@ -1,8 +1,8 @@
+import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/blocs/client/categorisBloc/categories_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
@@ -68,26 +68,45 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
       BuildContext context, Size size, Snackbar _snackbar) {
     return Column(
       children: [
-        buildLeastCompaniesHeader(context),
-        Container(
-            height: size.height * 0.35,
-            child: BlocConsumer<LeastcompaniesBloc, LeastcompaniesState>(
-                listener: (context, state) {
-              if (state is LeastCompaniesError) {
-                _snackbar.showSnackBar(context, state.message);
-              }
-            }, builder: (context, state) {
-              if (state is Leastcompaniesloading ||
-                  state is LeastcompaniesInitial) {
-                return buildLeastCompaniesLoading(size);
-              }
-              if (state is LeastCompaniesError) {
-                return buildError(state);
-              }
-              if (state is LeastCompaniesLoaded) {
-                return buildLeastCompaniesData(state);
-              }
-            }))
+        BlocBuilder<LeastcompaniesBloc, LeastcompaniesState>(
+            builder: (context, state) {
+          if (state is! LeastCompaniesLoaded) {
+            return buildLeastCompaniesHeader(context);
+          }
+          if (state is LeastCompaniesLoaded) {
+            if (state.leastCompanies.isNotEmpty) {
+              return buildLeastCompaniesHeader(context);
+            } else {
+              return Container();
+            }
+          }
+        }),
+        BlocConsumer<LeastcompaniesBloc, LeastcompaniesState>(
+            listener: (context, state) {
+          if (state is LeastCompaniesError) {
+            _snackbar.showSnackBar(context, state.message);
+          }
+        }, builder: (context, state) {
+          if (state is Leastcompaniesloading ||
+              state is LeastcompaniesInitial) {
+            return Container(
+                height: size.height * 0.35,
+                child: buildLeastCompaniesLoading(size));
+          }
+          if (state is LeastCompaniesError) {
+            return buildError(state);
+          }
+          if (state is LeastCompaniesLoaded) {
+            if (state.leastCompanies.isNotEmpty) {
+              return Container(
+                  height: size.height * 0.35,
+                  child: buildLeastCompaniesData(state));
+            }
+            if (state.leastCompanies.isEmpty) {
+              return Container();
+            }
+          }
+        })
       ],
     );
   }

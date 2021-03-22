@@ -1,4 +1,5 @@
 {
+    "changeLanguage": "تغيير اللغة",
     "arabic": "اللغة العربية",
     "english": "English",
     "Message": "هذه هي اللغة العربي",
@@ -22,6 +23,7 @@
     "yourLocation": "موقعك",
     "Alex": "الإسكندرية",
     "categories": "التصنيفات",
+    "offers": "العروض",
     "viewAll": "مشاهدة الكل",
     "topRated": "الأعلى تقييماً",
     "newStores": "أحدث المتاجر",

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:techtime/Controllers/cubits/LocaleCubit/locale_cubit.dart';
+import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_language_model.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 
@@ -21,16 +24,13 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    var appLanguage = Provider.of<AppLanguage>(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      // resizeToAvoidBottomPadding: false,
       body: SingleChildScrollView(
           child: Container(
               width: size.width,
               height: size.height,
-              padding: EdgeInsets.symmetric(
-                  horizontal: size.width * 0.1, vertical: size.height * 0.1),
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(
@@ -44,19 +44,26 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: Icon(
-                          appLanguage.appLocal == Locale("ar")
-                              ? Icons.arrow_forward_ios_rounded
-                              : Icons.arrow_back_ios_rounded,
-                          size: 30,
-                          color: Colors.black,
-                        ))
+                    BlocBuilder<LocaleCubit, LocaleState>(
+                      builder: (context, state) {
+                        return Padding(
+                          padding:
+                              const EdgeInsets.only(top: KdefaultPadding * 2),
+                          child: IconButton(
+                              onPressed: () => Navigator.pop(context),
+                              icon: Icon(
+                                state.locale == Locale("ar")
+                                    ? Icons.arrow_forward_ios_rounded
+                                    : Icons.arrow_back_ios_rounded,
+                                size: 30,
+                                color: Colors.black,
+                              )),
+                        );
+                      },
+                    )
                   ],
                 ),
                 Expanded(
-                  flex: 1,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -123,7 +130,6 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
                   )),
-                  flex: 2,
                 ),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,

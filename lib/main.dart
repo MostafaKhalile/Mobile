@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/blocs/client/companies_list_bloc.dart/companieslist_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
+import 'package:techtime/Helpers/localization/app_language_model.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/route_generator.dart';
 
@@ -18,8 +19,7 @@ import 'Helpers/localization/app_localizations_delegates.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // AppLanguage appLanguage = AppLanguage();
-  // await appLanguage.fetchLocale();
+  AppLanguage().fetchLocale;
   runApp(ChangeNotifierProvider<ThemeModel>(
       create: (BuildContext context) => ThemeModel(), child: MyApp()));
 }

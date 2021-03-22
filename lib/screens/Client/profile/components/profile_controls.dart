@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:techtime/Controllers/cubits/LocaleCubit/locale_cubit.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
@@ -36,16 +38,20 @@ class ProfileControls extends StatelessWidget {
                       .translate("myWallet")
                       .toUpperCase()),
               //language
-              buildProfileListTile(context, _theme,
-                  leading: Icons.language,
-                  title: AppLocalizations.of(context)
-                      .translate("language")
-                      .toUpperCase()),
+              buildProfileListTile(
+                context,
+                _theme,
+                onTap: () => _askedToLead(context),
+                leading: Icons.language,
+                title: AppLocalizations.of(context)
+                    .translate("language")
+                    .toUpperCase(),
+              ),
               // darkMode
               buildProfileListTile(
                 context,
                 _theme,
-                leading: Icons.bedtime_rounded,
+                leading: Icons.brightness_3_sharp,
                 title: AppLocalizations.of(context)
                     .translate("darkMode")
                     .toUpperCase(),
@@ -77,9 +83,44 @@ class ProfileControls extends StatelessWidget {
     );
   }
 
+  Future<void> _askedToLead(context) async {
+    switch (await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: Text(
+              AppLocalizations.of(context).translate("changeLanguage"),
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            children: <Widget>[
+              SimpleDialogOption(
+                onPressed: () {
+                  BlocProvider.of<LocaleCubit>(context).toArabic();
+                },
+                child: Text(
+                  AppLocalizations.of(context).translate("arabic"),
+                  style: Theme.of(context).textTheme.subtitle2,
+                ),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  BlocProvider.of<LocaleCubit>(context).toEnglish();
+                },
+                child: Text(
+                  AppLocalizations.of(context).translate("english"),
+                  style: Theme.of(context).textTheme.subtitle2,
+                ),
+              ),
+            ],
+          );
+        })) {
+    }
+  }
+
   ProfileListTile buildProfileListTile(BuildContext context, ThemeData _theme,
-      {IconData leading, String title, Widget trailing}) {
+      {IconData leading, String title, Widget trailing, Function onTap}) {
     return ProfileListTile(
+        onTap: onTap,
         leading: Icon(
           leading,
           size: 30,
@@ -96,11 +137,14 @@ class ProfileListTile extends StatelessWidget {
   final Widget title;
   final Widget leading;
   final Widget trailing;
+  final Function onTap;
+
   const ProfileListTile({
     Key key,
     this.title,
     this.leading,
     this.trailing,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -108,6 +152,7 @@ class ProfileListTile extends StatelessWidget {
     return Column(
       children: [
         ListTile(
+          onTap: onTap,
           leading: leading ??
               Container(
                 width: 0,

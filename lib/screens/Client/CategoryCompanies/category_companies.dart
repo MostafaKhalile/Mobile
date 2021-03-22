@@ -40,7 +40,11 @@ class _CategoryCompaniesScreenState extends State<CategoryCompaniesScreen> {
             if (state.companies.isNotEmpty) {
               return CompaniesListView(companies: state.companies);
             } else {
-              return Center(child: Text("No Data Yet"));
+              return Center(
+                  child: Text(
+                "No Data Yet",
+                style: Theme.of(context).textTheme.caption,
+              ));
             }
           } else {
             return Center(

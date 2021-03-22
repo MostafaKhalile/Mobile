@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:techtime/Controllers/cubits/LocaleCubit/locale_cubit.dart';
 import 'package:techtime/Helpers/localization/app_language_model.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 
@@ -20,7 +22,6 @@ class _ClientSignupPageState extends State<ClientSignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    var appLanguage = Provider.of<AppLanguage>(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
@@ -45,15 +46,19 @@ class _ClientSignupPageState extends State<ClientSignupPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            IconButton(
-                                onPressed: () => Navigator.pop(context),
-                                icon: Icon(
-                                  appLanguage.appLocal == Locale("ar")
-                                      ? Icons.arrow_forward_ios_rounded
-                                      : Icons.arrow_back_ios_rounded,
-                                  size: 30,
-                                  color: Colors.black,
-                                ))
+                            BlocBuilder<LocaleCubit, LocaleState>(
+                              builder: (context, state) {
+                                return IconButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    icon: Icon(
+                                      state.locale == Locale("ar")
+                                          ? Icons.arrow_forward_ios_rounded
+                                          : Icons.arrow_back_ios_rounded,
+                                      size: 30,
+                                      color: Colors.black,
+                                    ));
+                              },
+                            )
                           ],
                         ),
                         Container(

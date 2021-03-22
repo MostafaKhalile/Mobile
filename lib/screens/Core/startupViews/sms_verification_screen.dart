@@ -16,7 +16,13 @@ class _SmsVerificationState extends State<SmsVerification> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('SMS verify code')),
+        title: Center(
+          child: Text(
+            'SMS verify code',
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+        iconTheme: IconThemeData(color: Colors.black),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
