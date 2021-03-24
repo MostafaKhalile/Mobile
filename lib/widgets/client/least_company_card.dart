@@ -18,7 +18,7 @@ class LeastCompanyCard extends StatelessWidget {
 
     return InkWell(
       onTap: () => Navigator.pushNamed(context, CompanyProfile.routeName,
-          arguments: company.companyId),
+          arguments: company),
       child: Container(
         width: size.width * 0.85,
         height: size.height * 0.35,

@@ -15,9 +15,8 @@ abstract class ClientHomeRepository {
 
 class APIClientHomeRepository implements ClientHomeRepository {
   Map<String, String> headers = {
-    'Content-Type': 'application/json',
-    "Accept": "*/*",
-    'Accept-Encoding': "gzip, deflate, br"
+    "Content-Type": "application/json",
+    "Accept": "application/json"
   };
   Future<List<Category>> get fetchCategories async {
     final response =

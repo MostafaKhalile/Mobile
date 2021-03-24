@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/models/client/company.dart';
+import 'package:techtime/screens/Client/CompanyProfile/company_profile.dart';
 import 'package:techtime/widgets/client/custom_circle_avatar.dart';
 import 'package:techtime/widgets/client/footer_card.dart';
 
@@ -20,54 +20,61 @@ class CompaniesListView extends StatelessWidget {
           itemCount: companies.length,
           itemBuilder: (_, i) {
             return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: FooterCard(
-                width: size.width * 0.95,
-                height: 300,
-                bgImage: companies[i]?.coverImage,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(KdefaultPadding / 2),
-                      child: CustomCircleAvatar(
-                        width: 80,
-                        height: 80,
-                        image: companies[i].logo,
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(
-                            companies[i].companyName,
-                            overflow: TextOverflow.ellipsis,
-                            style: _theme.textTheme.subtitle2
-                                .copyWith(color: Colors.black),
-                          ),
-                          RichText(
-                              overflow: TextOverflow.clip,
-                              textScaleFactor: 0.9,
-                              text: TextSpan(
-                                text: '${companies[i].categoryRegionEn}   ',
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: InkWell(
+                  onTap: () => Navigator.pushNamed(
+                      context, CompanyProfile.routeName,
+                      arguments: companies[i]),
+                  child: FooterCard(
+                    width: size.width * 0.95,
+                    height: 300,
+                    bgImage: companies[i]?.coverImage,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(KdefaultPadding / 2),
+                          child: Hero(
+                              tag: companies[i].companyName,
+                              child: CustomCircleAvatar(
+                                width: 80,
+                                height: 80,
+                                image: companies[i].logo,
+                              )),
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                companies[i].companyName,
+                                overflow: TextOverflow.ellipsis,
                                 style: _theme.textTheme.subtitle2
                                     .copyWith(color: Colors.black),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                      text: '${companies[i].categoryCityEn} ',
-                                      style: _theme.textTheme.subtitle2
-                                          .copyWith(color: Colors.black)),
-                                ],
-                              )),
-                        ],
-                      ),
+                              ),
+                              RichText(
+                                  overflow: TextOverflow.clip,
+                                  textScaleFactor: 0.9,
+                                  text: TextSpan(
+                                    text: '${companies[i].categoryRegionEn}   ',
+                                    style: _theme.textTheme.subtitle2
+                                        .copyWith(color: Colors.black),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                          text:
+                                              '${companies[i].categoryCityEn} ',
+                                          style: _theme.textTheme.subtitle2
+                                              .copyWith(color: Colors.black)),
+                                    ],
+                                  )),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            );
+                  ),
+                ));
           }),
     );
   }

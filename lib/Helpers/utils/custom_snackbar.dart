@@ -15,14 +15,16 @@ class Snackbar {
           children: <Widget>[
             Wrap(
               children: <Widget>[
-                Text(
-                  message,
-                  overflow: TextOverflow.clip,
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w400,
+                ClipRRect(
+                  child: Text(
+                    message,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 )
               ],

@@ -18,7 +18,7 @@ class CompanyCard extends StatelessWidget {
     ThemeData _theme = Theme.of(context);
     return InkWell(
         onTap: () => Navigator.pushNamed(context, CompanyProfile.routeName,
-            arguments: company.companyId),
+            arguments: company),
         child: Container(
           width: size.width * 0.7,
           margin: EdgeInsets.symmetric(horizontal: KdefaultPadding / 4),
@@ -43,7 +43,9 @@ class CompanyCard extends StatelessWidget {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: NetworkImage(KAPIURL + company.coverImage),
+                          image: company.coverImage != null
+                              ? NetworkImage(KAPIURL + company.coverImage)
+                              : AssetImage(KPlaceHolderCover),
                           fit: BoxFit.cover,
                         ),
                         borderRadius: BorderRadius.only(

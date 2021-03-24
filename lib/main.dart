@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:techtime/Controllers/blocs/client/companies_list_bloc.dart/companieslist_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
 import 'package:techtime/Helpers/localization/app_language_model.dart';
@@ -11,6 +10,8 @@ import 'package:techtime/route_generator.dart';
 
 import 'Controllers/blocs/client/ads_bloc/ads_bloc.dart';
 import 'Controllers/blocs/client/categorisBloc/categories_bloc.dart';
+import 'Controllers/blocs/client/companiesListBloc.dart/companieslist_bloc.dart';
+import 'Controllers/blocs/client/companyProfileBloc/company_profile_bloc.dart';
 import 'Controllers/cubits/LocaleCubit/locale_cubit.dart';
 import 'Controllers/repositories/client/companies/companies_repository.dart';
 import 'Controllers/repositories/client/home/user_home_repo.dart';
@@ -43,6 +44,8 @@ class MyApp extends StatelessWidget {
               create: (context) => LeastcompaniesBloc(apiClientHomeRepository)),
           BlocProvider(
               create: (context) => CompanieslistBloc(apiCompaniesRepository)),
+          BlocProvider(
+              create: (context) => CompanyProfileBloc(apiCompaniesRepository)),
           BlocProvider<LocaleCubit>(create: (_) => LocaleCubit()),
         ],
         child: BlocBuilder<LocaleCubit, LocaleState>(

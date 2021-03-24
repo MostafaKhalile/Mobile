@@ -70,7 +70,7 @@ class RouteGenerator {
         return CupertinoPageRoute(
           fullscreenDialog: true,
           builder: (_) => CompanyProfile(
-            id: args,
+            company: args,
           ),
         );
 

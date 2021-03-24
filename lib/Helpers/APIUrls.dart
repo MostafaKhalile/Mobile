@@ -10,3 +10,4 @@ const String KHomeRecommendedCo = "/api/home/favorite-companies";
 const String KHomeLeastCo = "/api/home/Lest-companies";
 const String KHomeAdsAbove = "/api/home/ads-above-home";
 const String KCompaniesList = "/api/home/filter-category-companies/";
+const String KCompanyView = "/api/companies/company/view/";
