@@ -110,7 +110,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
 
   Text buildCompanyName(BuildContext context) {
     return Text(
-      utf8convert(widget.company.companyName),
+      widget.company.companyName,
       style: Theme.of(context).textTheme.headline6.copyWith(
           fontSize: 20, fontWeight: FontWeight.bold, wordSpacing: 3.5),
     );
@@ -182,10 +182,5 @@ class _CompanyProfileState extends State<CompanyProfile> {
         fit: BoxFit.fill,
       )),
     );
-  }
-
-  String utf8convert(String text) {
-    List<int> bytes = text.toString().codeUnits;
-    return utf8.decode(bytes);
   }
 }

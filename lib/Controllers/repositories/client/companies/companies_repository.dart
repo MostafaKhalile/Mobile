@@ -22,7 +22,9 @@ class APICompaniesRepository implements CompaniesRepository {
         await http.post("$KAPIURL$KCompaniesList$id", headers: headers);
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body) as List;
+      final decoded = utf8.decode(response.bodyBytes);
+
+      final data = json.decode(decoded) as List;
       return data.map((rawPost) {
         return Company.fromJson(rawPost);
       }).toList();
@@ -36,7 +38,8 @@ class APICompaniesRepository implements CompaniesRepository {
         await http.post("$KAPIURL$KCompanyView$id", headers: headers);
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body)['CompanyBranches'] as List;
+      final decoded = utf8.decode(response.bodyBytes);
+      final data = json.decode(decoded)['CompanyBranches'] as List;
       return data.map((rawPost) {
         return CompanyBranche.fromJson(rawPost);
       }).toList();

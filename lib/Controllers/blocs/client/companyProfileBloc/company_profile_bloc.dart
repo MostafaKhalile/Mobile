@@ -25,7 +25,6 @@ class CompanyProfileBloc
             await _companiesRepo.companyView(event.id);
         yield CompanyProfileFinished(coProfile);
       } catch (e) {
-        print(e.toString());
         yield CompanyProfileError(e.toString());
       }
     }

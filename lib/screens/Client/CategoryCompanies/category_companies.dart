@@ -63,7 +63,6 @@ class _CategoryCompaniesScreenState extends State<CategoryCompaniesScreen> {
         style: TextStyle(color: Colors.black),
       ),
       automaticallyImplyLeading: false,
-      // leading: Container(),
       excludeHeaderSemantics: true,
     );
   }

@@ -23,7 +23,9 @@ class APIClientHomeRepository implements ClientHomeRepository {
         await http.post(KAPIURL + KHomeAllCategories, headers: headers);
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body) as List;
+      final decoded = utf8.decode(response.bodyBytes);
+
+      final data = json.decode(decoded) as List;
       return data.map((rawPost) {
         return Category.fromJson(rawPost);
       }).toList();
@@ -37,7 +39,8 @@ class APIClientHomeRepository implements ClientHomeRepository {
         await http.post(KAPIURL + KHomeRecommendedCo, headers: headers);
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body) as List;
+      final decoded = utf8.decode(response.bodyBytes);
+      final data = json.decode(decoded) as List;
       return data.map((rawPost) {
         return Company.fromJson(rawPost);
       }).toList();
@@ -51,7 +54,8 @@ class APIClientHomeRepository implements ClientHomeRepository {
         headers: headers, body: {"RequestType": "API", "LanguageCode": "EN"});
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body) as List;
+      final decoded = utf8.decode(response.bodyBytes);
+      final data = json.decode(decoded) as List;
       return data.map((rawPost) {
         return Advertise.fromJson(rawPost);
       }).toList();
@@ -64,7 +68,8 @@ class APIClientHomeRepository implements ClientHomeRepository {
     final response = await http.post(KAPIURL + KHomeLeastCo, headers: headers);
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body) as List;
+      final decoded = utf8.decode(response.bodyBytes);
+      final data = json.decode(decoded) as List;
       return data.map((rawPost) {
         return Company.fromJson(rawPost);
       }).toList();
