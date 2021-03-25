@@ -17,7 +17,7 @@ class HeaderProfileAvatar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomCircleAvatar(
-              image: "https://via.placeholder.com/150",
+              image: null,
               height: 100,
               width: 100,
             ),

@@ -13,6 +13,7 @@ class LocaleCubit extends Cubit<LocaleState> {
   // in the 'main.dart' will rebuild the entire app with
   // the new emitted state that holds the 'ar' locale.
   Future<void> toArabic() async {
+    print("to Arabic");
     emit(SelectedLocale(Locale('ar')));
     AppLanguage().changeLanguage(Locale('ar'));
   }
