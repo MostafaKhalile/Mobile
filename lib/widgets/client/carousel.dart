@@ -29,8 +29,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
   int _current = 0;
   @override
   void initState() {
-    final adsBloc = context.read<AdsBloc>();
-    adsBloc.add(GetAdsAbove());
+    BlocProvider.of<AdsBloc>(context).add(GetAdsAbove());
     super.initState();
   }
 

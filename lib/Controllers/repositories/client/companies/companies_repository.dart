@@ -3,7 +3,6 @@ import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:http/http.dart' as http;
 import 'package:techtime/models/client/company.dart';
 import 'package:techtime/models/client/companyProfile/company_branches.dart';
-import 'package:techtime/models/client/companyProfile/company_profile.dart';
 
 abstract class CompaniesRepository {
   /// Throws [NetworkException].
