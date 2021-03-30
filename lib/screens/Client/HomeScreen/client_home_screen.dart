@@ -70,9 +70,6 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
       children: [
         BlocBuilder<LeastcompaniesBloc, LeastcompaniesState>(
             builder: (context, state) {
-          if (state is! LeastCompaniesLoaded) {
-            return buildLeastCompaniesHeader(context);
-          }
           if (state is LeastCompaniesLoaded) {
             if (state.leastCompanies.isNotEmpty) {
               return buildLeastCompaniesHeader(context);
@@ -80,6 +77,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
               return Container();
             }
           }
+          return buildLeastCompaniesHeader(context);
         }),
         BlocConsumer<LeastcompaniesBloc, LeastcompaniesState>(
             listener: (context, state) {
@@ -87,12 +85,6 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
             _snackbar.showSnackBar(context, state.message);
           }
         }, builder: (context, state) {
-          if (state is Leastcompaniesloading ||
-              state is LeastcompaniesInitial) {
-            return Container(
-                height: size.height * 0.35,
-                child: buildLeastCompaniesLoading(size));
-          }
           if (state is LeastCompaniesError) {
             return buildError(state);
           }
@@ -106,6 +98,9 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
               return Container();
             }
           }
+          return Container(
+              height: size.height * 0.35,
+              child: buildLeastCompaniesLoading(size));
         })
       ],
     );
@@ -195,14 +190,12 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
                     RecommendedcompaniesState>(
                   listener: (context, state) {},
                   builder: (context, state) {
-                    if (state is RecommendedcompaniesInitial ||
-                        state is RecommendedcompaniesLoading) {
-                      return buildRecommendedCoLoading(size);
-                    } else if (state is RecommendedcompaniesLoaded) {
+                    if (state is RecommendedcompaniesLoaded) {
                       return buildRecommendedCompaniesData(state);
                     } else if (state is RecommendedcompaniesError) {
                       return buildError(state);
                     }
+                    return buildRecommendedCoLoading(size);
                   },
                 )),
           ],

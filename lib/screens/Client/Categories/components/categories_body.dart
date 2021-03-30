@@ -15,19 +15,6 @@ class CategoriesBody extends StatelessWidget {
           padding: const EdgeInsets.all(KdefaultPadding / 2),
           child: BlocBuilder<CategoriesBloc, CategoriesState>(
             builder: (context, state) {
-              if (state is CategoriesInitial || state is CategoriesLoading) {
-                return ListView.builder(
-                    itemCount: 5,
-                    itemBuilder: (ctx, i) {
-                      return Container(
-                        margin: EdgeInsets.symmetric(vertical: KdefaultPadding),
-                        child: SkeletonAnimation(
-                          height: 200,
-                          radius: KdefaultRadius,
-                        ),
-                      );
-                    });
-              }
               if (state is CategoriesLoaded) {
                 return SizedBox(
                   width: double.infinity,
@@ -39,6 +26,17 @@ class CategoriesBody extends StatelessWidget {
                       }),
                 );
               }
+              return ListView.builder(
+                  itemCount: 5,
+                  itemBuilder: (ctx, i) {
+                    return Container(
+                      margin: EdgeInsets.symmetric(vertical: KdefaultPadding),
+                      child: SkeletonAnimation(
+                        height: 200,
+                        radius: KdefaultRadius,
+                      ),
+                    );
+                  });
             },
           ),
         ),

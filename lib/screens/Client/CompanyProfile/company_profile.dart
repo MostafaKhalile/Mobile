@@ -53,14 +53,9 @@ class _CompanyProfileState extends State<CompanyProfile> {
                   padding:
                       EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
                   child: BlocConsumer<CompanyProfileBloc, CompanyProfileState>(
-                    listener: (context, state) {
-                      // TODO: implement listener
-                    },
+                    listener: (context, state) {},
                     builder: (context, state) {
-                      if (state is CompanyProfileLoading ||
-                          state is CompanyProfileInitial) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (state is CompanyProfileFinished) {
+                      if (state is CompanyProfileFinished) {
                         return Container(
                           child: ListView.builder(
                             itemCount: state.companyBranches.length,
@@ -78,22 +73,26 @@ class _CompanyProfileState extends State<CompanyProfile> {
                           ),
                         );
                       }
+                      return Center(child: CircularProgressIndicator());
                     },
                   ),
                 ),
               ),
             ],
           ),
-          Center(
+          Positioned(
+              top: MediaQuery.of(context).size.height * 0.26,
+              right: 0,
+              left: 0,
               child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              buildCompanyLogo(context),
-              VerticalGap(),
-              buildCompanyName(context),
-              buildCompanyCategory(context),
-            ],
-          ))
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  buildCompanyLogo(context),
+                  VerticalGap(),
+                  buildCompanyName(context),
+                  buildCompanyCategory(context),
+                ],
+              ))
         ],
       ),
     );
@@ -151,16 +150,24 @@ class _CompanyProfileState extends State<CompanyProfile> {
       child: Row(
         children: [
           SmoothStarRating(
-            size: 15,
+            size: 13,
             rating: widget.company.raty,
             allowHalfRating: true,
             isReadOnly: true,
           ),
           Spacer(),
-          Icon(
-            Icons.share_outlined,
-            size: 35,
-            color: KPrimaryColor,
+          Material(
+            color: Colors.transparent,
+            child: IconButton(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onPressed: () {},
+              icon: Icon(
+                Icons.share_outlined,
+                size: 25,
+                color: KPrimaryColor,
+              ),
+            ),
           )
         ],
       ),
@@ -169,7 +176,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
 
   Container buildCompanyCover(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.45,
+      height: MediaQuery.of(context).size.height * 0.35,
       decoration: BoxDecoration(
           image: DecorationImage(
         image: widget.company.coverImage != null
