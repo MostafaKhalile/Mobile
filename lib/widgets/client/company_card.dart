@@ -111,9 +111,12 @@ class CompanyCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      child: CustomCircleAvatar(image: company.logo),
+                    Hero(
+                      tag: company.companyName,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        child: CustomCircleAvatar(image: company.logo),
+                      ),
                     ),
                   ],
                 ),

@@ -151,7 +151,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
       child: Row(
         children: [
           SmoothStarRating(
-            size: 18,
+            size: 15,
             rating: widget.company.raty,
             allowHalfRating: true,
             isReadOnly: true,

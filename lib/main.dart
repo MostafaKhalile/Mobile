@@ -52,7 +52,6 @@ class MyApp extends StatelessWidget {
           buildWhen: (previousState, currentState) =>
               previousState != currentState,
           builder: (_, localeState) {
-            print(localeState.locale);
             return MaterialApp(
               locale: localeState.locale,
               supportedLocales: [

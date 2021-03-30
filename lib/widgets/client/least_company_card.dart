@@ -60,7 +60,7 @@ class LeastCompanyCard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      buildCompanyLogo(),
+                      Hero(tag: company.companyName, child: buildCompanyLogo()),
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

@@ -41,7 +41,6 @@ dependencies:
   provider: ^4.3.3
   shared_preferences: ^0.5.12+4
   smooth_star_rating: ^1.1.1
-  shimmer: ^1.1.2
 
 dev_dependencies:
   flutter_test:
