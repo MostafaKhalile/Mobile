@@ -6,6 +6,7 @@ import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/models/client/company.dart';
+import 'package:techtime/screens/Client/branchProfile/branch_profile.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
 
 import 'components/branch_list_tile.dart';
@@ -61,7 +62,8 @@ class _CompanyProfileState extends State<CompanyProfile> {
                             itemCount: state.companyBranches.length,
                             itemBuilder: (context, i) => BranchListTile(
                               branche: state.companyBranches[i],
-                              onTap: () {},
+                              onTap: () => Navigator.pushNamed(
+                                  context, BranchProfile.routeName),
                             ),
                           ),
                         );

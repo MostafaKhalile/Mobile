@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:techtime/screens/Client/CompanyProfile/company_profile.dart';
+import 'package:techtime/screens/Client/branchProfile/branch_profile.dart';
+import 'package:techtime/widgets/core/gallery_view.dart';
 
 import 'screens/Client/Categories/client_categories_screen.dart';
 import 'screens/Client/CategoryCompanies/category_companies.dart';
@@ -72,6 +74,16 @@ class RouteGenerator {
           builder: (_) => CompanyProfile(
             company: args,
           ),
+        );
+      case BranchProfile.routeName:
+        return CupertinoPageRoute(
+          fullscreenDialog: true,
+          builder: (_) => BranchProfile(),
+        );
+      case GalleryView.routeName:
+        return CupertinoPageRoute(
+          fullscreenDialog: true,
+          builder: (_) => GalleryView(),
         );
 
       default:
