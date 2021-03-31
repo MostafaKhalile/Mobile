@@ -6,6 +6,10 @@ ThemeData lightTheme = ThemeData.light().copyWith(
     primaryColor: KPrimaryColor,
     accentColor: Colors.black,
     iconTheme: iconThemeData(),
+    tabBarTheme: TabBarTheme(
+        unselectedLabelStyle: textTheme().subtitle1.apply(fontFamily: 'cocon'),
+        labelColor: Colors.black,
+        labelStyle: textTheme().subtitle1.apply(fontFamily: 'cocon')),
     primaryColorDark: Colors.white,
     bottomAppBarColor: Colors.black,
     cursorColor: Colors.black,

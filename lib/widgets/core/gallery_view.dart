@@ -5,14 +5,15 @@ import 'package:techtime/Helpers/app_consts.dart';
 class GalleryView extends StatelessWidget {
   static const String routeName = "/gallery_view";
   static List imgList = [
-    Image.asset(KPlaceHolderCover),
-    Image.asset(KPlaceHolderCover),
-    Image.asset(KPlaceHolderCover)
+    KPlaceHolderCover,
+    KPlaceHolderCover,
+    KPlaceHolderCover,
+    KPlaceHolderCover,
+    KPlaceHolderCover
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Fullscreen sliding carousel demo')),
       body: Builder(
         builder: (context) {
           final double height = MediaQuery.of(context).size.height;
@@ -26,7 +27,7 @@ class GalleryView extends StatelessWidget {
             items: imgList
                 .map((item) => Container(
                       child: Center(
-                          child: Image.network(
+                          child: Image.asset(
                         item,
                         fit: BoxFit.cover,
                         height: height,

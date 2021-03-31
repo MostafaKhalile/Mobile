@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techtime/Helpers/themes/light_theme.dart';
 import '../colors.dart';
 
 ThemeData darkTheme = ThemeData.dark().copyWith(
@@ -10,6 +11,10 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
     primaryColorDark: Colors.black,
     bottomAppBarColor: Colors.white,
     iconTheme: iconThemeData(),
+    tabBarTheme: TabBarTheme(
+        unselectedLabelStyle: textTheme().subtitle1.apply(fontFamily: 'cocon'),
+        labelColor: Colors.white,
+        labelStyle: textTheme().subtitle1.apply(fontFamily: 'cocon')),
     cursorColor: Colors.black,
     scaffoldBackgroundColor: Colors.black,
     inputDecorationTheme: inputDecorationTheme(),
