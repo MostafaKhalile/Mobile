@@ -9,6 +9,11 @@ import 'package:techtime/widgets/core/gallery_view.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
 
+import 'components/branch_info.dart';
+import 'components/branch_offers.dart';
+import 'components/branch_reviews.dart';
+import 'components/branch_services.dart';
+
 class BranchProfile extends StatefulWidget {
   static const String routeName = "/branch_profile";
 
@@ -107,6 +112,7 @@ class _BranchProfileState extends State<BranchProfile>
                 TabBar(
                   controller: _controller,
                   indicatorColor: KPrimaryColor,
+                  isScrollable: false,
                   tabs: [
                     Tab(
                       text: _translator.translate("services"),
@@ -133,10 +139,10 @@ class _BranchProfileState extends State<BranchProfile>
           child: TabBarView(
             controller: _controller,
             children: <Widget>[
-              Center(child: Text(_translator.translate("services"))),
-              Center(child: Text(_translator.translate("offers"))),
-              Center(child: Text(_translator.translate("info"))),
-              Center(child: Text(_translator.translate("reviews"))),
+              BranchServices(),
+              BranchOffers(),
+              BranchInfo(),
+              BranchReviews(),
             ],
           ),
           // ),
