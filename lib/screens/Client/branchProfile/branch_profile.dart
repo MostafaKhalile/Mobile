@@ -52,7 +52,7 @@ class _BranchProfileState extends State<BranchProfile>
                 CarouselSlider(
                   options: CarouselOptions(
                       autoPlay: true,
-                      aspectRatio: 1.5,
+                      aspectRatio: 1.9,
                       enlargeCenterPage: true,
                       pauseAutoPlayOnTouch: true),
                   items: imgList
@@ -108,6 +108,7 @@ class _BranchProfileState extends State<BranchProfile>
                     )
                   ],
                 ),
+                VerticalGap(),
                 //Branch logo, name and Rating End.
                 TabBar(
                   controller: _controller,
@@ -132,10 +133,9 @@ class _BranchProfileState extends State<BranchProfile>
             )),
       ),
       Expanded(
-        flex: 2,
+        flex: 3,
         child: Container(
           width: double.infinity,
-          // child: SingleChildScrollView(
           child: TabBarView(
             controller: _controller,
             children: <Widget>[
@@ -145,7 +145,6 @@ class _BranchProfileState extends State<BranchProfile>
               BranchReviews(),
             ],
           ),
-          // ),
         ),
       )
     ]));

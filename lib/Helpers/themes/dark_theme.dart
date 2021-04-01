@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/themes/light_theme.dart';
 import '../colors.dart';
 
 ThemeData darkTheme = ThemeData.dark().copyWith(
