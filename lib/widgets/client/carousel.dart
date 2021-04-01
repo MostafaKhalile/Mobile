@@ -37,7 +37,6 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return BlocBuilder<AdsBloc, AdsState>(builder: (context, state) {
-      print(state);
       if (state is AdsLoaded && state.ads.length > 0) {
         return Stack(children: <Widget>[
           CarouselSlider(
@@ -82,6 +81,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
           ),
         );
       }
+      return Container();
     });
   }
 

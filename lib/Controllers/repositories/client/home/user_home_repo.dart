@@ -52,7 +52,7 @@ class APIClientHomeRepository implements ClientHomeRepository {
   Future<List<Advertise>> get fetchAdsAbove async {
     final response = await http.post(KAPIURL + KHomeAdsAbove,
         body: {"RequestType": "API", "LanguageCode": "EN"});
-    ;
+
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
       final data = json.decode(decoded) as List;
