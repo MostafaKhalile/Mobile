@@ -36,5 +36,10 @@
     "signOut": "تسجيل خروج",
     "services": "الخدمات",
     "info": "المعلومات",
-    "reviews": "المراجعات"
+    "reviews": "المراجعات",
+    "address": "العنوان",
+    "workingHours": "ساعات العمل",
+    "staff": "الموظفين",
+    "seeAll": "إظهار الكل",
+    "moreBranches": "المزيد من الفروع"
 }

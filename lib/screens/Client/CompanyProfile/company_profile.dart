@@ -49,10 +49,12 @@ class _CompanyProfileState extends State<CompanyProfile> {
                 ),
               ),
               Expanded(
+                flex: 2,
                 child: Container(
                   width: double.infinity,
-                  padding:
-                      EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: KDefaultPadding / 2,
+                      vertical: KDefaultPadding),
                   child: BlocConsumer<CompanyProfileBloc, CompanyProfileState>(
                     listener: (context, state) {},
                     builder: (context, state) {
