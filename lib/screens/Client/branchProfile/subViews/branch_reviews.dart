@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/widgets/client/custom_circle_avatar.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
@@ -9,7 +8,7 @@ import 'package:techtime/widgets/core/vertical_gab.dart';
 class BranchReviews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    AppLocalizations _translator = AppLocalizations.of(context);
+    // AppLocalizations _translator = AppLocalizations.of(context);
     ThemeData _theme = Theme.of(context);
     Size _size = MediaQuery.of(context).size;
 

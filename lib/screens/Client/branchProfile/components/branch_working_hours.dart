@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/widgets/core/horizontal_gap.dart';
 
 import 'info_card_title.dart';
 
@@ -13,7 +12,6 @@ class BranchWorkingHours extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLocalizations _translator = AppLocalizations.of(context);
-    ThemeData _theme = Theme.of(context);
     Size _size = MediaQuery.of(context).size;
     return Container(
         width: _size.width,

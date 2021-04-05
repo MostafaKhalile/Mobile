@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:techtime/screens/Client/CompanyProfile/company_profile.dart';
 import 'package:techtime/screens/Client/branchProfile/branch_profile.dart';
+import 'package:techtime/screens/Core/ConnectivityView/network_sensitive.dart';
 import 'package:techtime/widgets/core/gallery_view.dart';
 
 import 'screens/Client/Categories/client_categories_screen.dart';
@@ -16,7 +17,7 @@ import 'screens/Core/startupViews/sms_verification_screen.dart';
 import 'screens/Core/startupViews/splashScreen_page.dart';
 
 class RouteGenerator {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  Route<dynamic> generateRoute(RouteSettings settings) {
     // Getting arguments passed in while calling Navigator.pushNamed
     final args = settings.arguments;
 
@@ -27,7 +28,7 @@ class RouteGenerator {
         return PageTransition(
             type: PageTransitionType.leftToRight,
             duration: Duration(milliseconds: 800),
-            child: LanguageSelectionPage());
+            child: NetworkSensitive(child: LanguageSelectionPage()));
       case '/loginModerator':
         return PageTransition(
           type: PageTransitionType.rightToLeft,
@@ -54,7 +55,7 @@ class RouteGenerator {
       case '/clientHome':
         return PageTransition(
           type: PageTransitionType.bottomToTop,
-          child: ClientHomePage(),
+          child: NetworkSensitive(child: ClientHomePage()),
         );
       case '/categoriesPage':
         return CupertinoPageRoute(

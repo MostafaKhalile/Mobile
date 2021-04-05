@@ -10,7 +10,6 @@ class BranchInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLocalizations _translator = AppLocalizations.of(context);
-    ThemeData _theme = Theme.of(context);
     Size _size = MediaQuery.of(context).size;
 
     return Scaffold(
