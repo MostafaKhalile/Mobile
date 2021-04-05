@@ -18,7 +18,7 @@ class _BranchServicesState extends State<BranchServices> {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
-          width: double.infinity,
+          width: _size.width,
           child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: Column(children: <Widget>[

@@ -62,6 +62,7 @@ class _BranchProfileState extends State<BranchProfile>
                           child: Image.asset(item)))
                       .toList(),
                 ),
+
                 //Image Carousle for Branch View End
                 //Branch logo, name and Rating Start.
                 Row(
