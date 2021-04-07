@@ -4,7 +4,7 @@ import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/models/client/company.dart';
-import 'package:techtime/screens/Client/CompanyProfile/company_profile.dart';
+import 'package:techtime/screens/Client/branchProfile/branch_profile.dart';
 
 import 'custom_circle_avatar.dart';
 
@@ -17,7 +17,7 @@ class CompanyCard extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     ThemeData _theme = Theme.of(context);
     return InkWell(
-        onTap: () => Navigator.pushNamed(context, CompanyProfile.routeName,
+        onTap: () => Navigator.pushNamed(context, BranchProfile.routeName,
             arguments: company),
         child: Container(
           width: size.width * 0.7,

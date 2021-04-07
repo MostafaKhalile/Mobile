@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:techtime/screens/Client/CompanyProfile/company_profile.dart';
 import 'package:techtime/screens/Client/branchProfile/branch_profile.dart';
+import 'package:techtime/screens/Client/branchProfile/subViews/choose_branch.dart';
 import 'package:techtime/screens/Core/ConnectivityView/network_sensitive.dart';
 import 'package:techtime/widgets/core/gallery_view.dart';
 
 import 'screens/Client/Categories/client_categories_screen.dart';
 import 'screens/Client/CategoryCompanies/category_companies.dart';
 import 'screens/Client/home_page.dart';
+import 'screens/Client/saloonProfile/saloonProfile.dart';
 import 'screens/Core/startupViews/client_signup_page.dart';
 import 'screens/Core/startupViews/language_selection_page.dart';
 import 'screens/Core/startupViews/login_moderator_page.dart';
@@ -86,7 +88,12 @@ class RouteGenerator {
           fullscreenDialog: true,
           builder: (_) => GalleryView(),
         );
-
+      case SalonProfile.routeName:
+        return CupertinoPageRoute(builder: (_) => SalonProfile());
+        break;
+      case ChooseBranch.routeName:
+        return CupertinoPageRoute(builder: (_) => ChooseBranch());
+        break;
       default:
         // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();

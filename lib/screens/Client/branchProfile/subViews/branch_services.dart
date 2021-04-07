@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/screens/Client/branchProfile/subViews/choose_branch.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
 
@@ -131,8 +132,9 @@ class _BranchServicesState extends State<BranchServices> {
               Expanded(
                   child: RaisedButton(
                 padding: EdgeInsets.all(10),
-                onPressed:
-                    _checked.length != 0 ? () => print("Book Now") : null,
+                onPressed: _checked.length != 0
+                    ? () => Navigator.pushNamed(context, ChooseBranch.routeName)
+                    : null,
                 disabledColor: Colors.black38,
                 child: Text(
                   "Book Now",

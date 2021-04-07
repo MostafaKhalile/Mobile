@@ -3,7 +3,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/models/client/company.dart';
-import 'package:techtime/screens/Client/CompanyProfile/company_profile.dart';
+import 'package:techtime/screens/Client/branchProfile/branch_profile.dart';
 import 'package:techtime/widgets/client/custom_circle_avatar.dart';
 
 class LeastCompanyCard extends StatelessWidget {
@@ -17,7 +17,7 @@ class LeastCompanyCard extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, CompanyProfile.routeName,
+      onTap: () => Navigator.pushNamed(context, BranchProfile.routeName,
           arguments: company),
       child: Container(
         width: size.width * 0.85,

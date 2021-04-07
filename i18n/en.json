@@ -42,7 +42,9 @@
     "staff": "Staff",
     "seeAll": "See All",
     "moreBranches": "More Branches",
+    "branches": "Branches",
     "looks_like_you're_offline": "looks Like You're Offline !",
     "you_will_use_our_services_when_you_back_online": "You Will Use Our Services When You Back Online ",
-    "please_click_again_to_exit": "please click again to exit"
+    "please_click_again_to_exit": "please click again to exit",
+    "book_now": "Book Now"
 }

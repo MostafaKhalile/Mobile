@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/models/client/company.dart';
-import 'package:techtime/screens/Client/CompanyProfile/company_profile.dart';
+import 'package:techtime/screens/Client/branchProfile/branch_profile.dart';
 import 'package:techtime/widgets/client/custom_circle_avatar.dart';
 import 'package:techtime/widgets/client/footer_card.dart';
 
@@ -23,7 +23,7 @@ class CompaniesListView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: InkWell(
                   onTap: () => Navigator.pushNamed(
-                      context, CompanyProfile.routeName,
+                      context, BranchProfile.routeName,
                       arguments: companies[i]),
                   child: FooterCard(
                     width: size.width * 0.95,

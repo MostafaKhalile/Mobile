@@ -42,7 +42,9 @@
     "staff": "الموظفين",
     "seeAll": "إظهار الكل",
     "moreBranches": "المزيد من الفروع",
+    "branches": "الفروع",
     "looks_like_you're_offline": "! يبدو أنك غير متصل بالإنترنت",
     "you_will_use_our_services_when_you_back_online": "ستتمكن من إستخدام خدماتنا عند إتصالك بالإنترنت",
-    "please_click_again_to_exit": "رجاءاً انقر مرة أخرى للخروج"
+    "please_click_again_to_exit": "رجاءاً انقر مرة أخرى للخروج",
+    "book_now": "احجز الآن"
 }

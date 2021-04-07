@@ -28,7 +28,7 @@ class BranchReviews extends StatelessWidget {
               child: Stack(
                 children: [
                   Align(
-                      alignment: Alignment.topRight,
+                      alignment: Alignment.topLeft,
                       child: Text(
                         '18-5-2020',
                         style: _theme.textTheme.subtitle1,

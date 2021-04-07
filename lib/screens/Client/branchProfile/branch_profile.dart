@@ -25,10 +25,6 @@ class _BranchProfileState extends State<BranchProfile>
     with SingleTickerProviderStateMixin {
   final List imgList = [
     KPlaceHolderCover,
-    KPlaceHolderCover,
-    KPlaceHolderCover,
-    KPlaceHolderCover,
-    KPlaceHolderCover
   ];
   TabController _controller;
   @override
@@ -123,7 +119,7 @@ class _BranchProfileState extends State<BranchProfile>
                       text: _translator.translate("offers"),
                     ),
                     Tab(
-                      text: _translator.translate("info"),
+                      text: _translator.translate("branches"),
                     ),
                     Tab(
                       text: _translator.translate("reviews"),
