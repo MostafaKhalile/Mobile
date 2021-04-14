@@ -14,10 +14,10 @@ class _SearchScreenState extends State<SearchScreen> {
   static const historyLength = 5;
 
   List<String> _searchHistory = [
-    'fuchsia',
-    'flutter',
-    'widgets',
-    'resocoder',
+    'CarCare',
+    'Beauty Salon',
+    'Gym',
+    'Cafe',
   ];
 
   List<String> filteredSearchHistory;

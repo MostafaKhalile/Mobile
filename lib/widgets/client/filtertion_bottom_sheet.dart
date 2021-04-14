@@ -26,10 +26,11 @@ class FilterationBody extends StatelessWidget {
                   child: CheckboxGroup(
                       activeColor: KPrimaryColor,
                       checkColor: Theme.of(context).scaffoldBackgroundColor,
+                      labelStyle: Theme.of(context).textTheme.subtitle2,
                       labels: <String>[
-                        "hairCut",
-                        "henna",
-                        "bodyCare",
+                        _translator.translate("carcare"),
+                        _translator.translate("workspace"),
+                        _translator.translate("playstation"),
                       ],
                       onSelected: (List<String> checked) =>
                           print(checked.toString()))),
@@ -37,10 +38,11 @@ class FilterationBody extends StatelessWidget {
                   child: CheckboxGroup(
                       activeColor: KPrimaryColor,
                       checkColor: Theme.of(context).scaffoldBackgroundColor,
+                      labelStyle: Theme.of(context).textTheme.subtitle2,
                       labels: <String>[
-                        "makeUp",
-                        "Swish",
-                        "massage&care",
+                        _translator.translate("beautyCenter"),
+                        _translator.translate("gym"),
+                        _translator.translate("men'sSalon"),
                       ],
                       onSelected: (List<String> checked) =>
                           print(checked.toString()))),

@@ -12,6 +12,7 @@ import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/themes/dark_theme.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/Helpers/utils/custom_snackbar.dart';
+import 'package:techtime/screens/Core/notifications/notifications.dart';
 import 'package:techtime/screens/Core/search_screen.dart';
 import 'package:techtime/widgets/client/carousel.dart';
 import 'package:techtime/widgets/client/category_card.dart';
@@ -358,7 +359,8 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
               // size: 26,
               color: Theme.of(context).iconTheme.color,
             ),
-            onPressed: () {},
+            onPressed: () =>
+                Navigator.pushNamed(context, Notifications.routeName),
           ),
         ),
         Padding(
@@ -369,8 +371,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
               color: Theme.of(context).iconTheme.color,
               // height: 16,
             ),
-            onPressed: () =>
-                Navigator.pushNamed(context, SearchScreen.routeName),
+            onPressed: () {},
           ),
         ),
         Padding(
