@@ -46,5 +46,11 @@
     "looks_like_you're_offline": "! يبدو أنك غير متصل بالإنترنت",
     "you_will_use_our_services_when_you_back_online": "ستتمكن من إستخدام خدماتنا عند إتصالك بالإنترنت",
     "please_click_again_to_exit": "رجاءاً انقر مرة أخرى للخروج",
-    "book_now": "احجز الآن"
+    "book_now": "احجز الآن",
+    "search_place_holder": "ابحث عن شركة,فرع,خدمة ...",
+    "filterBy": "تصنيف حسب",
+    "alphabetical": "الترتيب الابجدي",
+    "theNearest": "الأقرب من حيث المسافة",
+    "top_to_Low_rated": "التقييم الأعلى فالأقل",
+    "low_to_top_rated": "التقييم الأقل فالاعلى"
 }

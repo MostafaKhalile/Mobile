@@ -12,11 +12,13 @@ import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/themes/dark_theme.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/Helpers/utils/custom_snackbar.dart';
+import 'package:techtime/screens/Core/search_screen.dart';
 import 'package:techtime/widgets/client/carousel.dart';
 import 'package:techtime/widgets/client/category_card.dart';
 import 'package:techtime/widgets/client/company_card.dart';
 import 'package:techtime/widgets/client/least_company_card.dart';
 import 'package:techtime/widgets/core/skeleton.dart';
+import 'package:techtime/widgets/core/vertical_gab.dart';
 
 import 'components/section_header.dart';
 
@@ -43,11 +45,12 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
   @override
   Widget build(BuildContext context) {
     var appTheme = Provider.of<ThemeModel>(context);
+    AppLocalizations _translator = AppLocalizations.of(context);
     Snackbar _snackBar = Snackbar();
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: buildAppBar(context, appTheme),
+      appBar: buildAppBar(context, appTheme, _translator),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 30),
@@ -274,13 +277,14 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     return Wrap(children: [CarouselWithIndicator()]);
   }
 
-  Widget buildAppBar(BuildContext context, ThemeModel appTheme) {
+  Widget buildAppBar(
+      BuildContext context, ThemeModel appTheme, AppLocalizations _translator) {
     return AppBar(
       backgroundColor: Theme.of(context).primaryColorDark,
       centerTitle: false,
       elevation: 0,
       automaticallyImplyLeading: false,
-      title: Text("${AppLocalizations.of(context).translate('hello')} User",
+      title: Text("${_translator.translate('hello')} User",
           style: Theme.of(context)
               .textTheme
               .headline5
@@ -288,54 +292,63 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
       bottom: PreferredSize(
           child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
+              child: Column(
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
-                        AppLocalizations.of(context).translate('yourLocation'),
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle2
-                            .copyWith(color: KDarkGreyColor),
-                      ),
-                      SizedBox(
-                        height: 5,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            _translator.translate('yourLocation'),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2
+                                .copyWith(color: KDarkGreyColor),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            children: [
+                              Row(children: [
+                                Icon(
+                                  Icons.location_on_outlined,
+                                ),
+                                Text(_translator.translate('Alex'),
+                                    style:
+                                        Theme.of(context).textTheme.headline5)
+                              ])
+                            ],
+                          ),
+                        ],
                       ),
                       Row(
                         children: [
-                          Row(children: [
-                            Icon(
-                              Icons.location_on_outlined,
-                            ),
-                            Text(AppLocalizations.of(context).translate('Alex'),
-                                style: Theme.of(context).textTheme.headline5)
-                          ])
+                          Icon(Icons.brightness_5),
+                          Switch(
+                            activeColor: KPrimaryColor,
+                            value: appTheme.currentTheme == darkTheme
+                                ? true
+                                : false,
+                            onChanged: (toggle) =>
+                                Provider.of<ThemeModel>(context, listen: false)
+                                    .toggleTheme(),
+                          ),
+                          Icon(Icons.brightness_3_sharp)
                         ],
-                      )
+                      ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      Icon(Icons.brightness_5),
-                      Switch(
-                        activeColor: KPrimaryColor,
-                        value:
-                            appTheme.currentTheme == darkTheme ? true : false,
-                        onChanged: (toggle) =>
-                            Provider.of<ThemeModel>(context, listen: false)
-                                .toggleTheme(),
-                      ),
-                      Icon(Icons.brightness_3_sharp)
-                    ],
-                  )
+                  VerticalGap(),
+                  HomeSearchBox(),
+                  VerticalGap(),
                 ],
               )),
-          preferredSize: Size.fromHeight(60.0)),
+          preferredSize: Size.fromHeight(150.0)),
       actions: [
         Padding(
           padding: const EdgeInsets.all(KDefaultPadding / 8),
@@ -356,7 +369,8 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
               color: Theme.of(context).iconTheme.color,
               // height: 16,
             ),
-            onPressed: () {},
+            onPressed: () =>
+                Navigator.pushNamed(context, SearchScreen.routeName),
           ),
         ),
         Padding(
@@ -407,6 +421,52 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
           category: state.categories[index],
         );
       },
+    );
+  }
+}
+
+class HomeSearchBox extends StatelessWidget {
+  const HomeSearchBox({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    AppLocalizations _translator = AppLocalizations.of(context);
+    return InkWell(
+      onTap: () => Navigator.pushNamed(context, SearchScreen.routeName),
+      child: Hero(
+          tag: "SearchBox",
+          child: Material(
+            elevation: 5,
+            borderRadius: BorderRadius.all(Radius.circular(KdefaultRadius)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.search,
+                    size: 30,
+                    color: Colors.grey[400],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Text(_translator.translate("search_place_holder"),
+                        style: Theme.of(context)
+                            .textTheme
+                            .caption
+                            .copyWith(color: Colors.grey[500])),
+                  ),
+                  Spacer(),
+                  Icon(
+                    Icons.filter_alt_outlined,
+                    size: 30,
+                    color: Colors.grey[400],
+                  ),
+                ],
+              ),
+            ),
+          )),
     );
   }
 }

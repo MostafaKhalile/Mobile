@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:techtime/Helpers/app_consts.dart';
+import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/widgets/client/filtertion_bottom_sheet.dart';
 
 class SearchScreen extends StatefulWidget {
+  static const String routeName = "/search";
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
@@ -76,19 +80,30 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       body: FloatingSearchBar(
         controller: controller,
-        body: FloatingSearchBarScrollNotifier(
-          child: SearchResultsListView(
-            searchTerm: selectedTerm,
-          ),
-        ),
+        body: Hero(
+            tag: "SearchBox",
+            child: FloatingSearchBarScrollNotifier(
+              child: SearchResultsListView(
+                searchTerm: selectedTerm,
+              ),
+            )),
         transition: CircularFloatingSearchBarTransition(),
         physics: BouncingScrollPhysics(),
         title: Text(
-          selectedTerm ?? 'The Search App',
-          style: Theme.of(context).textTheme.headline6,
+          selectedTerm ??
+              AppLocalizations.of(context).translate("search_place_holder"),
+          style: Theme.of(context).textTheme.subtitle2,
         ),
         hint: 'Search and find out...',
+        hintStyle: Theme.of(context).textTheme.subtitle2,
         actions: [
+          IconButton(
+            onPressed: () => _bottomSheet(context),
+            icon: Icon(
+              Icons.filter_alt_outlined,
+              size: 30,
+            ),
+          ),
           FloatingSearchBarAction.searchToClear(),
         ],
         onQueryChanged: (query) {
@@ -107,7 +122,7 @@ class _SearchScreenState extends State<SearchScreen> {
           return ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Material(
-              color: Colors.white,
+              // color: Colors.white,
               elevation: 4,
               child: Builder(
                 builder: (context) {
@@ -128,7 +143,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     return ListTile(
                       title: Text(
                         controller.query,
-                        style: TextStyle(color: Colors.black),
+                        style: Theme.of(context).textTheme.caption,
                       ),
                       leading: const Icon(Icons.search),
                       onTap: () {
@@ -148,14 +163,12 @@ class _SearchScreenState extends State<SearchScreen> {
                               title: Text(
                                 term,
                                 maxLines: 1,
-                                style: TextStyle(color: Colors.black),
                                 overflow: TextOverflow.ellipsis,
                               ),
                               leading: const Icon(Icons.history),
                               trailing: IconButton(
                                 icon: const Icon(
                                   Icons.clear,
-                                  color: Colors.black,
                                 ),
                                 onPressed: () {
                                   setState(() {
@@ -182,6 +195,21 @@ class _SearchScreenState extends State<SearchScreen> {
         },
       ),
     );
+  }
+
+  _bottomSheet(context) {
+    showModalBottomSheet(
+        context: context,
+        elevation: 16.0,
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(KdefaultRadius),
+              topRight: Radius.circular(KdefaultRadius)),
+        ),
+        builder: (context) {
+          return Wrap(children: <Widget>[FilterationBody()]);
+        }).then((value) => {print("closed")});
   }
 }
 

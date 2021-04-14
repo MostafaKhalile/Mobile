@@ -5,6 +5,7 @@ import 'package:techtime/screens/Client/CompanyProfile/company_profile.dart';
 import 'package:techtime/screens/Client/branchProfile/branch_profile.dart';
 import 'package:techtime/screens/Client/branchProfile/subViews/choose_branch.dart';
 import 'package:techtime/screens/Core/ConnectivityView/network_sensitive.dart';
+import 'package:techtime/screens/Core/search_screen.dart';
 import 'package:techtime/widgets/core/gallery_view.dart';
 
 import 'screens/Client/Categories/client_categories_screen.dart';
@@ -93,6 +94,10 @@ class RouteGenerator {
         break;
       case ChooseBranch.routeName:
         return CupertinoPageRoute(builder: (_) => ChooseBranch());
+        break;
+      case SearchScreen.routeName:
+        return CupertinoPageRoute(
+            fullscreenDialog: true, builder: (_) => SearchScreen());
         break;
       default:
         // If there is no such named route in the switch statement, e.g. /third
