@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ import 'package:techtime/widgets/client/carousel.dart';
 import 'package:techtime/widgets/client/category_card.dart';
 import 'package:techtime/widgets/client/company_card.dart';
 import 'package:techtime/widgets/client/least_company_card.dart';
+import 'package:techtime/widgets/core/horizontal_gap.dart';
 import 'package:techtime/widgets/core/skeleton.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
 
@@ -354,11 +356,15 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
         Padding(
           padding: const EdgeInsets.all(KDefaultPadding / 8),
           child: IconButton(
-            icon: Icon(
-              Icons.notifications_none_outlined,
-              // size: 26,
-              color: Theme.of(context).iconTheme.color,
-            ),
+            icon: Badge(
+                badgeContent: Text('2'),
+                animationType: BadgeAnimationType.slide,
+                toAnimate: true,
+                child: Icon(
+                  Icons.notifications_none_outlined,
+                  // size: 26,
+                  color: Theme.of(context).iconTheme.color,
+                )),
             onPressed: () =>
                 Navigator.pushNamed(context, Notifications.routeName),
           ),
@@ -445,11 +451,6 @@ class HomeSearchBox extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  Icon(
-                    Icons.search,
-                    size: 30,
-                    color: Colors.grey[400],
-                  ),
                   Padding(
                     padding: EdgeInsets.all(8),
                     child: Text(_translator.translate("search_place_holder"),
@@ -461,6 +462,14 @@ class HomeSearchBox extends StatelessWidget {
                   Spacer(),
                   Icon(
                     Icons.filter_alt_outlined,
+                    size: 30,
+                    color: Colors.grey[400],
+                  ),
+                  HorizontalGap(
+                    width: KdefaultPadding / 4,
+                  ),
+                  Icon(
+                    Icons.search,
                     size: 30,
                     color: Colors.grey[400],
                   ),

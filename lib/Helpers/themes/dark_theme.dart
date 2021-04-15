@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../colors.dart';
 
 ThemeData darkTheme = ThemeData.dark().copyWith(
-    applyElevationOverlayColor: true,
+    // applyElevationOverlayColor: true,
     brightness: Brightness.dark,
     accentColor: Colors.white,
     primaryColor: KPrimaryColor,

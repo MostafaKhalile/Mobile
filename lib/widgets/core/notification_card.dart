@@ -22,7 +22,7 @@ class NotificationCard extends StatelessWidget {
         subtitle: RichText(
           text: TextSpan(
             text: ' لوريم ايبسومت ,كونسيكتيتور أدايبا يسكينج\n',
-            style: DefaultTextStyle.of(context).style,
+            style: Theme.of(context).textTheme.subtitle1,
             children: <TextSpan>[
               TextSpan(
                 text: 'منذ 7 ساعات',

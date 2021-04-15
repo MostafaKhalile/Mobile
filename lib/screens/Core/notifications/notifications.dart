@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/widgets/core/notification_card.dart';
 

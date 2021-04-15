@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/widgets/client/branch_card.dart';
 
 class BranchInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    AppLocalizations _translator = AppLocalizations.of(context);
-    Size _size = MediaQuery.of(context).size;
+    // AppLocalizations _translator = AppLocalizations.of(context);
+    // Size _size = MediaQuery.of(context).size;
 
     return Scaffold(
       body: ListView.builder(
