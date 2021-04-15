@@ -6,6 +6,7 @@ import 'package:techtime/screens/Core/Prevent_close_button.dart';
 import 'Categories/client_categories_screen.dart';
 import 'HomeScreen/client_home_screen.dart';
 import 'Offres/client_offers_screen.dart';
+import 'scheduleScreen/schedule_screen.dart';
 
 class ClientHomePage extends StatefulWidget {
   @override
@@ -92,7 +93,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
               ClientCategoriesScreen(),
               ClientOffersScreen(),
               ProfileScreen(),
-              ClientHomeScreen(),
+              ScheduleScreen(),
             ],
           )),
     );
