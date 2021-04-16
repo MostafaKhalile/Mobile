@@ -4,6 +4,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:techtime/screens/Client/CompanyProfile/company_profile.dart';
 import 'package:techtime/screens/Client/branchProfile/branch_profile.dart';
 import 'package:techtime/screens/Client/branchProfile/subViews/choose_branch.dart';
+import 'package:techtime/screens/Client/walletScreen/wallet_screen.dart';
 import 'package:techtime/screens/Core/ConnectivityView/network_sensitive.dart';
 import 'package:techtime/screens/Core/notifications/notifications.dart';
 import 'package:techtime/screens/Core/search_screen.dart';
@@ -103,6 +104,10 @@ class RouteGenerator {
       case Notifications.routeName:
         return CupertinoPageRoute(
             fullscreenDialog: true, builder: (_) => Notifications());
+        break;
+      case WalletScreen.routeName:
+        return CupertinoPageRoute(
+            fullscreenDialog: true, builder: (_) => WalletScreen());
         break;
       default:
         // If there is no such named route in the switch statement, e.g. /third

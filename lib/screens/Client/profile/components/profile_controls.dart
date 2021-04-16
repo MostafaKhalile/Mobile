@@ -7,6 +7,7 @@ import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/themes/dark_theme.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
+import 'package:techtime/screens/Client/walletScreen/wallet_screen.dart';
 
 class ProfileControls extends StatelessWidget {
   ProfileControls({
@@ -34,6 +35,8 @@ class ProfileControls extends StatelessWidget {
               //Wallet
               buildProfileListTile(context, _theme,
                   leading: Icons.account_balance_wallet,
+                  onTap: () =>
+                      Navigator.pushNamed(context, WalletScreen.routeName),
                   title: AppLocalizations.of(context)
                       .translate("myWallet")
                       .toUpperCase()),
