@@ -130,6 +130,7 @@ class _BranchServicesState extends State<BranchServices> {
           child: Row(
             children: [
               Expanded(
+                  // ignore: deprecated_member_use
                   child: RaisedButton(
                 padding: EdgeInsets.all(10),
                 onPressed: _checked.length != 0

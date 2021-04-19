@@ -12,6 +12,7 @@ ThemeData lightTheme = ThemeData.light().copyWith(
         labelStyle: textTheme().subtitle1.apply(fontFamily: 'cocon')),
     primaryColorDark: Colors.white,
     bottomAppBarColor: Colors.black,
+    // ignore: deprecated_member_use
     cursorColor: Colors.black,
     scaffoldBackgroundColor: KLightScaffoldColor,
     inputDecorationTheme: inputDecorationTheme(),

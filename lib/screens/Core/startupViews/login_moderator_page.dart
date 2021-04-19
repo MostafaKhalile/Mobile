@@ -75,6 +75,7 @@ class LoginModeratorPage extends StatelessWidget {
                         children: <Widget>[
                           Container(
                               width: MediaQuery.of(context).size.width * 0.8,
+                              // ignore: deprecated_member_use
                               child: RaisedButton(
                                 onPressed: () =>
                                     Navigator.pushNamed(context, '/login'),
@@ -87,6 +88,7 @@ class LoginModeratorPage extends StatelessWidget {
                           SizedBox(height: 20),
                           Container(
                             width: MediaQuery.of(context).size.width * 0.8,
+                            // ignore: deprecated_member_use
                             child: RaisedButton(
                               onPressed: () => Navigator.pushNamed(
                                   context, "/clientRegistration"),
@@ -100,6 +102,7 @@ class LoginModeratorPage extends StatelessWidget {
                           SizedBox(height: 20),
                           Container(
                             width: MediaQuery.of(context).size.width * 0.7,
+                            // ignore: deprecated_member_use
                             child: RaisedButton(
                               onPressed: () {},
                               child: Text(

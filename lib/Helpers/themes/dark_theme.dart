@@ -14,6 +14,7 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
         unselectedLabelStyle: textTheme().subtitle1.apply(fontFamily: 'cocon'),
         labelColor: Colors.white,
         labelStyle: textTheme().subtitle1.apply(fontFamily: 'cocon')),
+    // ignore: deprecated_member_use
     cursorColor: KPrimaryColor,
     scaffoldBackgroundColor: Colors.black,
     inputDecorationTheme: inputDecorationTheme(),

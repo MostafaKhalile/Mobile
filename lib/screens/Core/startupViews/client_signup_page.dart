@@ -175,6 +175,7 @@ class _ClientSignupPageState extends State<ClientSignupPage> {
                               Container(
                                   width:
                                       MediaQuery.of(context).size.width * 0.8,
+                                  // ignore: deprecated_member_use
                                   child: RaisedButton(
                                     onPressed: () =>
                                         Navigator.pushNamed(context, "/sms"),

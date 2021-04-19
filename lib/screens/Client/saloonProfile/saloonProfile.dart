@@ -47,6 +47,7 @@ class BottomBookingButton extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
+              // ignore: deprecated_member_use
               child: RaisedButton(
             onPressed: onPressed,
             child: Row(
@@ -101,7 +102,7 @@ class SalonProfileBody extends StatelessWidget {
     return Positioned(
       bottom: 0,
       child: Stack(
-        overflow: Overflow.visible,
+        clipBehavior: Clip.none,
         children: [
           Container(
             height: _size.height * 0.65,

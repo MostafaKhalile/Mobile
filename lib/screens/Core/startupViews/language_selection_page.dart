@@ -55,6 +55,7 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
                 children: <Widget>[
                   Container(
                       width: MediaQuery.of(context).size.width * 0.8,
+                      // ignore: deprecated_member_use
                       child: RaisedButton(
                         onPressed: () {
                           BlocProvider.of<LocaleCubit>(context).toArabic();
@@ -70,6 +71,7 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
                   SizedBox(height: 20),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.8,
+                    // ignore: deprecated_member_use
                     child: RaisedButton(
                       onPressed: () {
                         BlocProvider.of<LocaleCubit>(context).toEnglish();

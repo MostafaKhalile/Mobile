@@ -3,7 +3,7 @@ import 'package:techtime/Helpers/colors.dart';
 
 class Snackbar {
   void showSnackBar(BuildContext context, String message) {
-    Scaffold.of(context).showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         action: SnackBarAction(
           label: '☓',
           textColor: Colors.white,

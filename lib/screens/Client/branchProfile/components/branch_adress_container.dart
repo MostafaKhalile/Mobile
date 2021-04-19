@@ -82,6 +82,7 @@ class BranchAddressContainer extends StatelessWidget {
                                 ),
                               ),
                               VerticalGap(),
+                              // ignore: deprecated_member_use
                               FlatButton(
                                 onPressed: () {},
                                 child: Text(

@@ -95,6 +95,7 @@ class BranchCard extends StatelessWidget {
                             style: _theme.textTheme.caption,
                           ),
                           Spacer(),
+                          // ignore: deprecated_member_use
                           RaisedButton(
                             color: KSecondryColor,
                             child: Text(_translator.translate("book_now")),

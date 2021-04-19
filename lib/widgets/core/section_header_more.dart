@@ -25,6 +25,7 @@ class SectionHeaderMore extends StatelessWidget {
                 .copyWith(fontWeight: FontWeight.bold),
           ),
         ),
+        // ignore: deprecated_member_use
         FlatButton(
           onPressed: onPressed,
           splashColor: Colors.transparent,

@@ -73,7 +73,7 @@ class _NotificationsState extends State<Notifications> {
     });
 
     // Then show a snackbar.
-    Scaffold.of(context)
+    ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text("$item dismissed")));
   }
 
@@ -88,6 +88,7 @@ class _NotificationsState extends State<Notifications> {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
+                // ignore: deprecated_member_use
                 OutlineButton(
                   child: Text(
                     _translator.translate("agree"),
@@ -98,6 +99,7 @@ class _NotificationsState extends State<Notifications> {
                 SizedBox(
                   height: 5,
                 ),
+                // ignore: deprecated_member_use
                 OutlineButton(
                   onPressed: () => Navigator.pop(context, false),
                   borderSide: BorderSide(

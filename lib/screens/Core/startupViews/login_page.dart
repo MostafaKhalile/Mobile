@@ -117,6 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         Container(
                             width: MediaQuery.of(context).size.width * 0.8,
+                            // ignore: deprecated_member_use
                             child: RaisedButton(
                               onPressed: () =>
                                   Navigator.pushNamed(context, "/sms"),
@@ -157,6 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+                        // ignore: deprecated_member_use
                         RaisedButton(
                             onPressed: () {},
                             child: Row(
@@ -179,6 +181,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ],
                             )),
+                        // ignore: deprecated_member_use
                         RaisedButton(
                           onPressed: () {},
                           child: Row(
