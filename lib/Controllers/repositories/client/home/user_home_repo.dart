@@ -19,8 +19,8 @@ class APIClientHomeRepository implements ClientHomeRepository {
     "Accept": "application/json"
   };
   Future<List<Category>> get fetchCategories async {
-    final response =
-        await http.post(KAPIURL + KHomeAllCategories, headers: headers);
+    final response = await http.post(Uri.parse(KAPIURL + KHomeAllCategories),
+        headers: headers);
 
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
@@ -35,8 +35,8 @@ class APIClientHomeRepository implements ClientHomeRepository {
   }
 
   Future<List<Company>> get fetchRecommendedCo async {
-    final response =
-        await http.post(KAPIURL + KHomeRecommendedCo, headers: headers);
+    final response = await http.post(Uri.parse(KAPIURL + KHomeRecommendedCo),
+        headers: headers);
 
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
@@ -50,7 +50,7 @@ class APIClientHomeRepository implements ClientHomeRepository {
   }
 
   Future<List<Advertise>> get fetchAdsAbove async {
-    final response = await http.post(KAPIURL + KHomeAdsAbove,
+    final response = await http.post(Uri.parse(KAPIURL + KHomeAdsAbove),
         body: {"RequestType": "API", "LanguageCode": "EN"});
 
     if (response.statusCode == 200) {
@@ -65,7 +65,8 @@ class APIClientHomeRepository implements ClientHomeRepository {
   }
 
   Future<List<Company>> get fetchLeastCo async {
-    final response = await http.post(KAPIURL + KHomeLeastCo, headers: headers);
+    final response =
+        await http.post(Uri.parse(KAPIURL + KHomeLeastCo), headers: headers);
 
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);

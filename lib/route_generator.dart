@@ -59,7 +59,7 @@ class RouteGenerator {
         );
       case '/clientHome':
         return PageTransition(
-          type: PageTransitionType.bottomToTop,
+          type: PageTransitionType.fade,
           child: NetworkSensitive(child: ClientHomePage()),
         );
       case '/categoriesPage':

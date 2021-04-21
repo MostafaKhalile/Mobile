@@ -75,7 +75,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
               setState(() {});
               _pageController.jumpToPage(index);
             },
-            letIndexChange: (index) => true,
+            // letIndexChange: (index) => true,
           ),
           body: PageView(
             physics: NeverScrollableScrollPhysics(),

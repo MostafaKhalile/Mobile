@@ -17,8 +17,8 @@ class APICompaniesRepository implements CompaniesRepository {
   };
   @override
   Future<List<Company>> fetchCategoryCompanies(int id) async {
-    final response =
-        await http.post("$KAPIURL$KCompaniesList$id", headers: headers);
+    final response = await http.post(Uri.parse("$KAPIURL$KCompaniesList$id"),
+        headers: headers);
 
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
@@ -33,8 +33,8 @@ class APICompaniesRepository implements CompaniesRepository {
   }
 
   Future<List<CompanyBranche>> companyView(int id) async {
-    final response =
-        await http.post("$KAPIURL$KCompanyView$id", headers: headers);
+    final response = await http.post(Uri.parse("$KAPIURL$KCompanyView$id"),
+        headers: headers);
 
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);

@@ -241,10 +241,10 @@ class SearchResultsListView extends StatelessWidget {
       );
     }
 
-    final fsb = FloatingSearchBar.of(context);
+    // final fsb = FloatingSearchBar.of(context);
 
     return ListView(
-      padding: EdgeInsets.only(top: fsb.height + fsb.margins.vertical),
+      // padding: EdgeInsets.only(top: fsb.height + fsb.margins.vertical),
       children: List.generate(
         50,
         (index) => ListTile(
