@@ -62,5 +62,15 @@
     "alphabetical": "Alphabetical",
     "theNearest": "Nearby Places",
     "top_to_Low_rated": "top to lower rating",
-    "low_to_top_rated": "low to top rating"
+    "low_to_top_rated": "low to top rating",
+    "points": "points",
+    "point": "point",
+    "EGP": "EGP",
+    "available_credit": "Available Credit",
+    "recharge_wallet": "Recharge Wallet",
+    "redeem_your_points": "Redeem Your Points",
+    "Enter_the_promo_code": "Enter the promo code",
+    "promocode": "Promocode",
+    "confirm": "Confirm",
+    "enter_the_number_of_points_to_transfer": "Enter the number of points to transfer"
 }

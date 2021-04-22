@@ -65,5 +65,15 @@
     "alphabetical": "الترتيب الابجدي",
     "theNearest": "الأقرب من حيث المسافة",
     "top_to_Low_rated": "التقييم الأعلى فالأقل",
-    "low_to_top_rated": "التقييم الأقل فالاعلى"
+    "low_to_top_rated": "التقييم الأقل فالاعلى",
+    "points": "النقاط",
+    "point": "نقطة",
+    "EGP": "جنية",
+    "available_credit": "الرصيد المتوفر",
+    "recharge_wallet": "إعادة شحن المحفظة",
+    "redeem_your_points": "استبدال النقاط",
+    "Enter_the_promo_code": "أدخل الرمز الترويجى",
+    "promocode": "رمز الترويجى",
+    "confirm": "تأكيد",
+    "enter_the_number_of_points_to_transfer": "أدخل عدد النقاط المطلوب تحويلها"
 }
