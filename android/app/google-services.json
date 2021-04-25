@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "130178803668",
+    "project_id": "techtimeapp-bd92e",
+    "storage_bucket": "techtimeapp-bd92e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:130178803668:android:75289fe4ef9e86b11d1841",
+        "android_client_info": {
+          "package_name": "com.TechTime.techtime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "130178803668-piqak357dfl3qs9r7u7m6u4n2q32ej3n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAD00JquApFCXoyfEYMLy5cF5ei8LPsceQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "130178803668-piqak357dfl3qs9r7u7m6u4n2q32ej3n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:130178803668:android:235c108cdc29ff051d1841",
+        "android_client_info": {
+          "package_name": "com.TechTime.techtime1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "130178803668-piqak357dfl3qs9r7u7m6u4n2q32ej3n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAD00JquApFCXoyfEYMLy5cF5ei8LPsceQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "130178803668-piqak357dfl3qs9r7u7m6u4n2q32ej3n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

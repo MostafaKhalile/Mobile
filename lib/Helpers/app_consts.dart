@@ -16,3 +16,6 @@ const String KPlaceHolderImage = "assets/images/default_logo.png";
 
 const String KRechargeWalletIcon = "assets/svg/digital-wallet.svg";
 const String KCoinsIcon = "assets/svg/coins.svg";
+const String KWhatsAppAIcon = "assets/svg/whatsapp.svg";
+const String KContactUsIcon = "assets/svg/contact_us.svg";
+const String KEmailIcon = "assets/svg/email.svg";

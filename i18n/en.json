@@ -49,6 +49,7 @@
     "please_click_again_to_exit": "please click again to exit",
     "book_now": "Book Now",
     "search_place_holder": "Search for Company,branch,services,...",
+    "start_searching": "Start searching",
     "search_for_order_code": "search for order code ...",
     "next_appointments": "Next Appointments",
     "previous_appointments": "Previous Appointments",
@@ -70,7 +71,18 @@
     "recharge_wallet": "Recharge Wallet",
     "redeem_your_points": "Redeem Your Points",
     "Enter_the_promo_code": "Enter the promo code",
+    "Enter_the_code": "Enter the code",
     "promocode": "Promocode",
     "confirm": "Confirm",
-    "enter_the_number_of_points_to_transfer": "Enter the number of points to transfer"
+    "cancel": "Cancel",
+    "enter_the_number_of_points_to_transfer": "Enter the number of points to transfer",
+    "update": "update",
+    "contact_us": "Contact Us",
+    "need_help?": "Need Help?",
+    "contact_us_via_customer_service": "Contact customers service via WhatsApp",
+    "start_chat": "Start Chat",
+    "enter_your_email": "Enter your Email",
+    "please_enter_email": "Please enter E-mail address",
+    "please_enter_valid_email": "Please enter a valid E-mail address",
+    "We_will_send_verification_code_to": "We will send verification code to"
 }

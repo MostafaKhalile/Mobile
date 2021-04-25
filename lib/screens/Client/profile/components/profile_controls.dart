@@ -7,6 +7,8 @@ import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/themes/dark_theme.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
+import 'package:techtime/screens/Client/contact/contact_us.dart';
+import 'package:techtime/screens/Client/profileEdit/profile_edit.dart';
 import 'package:techtime/screens/Client/walletScreen/wallet_screen.dart';
 
 class ProfileControls extends StatelessWidget {
@@ -31,7 +33,9 @@ class ProfileControls extends StatelessWidget {
                   leading: Icons.person_outline_rounded,
                   title: AppLocalizations.of(context)
                       .translate("profile")
-                      .toUpperCase()),
+                      .toUpperCase(),
+                  onTap: () =>
+                      Navigator.pushNamed(context, ProfileEdit.routeName)),
               //Wallet
               buildProfileListTile(context, _theme,
                   leading: Icons.account_balance_wallet,
@@ -72,7 +76,9 @@ class ProfileControls extends StatelessWidget {
                   leading: Icons.mail,
                   title: AppLocalizations.of(context)
                       .translate("contactUs")
-                      .toUpperCase()),
+                      .toUpperCase(),
+                  onTap: () =>
+                      Navigator.pushNamed(context, ContactUS.routeName)),
               // Signup or signout
               buildProfileListTile(context, _theme,
                   leading: Icons.exit_to_app_outlined,

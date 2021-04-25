@@ -133,7 +133,8 @@ class _SearchScreenState extends State<SearchScreen> {
                       width: double.infinity,
                       alignment: Alignment.center,
                       child: Text(
-                        'Start searching',
+                        AppLocalizations.of(context)
+                            .translate('start_searching'),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.caption,
@@ -233,7 +234,7 @@ class SearchResultsListView extends StatelessWidget {
               size: 64,
             ),
             Text(
-              'Start searching',
+              AppLocalizations.of(context).translate('start_searching'),
               style: Theme.of(context).textTheme.headline5,
             )
           ],

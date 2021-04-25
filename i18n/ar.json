@@ -52,6 +52,7 @@
     "please_click_again_to_exit": "رجاءاً انقر مرة أخرى للخروج",
     "book_now": "احجز الآن",
     "search_place_holder": "ابحث عن شركة,فرع,خدمة ...",
+    "start_searching": "ابدأ البحث",
     "search_for_order_code": "ابحث عن كود الطلب...",
     "next_appointments": "مواعيد قادمة",
     "previous_appointments": "مواعيد سابقة",
@@ -73,7 +74,18 @@
     "recharge_wallet": "إعادة شحن المحفظة",
     "redeem_your_points": "استبدال النقاط",
     "Enter_the_promo_code": "أدخل الرمز الترويجى",
+    "Enter_the_code": "أدخل الكود",
     "promocode": "رمز الترويجى",
     "confirm": "تأكيد",
-    "enter_the_number_of_points_to_transfer": "أدخل عدد النقاط المطلوب تحويلها"
+    "cancel": "إلغاء",
+    "enter_the_number_of_points_to_transfer": "أدخل عدد النقاط المطلوب تحويلها",
+    "update": "تحديث",
+    "contact_us": "اتصل بنا",
+    "need_help?": "هل تحتاج إلى مساعدة؟",
+    "contact_us_via_customer_service": "لا تتردد فى التحدث مع فريق خدمة العملاء",
+    "start_chat": "ابدأ المحادثة",
+    "enter_your_email": "أدخل بريدك الإلكترونى",
+    "please_enter_email": "برجاء ادخال البريد الإلكتروني",
+    "please_enter_valid_email": "برجاء ادخال بريد إلكتروني صحيح",
+    "We_will_send_verification_code_to": "سنقوم بإرسال كود التفعيل على"
 }

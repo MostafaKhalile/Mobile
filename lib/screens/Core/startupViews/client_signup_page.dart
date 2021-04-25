@@ -44,19 +44,13 @@ class _ClientSignupPageState extends State<ClientSignupPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            BlocBuilder<LocaleCubit, LocaleState>(
-                              builder: (context, state) {
-                                return IconButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    icon: Icon(
-                                      state.locale == Locale("ar")
-                                          ? Icons.arrow_forward_ios_rounded
-                                          : Icons.arrow_back_ios_rounded,
-                                      size: 30,
-                                      color: Colors.black,
-                                    ));
-                              },
-                            )
+                            IconButton(
+                                onPressed: () => Navigator.pop(context),
+                                icon: Icon(
+                                  Icons.arrow_back_ios_rounded,
+                                  size: 30,
+                                  color: Colors.black,
+                                ))
                           ],
                         ),
                         Container(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:techtime/Controllers/cubits/LocaleCubit/locale_cubit.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+
+import 'emailForgetPassworProcess/email_forget_password.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -42,22 +42,15 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    BlocBuilder<LocaleCubit, LocaleState>(
-                      builder: (context, state) {
-                        return Padding(
-                          padding:
-                              const EdgeInsets.only(top: KdefaultPadding * 2),
-                          child: IconButton(
-                              onPressed: () => Navigator.pop(context),
-                              icon: Icon(
-                                state.locale == Locale("ar")
-                                    ? Icons.arrow_forward_ios_rounded
-                                    : Icons.arrow_back_ios_rounded,
-                                size: 30,
-                                color: Colors.black,
-                              )),
-                        );
-                      },
+                    Padding(
+                      padding: const EdgeInsets.only(top: KdefaultPadding * 2),
+                      child: IconButton(
+                          onPressed: () => Navigator.pop(context),
+                          icon: Icon(
+                            Icons.arrow_back_ios_rounded,
+                            size: 30,
+                            color: Colors.black,
+                          )),
                     )
                   ],
                 ),
@@ -209,7 +202,8 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () => Navigator.pushNamed(
+                                  context, EmailForgetPassword.routeName),
                               child: Text(
                                 AppLocalizations.of(context)
                                     .translate('forgotPassword'),

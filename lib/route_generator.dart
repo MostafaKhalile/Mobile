@@ -4,10 +4,14 @@ import 'package:page_transition/page_transition.dart';
 import 'package:techtime/screens/Client/CompanyProfile/company_profile.dart';
 import 'package:techtime/screens/Client/branchProfile/branch_profile.dart';
 import 'package:techtime/screens/Client/branchProfile/subViews/choose_branch.dart';
+import 'package:techtime/screens/Client/contact/contact_us.dart';
+import 'package:techtime/screens/Client/profileEdit/profile_edit.dart';
 import 'package:techtime/screens/Client/walletScreen/wallet_screen.dart';
 import 'package:techtime/screens/Core/ConnectivityView/network_sensitive.dart';
 import 'package:techtime/screens/Core/notifications/notifications.dart';
 import 'package:techtime/screens/Core/search_screen.dart';
+import 'package:techtime/screens/Core/startupViews/emailForgetPassworProcess/email_confirm_code.dart';
+import 'package:techtime/screens/Core/startupViews/emailForgetPassworProcess/email_forget_password.dart';
 import 'package:techtime/widgets/core/gallery_view.dart';
 
 import 'screens/Client/Categories/client_categories_screen.dart';
@@ -32,7 +36,7 @@ class RouteGenerator {
       case '/languageSelection':
         return PageTransition(
             type: PageTransitionType.leftToRight,
-            duration: Duration(milliseconds: 800),
+            duration: Duration(milliseconds: 600),
             child: NetworkSensitive(child: LanguageSelectionPage()));
       case '/loginModerator':
         return PageTransition(
@@ -41,7 +45,7 @@ class RouteGenerator {
         );
       case '/login':
         return PageTransition(
-          type: PageTransitionType.rightToLeft,
+          type: PageTransitionType.fade,
           duration: Duration(milliseconds: 400),
           child: LoginPage(),
         );
@@ -108,6 +112,28 @@ class RouteGenerator {
       case WalletScreen.routeName:
         return CupertinoPageRoute(
             fullscreenDialog: true, builder: (_) => WalletScreen());
+        break;
+      case ContactUS.routeName:
+        return CupertinoPageRoute(
+            fullscreenDialog: true, builder: (_) => ContactUS());
+        break;
+      case EmailForgetPassword.routeName:
+        return CupertinoPageRoute(
+            fullscreenDialog: true, builder: (_) => EmailForgetPassword());
+        break;
+      case EmailConfirmCode.routeName:
+        return CupertinoPageRoute(
+          fullscreenDialog: true,
+          builder: (_) => EmailConfirmCode(
+            emailAddress: args,
+          ),
+        );
+        break;
+      case ProfileEdit.routeName:
+        return PageTransition(
+            type: PageTransitionType.bottomToTop,
+            duration: Duration(milliseconds: 300),
+            child: ProfileEdit());
         break;
       default:
         // If there is no such named route in the switch statement, e.g. /third
