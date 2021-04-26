@@ -17,10 +17,13 @@ import 'Controllers/blocs/client/ads_bloc/ads_bloc.dart';
 import 'Controllers/blocs/client/categorisBloc/categories_bloc.dart';
 import 'Controllers/blocs/client/companiesListBloc.dart/companieslist_bloc.dart';
 import 'Controllers/blocs/client/companyProfileBloc/company_profile_bloc.dart';
+import 'Controllers/blocs/core/Authentication/authentication_bloc.dart';
 import 'Controllers/cubits/LocaleCubit/locale_cubit.dart';
 import 'Controllers/cubits/NetworkCubit/internet_cubit.dart';
+import 'Controllers/repositories/authentication_repository.dart';
 import 'Controllers/repositories/client/companies/companies_repository.dart';
 import 'Controllers/repositories/client/home/user_home_repo.dart';
+import 'Controllers/repositories/user_repository.dart';
 import 'Helpers/APIUrls.dart';
 import 'Helpers/localization/app_localizations_delegates.dart';
 import 'Helpers/utils/app_bloc_observer.dart';
@@ -77,6 +80,8 @@ void main() async {
       child: MyApp(
         appRouter: RouteGenerator(),
         connectivity: Connectivity(),
+        authenticationRepository: AuthenticationRepository(),
+        userRepository: UserRepository(),
       )));
 }
 
@@ -84,7 +89,16 @@ class MyApp extends StatelessWidget {
   final RouteGenerator appRouter;
   final Connectivity connectivity;
 
-  const MyApp({Key key, this.appRouter, this.connectivity}) : super(key: key);
+  final AuthenticationRepository authenticationRepository;
+  final UserRepository userRepository;
+
+  const MyApp(
+      {Key key,
+      this.appRouter,
+      this.connectivity,
+      this.authenticationRepository,
+      this.userRepository})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     precacheImage(AssetImage("assets/images/background.png"), context);
@@ -97,6 +111,11 @@ class MyApp extends StatelessWidget {
             create: (internetCubitContext) =>
                 InternetCubit(connectivity: connectivity),
           ),
+          BlocProvider(
+              create: (_) => AuthenticationBloc(
+                    authenticationRepository: authenticationRepository,
+                    userRepository: userRepository,
+                  )),
           BlocProvider(create: (context) => AdsBloc(apiClientHomeRepository)),
           BlocProvider(
               create: (context) => CategoriesBloc(apiClientHomeRepository)),
@@ -116,21 +135,20 @@ class MyApp extends StatelessWidget {
               previousState != currentState,
           builder: (_, localeState) {
             return MaterialApp(
-              locale: localeState.locale,
-              supportedLocales: [
-                Locale('en', 'US'),
-                Locale('ar', ''),
-              ],
-              localizationsDelegates: [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-              ],
-              title: KAppName,
-              theme: Provider.of<ThemeModel>(context).currentTheme,
-              initialRoute: '/',
-              onGenerateRoute: appRouter.generateRoute,
-            );
+                locale: localeState.locale,
+                supportedLocales: [
+                  Locale('en', 'US'),
+                  Locale('ar', ''),
+                ],
+                localizationsDelegates: [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                title: KAppName,
+                theme: Provider.of<ThemeModel>(context).currentTheme,
+                initialRoute: '/',
+                onGenerateRoute: appRouter.generateRoute);
           },
         ));
   }

@@ -21,6 +21,22 @@ class Validator {
     return error;
   }
 
+  validateEmailMobile(BuildContext context, data) {
+    if (data == null || data == '') {
+      error = AppLocalizations.of(context).translate("please_enter_email");
+      return error;
+    }
+    if (!RegExp(
+            r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+        .hasMatch(data)) {
+      error =
+          AppLocalizations.of(context).translate("please_enter_valid_email");
+      return error;
+    }
+    error = null;
+    return error;
+  }
+
   String validateUsername(BuildContext context, data) {
     if (data == null || data == '') {
       error = "لا يمكن ترك هذه الخانة فارغة";

@@ -9,6 +9,7 @@ import 'Offres/client_offers_screen.dart';
 import 'scheduleScreen/schedule_screen.dart';
 
 class ClientHomePage extends StatefulWidget {
+  static const String routeName = "/clientHome";
   @override
   _ClientHomePageState createState() => _ClientHomePageState();
 }

@@ -61,7 +61,7 @@ class RouteGenerator {
           duration: Duration(milliseconds: 400),
           child: SmsVerification(),
         );
-      case '/clientHome':
+      case ClientHomePage.routeName:
         return PageTransition(
           type: PageTransitionType.fade,
           child: NetworkSensitive(child: ClientHomePage()),
