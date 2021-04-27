@@ -7,6 +7,7 @@ import '../emailForgetPassworProcess/email_forget_password.dart';
 import 'components/email_password_login.dart';
 
 class LoginPage extends StatefulWidget {
+  static const String routeName = "/login";
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -46,8 +47,9 @@ class _LoginPageState extends State<LoginPage> {
                     )
                   ],
                 ),
-                Expanded(
-                  flex: 1,
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: KDefaultPadding * 1.5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [

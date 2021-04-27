@@ -23,14 +23,15 @@ class Validator {
 
   validateEmailMobile(BuildContext context, data) {
     if (data == null || data == '') {
-      error = AppLocalizations.of(context).translate("please_enter_email");
+      error = AppLocalizations.of(context)
+          .translate("please_enter_email_or_mobile");
       return error;
     }
     if (!RegExp(
-            r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+            r"([a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)|(^01[0125][0-9]{8}$)")
         .hasMatch(data)) {
-      error =
-          AppLocalizations.of(context).translate("please_enter_valid_email");
+      error = AppLocalizations.of(context)
+          .translate("please_enter_valid_email_or_mobile");
       return error;
     }
     error = null;
@@ -52,7 +53,7 @@ class Validator {
 
   String phoneNumber(BuildContext context, data) {
     if (data == null || data == '') {
-      error = "لا يمكن ترك هذه الخانة فارغة";
+      error = AppLocalizations.of(context).translate("this_field_is_required");
       return error;
     }
     if (!RegExp(r"^(009665|9665|\+9665|05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$")
@@ -66,11 +67,11 @@ class Validator {
 
   String validatePassword(BuildContext context, data) {
     if (data == null || data == '') {
-      error = " برجاء ادخال كلمة المرور  صحيحة";
+      error = AppLocalizations.of(context).translate("please_enter_password");
       return error;
     }
-    if (data.toString().length < 8 || data.toString().length > 12) {
-      error = "كلمة المرور يجب ان نكون  من 8 الي 12 احرف";
+    if (data.toString().length < 6 || data.toString().length > 12) {
+      error = AppLocalizations.of(context).translate("password_length_error");
       return error;
     }
     error = null;

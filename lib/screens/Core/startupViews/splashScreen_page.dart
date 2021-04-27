@@ -6,9 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:techtime/Controllers/blocs/core/Authentication/authentication_bloc.dart';
-import 'package:techtime/Controllers/repositories/authentication_repository.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
-import 'package:techtime/screens/Client/home_page.dart';
+import 'package:techtime/Helpers/enums.dart';
 
 import '../../../main.dart';
 

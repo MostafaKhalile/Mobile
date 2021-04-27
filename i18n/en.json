@@ -81,8 +81,13 @@
     "need_help?": "Need Help?",
     "contact_us_via_customer_service": "Contact customers service via WhatsApp",
     "start_chat": "Start Chat",
+    "this_field_is_required": "this field is required",
     "enter_your_email": "Enter your Email",
     "please_enter_email": "Please enter E-mail address",
+    "please_enter_password": "Please enter your password",
+    "password_length_error": "password should be more than 6 characters",
+    "please_enter_email_or_mobile": "Please enter E-mail  or mobile",
     "please_enter_valid_email": "Please enter a valid E-mail address",
+    "please_enter_valid_email_or_mobile": "Please enter a valid E-mail address or mobile number",
     "We_will_send_verification_code_to": "We will send verification code to"
 }

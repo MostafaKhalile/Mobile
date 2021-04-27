@@ -84,8 +84,13 @@
     "need_help?": "هل تحتاج إلى مساعدة؟",
     "contact_us_via_customer_service": "لا تتردد فى التحدث مع فريق خدمة العملاء",
     "start_chat": "ابدأ المحادثة",
+    "this_input_is_required": "لا يمكن ترك هذه الخانة فارغة",
     "enter_your_email": "أدخل بريدك الإلكترونى",
     "please_enter_email": "برجاء ادخال البريد الإلكتروني",
+    "please_enter_password": " برجاء ادخال كلمة المرور  صحيحة",
+    "password_length_error": "كلمة المرور يجب ان تكون أكثر  من 6 احرف",
+    "please_enter_email_or_mobile": "برجاء ادخال البريد الإلكتروني أو الهاتف",
     "please_enter_valid_email": "برجاء ادخال بريد إلكتروني صحيح",
+    "please_enter_valid_email_or_mobile": "برجاء ادخال بريد إلكتروني أو موبايل صحيح",
     "We_will_send_verification_code_to": "سنقوم بإرسال كود التفعيل على"
 }

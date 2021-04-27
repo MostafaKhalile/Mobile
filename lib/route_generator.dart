@@ -12,6 +12,7 @@ import 'package:techtime/screens/Core/notifications/notifications.dart';
 import 'package:techtime/screens/Core/search_screen.dart';
 import 'package:techtime/screens/Core/startupViews/emailForgetPassworProcess/email_confirm_code.dart';
 import 'package:techtime/screens/Core/startupViews/emailForgetPassworProcess/email_forget_password.dart';
+import 'package:techtime/screens/Core/startupViews/loginScreen/login_page.dart';
 import 'package:techtime/widgets/core/gallery_view.dart';
 
 import 'screens/Client/Categories/client_categories_screen.dart';
@@ -21,7 +22,6 @@ import 'screens/Client/saloonProfile/saloonProfile.dart';
 import 'screens/Core/startupViews/client_signup_page.dart';
 import 'screens/Core/startupViews/language_selection_page.dart';
 import 'screens/Core/startupViews/login_moderator_page.dart';
-import 'screens/Core/startupViews/login_page.dart';
 import 'screens/Core/startupViews/sms_verification_screen.dart';
 import 'screens/Core/startupViews/splashScreen_page.dart';
 
@@ -43,7 +43,7 @@ class RouteGenerator {
           type: PageTransitionType.rightToLeft,
           child: LoginModeratorPage(),
         );
-      case '/login':
+      case LoginPage.routeName:
         return PageTransition(
           type: PageTransitionType.fade,
           duration: Duration(milliseconds: 400),
