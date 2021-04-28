@@ -97,6 +97,7 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                       padding: EdgeInsets.only(top: KdefaultPadding),
                       child: Container(
                         width: 170,
+                        // ignore: deprecated_member_use
                         child: RaisedButton(
                             onPressed: () {
                               if (_formKey.currentState.validate()) {
@@ -118,6 +119,7 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                       padding: EdgeInsets.only(top: KdefaultPadding),
                       child: Container(
                         width: 170,
+                        // ignore: deprecated_member_use
                         child: RaisedButton(
                             onPressed: () => Navigator.pop(context),
                             child: Text(

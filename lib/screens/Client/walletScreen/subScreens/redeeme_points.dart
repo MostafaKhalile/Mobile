@@ -47,6 +47,7 @@ class RedeemPoints extends StatelessWidget {
                     style: _theme.textTheme.caption
                         .copyWith(fontWeight: FontWeight.bold)),
                 VerticalGap(),
+                // ignore: deprecated_member_use
                 RaisedButton(
                   onPressed: () {},
                   child: Text(

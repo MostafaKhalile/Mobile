@@ -14,7 +14,7 @@ class ProfileCoverAndImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
+    // ThemeData _theme = Theme.of(context);
     AppLocalizations _translator = AppLocalizations.of(context);
     return Container(
       width: double.infinity,

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-
 import 'components/cover_and_image.dart';
 import 'components/profile_text_field.dart';
 
@@ -39,7 +37,7 @@ class _ProfileEditState extends State<ProfileEdit> {
   Widget build(BuildContext context) {
     ThemeData _theme = Theme.of(context);
     Size _size = MediaQuery.of(context).size;
-    AppLocalizations _translator = AppLocalizations.of(context);
+    // AppLocalizations _translator = AppLocalizations.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SizedBox(

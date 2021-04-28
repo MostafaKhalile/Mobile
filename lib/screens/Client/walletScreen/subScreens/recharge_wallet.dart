@@ -44,6 +44,7 @@ class RechargeWallet extends StatelessWidget {
                 hintText: "_",
               ),
               VerticalGap(),
+              // ignore: deprecated_member_use
               RaisedButton(
                 onPressed: () {},
                 child: Text(

@@ -9,6 +9,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
+import 'package:techtime/Controllers/repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/localization/app_language_model.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/route_generator.dart';
@@ -17,15 +18,15 @@ import 'Controllers/blocs/client/ads_bloc/ads_bloc.dart';
 import 'Controllers/blocs/client/categorisBloc/categories_bloc.dart';
 import 'Controllers/blocs/client/companiesListBloc.dart/companieslist_bloc.dart';
 import 'Controllers/blocs/client/companyProfileBloc/company_profile_bloc.dart';
-import 'Controllers/blocs/core/Authentication/authentication_bloc.dart';
+import 'Controllers/blocs/core/Auth/authantication_bloc.dart';
 import 'Controllers/cubits/LocaleCubit/locale_cubit.dart';
 import 'Controllers/cubits/NetworkCubit/internet_cubit.dart';
 import 'Controllers/repositories/authentication_repository.dart';
 import 'Controllers/repositories/client/companies/companies_repository.dart';
 import 'Controllers/repositories/client/home/user_home_repo.dart';
-import 'Controllers/repositories/user_repository.dart';
 import 'Helpers/APIUrls.dart';
 import 'Helpers/localization/app_localizations_delegates.dart';
+import 'Helpers/shared_perfs_provider.dart';
 import 'Helpers/utils/app_bloc_observer.dart';
 
 /// Define a top-level named handler which background/terminated messages will
@@ -53,6 +54,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await PreferenceUtils.init();
 
   // Set the background messaging handler early on, as a named top-level function
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -81,7 +83,6 @@ void main() async {
         appRouter: RouteGenerator(),
         connectivity: Connectivity(),
         authenticationRepository: AuthenticationRepository(),
-        userRepository: UserRepository(),
       )));
 }
 
@@ -90,15 +91,13 @@ class MyApp extends StatelessWidget {
   final Connectivity connectivity;
 
   final AuthenticationRepository authenticationRepository;
-  final UserRepository userRepository;
 
-  const MyApp(
-      {Key key,
-      this.appRouter,
-      this.connectivity,
-      this.authenticationRepository,
-      this.userRepository})
-      : super(key: key);
+  const MyApp({
+    Key key,
+    this.appRouter,
+    this.connectivity,
+    this.authenticationRepository,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     precacheImage(AssetImage("assets/images/background.png"), context);
@@ -112,9 +111,8 @@ class MyApp extends StatelessWidget {
                 InternetCubit(connectivity: connectivity),
           ),
           BlocProvider(
-              create: (_) => AuthenticationBloc(
-                    authenticationRepository: authenticationRepository,
-                    userRepository: userRepository,
+              create: (_) => AuthanticationBloc(
+                    authRepo: AuthRepo(),
                   )),
           BlocProvider(create: (context) => AdsBloc(apiClientHomeRepository)),
           BlocProvider(

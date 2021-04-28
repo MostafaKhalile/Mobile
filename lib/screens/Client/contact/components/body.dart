@@ -36,6 +36,7 @@ class Body extends StatelessWidget {
             padding: EdgeInsets.only(top: KdefaultPadding * 2),
             child: Container(
               width: 170,
+              // ignore: deprecated_member_use
               child: RaisedButton(
                 onPressed: () => whatsAppOpen(),
                 child: Row(

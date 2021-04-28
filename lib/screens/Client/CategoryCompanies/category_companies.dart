@@ -24,9 +24,9 @@ class _CategoryCompaniesScreenState extends State<CategoryCompaniesScreen> {
     super.initState();
   }
 
+  Snackbar _snackbar = Snackbar();
   @override
   Widget build(BuildContext context) {
-    Snackbar _snackbar = Snackbar();
     return Scaffold(
       appBar: buildAppBar(context),
       body: BlocConsumer<CompanieslistBloc, CompanieslistState>(

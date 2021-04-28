@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:techtime/Controllers/blocs/core/Authentication/authentication_bloc.dart';
+import 'package:techtime/Controllers/repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
-import 'package:techtime/Helpers/enums.dart';
+import 'package:techtime/screens/Client/home_page.dart';
+import 'package:techtime/screens/Core/startupViews/loginScreen/login_page.dart';
 
 import '../../../main.dart';
 
@@ -17,17 +17,25 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  String _token;
-
+  bool _isSignedIn;
+  AuthRepo _authRepo;
   @override
   void initState() {
-    super.initState();
+    _authRepo = AuthRepo();
+    _isSignedIn = _authRepo.currentUserToken != null;
     FirebaseMessaging.instance
         .getInitialMessage()
         .then((RemoteMessage message) {
       if (message != null) {
         print(message);
       }
+      Future.delayed(Duration(seconds: 1), () async {
+        Navigator.pushNamed(
+          context,
+          _isSignedIn ? ClientHomePage.routeName : LoginPage.routeName,
+        );
+      });
+      super.initState();
     });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -59,57 +67,32 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthenticationBloc, AuthenticationState>(
-      listener: (context, state) {
-        switch (state.status) {
-          case AuthenticationStatus.authenticated:
-            print("authenticated");
-            return Timer(
-                Duration(seconds: 3),
-                () => Navigator.of(context)
-                    .pushReplacementNamed("/languageSelection"));
-            break;
-          case AuthenticationStatus.unauthenticated:
-            print("unauthenticated");
-
-            return Timer(
-                Duration(seconds: 3),
-                () => Navigator.of(context)
-                    .pushReplacementNamed("/languageSelection"));
-            break;
-          default:
-            break;
-        }
-      },
-      builder: (context, state) {
-        return Scaffold(
-            body: Stack(
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(
-                      "assets/images/background.png",
-                    ),
-                    fit: BoxFit.fill),
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset("assets/svg/logo.svg"),
-                    Text(KAppName,
-                        style: TextStyle(
-                            fontSize: 37,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold))
-                  ],
+    return Scaffold(
+        body: Stack(
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(
+                  "assets/images/background.png",
                 ),
-              ),
+                fit: BoxFit.fill),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset("assets/svg/logo.svg"),
+                Text(KAppName,
+                    style: TextStyle(
+                        fontSize: 37,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold))
+              ],
             ),
-          ],
-        ));
-      },
-    );
+          ),
+        ),
+      ],
+    ));
   }
 }

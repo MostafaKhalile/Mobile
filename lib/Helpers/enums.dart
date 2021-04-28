@@ -5,3 +5,4 @@ enum ConnectionType {
   Mobile,
 }
 enum AuthenticationStatus { unknown, authenticated, unauthenticated }
+enum UserRole { guest, client, company }
