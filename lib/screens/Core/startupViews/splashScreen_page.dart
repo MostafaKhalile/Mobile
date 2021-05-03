@@ -33,18 +33,18 @@ class _SplashScreenState extends State<SplashScreen> {
       if (message != null) {
         print(message);
       }
-      Future.delayed(Duration(seconds: 1), () async {
-        Navigator.pushNamed(
-          context,
-          _isSignedIn
-              ? _userRole == UserRole.client
-                  ? ClientHomePage.routeName
-                  : CompanyPlaceholder.routeName
-              : LanguageSelectionPage.routeName,
-        );
-      });
-      super.initState();
     });
+    Future.delayed(Duration(seconds: 1), () async {
+      Navigator.pushNamed(
+        context,
+        _isSignedIn
+            ? _userRole == UserRole.client
+                ? ClientHomePage.routeName
+                : CompanyPlaceholder.routeName
+            : LanguageSelectionPage.routeName,
+      );
+    });
+    super.initState();
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification notification = message.notification;

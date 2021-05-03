@@ -1,37 +1,42 @@
 import 'package:flutter/material.dart';
+
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
+import 'package:techtime/models/client_profile.dart';
+import 'package:techtime/models/user.dart';
 import 'components/cover_and_image.dart';
 import 'components/profile_text_field.dart';
 
 class ProfileEdit extends StatefulWidget {
   static const String routeName = "/profile_edit";
+
+  const ProfileEdit({Key key, @required this.profileDatat}) : super(key: key);
   @override
   _ProfileEditState createState() => _ProfileEditState();
+  final ClientProfile profileDatat;
 }
 
 class _ProfileEditState extends State<ProfileEdit> {
-  Decoration _imagePikerDecoration = BoxDecoration(
-      image: DecorationImage(
-        image: 1 < 0
-            ? NetworkImage(
-                KPlaceHolder,
-              )
-            : AssetImage(KPlaceHolderImage),
-        fit: BoxFit.fill,
-      ),
-      borderRadius: BorderRadius.all(
-        Radius.circular(KdefaultRadius),
-      ));
-  TextEditingController _firstNameController =
-      TextEditingController(text: "firstName");
-  TextEditingController _lastNameController =
-      TextEditingController(text: "lasttName");
-  TextEditingController _emailController = TextEditingController(text: "email");
-  TextEditingController _mobileController =
-      TextEditingController(text: "lasttName");
+  TextEditingController _firstNameController;
+
+  TextEditingController _lastNameController;
+  TextEditingController _emailController;
+  TextEditingController _mobileController;
   TextEditingController _passwordController =
       TextEditingController(text: "Password");
+  User _currentUser;
+  @override
+  void initState() {
+    _firstNameController = TextEditingController(
+        text: widget.profileDatat.firstName ?? "FirstName");
+    _lastNameController =
+        TextEditingController(text: widget.profileDatat.lastName ?? "LastName");
+    _emailController =
+        TextEditingController(text: widget.profileDatat.email ?? "email");
+    _mobileController = TextEditingController(
+        text: widget.profileDatat.mobile.toString() ?? "mobile");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +52,19 @@ class _ProfileEditState extends State<ProfileEdit> {
             Expanded(
                 flex: 3,
                 child: ProfileCoverAndImage(
-                    imagePikerDecoration: _imagePikerDecoration)),
+                    currentUser: _currentUser,
+                    imagePikerDecoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: _currentUser?.image != null
+                              ? NetworkImage(
+                                  KAPIURL + _currentUser.image,
+                                )
+                              : AssetImage(KPlaceHolderImage),
+                          fit: BoxFit.fill,
+                        ),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(KdefaultRadius),
+                        )))),
             Expanded(
               flex: 5,
               child: Padding(

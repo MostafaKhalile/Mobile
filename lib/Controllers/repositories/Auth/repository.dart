@@ -15,13 +15,6 @@ import 'package:techtime/models/user.dart';
 class AuthRepo {
   PreferenceUtils _prefs;
   AuthApiClient _apiClient;
-  final _controller = StreamController<AuthenticationStatus>();
-
-  Stream<AuthenticationStatus> get status async* {
-    await Future<void>.delayed(const Duration(seconds: 1));
-    yield AuthenticationStatus.unauthenticated;
-    yield* _controller.stream;
-  }
 
   AuthRepo() {
     _prefs = PreferenceUtils.getInstance();
@@ -110,6 +103,4 @@ class AuthRepo {
     return _prefs.saveValueWithKey<String>(
         NetworkConstants.currentUser, jsonEncode(user));
   }
-
-  void dispose() => _controller.close();
 }

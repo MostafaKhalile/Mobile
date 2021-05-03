@@ -52,10 +52,13 @@ class PreferenceUtils {
     if (value == null && !bypassValueChecking) {
       throw PlatformException(
           code: "SHARED_PREFERENCES_VALUE_CAN'T_BE_NULL",
-          message: "you have ordered a value which doesn't exist in Shared Preferences",
-          details: "make sure you have saved the value in advance in order to get it back");
+          message:
+              "you have ordered a value which doesn't exist in Shared Preferences",
+          details:
+              "make sure you have saved the value in advance in order to get it back");
     }
-    if (!hideDebugPrint) print("SharedPreferences: [Reading data] -> key: $key, value: $value");
+    if (!hideDebugPrint)
+      print("SharedPreferences: [Reading data] -> key: $key, value: $value");
     return value;
   }
 
@@ -75,7 +78,8 @@ class PreferenceUtils {
     for (String key in keys) {
       value = _preferences.get(key);
       if (value == null) {
-        print("SharedPreferences: [Removing data] -> key: $key, value: {ERROR 'null' value}");
+        print(
+            "SharedPreferences: [Removing data] -> key: $key, value: {ERROR 'null' value}");
         print("Skipping...");
       } else {
         await _preferences.remove(key);

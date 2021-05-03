@@ -139,7 +139,9 @@ class RouteGenerator {
         return PageTransition(
             type: PageTransitionType.bottomToTop,
             duration: Duration(milliseconds: 300),
-            child: ProfileEdit());
+            child: ProfileEdit(
+              profileDatat: args,
+            ));
         break;
       default:
         // If there is no such named route in the switch statement, e.g. /third

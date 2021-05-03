@@ -22,7 +22,6 @@ import 'Controllers/blocs/core/Auth/authantication_bloc.dart';
 import 'Controllers/cubits/LocaleCubit/locale_cubit.dart';
 import 'Controllers/cubits/NetworkCubit/internet_cubit.dart';
 import 'Controllers/providers/current_user_provider.dart';
-import 'Controllers/repositories/authentication_repository.dart';
 import 'Controllers/repositories/client/companies/companies_repository.dart';
 import 'Controllers/repositories/client/home/user_home_repo.dart';
 import 'Helpers/APIUrls.dart';
@@ -83,7 +82,6 @@ void main() async {
       child: MyApp(
         appRouter: RouteGenerator(),
         connectivity: Connectivity(),
-        authenticationRepository: AuthenticationRepository(),
       )));
 }
 
@@ -91,13 +89,10 @@ class MyApp extends StatelessWidget {
   final RouteGenerator appRouter;
   final Connectivity connectivity;
 
-  final AuthenticationRepository authenticationRepository;
-
   const MyApp({
     Key key,
     this.appRouter,
     this.connectivity,
-    this.authenticationRepository,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {

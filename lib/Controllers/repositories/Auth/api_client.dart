@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
-import 'package:techtime/Helpers/localization/app_language_model.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
 
 class AuthApiClient {

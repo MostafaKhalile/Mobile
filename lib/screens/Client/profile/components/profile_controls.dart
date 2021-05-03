@@ -1,24 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/cubits/LocaleCubit/locale_cubit.dart';
+import 'package:techtime/Controllers/providers/current_user_provider.dart';
 import 'package:techtime/Controllers/repositories/Auth/repository.dart';
+import 'package:techtime/Controllers/repositories/user/repository.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/themes/dark_theme.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
+import 'package:techtime/Helpers/utils/custom_snackbar.dart';
+import 'package:techtime/models/client_profile.dart';
+import 'package:techtime/models/user.dart';
 import 'package:techtime/screens/Client/contact/contact_us.dart';
 import 'package:techtime/screens/Client/profileEdit/profile_edit.dart';
 import 'package:techtime/screens/Client/walletScreen/wallet_screen.dart';
+import 'package:techtime/screens/Core/startupViews/language_selection_page.dart';
+import 'package:techtime/screens/Core/startupViews/loginScreen/login_page.dart';
 
-class ProfileControls extends StatelessWidget {
+class ProfileControls extends StatefulWidget {
   ProfileControls({
     Key key,
   }) : super(key: key);
 
   @override
+  _ProfileControlsState createState() => _ProfileControlsState();
+}
+
+class _ProfileControlsState extends State<ProfileControls> {
+  Snackbar _snackBar = Snackbar();
+  ClientProfile _clientProfile;
+
+  getData() async {
+    _clientProfile = await USerRepo().getProfileData();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    User _currentUser = Provider.of<CurrentUserProvider>(context).currentUser;
     var appTheme = Provider.of<ThemeModel>(context);
     ThemeData _theme = Theme.of(context);
     return Expanded(
@@ -34,14 +55,23 @@ class ProfileControls extends StatelessWidget {
                   leading: Icons.person_outline_rounded,
                   title: AppLocalizations.of(context)
                       .translate("profile")
-                      .toUpperCase(),
-                  onTap: () =>
-                      Navigator.pushNamed(context, ProfileEdit.routeName)),
+                      .toUpperCase(), onTap: () {
+                if (_currentUser != null) {
+                  Navigator.pushNamed(context, ProfileEdit.routeName,
+                      arguments: _clientProfile);
+                } else {
+                  _showToast(context);
+                }
+              }),
               //Wallet
               buildProfileListTile(context, _theme,
-                  leading: Icons.account_balance_wallet,
-                  onTap: () =>
-                      Navigator.pushNamed(context, WalletScreen.routeName),
+                  leading: Icons.account_balance_wallet, onTap: () {
+                if (_currentUser != null) {
+                  Navigator.pushNamed(context, WalletScreen.routeName);
+                } else {
+                  _showToast(context);
+                }
+              },
                   title: AppLocalizations.of(context)
                       .translate("myWallet")
                       .toUpperCase()),
@@ -83,23 +113,52 @@ class ProfileControls extends StatelessWidget {
               // Signup or signout
               //
               ProfileListTile(
-                  onTap: () => AuthRepo().logout(),
+                  onTap: () async {
+                    if (_currentUser != null) {
+                      bool logOut = await buildShowDialog(
+                          context, AppLocalizations.of(context));
+                      if (logOut) _logout(context);
+                    } else {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, LoginPage.routeName, (route) => false);
+                    }
+                  },
                   leading: Icon(
                     Icons.exit_to_app_outlined,
                     size: 30,
                   ),
                   // trailing: trailing,
-                  title: Text(
-                    AppLocalizations.of(context)
-                        .translate("signOut")
-                        .toUpperCase(),
-                    style: _theme.textTheme.subtitle2,
-                  ))
+                  title: buildLoginLogoutText(_currentUser, context, _theme))
             ],
           ),
         ),
       ),
     );
+  }
+
+  Text buildLoginLogoutText(
+      User _currentUser, BuildContext context, ThemeData _theme) {
+    return Text(
+      _currentUser != null
+          ? AppLocalizations.of(context).translate("signOut").toUpperCase()
+          : "${AppLocalizations.of(context).translate("login").toUpperCase()} / ${AppLocalizations.of(context).translate("signup").toUpperCase()}",
+      style: _theme.textTheme.subtitle2,
+    );
+  }
+
+  _logout(context) {
+    AuthRepo().logout();
+    Navigator.pushNamedAndRemoveUntil(
+        context, LanguageSelectionPage.routeName, (route) => false);
+  }
+
+  _showToast(context) {
+    Fluttertoast.showToast(
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_LONG,
+        msg: AppLocalizations.of(context).translate("please_login_first"));
   }
 
   Future<void> _chooseLanguage(context) async {
@@ -149,6 +208,45 @@ class ProfileControls extends StatelessWidget {
           title ?? "",
           style: _theme.textTheme.subtitle2,
         ));
+  }
+
+  Future<bool> buildShowDialog(
+      BuildContext context, AppLocalizations _translator) {
+    return showDialog<bool>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(_translator.translate("confirm_signout")),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                RaisedButton(
+                  child: Text(
+                    _translator.translate("confirm"),
+                    style: Theme.of(context).textTheme.button,
+                  ),
+                  onPressed: () => Navigator.pop(context, true),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                RaisedButton(
+                  onPressed: () => Navigator.pop(context, false),
+                  child: Text(
+                    _translator.translate("cancel"),
+                    style: Theme.of(context)
+                        .textTheme
+                        .button
+                        .copyWith(color: KPrimaryColor),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }
 
