@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/cubits/LocaleCubit/locale_cubit.dart';
+import 'package:techtime/Controllers/repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
@@ -48,7 +49,7 @@ class ProfileControls extends StatelessWidget {
               buildProfileListTile(
                 context,
                 _theme,
-                onTap: () => _askedToLead(context),
+                onTap: () => _chooseLanguage(context),
                 leading: Icons.language,
                 title: AppLocalizations.of(context)
                     .translate("language")
@@ -80,11 +81,20 @@ class ProfileControls extends StatelessWidget {
                   onTap: () =>
                       Navigator.pushNamed(context, ContactUS.routeName)),
               // Signup or signout
-              buildProfileListTile(context, _theme,
-                  leading: Icons.exit_to_app_outlined,
-                  title: AppLocalizations.of(context)
-                      .translate("signOut")
-                      .toUpperCase()),
+              //
+              ProfileListTile(
+                  onTap: () => AuthRepo().logout(),
+                  leading: Icon(
+                    Icons.exit_to_app_outlined,
+                    size: 30,
+                  ),
+                  // trailing: trailing,
+                  title: Text(
+                    AppLocalizations.of(context)
+                        .translate("signOut")
+                        .toUpperCase(),
+                    style: _theme.textTheme.subtitle2,
+                  ))
             ],
           ),
         ),
@@ -92,7 +102,7 @@ class ProfileControls extends StatelessWidget {
     );
   }
 
-  Future<void> _askedToLead(context) async {
+  Future<void> _chooseLanguage(context) async {
     switch (await showDialog(
         context: context,
         builder: (BuildContext context) {

@@ -13,6 +13,7 @@ import 'package:techtime/screens/Core/search_screen.dart';
 import 'package:techtime/screens/Core/startupViews/emailForgetPassworProcess/email_confirm_code.dart';
 import 'package:techtime/screens/Core/startupViews/emailForgetPassworProcess/email_forget_password.dart';
 import 'package:techtime/screens/Core/startupViews/loginScreen/login_page.dart';
+import 'package:techtime/screens/company/company_placeholder.dart';
 import 'package:techtime/widgets/core/gallery_view.dart';
 
 import 'screens/Client/Categories/client_categories_screen.dart';
@@ -33,7 +34,7 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => SplashScreen());
-      case '/languageSelection':
+      case LanguageSelectionPage.routeName:
         return PageTransition(
             type: PageTransitionType.leftToRight,
             duration: Duration(milliseconds: 600),
@@ -84,6 +85,11 @@ class RouteGenerator {
           builder: (_) => CompanyProfile(
             company: args,
           ),
+        );
+      case CompanyPlaceholder.routeName:
+        return CupertinoPageRoute(
+          fullscreenDialog: true,
+          builder: (_) => CompanyPlaceholder(),
         );
       case BranchProfile.routeName:
         return CupertinoPageRoute(

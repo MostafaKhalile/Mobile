@@ -15,7 +15,6 @@ import 'package:techtime/models/user.dart';
 class AuthRepo {
   PreferenceUtils _prefs;
   AuthApiClient _apiClient;
-  User _user;
   final _controller = StreamController<AuthenticationStatus>();
 
   Stream<AuthenticationStatus> get status async* {
@@ -37,6 +36,7 @@ class AuthRepo {
       final User user = User.fromJson(data);
       if (data["status"] == 201) {
         _saveUserToken(user.token);
+        _saveCurrentUser(user.toJson());
         print(user.token);
       } else {
         print(user.message);
@@ -45,6 +45,19 @@ class AuthRepo {
     } catch (e) {
       print(e);
       final message = e;
+      return Future.error(message);
+    }
+  }
+
+  Future<bool> logout() async {
+    try {
+      {
+        await _removeUserLocalData();
+        return true;
+      }
+    } catch (e) {
+      print(e);
+      final message = e["message"];
       return Future.error(message);
     }
   }
@@ -58,10 +71,32 @@ class AuthRepo {
     return userResp;
   }
 
-  Future<UserRole> userType() async {
+  User get currentUser {
+    final userResp = _prefs.getValueWithKey(NetworkConstants.currentUser,
+        hideDebugPrint: true);
+    if (userResp == null) {
+      return null;
+    }
+    print(User.fromJson(jsonDecode(userResp)).toString());
+    return User.fromJson(jsonDecode(userResp));
+  }
+
+  Future<void> _removeUserLocalData() async {
+    try {
+      return _prefs.removeMultipleValuesWithKeys([
+        NetworkConstants.currentUser,
+        NetworkConstants.currentUserToken,
+      ]);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  UserRole get userType {
     UserRole role;
-    if (_user != null) {
-      role = UserRole.client;
+    if (currentUser != null) {
+      if (currentUser.accountTypeUser == 3) role = UserRole.company;
+      if (currentUser.accountTypeUser == 4) role = UserRole.client;
     }
     return role;
   }
@@ -69,6 +104,11 @@ class AuthRepo {
   Future<bool> _saveUserToken(String token) async {
     return _prefs.saveValueWithKey<String>(
         NetworkConstants.currentUserToken, token);
+  }
+
+  Future<bool> _saveCurrentUser(Map<String, dynamic> user) async {
+    return _prefs.saveValueWithKey<String>(
+        NetworkConstants.currentUser, jsonEncode(user));
   }
 
   void dispose() => _controller.close();

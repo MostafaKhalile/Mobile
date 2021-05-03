@@ -6,8 +6,10 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:techtime/Controllers/repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
+import 'package:techtime/Helpers/enums.dart';
 import 'package:techtime/screens/Client/home_page.dart';
-import 'package:techtime/screens/Core/startupViews/loginScreen/login_page.dart';
+import 'package:techtime/screens/Core/startupViews/language_selection_page.dart';
+import 'package:techtime/screens/company/company_placeholder.dart';
 
 import '../../../main.dart';
 
@@ -18,11 +20,13 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   bool _isSignedIn;
+  UserRole _userRole;
   AuthRepo _authRepo;
   @override
   void initState() {
     _authRepo = AuthRepo();
     _isSignedIn = _authRepo.currentUserToken != null;
+    _userRole = _authRepo.userType;
     FirebaseMessaging.instance
         .getInitialMessage()
         .then((RemoteMessage message) {
@@ -32,7 +36,11 @@ class _SplashScreenState extends State<SplashScreen> {
       Future.delayed(Duration(seconds: 1), () async {
         Navigator.pushNamed(
           context,
-          _isSignedIn ? ClientHomePage.routeName : LoginPage.routeName,
+          _isSignedIn
+              ? _userRole == UserRole.client
+                  ? ClientHomePage.routeName
+                  : CompanyPlaceholder.routeName
+              : LanguageSelectionPage.routeName,
         );
       });
       super.initState();
@@ -51,8 +59,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 channel.id,
                 channel.name,
                 channel.description,
-                // TODO add a proper drawable resource to android, for now using
-                //      one that already exists in example app.
                 icon: 'launch_background',
               ),
             ));

@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techtime/Controllers/blocs/core/Auth/authantication_bloc.dart';
 import 'package:techtime/Controllers/repositories/Auth/repository.dart';
+import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/enums.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/utils/custom_snackbar.dart';
 import 'package:techtime/Helpers/utils/keyboard_unit.dart';
 import 'package:techtime/Helpers/validation.dart';
 import 'package:techtime/screens/Client/home_page.dart';
+import 'package:techtime/screens/company/company_placeholder.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
 
 class EmailPasswordLoginForm extends StatefulWidget {
@@ -21,7 +24,8 @@ class EmailPasswordLoginForm extends StatefulWidget {
 class _EmailPasswordLoginFormState extends State<EmailPasswordLoginForm> {
   Validator _validator = Validator();
   Snackbar _snackbar = Snackbar();
-
+  UserRole _userRole;
+  AuthRepo _authRepo = AuthRepo();
   final _formKey = GlobalKey<FormState>();
 
   final _emailController = TextEditingController();
@@ -52,8 +56,14 @@ class _EmailPasswordLoginFormState extends State<EmailPasswordLoginForm> {
         KeyboardUtil.hideKeyboard(context);
         _snackbar.showSnackBar(context, state.message);
       } else if (state is LoginSuccesseded) {
-        Navigator.pushNamedAndRemoveUntil(
-            context, ClientHomePage.routeName, (route) => false);
+        _userRole = _authRepo.userType;
+
+        if (_userRole == UserRole.client)
+          Navigator.pushNamedAndRemoveUntil(
+              context, ClientHomePage.routeName, (route) => false);
+        if (_userRole == UserRole.company)
+          Navigator.pushNamedAndRemoveUntil(
+              context, CompanyPlaceholder.routeName, (route) => false);
       }
     }, builder: (context, state) {
       return Expanded(
@@ -114,33 +124,44 @@ class _EmailPasswordLoginFormState extends State<EmailPasswordLoginForm> {
                   Container(
                       width: MediaQuery.of(context).size.width * 0.8,
                       // ignore: deprecated_member_use
-                      child: RaisedButton(
-                        onPressed: () async {
-                          if (_formKey.currentState.validate()) {
-                            _formKey.currentState.save();
-                            BlocProvider.of<AuthanticationBloc>(context).add(
-                                StartLogin(_emailController.text,
-                                    _passwordController.text));
-                          }
+                      child:
+                          BlocBuilder<AuthanticationBloc, AuthanticationState>(
+                        builder: (context, state) {
+                          return RaisedButton(
+                            onPressed: state is LoginInProgress
+                                ? null
+                                : () async {
+                                    if (_formKey.currentState.validate()) {
+                                      _formKey.currentState.save();
+                                      KeyboardUtil.hideKeyboard(context);
+                                      BlocProvider.of<AuthanticationBloc>(
+                                              context)
+                                          .add(StartLogin(_emailController.text,
+                                              _passwordController.text));
+                                    }
+                                  },
+                            disabledColor: KDarkGreyColor,
+                            child: BlocBuilder<AuthanticationBloc,
+                                AuthanticationState>(
+                              builder: (context, state) {
+                                if (state is LoginInProgress) {
+                                  return SizedBox(
+                                    height: 10,
+                                    width: 10,
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  );
+                                }
+                                return Text(
+                                  AppLocalizations.of(context)
+                                      .translate('login'),
+                                  style: Theme.of(context).textTheme.button,
+                                );
+                              },
+                            ),
+                          );
                         },
-                        child: BlocBuilder<AuthanticationBloc,
-                            AuthanticationState>(
-                          builder: (context, state) {
-                            if (state is LoginInProgress) {
-                              return SizedBox(
-                                height: 10,
-                                width: 10,
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              );
-                            }
-                            return Text(
-                              AppLocalizations.of(context).translate('login'),
-                              style: Theme.of(context).textTheme.button,
-                            );
-                          },
-                        ),
                       )),
                 ],
               ),

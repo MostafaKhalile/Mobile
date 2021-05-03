@@ -21,6 +21,7 @@ import 'Controllers/blocs/client/companyProfileBloc/company_profile_bloc.dart';
 import 'Controllers/blocs/core/Auth/authantication_bloc.dart';
 import 'Controllers/cubits/LocaleCubit/locale_cubit.dart';
 import 'Controllers/cubits/NetworkCubit/internet_cubit.dart';
+import 'Controllers/providers/current_user_provider.dart';
 import 'Controllers/repositories/authentication_repository.dart';
 import 'Controllers/repositories/client/companies/companies_repository.dart';
 import 'Controllers/repositories/client/home/user_home_repo.dart';
@@ -104,50 +105,59 @@ class MyApp extends StatelessWidget {
     precacheImage(AssetImage("assets/images/splashscreen.png"), context);
     APIClientHomeRepository apiClientHomeRepository = APIClientHomeRepository();
     APICompaniesRepository apiCompaniesRepository = APICompaniesRepository();
-    return MultiBlocProvider(
+    return MultiProvider(
         providers: [
-          BlocProvider<InternetCubit>(
-            create: (internetCubitContext) =>
-                InternetCubit(connectivity: connectivity),
-          ),
-          BlocProvider(
-              create: (_) => AuthanticationBloc(
-                    authRepo: AuthRepo(),
-                  )),
-          BlocProvider(create: (context) => AdsBloc(apiClientHomeRepository)),
-          BlocProvider(
-              create: (context) => CategoriesBloc(apiClientHomeRepository)),
-          BlocProvider(
-              create: (context) =>
-                  RecommendedcompaniesBloc(apiClientHomeRepository)),
-          BlocProvider(
-              create: (context) => LeastcompaniesBloc(apiClientHomeRepository)),
-          BlocProvider(
-              create: (context) => CompanieslistBloc(apiCompaniesRepository)),
-          BlocProvider(
-              create: (context) => CompanyProfileBloc(apiCompaniesRepository)),
-          BlocProvider<LocaleCubit>(create: (_) => LocaleCubit()),
+          ChangeNotifierProvider(
+              create: (context) => CurrentUserProvider()..loadCurrentUser()),
         ],
-        child: BlocBuilder<LocaleCubit, LocaleState>(
-          buildWhen: (previousState, currentState) =>
-              previousState != currentState,
-          builder: (_, localeState) {
-            return MaterialApp(
-                locale: localeState.locale,
-                supportedLocales: [
-                  Locale('en', 'US'),
-                  Locale('ar', ''),
-                ],
-                localizationsDelegates: [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                ],
-                title: KAppName,
-                theme: Provider.of<ThemeModel>(context).currentTheme,
-                initialRoute: '/',
-                onGenerateRoute: appRouter.generateRoute);
-          },
-        ));
+        child: MultiBlocProvider(
+            providers: [
+              BlocProvider<InternetCubit>(
+                create: (internetCubitContext) =>
+                    InternetCubit(connectivity: connectivity),
+              ),
+              BlocProvider(
+                  create: (_) => AuthanticationBloc(
+                        authRepo: AuthRepo(),
+                      )),
+              BlocProvider(
+                  create: (context) => AdsBloc(apiClientHomeRepository)),
+              BlocProvider(
+                  create: (context) => CategoriesBloc(apiClientHomeRepository)),
+              BlocProvider(
+                  create: (context) =>
+                      RecommendedcompaniesBloc(apiClientHomeRepository)),
+              BlocProvider(
+                  create: (context) =>
+                      LeastcompaniesBloc(apiClientHomeRepository)),
+              BlocProvider(
+                  create: (context) =>
+                      CompanieslistBloc(apiCompaniesRepository)),
+              BlocProvider(
+                  create: (context) =>
+                      CompanyProfileBloc(apiCompaniesRepository)),
+              BlocProvider<LocaleCubit>(create: (_) => LocaleCubit()),
+            ],
+            child: BlocBuilder<LocaleCubit, LocaleState>(
+              buildWhen: (previousState, currentState) =>
+                  previousState != currentState,
+              builder: (_, localeState) {
+                return MaterialApp(
+                    locale: localeState.locale,
+                    supportedLocales: [
+                      Locale('en', 'US'),
+                      Locale('ar', ''),
+                    ],
+                    localizationsDelegates: [
+                      AppLocalizations.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                    ],
+                    title: KAppName,
+                    theme: Provider.of<ThemeModel>(context).currentTheme,
+                    initialRoute: '/',
+                    onGenerateRoute: appRouter.generateRoute);
+              },
+            )));
   }
 }

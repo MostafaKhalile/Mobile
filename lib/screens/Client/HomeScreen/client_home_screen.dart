@@ -7,12 +7,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/Controllers/blocs/client/categorisBloc/categories_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
+import 'package:techtime/Controllers/providers/current_user_provider.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/themes/dark_theme.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/Helpers/utils/custom_snackbar.dart';
+import 'package:techtime/models/user.dart';
 import 'package:techtime/screens/Core/notifications/notifications.dart';
 import 'package:techtime/screens/Core/search_screen.dart';
 import 'package:techtime/widgets/client/carousel.dart';
@@ -42,8 +44,16 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     final leastCompniesBloc = context.read<LeastcompaniesBloc>();
     leastCompniesBloc.add(GetLeastCompanies());
     categoriesBloc.add(GetCatgories());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        _currentUser = Provider.of<CurrentUserProvider>(context, listen: false)
+            .loadCurrentUser();
+      });
+    });
     super.initState();
   }
+
+  User _currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +63,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: buildAppBar(context, appTheme, _translator),
+      appBar: buildAppBar(context, appTheme, _translator, _currentUser),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 30),
@@ -280,14 +290,15 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     return Wrap(children: [CarouselWithIndicator()]);
   }
 
-  Widget buildAppBar(
-      BuildContext context, ThemeModel appTheme, AppLocalizations _translator) {
+  Widget buildAppBar(BuildContext context, ThemeModel appTheme,
+      AppLocalizations _translator, User _currentUser) {
     return AppBar(
       backgroundColor: Theme.of(context).primaryColorDark,
       centerTitle: false,
       elevation: 0,
       automaticallyImplyLeading: false,
-      title: Text("${_translator.translate('hello')} User",
+      title: Text(
+          "${_translator.translate('hello')}${_currentUser?.name ?? ""} ",
           style: Theme.of(context)
               .textTheme
               .headline5

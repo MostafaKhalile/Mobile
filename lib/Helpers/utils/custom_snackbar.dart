@@ -11,21 +11,30 @@ class Snackbar {
             // Some code to undo the change.
           },
         ),
-        content: Container(
-          child: Wrap(children: <Widget>[
-            Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: Text(
-                  message,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w400,
+        content: Row(
+          children: <Widget>[
+            Wrap(
+              children: <Widget>[
+                ClipRRect(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Text(
+                      message,
+                      overflow: TextOverflow.clip,
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
                   ),
-                ))
-          ]),
+                )
+              ],
+            ),
+          ],
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
         ),
         duration: Duration(seconds: 5),
         backgroundColor: KErrorColor));

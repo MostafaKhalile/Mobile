@@ -20,7 +20,7 @@ class AuthanticationBloc
     AuthanticationEvent event,
   ) async* {
     if (event is StartLogin) {
-      yield LoginInProgress(key: UniqueKey());
+      yield LoginInProgress();
       try {
         // ignore: unused_local_variable
         final result = await authRepo.loginUser(event.email, event.password);
