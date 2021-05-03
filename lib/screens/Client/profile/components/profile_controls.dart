@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/cubits/LocaleCubit/locale_cubit.dart';
 import 'package:techtime/Controllers/providers/current_user_provider.dart';
 import 'package:techtime/Controllers/repositories/Auth/repository.dart';
-import 'package:techtime/Controllers/repositories/user/repository.dart';
+import 'package:techtime/Controllers/repositories/client/user/repository.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
@@ -33,10 +33,6 @@ class _ProfileControlsState extends State<ProfileControls> {
   Snackbar _snackBar = Snackbar();
   ClientProfile _clientProfile;
 
-  getData() async {
-    _clientProfile = await USerRepo().getProfileData();
-  }
-
   @override
   Widget build(BuildContext context) {
     User _currentUser = Provider.of<CurrentUserProvider>(context).currentUser;
@@ -57,8 +53,10 @@ class _ProfileControlsState extends State<ProfileControls> {
                       .translate("profile")
                       .toUpperCase(), onTap: () {
                 if (_currentUser != null) {
-                  Navigator.pushNamed(context, ProfileEdit.routeName,
-                      arguments: _clientProfile);
+                  Navigator.pushNamed(
+                    context,
+                    ProfileEdit.routeName,
+                  );
                 } else {
                   _showToast(context);
                 }

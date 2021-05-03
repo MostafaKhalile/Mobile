@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/models/user.dart';
+import 'package:techtime/models/client_profile.dart';
 
 class ProfileCoverAndImage extends StatelessWidget {
   const ProfileCoverAndImage({
     Key key,
     @required Decoration imagePikerDecoration,
-    @required this.currentUser,
+    @required this.userData,
   })  : _imagePikerDecoration = imagePikerDecoration,
         super(key: key);
-  final User currentUser;
+  final ClientProfile userData;
   final Decoration _imagePikerDecoration;
 
   @override
@@ -22,9 +22,9 @@ class ProfileCoverAndImage extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
           image: DecorationImage(
-        image: currentUser?.coverImage != null
+        image: userData?.coverImage != null
             ? NetworkImage(
-                KAPIURL + currentUser.coverImage,
+                KAPIURL + userData.coverImage,
               )
             : AssetImage(KPlaceHolderCover),
         fit: BoxFit.fill,

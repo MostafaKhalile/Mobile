@@ -1,8 +1,9 @@
 import 'dart:convert';
 
-import 'package:techtime/Controllers/repositories/user/api_client.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
 import 'package:techtime/models/client_profile.dart';
+
+import 'api_client.dart';
 
 class USerRepo {
   PreferenceUtils _prefs;
@@ -18,14 +19,12 @@ class USerRepo {
       final dataResp = (await _apiClient.getProfileData());
       final data = json.decode(dataResp)['Data'] as Map;
       final ClientProfile profileData = ClientProfile.fromJson(data);
-      if (data["status"] == 201) {
-        print(profileData);
+      if (json.decode(dataResp)['status'] == 201) {
       } else {
-        print(profileData);
+        return Future.error(json.decode(dataResp));
       }
       return profileData;
     } catch (e) {
-      print(e);
       final message = e;
       return Future.error(message);
     }

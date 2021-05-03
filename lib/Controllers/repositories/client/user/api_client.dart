@@ -25,7 +25,6 @@ class ClientApiClient {
       print(
           "[Login User] status message: #${resp.statusCode}, status code: #${resp.statusCode}");
       if (resp.statusCode == 200) {
-        print(resp.body);
         return decoded;
       } else {
         print(
@@ -35,11 +34,7 @@ class ClientApiClient {
       }
     } catch (e) {
       if (e.response != null) {
-        print(e.response.data);
-        print(e.response.headers);
-      } else {
-        print(e.message);
-      }
+      } else {}
       return Future.error("error");
     }
   }

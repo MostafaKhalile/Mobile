@@ -8,8 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
+import 'package:techtime/Controllers/blocs/client/profileBloc/profile_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
 import 'package:techtime/Controllers/repositories/Auth/repository.dart';
+import 'package:techtime/Controllers/repositories/client/user/repository.dart';
 import 'package:techtime/Helpers/localization/app_language_model.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/route_generator.dart';
@@ -100,6 +102,7 @@ class MyApp extends StatelessWidget {
     precacheImage(AssetImage("assets/images/splashscreen.png"), context);
     APIClientHomeRepository apiClientHomeRepository = APIClientHomeRepository();
     APICompaniesRepository apiCompaniesRepository = APICompaniesRepository();
+    USerRepo userRepo = USerRepo();
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
@@ -115,6 +118,7 @@ class MyApp extends StatelessWidget {
                   create: (_) => AuthanticationBloc(
                         authRepo: AuthRepo(),
                       )),
+              BlocProvider(create: (context) => ProfileBloc(userRepo)),
               BlocProvider(
                   create: (context) => AdsBloc(apiClientHomeRepository)),
               BlocProvider(

@@ -32,7 +32,6 @@ class AuthApiClient {
       final decoded = utf8.decode(resp.bodyBytes);
 
       if (resp.statusCode == 200) {
-        print(resp.body);
         return decoded;
       } else {
         print(
@@ -42,11 +41,7 @@ class AuthApiClient {
       }
     } catch (e) {
       if (e.response != null) {
-        print(e.response.data);
-        print(e.response.headers);
-      } else {
-        print(e.message);
-      }
+      } else {}
       return Future.error("error");
     }
   }

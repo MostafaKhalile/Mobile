@@ -30,13 +30,9 @@ class AuthRepo {
       if (data["status"] == 201) {
         _saveUserToken(user.token);
         _saveCurrentUser(user.toJson());
-        print(user.token);
-      } else {
-        print(user.message);
-      }
+      } else {}
       return user;
     } catch (e) {
-      print(e);
       final message = e;
       return Future.error(message);
     }
