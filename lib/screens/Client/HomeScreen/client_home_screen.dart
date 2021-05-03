@@ -44,19 +44,14 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     final leastCompniesBloc = context.read<LeastcompaniesBloc>();
     leastCompniesBloc.add(GetLeastCompanies());
     categoriesBloc.add(GetCatgories());
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        _currentUser = Provider.of<CurrentUserProvider>(context, listen: false)
-            .loadCurrentUser();
-      });
-    });
+
     super.initState();
   }
 
-  User _currentUser;
-
   @override
   Widget build(BuildContext context) {
+    User _currentUser =
+        Provider.of<CurrentUserProvider>(context, listen: false).currentUser;
     var appTheme = Provider.of<ThemeModel>(context);
     AppLocalizations _translator = AppLocalizations.of(context);
     Snackbar _snackBar = Snackbar();

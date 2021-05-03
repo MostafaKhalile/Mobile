@@ -35,7 +35,7 @@ class _BranchServicesState extends State<BranchServices> {
                   itemBuilder: (Checkbox cb, Text txt, int i) {
                     return Container(
                       width: _size.width,
-                      padding: EdgeInsets.symmetric(
+                      margin: EdgeInsets.symmetric(
                           vertical: KDefaultPadding / 2, horizontal: 5),
                       child: Card(
                         elevation: 10,
@@ -47,14 +47,14 @@ class _BranchServicesState extends State<BranchServices> {
                                 Container(
                                   height: 80,
                                   width: 80,
-                                  margin: EdgeInsets.all(KDefaultPadding / 2),
+                                  margin: EdgeInsets.all(KDefaultPadding / 4),
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: AssetImage(KPlaceHolderImage)),
                                       borderRadius: BorderRadius.circular(
                                           KdefaultRadius)),
                                 ),
-                                HorizontalGap(width: KDefaultPadding / 2),
+                                HorizontalGap(width: KDefaultPadding / 4),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -113,7 +113,7 @@ class _BranchServicesState extends State<BranchServices> {
                                     ),
                                   ],
                                 ),
-                                Spacer(),
+                                // Spacer(),
                                 cb
                               ],
                             )
