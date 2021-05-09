@@ -3,6 +3,9 @@ import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 
+import 'next_appointments.dart';
+import 'previous_appointments.dart';
+
 class ScheduleScreen extends StatefulWidget {
   static const String routeName = "/schedule_screen";
   @override
@@ -58,6 +61,13 @@ class _ScheduleScreenState extends State<ScheduleScreen>
               text: _translator.translate("previous_appointments"),
             ),
           ],
+        ),
+      ),
+      body: SizedBox(
+        width: double.infinity,
+        child: TabBarView(
+          controller: _controller,
+          children: <Widget>[NextAppointments(), PreviousAppointments()],
         ),
       ),
     );

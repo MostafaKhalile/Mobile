@@ -91,5 +91,7 @@
     "please_enter_email_or_mobile": "Please enter E-mail  or mobile",
     "please_enter_valid_email": "Please enter a valid E-mail address",
     "please_enter_valid_email_or_mobile": "Please enter a valid E-mail address or mobile number",
-    "We_will_send_verification_code_to": "We will send verification code to"
+    "We_will_send_verification_code_to": "We will send verification code to",
+    "are_sure_to_cancel_appointment": "Are you sure to cancel the appointment?",
+    "book_again": "book again"
 }

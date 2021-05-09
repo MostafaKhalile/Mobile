@@ -1,4 +1,5 @@
 import 'package:badges/badges.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -362,18 +363,29 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
         Padding(
           padding: const EdgeInsets.all(KDefaultPadding / 8),
           child: IconButton(
-            icon: Badge(
-                badgeContent: Text('2'),
-                animationType: BadgeAnimationType.slide,
-                toAnimate: true,
-                child: Icon(
-                  Icons.notifications_none_outlined,
-                  // size: 26,
-                  color: Theme.of(context).iconTheme.color,
-                )),
-            onPressed: () =>
-                Navigator.pushNamed(context, Notifications.routeName),
-          ),
+              icon: _currentUser != null
+                  ? Badge(
+                      badgeContent: Text('2'),
+                      animationType: BadgeAnimationType.slide,
+                      toAnimate: true,
+                      child: Icon(
+                        Icons.notifications_none_outlined,
+                        // size: 26,
+                        color: Theme.of(context).iconTheme.color,
+                      ))
+                  : Icon(
+                      Icons.notifications_none_outlined,
+                      // size: 26,
+                      color: Theme.of(context).iconTheme.color,
+                    ),
+              onPressed: () {
+                if (_currentUser != null) {
+                  Navigator.pushNamed(context, Notifications.routeName);
+                } else {
+                  Fluttertoast.showToast(
+                      msg: _translator.translate("please_login_first"));
+                }
+              }),
         ),
         Padding(
           padding: const EdgeInsets.all(KDefaultPadding / 8),
