@@ -61,9 +61,10 @@ class _CompanyProfileState extends State<CompanyProfile> {
                       if (state is CompanyProfileFinished) {
                         return Container(
                           child: ListView.builder(
-                            itemCount: state.companyBranches.length,
+                            itemCount:
+                                state.companyProfile.companyBranches.length,
                             itemBuilder: (context, i) => BranchListTile(
-                              branche: state.companyBranches[i],
+                              branche: state.companyProfile.companyBranches[i],
                               onTap: () => Navigator.pushNamed(
                                   context, SalonProfile.routeName),
                             ),

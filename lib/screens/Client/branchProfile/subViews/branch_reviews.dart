@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:techtime/Controllers/cubits/LocaleCubit/locale_cubit.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/widgets/client/custom_circle_avatar.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
@@ -11,6 +13,7 @@ class BranchReviews extends StatelessWidget {
     // AppLocalizations _translator = AppLocalizations.of(context);
     ThemeData _theme = Theme.of(context);
     Size _size = MediaQuery.of(context).size;
+    Locale locale = BlocProvider.of<LocaleCubit>(context).state.locale;
 
     return SizedBox(
       width: double.infinity,
@@ -28,7 +31,9 @@ class BranchReviews extends StatelessWidget {
               child: Stack(
                 children: [
                   Align(
-                      alignment: Alignment.topLeft,
+                      alignment: locale == Locale('ar')
+                          ? Alignment.topLeft
+                          : Alignment.topRight,
                       child: Text(
                         '18-5-2020',
                         style: _theme.textTheme.subtitle1,

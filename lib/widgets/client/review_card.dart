@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:techtime/Controllers/cubits/LocaleCubit/locale_cubit.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
@@ -18,8 +20,9 @@ class ReviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Locale locale = BlocProvider.of<LocaleCubit>(context).state.locale;
     return Container(
-      width: _size.width * 0.8,
+      width: _size.width * 0.9,
       child: Card(
         elevation: 10,
         child: Padding(
@@ -27,7 +30,9 @@ class ReviewCard extends StatelessWidget {
           child: Stack(
             children: [
               Align(
-                  alignment: Alignment.topLeft,
+                  alignment: locale == Locale('ar')
+                      ? Alignment.topLeft
+                      : Alignment.topRight,
                   child: Text(
                     '18-5-2020',
                     style: _theme.textTheme.subtitle1,

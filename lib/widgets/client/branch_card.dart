@@ -27,6 +27,7 @@ class BranchCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData _theme = Theme.of(context);
+    Size _size = MediaQuery.of(context).size;
     AppLocalizations _translator = AppLocalizations.of(context);
     return Card(
       margin: EdgeInsets.only(bottom: KDefaultPadding),
@@ -69,6 +70,7 @@ class BranchCard extends StatelessWidget {
                       Row(
                         children: [
                           Container(
+                            width: _size.width * 0.5,
                             child: Text(
                               address,
                               style: _theme.textTheme.subtitle1,
@@ -96,14 +98,16 @@ class BranchCard extends StatelessWidget {
                           ),
                           Spacer(),
                           // ignore: deprecated_member_use
-                          RaisedButton(
-                            color: KSecondryColor,
-                            child: Text(_translator.translate("book_now")),
+                          TextButton(
+                            child: Text(
+                              _translator.translate("show_more"),
+                              style: _theme.textTheme.subtitle2,
+                            ),
+                            style: ButtonStyle(
+                                foregroundColor: MaterialStateColor.resolveWith(
+                                    (states) => KPrimaryColor)),
                             onPressed: () => Navigator.pushNamed(
                                 context, SalonProfile.routeName),
-                            shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(15),
-                            ),
                           ),
                         ],
                       ),

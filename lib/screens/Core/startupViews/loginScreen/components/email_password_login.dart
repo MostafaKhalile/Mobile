@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/blocs/core/Auth/authantication_bloc.dart';
+import 'package:techtime/Controllers/providers/current_user_provider.dart';
 import 'package:techtime/Controllers/repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/enums.dart';
@@ -57,7 +59,8 @@ class _EmailPasswordLoginFormState extends State<EmailPasswordLoginForm> {
         _snackbar.showSnackBar(context, state.message);
       } else if (state is LoginSuccesseded) {
         _userRole = _authRepo.userType;
-
+        Provider.of<CurrentUserProvider>(context, listen: false)
+            .loadCurrentUser();
         if (_userRole == UserRole.client)
           Navigator.pushNamedAndRemoveUntil(
               context, ClientHomePage.routeName, (route) => false);

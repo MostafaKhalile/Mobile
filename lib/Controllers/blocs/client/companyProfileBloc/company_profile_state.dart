@@ -12,8 +12,8 @@ class CompanyProfileInitial extends CompanyProfileState {}
 class CompanyProfileLoading extends CompanyProfileState {}
 
 class CompanyProfileFinished extends CompanyProfileState {
-  final List<CompanyBranche> companyBranches;
-  CompanyProfileFinished(this.companyBranches);
+  final CompanyProfile companyProfile;
+  CompanyProfileFinished(this.companyProfile);
 }
 
 class CompanyProfileError extends CompanyProfileState {

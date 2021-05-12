@@ -1,9 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:techtime/Controllers/blocs/client/companyProfileBloc/company_profile_bloc.dart';
+import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/models/client/company.dart';
 import 'package:techtime/widgets/client/custom_circle_avatar.dart';
 import 'package:techtime/widgets/core/gallery_view.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
@@ -16,6 +20,9 @@ import 'subViews/branch_services.dart';
 
 class BranchProfile extends StatefulWidget {
   static const String routeName = "/branch_profile";
+  final Company company;
+
+  const BranchProfile({Key key, this.company}) : super(key: key);
 
   @override
   _BranchProfileState createState() => _BranchProfileState();
@@ -23,40 +30,56 @@ class BranchProfile extends StatefulWidget {
 
 class _BranchProfileState extends State<BranchProfile>
     with SingleTickerProviderStateMixin {
-  final List imgList = [
-    KPlaceHolderCover,
-  ];
+  List<String> imgList = [];
   TabController _controller;
   @override
   void initState() {
-    super.initState();
     _controller = TabController(length: 4, vsync: this);
+    BlocProvider.of<CompanyProfileBloc>(context)
+        .add(GetCompanyProfile(widget.company.companyId));
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     AppLocalizations _translator = AppLocalizations.of(context);
+    Size _size = MediaQuery.of(context).size;
     return Scaffold(
         body: Column(children: <Widget>[
       Expanded(
         flex: 3,
         child: SizedBox(
-            width: double.infinity,
+            width: _size.width,
             child: Column(
               children: <Widget>[
                 //Image Carousle for Branch View Start
-                CarouselSlider(
-                  options: CarouselOptions(
-                      autoPlay: true,
-                      aspectRatio: 1.9,
-                      enlargeCenterPage: true,
-                      pauseAutoPlayOnTouch: true),
-                  items: imgList
-                      .map((item) => InkWell(
-                          onTap: () => Navigator.pushNamed(
-                              context, GalleryView.routeName),
-                          child: Image.asset(item)))
-                      .toList(),
+                BlocListener<CompanyProfileBloc, CompanyProfileState>(
+                  listener: (context, state) {
+                    if (state is CompanyProfileFinished &&
+                        state.companyProfile.companyBranches.length > 0) {
+                      setState(() {
+                        imgList = [
+                          state.companyProfile.companyData.companyCoverImage
+                        ];
+                      });
+                    }
+                  },
+                  child: CarouselSlider(
+                    options: CarouselOptions(
+                        autoPlay: true,
+                        aspectRatio: 1.9,
+                        enlargeCenterPage: true,
+                        pauseAutoPlayOnTouch: true),
+                    items: imgList
+                        .map((item) => InkWell(
+                            onTap: () => Navigator.pushNamed(
+                                    context, GalleryView.routeName, arguments: {
+                                  'imgList': imgList,
+                                  'companyName': widget.company.companyName
+                                }),
+                            child: Image.network(KAPIURL + item)))
+                        .toList(),
+                  ),
                 ),
 
                 //Image Carousle for Branch View End
@@ -64,23 +87,30 @@ class _BranchProfileState extends State<BranchProfile>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    CustomCircleAvatar(
-                      height: 100,
-                      width: 100,
-                      image: null,
-                    ),
+                    Hero(
+                        tag: widget.company.companyName,
+                        child: CustomCircleAvatar(
+                          height: 80,
+                          width: 80,
+                          image: widget.company.logo,
+                        )),
                     HorizontalGap(
                       width: KdefaultPadding / 4,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "companyName",
-                          style: Theme.of(context).textTheme.headline6.copyWith(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              wordSpacing: 3.5),
+                        Container(
+                          width: _size.width * 0.6,
+                          child: Text(
+                            widget.company.companyName,
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1
+                                .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    wordSpacing: 3.5),
+                          ),
                         ),
                         VerticalGap(
                           height: KdefaultPadding / 2,
@@ -102,7 +132,8 @@ class _BranchProfileState extends State<BranchProfile>
                         IconButton(
                             icon: Icon(Icons.share_outlined), onPressed: () {})
                       ],
-                    )
+                    ),
+                    Spacer()
                   ],
                 ),
                 VerticalGap(),

@@ -16,6 +16,7 @@ import 'package:techtime/Helpers/themes/dark_theme.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/Helpers/utils/custom_snackbar.dart';
 import 'package:techtime/models/user.dart';
+import 'package:techtime/screens/Client/Categories/client_categories_screen.dart';
 import 'package:techtime/screens/Core/notifications/notifications.dart';
 import 'package:techtime/screens/Core/search_screen.dart';
 import 'package:techtime/widgets/client/carousel.dart';
@@ -223,7 +224,9 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
             AppLocalizations.of(context).translate('categories'),
             style: Theme.of(context).textTheme.subtitle1,
           ),
-          pressed: () => Navigator.pushNamed(context, "/categoriesPage"),
+          pressed: () => Navigator.pushNamed(
+              context, ClientCategoriesScreen.routeName,
+              arguments: true),
         ),
         SizedBox(
             height: size.height * 0.15,
@@ -310,18 +313,18 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            _translator.translate('yourLocation'),
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle2
-                                .copyWith(color: KDarkGreyColor),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
+                          // Text(
+                          //   _translator.translate('yourLocation'),
+                          //   style: Theme.of(context)
+                          //       .textTheme
+                          //       .subtitle2
+                          //       .copyWith(color: KDarkGreyColor),
+                          // ),
+                          // SizedBox(
+                          //   height: 5,
+                          // ),
                           Row(
                             children: [
                               Row(children: [
@@ -353,12 +356,12 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
                       ),
                     ],
                   ),
-                  VerticalGap(),
-                  HomeSearchBox(),
-                  VerticalGap(),
+                  // VerticalGap(),
+                  // HomeSearchBox(),
+                  // VerticalGap(),
                 ],
               )),
-          preferredSize: Size.fromHeight(150.0)),
+          preferredSize: Size.fromHeight(40.0)),
       actions: [
         Padding(
           padding: const EdgeInsets.all(KDefaultPadding / 8),
@@ -388,16 +391,16 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
               }),
         ),
         Padding(
-          padding: const EdgeInsets.all(KDefaultPadding / 8),
-          child: IconButton(
-            icon: SvgPicture.asset(
-              "assets/svg/calendar.svg",
-              color: Theme.of(context).iconTheme.color,
-              // height: 16,
-            ),
-            onPressed: () {},
-          ),
-        ),
+            padding: const EdgeInsets.all(KDefaultPadding / 8),
+            child: IconButton(
+              icon: Icon(
+                Icons.search,
+                color: Theme.of(context).iconTheme.color,
+                // height: 16,
+              ),
+              onPressed: () =>
+                  Navigator.pushNamed(context, SearchScreen.routeName),
+            )),
         Padding(
           padding: const EdgeInsets.all(KDefaultPadding / 8),
           child: IconButton(
@@ -450,51 +453,51 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
   }
 }
 
-class HomeSearchBox extends StatelessWidget {
-  const HomeSearchBox({
-    Key key,
-  }) : super(key: key);
+// class HomeSearchBox extends StatelessWidget {
+//   const HomeSearchBox({
+//     Key key,
+//   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    AppLocalizations _translator = AppLocalizations.of(context);
-    return InkWell(
-      onTap: () => Navigator.pushNamed(context, SearchScreen.routeName),
-      child: Hero(
-          tag: "SearchBox",
-          child: Material(
-            elevation: 5,
-            borderRadius: BorderRadius.all(Radius.circular(KdefaultRadius)),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Text(_translator.translate("search_place_holder"),
-                        style: Theme.of(context)
-                            .textTheme
-                            .caption
-                            .copyWith(color: Colors.grey[500])),
-                  ),
-                  Spacer(),
-                  Icon(
-                    Icons.filter_alt_outlined,
-                    size: 30,
-                    color: Colors.grey[400],
-                  ),
-                  HorizontalGap(
-                    width: KdefaultPadding / 4,
-                  ),
-                  Icon(
-                    Icons.search,
-                    size: 30,
-                    color: Colors.grey[400],
-                  ),
-                ],
-              ),
-            ),
-          )),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     AppLocalizations _translator = AppLocalizations.of(context);
+//     return InkWell(
+//       onTap: () => Navigator.pushNamed(context, SearchScreen.routeName),
+//       child: Hero(
+//           tag: "SearchBox",
+//           child: Material(
+//             elevation: 5,
+//             borderRadius: BorderRadius.all(Radius.circular(KdefaultRadius)),
+//             child: Padding(
+//               padding: const EdgeInsets.all(8.0),
+//               child: Row(
+//                 children: [
+//                   Padding(
+//                     padding: EdgeInsets.all(8),
+//                     child: Text(_translator.translate("search_place_holder"),
+//                         style: Theme.of(context)
+//                             .textTheme
+//                             .caption
+//                             .copyWith(color: Colors.grey[500])),
+//                   ),
+//                   Spacer(),
+//                   Icon(
+//                     Icons.filter_alt_outlined,
+//                     size: 30,
+//                     color: Colors.grey[400],
+//                   ),
+//                   HorizontalGap(
+//                     width: KdefaultPadding / 4,
+//                   ),
+//                   Icon(
+//                     Icons.search,
+//                     size: 30,
+//                     color: Colors.grey[400],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           )),
+//     );
+//   }
+// }

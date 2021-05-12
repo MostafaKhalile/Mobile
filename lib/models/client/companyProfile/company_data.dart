@@ -1,83 +1,40 @@
-// import 'package:equatable/equatable.dart';
+class CompanyData {
+  double raty;
+  int companyID;
+  String companyName;
+  String companyImage;
+  String companyCoverImage;
+  String categoryAR;
+  String categoryEN;
 
-// class CompanyData extends Equatable {
-//   final double raty;
-//   final int companyId;
-//   final String companyName;
-//   final String companyImage;
-//   final String companyCoverImage;
-//   final String categoryAr;
-//   final String categoryEn;
+  CompanyData(
+      {this.raty,
+      this.companyID,
+      this.companyName,
+      this.companyImage,
+      this.companyCoverImage,
+      this.categoryAR,
+      this.categoryEN});
 
-//   const CompanyData({
-//     this.raty,
-//     this.companyId,
-//     this.companyName,
-//     this.companyImage,
-//     this.companyCoverImage,
-//     this.categoryAr,
-//     this.categoryEn,
-//   });
+  CompanyData.fromJson(Map<String, dynamic> json) {
+    raty = json['raty'];
+    companyID = json['CompanyID'];
+    companyName = json['CompanyName'];
+    companyImage = json['CompanyImage'];
+    companyCoverImage = json['CompanyCoverImage'];
+    categoryAR = json['CategoryAR'];
+    categoryEN = json['CategoryEN'];
+  }
 
-//   @override
-//   String toString() {
-//     return 'CompanyData(raty: $raty, companyId: $companyId, companyName: $companyName, companyImage: $companyImage, companyCoverImage: $companyCoverImage, categoryAr: $categoryAr, categoryEn: $categoryEn)';
-//   }
-
-//   factory CompanyData.fromJson(Map<String, dynamic> json) {
-//     return CompanyData(
-//       raty: json['raty'] as double,
-//       companyId: json['CompanyID'] as int,
-//       companyName: json['CompanyName'] as String,
-//       companyImage: json['CompanyImage'] as String,
-//       companyCoverImage: json['CompanyCoverImage'] as String,
-//       categoryAr: json['CategoryAR'] as String,
-//       categoryEn: json['CategoryEN'] as String,
-//     );
-//   }
-
-//   Map<String, dynamic> toJson() {
-//     return {
-//       'raty': raty,
-//       'CompanyID': companyId,
-//       'CompanyName': companyName,
-//       'CompanyImage': companyImage,
-//       'CompanyCoverImage': companyCoverImage,
-//       'CategoryAR': categoryAr,
-//       'CategoryEN': categoryEn,
-//     };
-//   }
-
-//   CompanyData copyWith({
-//     int raty,
-//     int companyId,
-//     String companyName,
-//     String companyImage,
-//     String companyCoverImage,
-//     String categoryAr,
-//     String categoryEn,
-//   }) {
-//     return CompanyData(
-//       raty: raty ?? this.raty,
-//       companyId: companyId ?? this.companyId,
-//       companyName: companyName ?? this.companyName,
-//       companyImage: companyImage ?? this.companyImage,
-//       companyCoverImage: companyCoverImage ?? this.companyCoverImage,
-//       categoryAr: categoryAr ?? this.categoryAr,
-//       categoryEn: categoryEn ?? this.categoryEn,
-//     );
-//   }
-
-//   @override
-//   List<Object> get props {
-//     return [
-//       raty,
-//       companyId,
-//       companyName,
-//       companyImage,
-//       companyCoverImage,
-//       categoryAr,
-//       categoryEn,
-//     ];
-//   }
-// }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['raty'] = this.raty;
+    data['CompanyID'] = this.companyID;
+    data['CompanyName'] = this.companyName;
+    data['CompanyImage'] = this.companyImage;
+    data['CompanyCoverImage'] = this.companyCoverImage;
+    data['CategoryAR'] = this.categoryAR;
+    data['CategoryEN'] = this.categoryEN;
+    return data;
+  }
+}

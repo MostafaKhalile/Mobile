@@ -91,7 +91,9 @@ class _ClientHomePageState extends State<ClientHomePage> {
             },
             children: [
               ClientHomeScreen(),
-              ClientCategoriesScreen(),
+              ClientCategoriesScreen(
+                isCloseable: false,
+              ),
               ClientOffersScreen(),
               ProfileScreen(),
               ScheduleScreen(),

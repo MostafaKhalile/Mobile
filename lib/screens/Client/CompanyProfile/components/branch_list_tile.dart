@@ -4,7 +4,7 @@ import 'package:techtime/widgets/client/custom_circle_avatar.dart';
 
 class BranchListTile extends StatelessWidget {
   final Function onTap;
-  final CompanyBranche branche;
+  final CompanyBranches branche;
   const BranchListTile({
     Key key,
     this.onTap,
@@ -18,7 +18,7 @@ class BranchListTile extends StatelessWidget {
         onTap: onTap,
         leading: CustomCircleAvatar(image: branche.image),
         title: Text(branche.brancheName),
-        subtitle: Text(branche.branchAddressEn),
+        subtitle: Text(branche.branchAddressEN),
         trailing: Icon(Icons.more_vert),
       ),
     );

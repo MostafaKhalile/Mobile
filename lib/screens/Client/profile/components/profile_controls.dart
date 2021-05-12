@@ -146,6 +146,7 @@ class _ProfileControlsState extends State<ProfileControls> {
 
   _logout(context) {
     AuthRepo().logout();
+    Provider.of<CurrentUserProvider>(context, listen: false).loadCurrentUser();
     Navigator.pushNamedAndRemoveUntil(
         context, LanguageSelectionPage.routeName, (route) => false);
   }

@@ -67,10 +67,12 @@ class RouteGenerator {
           type: PageTransitionType.fade,
           child: NetworkSensitive(child: ClientHomePage()),
         );
-      case '/categoriesPage':
+      case ClientCategoriesScreen.routeName:
         return CupertinoPageRoute(
           fullscreenDialog: true,
-          builder: (_) => ClientCategoriesScreen(),
+          builder: (_) => ClientCategoriesScreen(
+            isCloseable: args,
+          ),
         );
       case '/CompaniesListPage':
         return CupertinoPageRoute(
@@ -94,12 +96,17 @@ class RouteGenerator {
       case BranchProfile.routeName:
         return CupertinoPageRoute(
           fullscreenDialog: true,
-          builder: (_) => BranchProfile(),
+          builder: (_) => BranchProfile(
+            company: args,
+          ),
         );
       case GalleryView.routeName:
         return CupertinoPageRoute(
           fullscreenDialog: true,
-          builder: (_) => GalleryView(),
+          builder: (_) => GalleryView(
+            imgList: (args as Map)["imgList"],
+            companyName: (args as Map)["companyName"],
+          ),
         );
       case SalonProfile.routeName:
         return CupertinoPageRoute(builder: (_) => SalonProfile());

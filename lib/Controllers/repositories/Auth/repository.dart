@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:provider/provider.dart';
+import 'package:techtime/Controllers/providers/current_user_provider.dart';
 import 'package:techtime/Controllers/repositories/Auth/api_client.dart';
 import 'package:techtime/Helpers/enums.dart';
 import 'package:techtime/Helpers/network_constents.dart';
@@ -72,7 +74,7 @@ class AuthRepo {
 
   Future<void> _removeUserLocalData() async {
     try {
-      return _prefs.removeMultipleValuesWithKeys([
+      _prefs.removeMultipleValuesWithKeys([
         NetworkConstants.currentUser,
         NetworkConstants.currentUserToken,
       ]);

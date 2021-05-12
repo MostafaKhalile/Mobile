@@ -80,13 +80,11 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       body: FloatingSearchBar(
         controller: controller,
-        body: Hero(
-            tag: "SearchBox",
-            child: FloatingSearchBarScrollNotifier(
-              child: SearchResultsListView(
-                searchTerm: selectedTerm,
-              ),
-            )),
+        body: FloatingSearchBarScrollNotifier(
+          child: SearchResultsListView(
+            searchTerm: selectedTerm,
+          ),
+        ),
         transition: CircularFloatingSearchBarTransition(),
         physics: BouncingScrollPhysics(),
         title: Text(

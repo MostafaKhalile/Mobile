@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/widgets/core/horizontal_gap.dart';
+import 'package:techtime/widgets/core/social_button.dart';
 
 import '../emailForgetPassworProcess/email_forget_password.dart';
 import 'components/email_password_login.dart';
@@ -86,90 +88,37 @@ class _LoginPageState extends State<LoginPage> {
                       )),
                     ]),
                 Expanded(
-                  flex: 2,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        // ignore: deprecated_member_use
-                        RaisedButton(
-                            onPressed: () {},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset(
-                                  'assets/svg/Facebook.svg',
-                                  height: 25,
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)
-                                      .translate('facebookLogin'),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .button
-                                      .copyWith(fontSize: 14),
-                                ),
-                              ],
-                            )),
-                        // ignore: deprecated_member_use
-                        RaisedButton(
-                          onPressed: () {},
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/svg/Google+.svg',
-                                height: 25,
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                AppLocalizations.of(context)
-                                    .translate('googleLogin'),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .button
-                                    .copyWith(fontSize: 14),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            TextButton(
-                              onPressed: () => Navigator.pushNamed(
-                                  context, EmailForgetPassword.routeName),
-                              child: Text(
-                                AppLocalizations.of(context)
-                                    .translate('forgotPassword'),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle1
-                                    .copyWith(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w700),
-                              ),
+                    flex: 2,
+                    child: Padding(
+                      padding: EdgeInsets.all(KdefaultPadding),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SocialButton(
+                            width: 50.0,
+                            height: 50.0,
+                            backgroundColor: Color(0xFFDB4437),
+                            child: SvgPicture.asset(
+                              'assets/svg/Google+.svg',
+                              color: Colors.white,
+                              height: 10,
                             ),
-                            TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                    AppLocalizations.of(context)
-                                        .translate('newAccount'),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle1
-                                        .copyWith(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w700))),
-                          ],
-                        )
-                      ]),
-                ),
+                          ),
+                          HorizontalGap(),
+                          SocialButton(
+                            width: 50.0,
+                            height: 50.0,
+                            backgroundColor: Color(0xFF4267B2),
+                            child: SvgPicture.asset(
+                              'assets/svg/Facebook.svg',
+                              height: 10,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
               ]))),
     );
   }

@@ -1,69 +1,32 @@
-import 'package:equatable/equatable.dart';
+class CompanyBranches {
+  int brancheID;
+  String brancheName;
+  String branchAddressAR;
+  String branchAddressEN;
+  String image;
 
-class CompanyBranche extends Equatable {
-  final int brancheId;
-  final String brancheName;
-  final String branchAddressAr;
-  final String branchAddressEn;
-  final String image;
+  CompanyBranches(
+      {this.brancheID,
+      this.brancheName,
+      this.branchAddressAR,
+      this.branchAddressEN,
+      this.image});
 
-  const CompanyBranche({
-    this.brancheId,
-    this.brancheName,
-    this.branchAddressAr,
-    this.branchAddressEn,
-    this.image,
-  });
-
-  @override
-  String toString() {
-    return 'CompanyBranches(brancheId: $brancheId, brancheName: $brancheName, branchAddressAr: $branchAddressAr, branchAddressEn: $branchAddressEn, image: $image)';
-  }
-
-  factory CompanyBranche.fromJson(Map<String, dynamic> json) {
-    return CompanyBranche(
-      brancheId: json['BrancheID'] as int,
-      brancheName: json['BrancheName'] as String,
-      branchAddressAr: json['BranchAddressAR'] as String,
-      branchAddressEn: json['BranchAddressEN'] as String,
-      image: json['Image'] as String,
-    );
+  CompanyBranches.fromJson(Map<String, dynamic> json) {
+    brancheID = json['BrancheID'];
+    brancheName = json['BrancheName'];
+    branchAddressAR = json['BranchAddressAR'];
+    branchAddressEN = json['BranchAddressEN'];
+    image = json['Image'];
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'BrancheID': brancheId,
-      'BrancheName': brancheName,
-      'BranchAddressAR': branchAddressAr,
-      'BranchAddressEN': branchAddressEn,
-      'Image': image,
-    };
-  }
-
-  CompanyBranche copyWith({
-    int brancheId,
-    String brancheName,
-    String branchAddressAr,
-    String branchAddressEn,
-    String image,
-  }) {
-    return CompanyBranche(
-      brancheId: brancheId ?? this.brancheId,
-      brancheName: brancheName ?? this.brancheName,
-      branchAddressAr: branchAddressAr ?? this.branchAddressAr,
-      branchAddressEn: branchAddressEn ?? this.branchAddressEn,
-      image: image ?? this.image,
-    );
-  }
-
-  @override
-  List<Object> get props {
-    return [
-      brancheId,
-      brancheName,
-      branchAddressAr,
-      branchAddressEn,
-      image,
-    ];
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['BrancheID'] = this.brancheID;
+    data['BrancheName'] = this.brancheName;
+    data['BranchAddressAR'] = this.branchAddressAR;
+    data['BranchAddressEN'] = this.branchAddressEN;
+    data['Image'] = this.image;
+    return data;
   }
 }
