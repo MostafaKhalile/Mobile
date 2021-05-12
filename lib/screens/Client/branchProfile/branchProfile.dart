@@ -12,63 +12,22 @@ import 'package:techtime/widgets/core/section_header_more.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
 
 class BranchProfile extends StatelessWidget {
-  static const String routeName = '/salon_profile';
+  static const String routeName = '/Branch_profile';
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
-        body: SizedBox(
-            width: _size.width,
-            height: _size.height,
-            child: Stack(children: [SalonCoverImage(), BranchProfileBody()])),
-        persistentFooterButtons: [
-          BottomBookingButton(
-            onPressed: () {
-              print("Booking");
-            },
-          )
-        ]);
-  }
-}
-
-//bottom Booking Fixed Button
-class BottomBookingButton extends StatelessWidget {
-  const BottomBookingButton({
-    Key key,
-    @required this.onPressed,
-  }) : super(key: key);
-
-  final Function onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: Row(
-        children: [
-          Expanded(
-              // ignore: deprecated_member_use
-              child: RaisedButton(
-            onPressed: onPressed,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "book_now",
-                  style: Theme.of(context).textTheme.button,
-                ),
-              ],
-            ),
-          ))
-        ],
-      ),
+      body: SizedBox(
+          width: _size.width,
+          height: _size.height,
+          child: Stack(children: [BranchCoverImage(), BranchProfileBody()])),
     );
   }
 }
 
-//Salon Cover Image in the background
-class SalonCoverImage extends StatelessWidget {
-  const SalonCoverImage({
+//Branch Cover Image in the background
+class BranchCoverImage extends StatelessWidget {
+  const BranchCoverImage({
     Key key,
   }) : super(key: key);
 
@@ -88,7 +47,7 @@ class SalonCoverImage extends StatelessWidget {
   }
 }
 
-//Salon Profile Body White Section Below
+//Branch Profile Body White Section Below
 class BranchProfileBody extends StatelessWidget {
   const BranchProfileBody({
     Key key,
@@ -123,11 +82,11 @@ class BranchProfileBody extends StatelessWidget {
                           EdgeInsets.symmetric(horizontal: KDefaultPadding),
                       child: Column(
                         children: [
-                          SalonNameAndRating(),
+                          BranchNameAndRating(),
                           VerticalGap(
                             height: KDefaultPadding / 2,
                           ),
-                          SalonInfo(),
+                          BranchInfo(),
                           VerticalGap(
                             height: KDefaultPadding / 2,
                           ),
@@ -135,7 +94,7 @@ class BranchProfileBody extends StatelessWidget {
                       ),
                     ),
                     ShareOptionsBar(),
-                    //build Salon Previous work data
+                    //build Branch Previous work data
                     SubTitle(text: "صور من أعمالنا"),
                     SizedBox(
                       height: 150,
@@ -148,7 +107,7 @@ class BranchProfileBody extends StatelessWidget {
                           itemBuilder: (ctx, i) =>
                               PreviousWorkCard(size: _size, theme: _theme)),
                     ),
-                    //build Salon Previous work data
+                    //build Branch Previous work data
                     SubTitle(text: _translator.translate("services")),
                     SizedBox(
                       height: 100,
@@ -161,7 +120,7 @@ class BranchProfileBody extends StatelessWidget {
                           itemBuilder: (ctx, i) => ServiceRRect(theme: _theme)),
                     ),
 
-                    //build Salon specialists
+                    //build Branch specialists
                     SubTitle(text: _translator.translate("staff")),
                     SizedBox(
                       height: 100,
@@ -395,8 +354,8 @@ class ShareOptionsBar extends StatelessWidget {
   }
 }
 
-class SalonInfo extends StatelessWidget {
-  const SalonInfo({
+class BranchInfo extends StatelessWidget {
+  const BranchInfo({
     Key key,
   }) : super(key: key);
 
@@ -444,9 +403,9 @@ class InfoTile extends StatelessWidget {
   }
 }
 
-//Row of Salon Name and Rating
-class SalonNameAndRating extends StatelessWidget {
-  const SalonNameAndRating({
+//Row of Branch Name and Rating
+class BranchNameAndRating extends StatelessWidget {
+  const BranchNameAndRating({
     Key key,
   }) : super(key: key);
 
@@ -482,7 +441,7 @@ class SalonNameAndRating extends StatelessWidget {
   }
 }
 
-// Salon Profile Picture at the top of the white slider
+// Branch Profile Picture at the top of the white slider
 class BranchProfilePicture extends StatelessWidget {
   const BranchProfilePicture({
     Key key,

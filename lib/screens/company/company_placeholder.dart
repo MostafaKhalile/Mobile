@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:techtime/Controllers/repositories/Auth/repository.dart';
 import 'package:techtime/screens/Core/startupViews/language_selection_page.dart';
 
+// ignore: must_be_immutable
 class CompanyPlaceholder extends StatelessWidget {
   static const String routeName = "/company_app";
   bool isLogedOut;

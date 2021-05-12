@@ -5,14 +5,12 @@ import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/cubits/LocaleCubit/locale_cubit.dart';
 import 'package:techtime/Controllers/providers/current_user_provider.dart';
 import 'package:techtime/Controllers/repositories/Auth/repository.dart';
-import 'package:techtime/Controllers/repositories/client/user/repository.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/themes/dark_theme.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
-import 'package:techtime/Helpers/utils/custom_snackbar.dart';
-import 'package:techtime/models/client_profile.dart';
+
 import 'package:techtime/models/user.dart';
 import 'package:techtime/screens/Client/contact/contact_us.dart';
 import 'package:techtime/screens/Client/profileEdit/profile_edit.dart';
@@ -30,9 +28,6 @@ class ProfileControls extends StatefulWidget {
 }
 
 class _ProfileControlsState extends State<ProfileControls> {
-  Snackbar _snackBar = Snackbar();
-  ClientProfile _clientProfile;
-
   @override
   Widget build(BuildContext context) {
     User _currentUser = Provider.of<CurrentUserProvider>(context).currentUser;
@@ -220,6 +215,7 @@ class _ProfileControlsState extends State<ProfileControls> {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
+                // ignore: deprecated_member_use
                 RaisedButton(
                   child: Text(
                     _translator.translate("confirm"),
@@ -230,6 +226,7 @@ class _ProfileControlsState extends State<ProfileControls> {
                 SizedBox(
                   height: 5,
                 ),
+                // ignore: deprecated_member_use
                 RaisedButton(
                   onPressed: () => Navigator.pop(context, false),
                   child: Text(

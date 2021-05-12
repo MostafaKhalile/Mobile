@@ -130,6 +130,7 @@ class _EmailPasswordLoginFormState extends State<EmailPasswordLoginForm> {
                       child:
                           BlocBuilder<AuthanticationBloc, AuthanticationState>(
                         builder: (context, state) {
+                          // ignore: deprecated_member_use
                           return RaisedButton(
                             onPressed: state is LoginInProgress
                                 ? null

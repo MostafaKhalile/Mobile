@@ -3,7 +3,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/models/client/company.dart';
-import 'package:techtime/screens/Client/branch/company_profile.dart';
+import 'package:techtime/screens/Client/companyProfile/company_profile.dart';
 import 'package:techtime/widgets/client/custom_circle_avatar.dart';
 
 class LeastCompanyCard extends StatelessWidget {

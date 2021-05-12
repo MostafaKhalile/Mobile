@@ -79,7 +79,7 @@ class NextAppointmentsState extends State<NextAppointments> {
     });
 
     // Then show a snackbar.
-    Scaffold.of(context)
+    ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text("$item dismissed")));
   }
 
@@ -94,6 +94,7 @@ class NextAppointmentsState extends State<NextAppointments> {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
+                // ignore: deprecated_member_use
                 RaisedButton(
                   child: Text(
                     _translator.translate("cancel"),
@@ -104,6 +105,7 @@ class NextAppointmentsState extends State<NextAppointments> {
                 SizedBox(
                   height: 5,
                 ),
+                // ignore: deprecated_member_use
                 RaisedButton(
                   child: Text(
                     _translator.translate("confirm"),

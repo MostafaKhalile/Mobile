@@ -62,7 +62,7 @@ class _CategoryCompaniesScreenState extends State<CategoryCompaniesScreen> {
         widget.category.categoryEn,
         style: TextStyle(color: Colors.black),
       ),
-      automaticallyImplyLeading: false,
+      iconTheme: IconThemeData(color: Colors.black),
       excludeHeaderSemantics: true,
     );
   }

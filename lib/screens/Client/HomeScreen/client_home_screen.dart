@@ -23,9 +23,7 @@ import 'package:techtime/widgets/client/carousel.dart';
 import 'package:techtime/widgets/client/category_card.dart';
 import 'package:techtime/widgets/client/company_card.dart';
 import 'package:techtime/widgets/client/least_company_card.dart';
-import 'package:techtime/widgets/core/horizontal_gap.dart';
 import 'package:techtime/widgets/core/skeleton.dart';
-import 'package:techtime/widgets/core/vertical_gab.dart';
 
 import 'components/section_header.dart';
 

@@ -125,6 +125,7 @@ class AppointmentCard extends StatelessWidget {
                                   Spacer(),
                                   isReadOnly
                                       ? Container()
+                                      // ignore: deprecated_member_use
                                       : RaisedButton(
                                           textColor: Colors.white,
                                           color: KSecondryColor,

@@ -4,7 +4,6 @@ import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/screens/Client/branchProfile/branchProfile.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
-import 'package:techtime/widgets/core/vertical_gab.dart';
 
 class BranchCard extends StatelessWidget {
   final String title;
@@ -31,13 +30,14 @@ class BranchCard extends StatelessWidget {
     AppLocalizations _translator = AppLocalizations.of(context);
     return Card(
       margin: EdgeInsets.only(bottom: KDefaultPadding),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
       child: Container(
         height: 150,
         width: MediaQuery.of(context).size.width * 0.9,
-        decoration: BoxDecoration(boxShadow: [
-          // BoxShadow(
-          //     color: KDarkGreyColor, blurRadius: 20, offset: Offset(10, 10))
-        ], borderRadius: BorderRadius.circular(KDefaultPadding)),
+        decoration:
+            BoxDecoration(borderRadius: BorderRadius.circular(KDefaultPadding)),
         child: Row(
           children: [
             Expanded(
@@ -45,9 +45,9 @@ class BranchCard extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          fit: BoxFit.fill, image: AssetImage(image)),
+                          fit: BoxFit.fill, image: NetworkImage(image)),
                       borderRadius: BorderRadius.all(
-                        Radius.circular(15),
+                        Radius.circular(10),
                       )),
                 )),
             Expanded(
@@ -73,15 +73,15 @@ class BranchCard extends StatelessWidget {
                             width: _size.width * 0.5,
                             child: Text(
                               address,
-                              style: _theme.textTheme.subtitle1,
+                              style: _theme.textTheme.subtitle2,
                               overflow: TextOverflow.ellipsis,
                             ),
                           )
                         ],
                       ),
-                      VerticalGap(
-                        height: KDefaultPadding / 2,
-                      ),
+                      // VerticalGap(
+                      //   height: KDefaultPadding / 4,
+                      // ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [

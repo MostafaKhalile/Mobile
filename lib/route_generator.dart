@@ -16,7 +16,7 @@ import 'package:techtime/widgets/core/gallery_view.dart';
 
 import 'screens/Client/Categories/client_categories_screen.dart';
 import 'screens/Client/CategoryCompanies/category_companies.dart';
-import 'screens/Client/branch/company_profile.dart';
+import 'screens/Client/companyProfile/company_profile.dart';
 import 'screens/Client/branchProfile/branchProfile.dart';
 import 'screens/Client/home_page.dart';
 import 'screens/Core/startupViews/client_signup_page.dart';

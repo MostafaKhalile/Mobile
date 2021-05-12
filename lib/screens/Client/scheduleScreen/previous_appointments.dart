@@ -53,6 +53,7 @@ class PreviousAppointmentCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: ListBody(
             children: <Widget>[
+              // ignore: deprecated_member_use
               RaisedButton(
                 child: Text(
                   _translator.translate("book_again"),
