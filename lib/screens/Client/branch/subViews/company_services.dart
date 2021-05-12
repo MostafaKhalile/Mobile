@@ -4,17 +4,17 @@ import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/screens/Client/branchProfile/subViews/choose_branch.dart';
-import 'package:techtime/screens/Client/saloonProfile/saloonProfile.dart';
+import 'package:techtime/screens/Client/branchProfile/branchProfile.dart';
+
 import 'package:techtime/widgets/core/horizontal_gap.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
 
-class BranchServices extends StatefulWidget {
+class CompanyServices extends StatefulWidget {
   @override
-  _BranchServicesState createState() => _BranchServicesState();
+  CompanyServicesState createState() => CompanyServicesState();
 }
 
-class _BranchServicesState extends State<BranchServices> {
+class CompanyServicesState extends State<CompanyServices> {
   List<String> _checked = [];
   @override
   Widget build(BuildContext context) {
@@ -149,7 +149,7 @@ class _BranchServicesState extends State<BranchServices> {
 
   _bookHandler() {
     _checked.length != 0
-        ? Navigator.pushNamed(context, SalonProfile.routeName)
+        ? Navigator.pushNamed(context, BranchProfile.routeName)
         : Fluttertoast.showToast(
             msg: AppLocalizations.of(context)
                 .translate("please_select_service_first"));

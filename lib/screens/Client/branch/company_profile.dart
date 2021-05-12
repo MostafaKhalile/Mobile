@@ -13,22 +13,22 @@ import 'package:techtime/widgets/core/gallery_view.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
 
-import 'subViews/branch_info.dart';
-import 'subViews/branch_offers.dart';
-import 'subViews/branch_reviews.dart';
-import 'subViews/branch_services.dart';
+import 'subViews/company_info.dart';
+import 'subViews/company_offers.dart';
+import 'subViews/company_reviews.dart';
+import 'subViews/company_services.dart';
 
-class BranchProfile extends StatefulWidget {
+class CompanyProfile extends StatefulWidget {
   static const String routeName = "/branch_profile";
   final Company company;
 
-  const BranchProfile({Key key, this.company}) : super(key: key);
+  const CompanyProfile({Key key, this.company}) : super(key: key);
 
   @override
-  _BranchProfileState createState() => _BranchProfileState();
+  _CompanyProfileState createState() => _CompanyProfileState();
 }
 
-class _BranchProfileState extends State<BranchProfile>
+class _CompanyProfileState extends State<CompanyProfile>
     with SingleTickerProviderStateMixin {
   List<String> imgList = [];
   TabController _controller;
@@ -168,10 +168,10 @@ class _BranchProfileState extends State<BranchProfile>
             physics: NeverScrollableScrollPhysics(),
             controller: _controller,
             children: <Widget>[
-              BranchServices(),
-              BranchOffers(),
-              BranchInfo(),
-              BranchReviews(),
+              CompanyServices(),
+              CompanyOffers(),
+              CompanyInfo(),
+              CompanyReviews(),
             ],
           ),
         ),

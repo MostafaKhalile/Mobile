@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:techtime/screens/Client/CompanyProfile/company_profile.dart';
-import 'package:techtime/screens/Client/branchProfile/branch_profile.dart';
-import 'package:techtime/screens/Client/branchProfile/subViews/choose_branch.dart';
+
 import 'package:techtime/screens/Client/contact/contact_us.dart';
 import 'package:techtime/screens/Client/profileEdit/profile_edit.dart';
 import 'package:techtime/screens/Client/walletScreen/wallet_screen.dart';
@@ -18,8 +16,9 @@ import 'package:techtime/widgets/core/gallery_view.dart';
 
 import 'screens/Client/Categories/client_categories_screen.dart';
 import 'screens/Client/CategoryCompanies/category_companies.dart';
+import 'screens/Client/branch/company_profile.dart';
+import 'screens/Client/branchProfile/branchProfile.dart';
 import 'screens/Client/home_page.dart';
-import 'screens/Client/saloonProfile/saloonProfile.dart';
 import 'screens/Core/startupViews/client_signup_page.dart';
 import 'screens/Core/startupViews/language_selection_page.dart';
 import 'screens/Core/startupViews/login_moderator_page.dart';
@@ -81,22 +80,16 @@ class RouteGenerator {
             category: args,
           ),
         );
-      case CompanyProfile.routeName:
-        return CupertinoPageRoute(
-          fullscreenDialog: true,
-          builder: (_) => CompanyProfile(
-            company: args,
-          ),
-        );
+
       case CompanyPlaceholder.routeName:
         return CupertinoPageRoute(
           fullscreenDialog: true,
           builder: (_) => CompanyPlaceholder(),
         );
-      case BranchProfile.routeName:
+      case CompanyProfile.routeName:
         return CupertinoPageRoute(
           fullscreenDialog: true,
-          builder: (_) => BranchProfile(
+          builder: (_) => CompanyProfile(
             company: args,
           ),
         );
@@ -108,12 +101,13 @@ class RouteGenerator {
             companyName: (args as Map)["companyName"],
           ),
         );
-      case SalonProfile.routeName:
-        return CupertinoPageRoute(builder: (_) => SalonProfile());
+      case CompanyProfile.routeName:
+        return CupertinoPageRoute(builder: (_) => CompanyProfile());
         break;
-      case ChooseBranch.routeName:
-        return CupertinoPageRoute(builder: (_) => ChooseBranch());
+      case BranchProfile.routeName:
+        return CupertinoPageRoute(builder: (_) => BranchProfile());
         break;
+
       case SearchScreen.routeName:
         return CupertinoPageRoute(
             fullscreenDialog: true, builder: (_) => SearchScreen());

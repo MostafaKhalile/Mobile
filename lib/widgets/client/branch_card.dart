@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/screens/Client/saloonProfile/saloonProfile.dart';
+import 'package:techtime/screens/Client/branchProfile/branchProfile.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
 
@@ -107,7 +107,7 @@ class BranchCard extends StatelessWidget {
                                 foregroundColor: MaterialStateColor.resolveWith(
                                     (states) => KPrimaryColor)),
                             onPressed: () => Navigator.pushNamed(
-                                context, SalonProfile.routeName),
+                                context, BranchProfile.routeName),
                           ),
                         ],
                       ),

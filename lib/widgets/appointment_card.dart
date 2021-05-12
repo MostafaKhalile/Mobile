@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/screens/Client/saloonProfile/saloonProfile.dart';
+import 'package:techtime/screens/Client/branchProfile/branchProfile.dart';
 
 import 'core/horizontal_gap.dart';
 import 'core/vertical_gab.dart';
@@ -131,7 +131,7 @@ class AppointmentCard extends StatelessWidget {
                                           child: Text(
                                               _translator.translate("book")),
                                           onPressed: () => Navigator.pushNamed(
-                                              context, SalonProfile.routeName),
+                                              context, BranchProfile.routeName),
                                           shape: new RoundedRectangleBorder(
                                             borderRadius:
                                                 new BorderRadius.circular(

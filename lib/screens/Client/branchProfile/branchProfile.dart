@@ -11,7 +11,7 @@ import 'package:techtime/widgets/core/horizontal_gap.dart';
 import 'package:techtime/widgets/core/section_header_more.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
 
-class SalonProfile extends StatelessWidget {
+class BranchProfile extends StatelessWidget {
   static const String routeName = '/salon_profile';
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class SalonProfile extends StatelessWidget {
         body: SizedBox(
             width: _size.width,
             height: _size.height,
-            child: Stack(children: [SalonCoverImage(), SalonProfileBody()])),
+            child: Stack(children: [SalonCoverImage(), BranchProfileBody()])),
         persistentFooterButtons: [
           BottomBookingButton(
             onPressed: () {
@@ -89,8 +89,8 @@ class SalonCoverImage extends StatelessWidget {
 }
 
 //Salon Profile Body White Section Below
-class SalonProfileBody extends StatelessWidget {
-  const SalonProfileBody({
+class BranchProfileBody extends StatelessWidget {
+  const BranchProfileBody({
     Key key,
   }) : super(key: key);
 
@@ -225,7 +225,7 @@ class SalonProfileBody extends StatelessWidget {
               ),
             ),
           ),
-          SalonProfilePicture(),
+          BranchProfilePicture(),
         ],
       ),
     );
@@ -483,8 +483,8 @@ class SalonNameAndRating extends StatelessWidget {
 }
 
 // Salon Profile Picture at the top of the white slider
-class SalonProfilePicture extends StatelessWidget {
-  const SalonProfilePicture({
+class BranchProfilePicture extends StatelessWidget {
+  const BranchProfilePicture({
     Key key,
   }) : super(key: key);
 

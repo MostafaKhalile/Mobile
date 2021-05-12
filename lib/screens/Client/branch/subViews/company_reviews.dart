@@ -7,7 +7,7 @@ import 'package:techtime/widgets/client/custom_circle_avatar.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
 
-class BranchReviews extends StatelessWidget {
+class CompanyReviews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // AppLocalizations _translator = AppLocalizations.of(context);
