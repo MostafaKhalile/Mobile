@@ -98,5 +98,9 @@
     "please_select_service_first": "رجاءاً اختر خدمة أولاً",
     "We_will_send_verification_code_to": "سنقوم بإرسال كود التفعيل على",
     "are_sure_to_cancel_appointment": "هل انت متأكد انك تريد الغاء الموعد؟",
-    "book_again": "احجز مرة أخري"
+    "book_again": "احجز مرة أخري",
+    "book_appointment": "احجز موعد",
+    "choose_branche": "اختر الفرع",
+    "pick_day": "اختر اليوم",
+    "select_time": "اختر الوقت"
 }

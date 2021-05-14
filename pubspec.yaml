@@ -49,6 +49,7 @@ dependencies:
   responsive_assistant: ^0.0.7
   shared_preferences: ^2.0.5
   smooth_star_rating: ^1.1.1
+  table_calendar: ^3.0.0
   url_launcher: ^6.0.3
   uuid: ^3.0.4
 

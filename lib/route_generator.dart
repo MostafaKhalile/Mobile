@@ -19,6 +19,7 @@ import 'screens/Client/CategoryCompanies/category_companies.dart';
 import 'screens/Client/companyProfile/company_profile.dart';
 import 'screens/Client/branchProfile/branchProfile.dart';
 import 'screens/Client/home_page.dart';
+import 'screens/Client/newOrder/create_new_order.dart';
 import 'screens/Core/startupViews/client_signup_page.dart';
 import 'screens/Core/startupViews/language_selection_page.dart';
 import 'screens/Core/startupViews/login_moderator_page.dart';
@@ -107,7 +108,14 @@ class RouteGenerator {
       case BranchProfile.routeName:
         return CupertinoPageRoute(builder: (_) => BranchProfile());
         break;
-
+      case CreateNewOrder.routeName:
+        return CupertinoPageRoute(
+          fullscreenDialog: true,
+          builder: (_) => CreateNewOrder(
+            companyBranches: args,
+          ),
+        );
+        break;
       case SearchScreen.routeName:
         return CupertinoPageRoute(
             fullscreenDialog: true, builder: (_) => SearchScreen());

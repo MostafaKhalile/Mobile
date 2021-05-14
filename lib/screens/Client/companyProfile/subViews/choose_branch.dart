@@ -28,6 +28,7 @@ class ChooseBranch extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: 8,
                       itemBuilder: (_, i) => BranchCard(
+                            isSelectable: false,
                             title: "اسم الفرع",
                             description: "تقديم خدمات لكافة الأغراض",
                             address: "شارع 33, منطقة ميامي, الإسكندرية",

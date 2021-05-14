@@ -161,29 +161,30 @@ class _CompanyProfileState extends State<CompanyProfile>
             )),
       ),
       Expanded(
-        flex: 3,
-        child: Container(
-          width: double.infinity,
-          child: TabBarView(
-            physics: NeverScrollableScrollPhysics(),
-            controller: _controller,
-            children: <Widget>[
-              CompanyServices(),
-              CompanyOffers(),
-              BlocBuilder<CompanyProfileBloc, CompanyProfileState>(
-                builder: (context, state) {
-                  return CompanyBranchesScreen(
+          flex: 3,
+          child: Container(
+            width: double.infinity,
+            child: BlocBuilder<CompanyProfileBloc, CompanyProfileState>(
+              builder: (context, state) => TabBarView(
+                physics: NeverScrollableScrollPhysics(),
+                controller: _controller,
+                children: <Widget>[
+                  CompanyServices(
                     companyBranches: (state is CompanyProfileFinished)
                         ? state.companyProfile.companyBranches
                         : [],
-                  );
-                },
+                  ),
+                  CompanyOffers(),
+                  CompanyBranchesScreen(
+                    companyBranches: (state is CompanyProfileFinished)
+                        ? state.companyProfile.companyBranches
+                        : [],
+                  ),
+                  CompanyReviews(),
+                ],
               ),
-              CompanyReviews(),
-            ],
-          ),
-        ),
-      )
+            ),
+          ))
     ]));
   }
 }

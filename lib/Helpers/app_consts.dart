@@ -19,3 +19,7 @@ const String KCoinsIcon = "assets/svg/coins.svg";
 const String KWhatsAppAIcon = "assets/svg/whatsapp.svg";
 const String KContactUsIcon = "assets/svg/contact_us.svg";
 const String KEmailIcon = "assets/svg/email.svg";
+
+final kNow = DateTime.now();
+final kFirstDay = DateTime(kNow.year, kNow.month, kNow.day);
+final kLastDay = DateTime(kNow.year, kNow.month + 3, kNow.day);

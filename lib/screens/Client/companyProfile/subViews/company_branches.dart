@@ -24,6 +24,7 @@ class CompanyBranchesScreen extends StatelessWidget {
           itemBuilder: (_, i) {
             var brancheData = companyBranches[i];
             return BranchCard(
+              isSelectable: false,
               title: brancheData.brancheName,
               description: "تقديم خدمات لكافة الأغراض",
               address: brancheData.branchAddressAR,

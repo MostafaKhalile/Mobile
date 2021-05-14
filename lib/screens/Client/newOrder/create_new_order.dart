@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/widgets/client/gradient_card.dart';
-import 'package:techtime/widgets/client/offer_card_body.dart';
-import 'package:techtime/widgets/client/review_card.dart';
-import 'package:techtime/widgets/core/circle_icon.dart';
+import 'package:techtime/models/client/companyProfile/company_branches.dart';
+import 'package:techtime/widgets/client/branch_card.dart';
+import 'package:intl/intl.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
-import 'package:techtime/widgets/core/section_header_more.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
 
 class CreateNewOrder extends StatefulWidget {
+  static const String routeName = "/create_new_order";
+  final List<CompanyBranches> companyBranches;
+
+  const CreateNewOrder({Key key, this.companyBranches}) : super(key: key);
+
   @override
   _CreateNewOrderState createState() => _CreateNewOrderState();
 }
@@ -20,11 +24,23 @@ class _CreateNewOrderState extends State<CreateNewOrder> {
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
+    AppLocalizations _translator = AppLocalizations.of(context);
+    ThemeData _theme = Theme.of(context);
     return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            _translator.translate("book_appointment"),
+            style: _theme.textTheme.headline6.copyWith(color: Colors.black),
+          ),
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
         body: SizedBox(
             width: _size.width,
             height: _size.height,
-            child: Stack(children: [BranchCoverImage(), BranchProfileBody()])),
+            child: Column(children: [
+              // BranchNameAndRating(),
+              BranchProfileBody(companyBranches: widget.companyBranches)
+            ])),
         persistentFooterButtons: [
           BottomBookingButton(
             onPressed: () {
@@ -58,7 +74,7 @@ class BottomBookingButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "book_now",
+                  AppLocalizations.of(context).translate("confirm"),
                   style: Theme.of(context).textTheme.button,
                 ),
               ],
@@ -70,167 +86,227 @@ class BottomBookingButton extends StatelessWidget {
   }
 }
 
-//Branch Cover Image in the background
-class BranchCoverImage extends StatelessWidget {
-  const BranchCoverImage({
+//Branch Profile Body White Section Below
+class BranchProfileBody extends StatefulWidget {
+  final List<CompanyBranches> companyBranches;
+
+  const BranchProfileBody({
     Key key,
+    this.companyBranches,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    return Positioned(
-      top: -_size.height * .25,
-      child: Container(
-          width: _size.width,
-          height: _size.height * 0.9,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage("assets/images/salon_back_ground.jpg")))),
-    );
-  }
+  _BranchProfileBodyState createState() => _BranchProfileBodyState();
 }
 
-//Branch Profile Body White Section Below
-class BranchProfileBody extends StatelessWidget {
-  const BranchProfileBody({
-    Key key,
-  }) : super(key: key);
-
+class _BranchProfileBodyState extends State<BranchProfileBody> {
+  CalendarFormat _calendarFormat = CalendarFormat.week;
+  DateTime _focusedDay = DateTime.now();
+  DateTime _selectedDay;
+  int _selectedBranch;
+  int _selectedtime;
+  int _selectedEmployee;
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     AppLocalizations _translator = AppLocalizations.of(context);
     ThemeData _theme = Theme.of(context);
-    return Positioned(
-      bottom: 0,
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          Container(
-            height: _size.height * 0.65,
-            width: _size.width,
-            decoration: BoxDecoration(
-                color: _theme.scaffoldBackgroundColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
-                )),
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 30.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: KDefaultPadding),
-                      child: Column(
-                        children: [
-                          BranchNameAndRating(),
-                          VerticalGap(
-                            height: KDefaultPadding / 2,
+    return Expanded(
+        flex: 1,
+        child: Container(
+            width: double.infinity,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    // padding: EdgeInsets.symmetric(horizontal: KDefaultPadding),
+                    child: Column(
+                      children: [
+                        SubTitle(text: _translator.translate("choose_branche")),
+                        SizedBox(
+                          height: 150,
+                          child: ListView.separated(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: KDefaultPadding),
+                              itemCount: widget.companyBranches.length,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              physics: BouncingScrollPhysics(),
+                              separatorBuilder: (_, i) => HorizontalGap(),
+                              itemBuilder: (_, i) {
+                                var brancheData = widget.companyBranches[i];
+                                return BranchCard(
+                                  isSelectable: true,
+                                  isSelected:
+                                      brancheData.brancheID == _selectedBranch,
+                                  title: brancheData.brancheName,
+                                  address: brancheData.branchAddressAR,
+                                  rating: 4.8,
+                                  image: KAPIURL + brancheData.image,
+                                  onPressed: () {
+                                    setState(() {
+                                      _selectedBranch = brancheData.brancheID;
+                                    });
+                                  },
+                                );
+                              }),
+                        ),
+                        VerticalGap(
+                          height: KDefaultPadding / 2,
+                        ),
+                        SubTitle(text: _translator.translate("pick_day")),
+                        TableCalendar(
+                          calendarStyle: CalendarStyle(
+                              disabledTextStyle: TextStyle(color: Colors.grey),
+                              todayDecoration: BoxDecoration(
+                                color: KDarkGreyColor.withOpacity(0.2),
+                                shape: BoxShape.circle,
+                              ),
+                              selectedDecoration: BoxDecoration(
+                                color: KPrimaryColor,
+                                shape: BoxShape.circle,
+                              ),
+                              selectedTextStyle: TextStyle(color: Colors.black),
+                              defaultTextStyle:
+                                  TextStyle(color: _theme.accentColor),
+                              isTodayHighlighted: false),
+                          headerStyle: HeaderStyle(
+                            formatButtonVisible: false,
+                            titleCentered: true,
+                            titleTextStyle: _theme.textTheme.subtitle1,
                           ),
-                          BranchInfo(),
-                          VerticalGap(
-                            height: KDefaultPadding / 2,
-                          ),
-                        ],
-                      ),
-                    ),
-                    ShareOptionsBar(),
-                    //build Branch Previous work data
-                    SubTitle(text: "صور من أعمالنا"),
-                    SizedBox(
-                      height: 150,
-                      child: ListView.separated(
-                          itemCount: 5,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          physics: BouncingScrollPhysics(),
-                          separatorBuilder: (_, i) => HorizontalGap(),
-                          itemBuilder: (ctx, i) =>
-                              PreviousWorkCard(size: _size, theme: _theme)),
-                    ),
-                    //build Branch Previous work data
-                    SubTitle(text: _translator.translate("services")),
-                    SizedBox(
-                      height: 100,
-                      child: ListView.separated(
-                          itemCount: 5,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          physics: BouncingScrollPhysics(),
-                          separatorBuilder: (_, i) => HorizontalGap(),
-                          itemBuilder: (ctx, i) => ServiceRRect(theme: _theme)),
-                    ),
+                          firstDay: kFirstDay,
+                          lastDay: kLastDay,
+                          daysOfWeekHeight: 50,
+                          focusedDay: _focusedDay,
+                          calendarFormat: _calendarFormat,
+                          selectedDayPredicate: (day) {
+                            // Use `selectedDayPredicate` to determine which day is currently selected.
+                            // If this returns true, then `day` will be marked as selected.
 
-                    //build Branch specialists
-                    SubTitle(text: _translator.translate("staff")),
-                    SizedBox(
-                      height: 100,
-                      child: ListView.separated(
-                          itemCount: 10,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          physics: BouncingScrollPhysics(),
-                          separatorBuilder: (_, i) => HorizontalGap(
-                                width: KDefaultPadding / 2,
-                              ),
-                          itemBuilder: (ctx, i) =>
-                              SpecialistCard(size: _size, theme: _theme)),
+                            // Using `isSameDay` is recommended to disregard
+                            // the time-part of compared DateTime objects.
+
+                            return isSameDay(_selectedDay, day);
+                          },
+                          onDaySelected: (selectedDay, focusedDay) {
+                            if (!isSameDay(_selectedDay, selectedDay)) {
+                              // Call `setState()` when updating the selected day
+                              print(
+                                  "Selected Day is ${DateFormat('EEEE').format(selectedDay)}");
+                              setState(() {
+                                _selectedDay = selectedDay;
+                                _focusedDay = focusedDay;
+                              });
+                            }
+                          },
+                          onFormatChanged: (format) {
+                            if (_calendarFormat != format) {
+                              // Call `setState()` when updating calendar format
+                              setState(() {
+                                _calendarFormat = format;
+                              });
+                            }
+                          },
+                          onPageChanged: (focusedDay) {
+                            // No need to call `setState()` here
+                            _focusedDay = focusedDay;
+                          },
+                        ),
+                      ],
                     ),
-                    //build our Offers section
-                    SubTitle(text: _translator.translate("offers")),
-                    SizedBox(
-                      height: 150,
-                      child: ListView.separated(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: KDefaultPadding / 2),
-                          itemCount: 10,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          physics: BouncingScrollPhysics(),
-                          separatorBuilder: (_, i) => HorizontalGap(
-                                width: KDefaultPadding / 2,
-                              ),
-                          itemBuilder: (ctx, i) => GradientCard(
-                                width: _size.width * 0.9,
-                                height: 120,
-                                child: OfferCardBody(
-                                  theme: _theme,
-                                  image: KPlaceHolderImage,
-                                  title: 'على استعداد \n لتلبية كافة متطلبات\n',
-                                  subtitle: 'خصم 25 %',
-                                ),
-                              )),
-                    ),
-                    SectionHeaderMore(
-                      header: 'reviews',
-                    ),
-                    SizedBox(
-                      height: 150,
-                      child: ListView.separated(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: KDefaultPadding / 2),
+                  ),
+
+                  //build Branch Previous work data
+                  SubTitle(text: _translator.translate("select_time")),
+                  SizedBox(
+                    height: 90,
+                    child: ListView.separated(
+                        itemCount: 10,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        physics: BouncingScrollPhysics(),
+                        separatorBuilder: (_, i) => HorizontalGap(),
+                        itemBuilder: (ctx, i) => TimeSelectableCard(
+                              isSelected: i == _selectedtime,
+                              onTap: () {
+                                setState(() {
+                                  _selectedtime = i;
+                                });
+                              },
+                            )),
+                  ),
+
+                  //choose Branch specialists
+                  SubTitle(text: _translator.translate("staff")),
+                  SizedBox(
+                    height: 100,
+                    child: ListView.separated(
                         itemCount: 10,
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         physics: BouncingScrollPhysics(),
                         separatorBuilder: (_, i) => HorizontalGap(
-                          width: KDefaultPadding / 2,
-                        ),
-                        itemBuilder: (ctx, i) =>
-                            ReviewCard(size: _size, theme: _theme),
-                      ),
-                    ),
-                  ],
-                ),
+                              width: KDefaultPadding / 2,
+                            ),
+                        itemBuilder: (ctx, i) => SpecialistCard(
+                              isSelected: _selectedEmployee == i,
+                              onPressed: () {
+                                setState(() {
+                                  _selectedEmployee = i;
+                                });
+                              },
+                            )),
+                  ),
+                ],
+              ),
+            )));
+  }
+}
+
+class TimeSelectableCard extends StatelessWidget {
+  const TimeSelectableCard({
+    Key key,
+    this.onTap,
+    @required this.isSelected,
+  }) : super(key: key);
+
+  final Function onTap;
+  final bool isSelected;
+  @override
+  Widget build(BuildContext context) {
+    ThemeData _theme = Theme.of(context);
+    return Material(
+      color: _theme.scaffoldBackgroundColor,
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          height: 80,
+          width: 70,
+          decoration: BoxDecoration(
+              color: isSelected ?? false
+                  ? KPrimaryColor
+                  : _theme.scaffoldBackgroundColor,
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          child: Center(
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                text: '11:00 ',
+                style: _theme.textTheme.subtitle2.copyWith(
+                    color: isSelected ?? false
+                        ? Colors.black
+                        : _theme.textTheme.subtitle2.color),
+                children: <TextSpan>[
+                  TextSpan(
+                      text: '\n',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  TextSpan(text: 'AM'),
+                ],
               ),
             ),
           ),
-          BranchProfilePicture(),
-        ],
+        ),
       ),
     );
   }
@@ -239,107 +315,54 @@ class BranchProfileBody extends StatelessWidget {
 class SpecialistCard extends StatelessWidget {
   const SpecialistCard({
     Key key,
-    @required Size size,
-    @required ThemeData theme,
-  })  : _size = size,
-        _theme = theme,
-        super(key: key);
+    this.isSelected,
+    this.onPressed,
+  }) : super(key: key);
 
-  final Size _size;
-  final ThemeData _theme;
-
+  final bool isSelected;
+  final Function onPressed;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 85,
-      width: _size.width * 0.15,
-      child: Column(
-        children: [
-          Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage("assets/images/profile_photo.png")),
-                borderRadius:
-                    BorderRadius.all(Radius.circular(KDefaultPadding))),
-          ),
-          Text("موظفة ",
-              style: _theme.textTheme.caption
-                  .copyWith(fontWeight: FontWeight.bold))
-        ],
-      ),
-    );
-  }
-}
-
-class ServiceRRect extends StatelessWidget {
-  const ServiceRRect({
-    Key key,
-    @required ThemeData theme,
-  })  : _theme = theme,
-        super(key: key);
-
-  final ThemeData _theme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: Container(
-              width: 70,
-              height: 70,
-              color: KSecondryColor,
-              child: Center(
-                child: SvgPicture.asset(
-                  "assets/svg/makeup.svg",
-                  height: 40,
-                ),
-              ),
+    Size _size = MediaQuery.of(context).size;
+    ThemeData _theme = Theme.of(context);
+    return InkWell(
+      onTap: onPressed,
+      splashColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      child: Container(
+        height: 95,
+        width: _size.width * 0.15,
+        child: Column(
+          children: [
+            Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage("assets/images/profile_photo.png")),
+                  border: Border.all(
+                      color: isSelected ?? false
+                          ? KPrimaryColor
+                          : Colors.transparent,
+                      width: 3),
+                  borderRadius: BorderRadius.all(Radius.circular(50))),
             ),
-          ),
-          Text("مكياج العروسة", style: _theme.textTheme.subtitle2)
-        ],
-      ),
-    );
-  }
-}
-
-// a Column for Previous Work.
-class PreviousWorkCard extends StatelessWidget {
-  const PreviousWorkCard({
-    Key key,
-    @required Size size,
-    @required ThemeData theme,
-  })  : _size = size,
-        _theme = theme,
-        super(key: key);
-
-  final Size _size;
-  final ThemeData _theme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: _size.width * 0.3,
-          height: 115,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.cover, image: AssetImage(KPlaceHolderImage)),
-              borderRadius: BorderRadius.all(Radius.circular(KDefaultPadding))),
+            VerticalGap(
+              height: KdefaultPadding / 2,
+            ),
+            Text("موظفة ",
+                style: _theme.textTheme.caption.copyWith(
+                    fontWeight: isSelected ?? false
+                        ? FontWeight.bold
+                        : FontWeight.normal,
+                    color: isSelected ?? false
+                        ? KPrimaryColor
+                        : _theme.accentColor))
+          ],
         ),
-        Text(
-          "مكياج عروسة",
-          style: _theme.textTheme.caption,
-        )
-      ],
+      ),
     );
   }
 }
@@ -371,154 +394,6 @@ class SubTitle extends StatelessWidget {
           ),
           VerticalGap(),
         ],
-      ),
-    );
-  }
-}
-
-class ShareOptionsBar extends StatelessWidget {
-  const ShareOptionsBar({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: KDarkGreyColor,
-      height: 50,
-      width: MediaQuery.of(context).size.width,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          IconButton(icon: Icon(Icons.thumb_up), onPressed: () {}),
-          IconButton(icon: Icon(Icons.sms), onPressed: () {}),
-          IconButton(icon: Icon(Icons.share_outlined), onPressed: () {}),
-        ],
-      ),
-    );
-  }
-}
-
-class BranchInfo extends StatelessWidget {
-  const BranchInfo({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        InfoTile(
-          icon: "assets/svg/account.svg",
-          description: "صاحبة الصالون",
-        ),
-        InfoTile(
-          icon: "assets/svg/home.svg",
-          description: " شارع 45, الإسكندرية",
-        ),
-        InfoTile(
-          icon: "assets/svg/schedule.svg",
-          description: "مواعيد العمل من السبت -الخميس 9 AM-7 PM",
-        ),
-      ],
-    );
-  }
-}
-
-class InfoTile extends StatelessWidget {
-  const InfoTile({
-    Key key,
-    @required this.icon,
-    @required this.description,
-  }) : super(key: key);
-  final String icon;
-  final String description;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CircleIcon(
-          icon: icon,
-        ),
-        SizedBox(width: 5),
-        Text(description)
-      ],
-    );
-  }
-}
-
-//Row of Branch Name and Rating
-class BranchNameAndRating extends StatelessWidget {
-  const BranchNameAndRating({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
-    return Padding(
-        padding: EdgeInsets.only(top: 40),
-        child: Row(children: [
-          Text(
-            "بيوتى صالون",
-            style: _theme.textTheme.headline6,
-          ),
-          Spacer(),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-              Radius.circular(KDefaultPadding),
-            )),
-            child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(4.8.toString(), style: _theme.textTheme.subtitle2),
-                  HorizontalGap(
-                    width: 5.0,
-                  ),
-                  Icon(Icons.star_purple500_sharp, color: KPrimaryColor),
-                ]),
-          )
-        ]));
-  }
-}
-
-// Branch Profile Picture at the top of the white slider
-class BranchProfilePicture extends StatelessWidget {
-  const BranchProfilePicture({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
-    return Positioned(
-      top: -70,
-      right: 10,
-      child: Container(
-        width: 100.0,
-        height: 100.0,
-        margin: EdgeInsets.all(KDefaultPadding / 4),
-        decoration: new BoxDecoration(
-          shape: BoxShape.circle,
-          color: Theme.of(context).scaffoldBackgroundColor,
-          border: Border.all(width: 2, color: KPrimaryColor),
-          image: DecorationImage(
-              image: AssetImage(KPlaceHolderImage), fit: BoxFit.cover),
-          boxShadow: [
-            BoxShadow(
-              color: _theme.shadowColor.withOpacity(0.3),
-            ),
-            BoxShadow(
-              color: _theme.scaffoldBackgroundColor,
-              spreadRadius: -12.0,
-              blurRadius: 12.0,
-            ),
-          ],
-        ),
       ),
     );
   }

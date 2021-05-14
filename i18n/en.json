@@ -95,5 +95,9 @@
     "please_select_service_first": "please select a service first",
     "We_will_send_verification_code_to": "We will send verification code to",
     "are_sure_to_cancel_appointment": "Are you sure to cancel the appointment?",
-    "book_again": "book again"
+    "book_again": "book again",
+    "book_appointment": "Book an appointment",
+    "choose_branche": "choose a branch",
+    "pick_day": "pick a day",
+    "select_time": "select time"
 }
