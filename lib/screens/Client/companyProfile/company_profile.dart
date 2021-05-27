@@ -46,119 +46,125 @@ class _CompanyProfileState extends State<CompanyProfile>
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
         body: Column(children: <Widget>[
-      Expanded(
-        flex: 3,
-        child: SizedBox(
-            width: _size.width,
-            child: Column(
-              children: <Widget>[
-                //Image Carousle for Branch View Start
-                BlocListener<CompanyProfileBloc, CompanyProfileState>(
-                  listener: (context, state) {
-                    if (state is CompanyProfileFinished &&
-                        state.companyProfile.companyBranches.length > 0) {
-                      setState(() {
-                        imgList = [
-                          state.companyProfile.companyData.companyCoverImage
-                        ];
-                      });
-                    }
-                  },
-                  child: CarouselSlider(
-                    options: CarouselOptions(
-                        autoPlay: true,
-                        aspectRatio: 1.9,
-                        enlargeCenterPage: true,
-                        pauseAutoPlayOnTouch: true),
-                    items: imgList
-                        .map((item) => InkWell(
-                            onTap: () => Navigator.pushNamed(
-                                    context, GalleryView.routeName, arguments: {
-                                  'imgList': imgList,
-                                  'companyName': widget.company.companyName
-                                }),
-                            child: Image.network(KAPIURL + item)))
-                        .toList(),
+      SafeArea(
+        child: Expanded(
+          flex: 3,
+          child: SizedBox(
+              width: _size.width,
+              child: Column(
+                children: <Widget>[
+                  //Image Carousle for Branch View Start
+                  BlocListener<CompanyProfileBloc, CompanyProfileState>(
+                    listener: (context, state) {
+                      if (state is CompanyProfileFinished &&
+                          state.companyProfile.companyBranches.length > 0) {
+                        setState(() {
+                          imgList = [
+                            state.companyProfile.companyData.companyCoverImage
+                          ];
+                        });
+                      }
+                    },
+                    child: CarouselSlider(
+                      options: CarouselOptions(
+                          autoPlay: true,
+                          aspectRatio: 1.9,
+                          enlargeCenterPage: true,
+                          pauseAutoPlayOnTouch: true),
+                      items: imgList
+                          .map((item) => InkWell(
+                              onTap: () => Navigator.pushNamed(
+                                      context, GalleryView.routeName,
+                                      arguments: {
+                                        'imgList': imgList,
+                                        'companyName':
+                                            widget.company.companyName
+                                      }),
+                              child: Image.network(KAPIURL + item)))
+                          .toList(),
+                    ),
                   ),
-                ),
 
-                //Image Carousle for Branch View End
-                //Branch logo, name and Rating Start.
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Hero(
-                        tag: widget.company.companyName,
-                        child: CustomCircleAvatar(
-                          height: 80,
-                          width: 80,
-                          image: widget.company.logo,
-                        )),
-                    HorizontalGap(
-                      width: KdefaultPadding / 4,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: _size.width * 0.6,
-                          child: Text(
-                            widget.company.companyName,
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1
-                                .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    wordSpacing: 3.5),
+                  //Image Carousle for Branch View End
+                  //Branch logo, name and Rating Start.
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Spacer(),
+                      Hero(
+                          tag: widget.company.companyName,
+                          child: CustomCircleAvatar(
+                            height: 80,
+                            width: 80,
+                            image: widget.company.logo,
+                          )),
+                      HorizontalGap(
+                        width: KdefaultPadding / 4,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: _size.width * 0.6,
+                            child: Text(
+                              widget.company.companyName,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1
+                                  .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      wordSpacing: 3.5),
+                            ),
                           ),
-                        ),
-                        VerticalGap(
-                          height: KdefaultPadding / 2,
-                        ),
-                        SmoothStarRating(
-                          isReadOnly: true,
-                          rating: 5.0,
-                          size: 14,
-                        ),
-                      ],
-                    ),
-                    Spacer(),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                            icon: Icon(Icons.favorite_border),
-                            onPressed: () {}),
-                        IconButton(
-                            icon: Icon(Icons.share_outlined), onPressed: () {})
-                      ],
-                    ),
-                    Spacer()
-                  ],
-                ),
-                VerticalGap(),
-                //Branch logo, name and Rating End.
-                TabBar(
-                  controller: _controller,
-                  indicatorColor: KPrimaryColor,
-                  isScrollable: false,
-                  tabs: [
-                    Tab(
-                      text: _translator.translate("services"),
-                    ),
-                    Tab(
-                      text: _translator.translate("offers"),
-                    ),
-                    Tab(
-                      text: _translator.translate("branches"),
-                    ),
-                    Tab(
-                      text: _translator.translate("reviews"),
-                    ),
-                  ],
-                )
-              ],
-            )),
+                          VerticalGap(
+                            height: KdefaultPadding / 2,
+                          ),
+                          SmoothStarRating(
+                            isReadOnly: true,
+                            rating: 5.0,
+                            size: 14,
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                              icon: Icon(Icons.favorite_border),
+                              onPressed: () {}),
+                          IconButton(
+                              icon: Icon(Icons.share_outlined),
+                              onPressed: () {})
+                        ],
+                      ),
+                      Spacer()
+                    ],
+                  ),
+                  VerticalGap(),
+                  //Branch logo, name and Rating End.
+                  TabBar(
+                    controller: _controller,
+                    indicatorColor: KPrimaryColor,
+                    isScrollable: false,
+                    tabs: [
+                      Tab(
+                        text: _translator.translate("services"),
+                      ),
+                      Tab(
+                        text: _translator.translate("offers"),
+                      ),
+                      Tab(
+                        text: _translator.translate("branches"),
+                      ),
+                      Tab(
+                        text: _translator.translate("reviews"),
+                      ),
+                    ],
+                  )
+                ],
+              )),
+        ),
       ),
       Expanded(
           flex: 3,
