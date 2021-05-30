@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/themes/dark_theme.dart';
 import 'package:techtime/Helpers/themes/light_theme.dart';
 
-enum ThemeType { Light, Dark }
+import '../enums.dart';
 
 class ThemeModel extends ChangeNotifier {
   ThemeData currentTheme = darkTheme;

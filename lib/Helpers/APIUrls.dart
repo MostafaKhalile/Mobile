@@ -1,7 +1,7 @@
 // #############Strings################
 const String KAppName = "Tech Time";
-const String KAPIURL = "https://www.techtime.app";
-// const String KAPIURL = "https://174.138.14.14";
+// const String KAPIURL = "https://www.techtime.app";
+const String KAPIURL = "https://www.test.techtime.app";
 const String KPlaceHolder = "https://via.placeholder.com/150";
 
 // #############Routes##################

@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:techtime/models/client/advertise.dart';
 import 'package:techtime/models/client/category.dart';
 import 'package:techtime/models/client/company.dart';
+// TODO: Refactor this code to unify the methodology of Network.
 
 abstract class ClientHomeRepository {
   /// Throws [NetworkException].

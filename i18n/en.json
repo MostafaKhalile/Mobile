@@ -99,5 +99,6 @@
     "book_appointment": "Book an appointment",
     "choose_branche": "choose a branch",
     "pick_day": "pick a day",
-    "select_time": "select time"
+    "select_time": "select time",
+    "edited_successfully": "done editing successfully"
 }

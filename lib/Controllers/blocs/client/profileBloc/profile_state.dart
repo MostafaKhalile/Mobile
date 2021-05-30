@@ -12,7 +12,7 @@ class ProfileInitial extends ProfileState {}
 class ProfileDataLoading extends ProfileState {}
 
 class ProfileDataLoaded extends ProfileState {
-  final ClientProfile profile;
+  final USerProfile profile;
 
   ProfileDataLoaded(this.profile);
 }

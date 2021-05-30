@@ -212,34 +212,21 @@ class _ProfileControlsState extends State<ProfileControls> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(_translator.translate("confirm_signout")),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                // ignore: deprecated_member_use
-                RaisedButton(
-                  child: Text(
-                    _translator.translate("confirm"),
-                    style: Theme.of(context).textTheme.button,
-                  ),
-                  onPressed: () => Navigator.pop(context, true),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                // ignore: deprecated_member_use
-                RaisedButton(
-                  onPressed: () => Navigator.pop(context, false),
-                  child: Text(
-                    _translator.translate("cancel"),
-                    style: Theme.of(context)
-                        .textTheme
-                        .button
-                        .copyWith(color: KPrimaryColor),
-                  ),
-                ),
-              ],
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                _translator.translate("confirm"),
+                style: Theme.of(context).textTheme.button,
+              ),
+              onPressed: () => Navigator.pop(context, true),
             ),
-          ),
+            TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: Text(
+                  _translator.translate("cancel"),
+                  style: Theme.of(context).textTheme.button,
+                )),
+          ],
         );
       },
     );

@@ -6,11 +6,6 @@ import 'package:techtime/Helpers/network_constents.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
 import 'package:techtime/models/user.dart';
 
-//? Login  -> (registered)  -> check code -> home Screen
-//?        -> (Not registered) -> register > check code -> home screen
-//
-//? logout -> login screen
-
 class AuthRepo {
   PreferenceUtils _prefs;
   AuthApiClient _apiClient;
@@ -57,6 +52,14 @@ class AuthRepo {
       return null;
     }
     return userResp;
+  }
+
+  String get currentLanguageCode {
+    final userLanguage = _prefs.getValueWithKey(
+      'language_code',
+    );
+
+    return userLanguage.toUpperCase();
   }
 
   User get currentUser {

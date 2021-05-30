@@ -12,7 +12,5 @@ class BrancheBloc extends Bloc<BrancheEvent, BrancheState> {
   @override
   Stream<BrancheState> mapEventToState(
     BrancheEvent event,
-  ) async* {
-    // TODO: implement mapEventToState
-  }
+  ) async* {}
 }

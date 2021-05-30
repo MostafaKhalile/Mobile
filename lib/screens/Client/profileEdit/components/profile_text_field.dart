@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
-import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 
 class ProfileTextField extends StatelessWidget {
   const ProfileTextField({
     Key key,
     @required ThemeData theme,
     @required this.controller,
+    @required this.suffixWidget,
     this.enabled,
   })  : _theme = theme,
         super(key: key);
@@ -15,13 +15,13 @@ class ProfileTextField extends StatelessWidget {
   final TextEditingController controller;
   final ThemeData _theme;
   final bool enabled;
+  final Widget suffixWidget;
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations _translator = AppLocalizations.of(context);
     return Column(
       children: [
-        Row(children: [
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           SizedBox(
               width: MediaQuery.of(context).size.width * .8,
               child: TextField(
@@ -41,12 +41,7 @@ class ProfileTextField extends StatelessWidget {
                     disabledBorder: InputBorder.none,
                     errorBorder: InputBorder.none),
               )),
-          TextButton(
-              onPressed: () {},
-              child: Text(
-                _translator.translate("update"),
-                style: _theme.textTheme.button.copyWith(fontSize: 12),
-              ))
+          suffixWidget
         ]),
         Divider(
           height: KDefaultPadding / 2,

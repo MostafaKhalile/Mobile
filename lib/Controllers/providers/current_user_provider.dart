@@ -4,9 +4,9 @@ import 'package:techtime/Controllers/repositories/Auth/repository.dart';
 import 'package:techtime/models/user.dart';
 
 class CurrentUserProvider extends ChangeNotifier {
+  final AuthRepo _authRepo = AuthRepo();
   User _user;
   User get currentUser => _user;
-  final AuthRepo _authRepo = AuthRepo();
   User loadCurrentUser() {
     try {
       _user = _authRepo.currentUser;

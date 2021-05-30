@@ -11,7 +11,7 @@ class ProfileCoverAndImage extends StatelessWidget {
     @required this.userData,
   })  : _imagePikerDecoration = imagePikerDecoration,
         super(key: key);
-  final ClientProfile userData;
+  final USerProfile userData;
   final Decoration _imagePikerDecoration;
 
   @override

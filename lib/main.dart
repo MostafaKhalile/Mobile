@@ -20,6 +20,9 @@ import 'Controllers/blocs/client/ads_bloc/ads_bloc.dart';
 import 'Controllers/blocs/client/categorisBloc/categories_bloc.dart';
 import 'Controllers/blocs/client/companiesListBloc.dart/companieslist_bloc.dart';
 import 'Controllers/blocs/client/companyProfileBloc/company_profile_bloc.dart';
+import 'Controllers/blocs/client/profile_edit_blocs/edit_email_bloc/editemailaddress_bloc.dart';
+import 'Controllers/blocs/client/profile_edit_blocs/edit_first_name_bloc/editfirstname_bloc.dart';
+import 'Controllers/blocs/client/profile_edit_blocs/edit_second_name_bloc/editsecondname_bloc.dart';
 import 'Controllers/blocs/core/Auth/authantication_bloc.dart';
 import 'Controllers/cubits/LocaleCubit/locale_cubit.dart';
 import 'Controllers/cubits/NetworkCubit/internet_cubit.dart';
@@ -119,6 +122,9 @@ class MyApp extends StatelessWidget {
                         authRepo: AuthRepo(),
                       )),
               BlocProvider(create: (context) => ProfileBloc(userRepo)),
+              BlocProvider(create: (context) => EditfirstnameBloc(userRepo)),
+              BlocProvider(create: (context) => EditLastnameBloc(userRepo)),
+              BlocProvider(create: (context) => EditemailaddressBloc(userRepo)),
               BlocProvider(
                   create: (context) => AdsBloc(apiClientHomeRepository)),
               BlocProvider(

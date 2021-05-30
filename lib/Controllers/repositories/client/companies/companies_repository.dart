@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:techtime/models/client/company.dart';
 import 'package:techtime/models/client/companyProfile/company_profile.dart';
 
+// TODO: Refactor this code to unify the methodology of Network.
 abstract class CompaniesRepository {
   /// Throws [NetworkException].
   Future<List<Company>> fetchCategoryCompanies(int id);

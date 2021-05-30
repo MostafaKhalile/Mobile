@@ -108,7 +108,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
   int _selectedEmployee;
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
+    // Size _size = MediaQuery.of(context).size;
     AppLocalizations _translator = AppLocalizations.of(context);
     ThemeData _theme = Theme.of(context);
     return Expanded(
