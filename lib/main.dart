@@ -11,11 +11,11 @@ import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompan
 import 'package:techtime/Controllers/blocs/client/profileBloc/profile_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
 import 'package:techtime/Controllers/repositories/Auth/repository.dart';
-import 'package:techtime/Controllers/repositories/client/user/repository.dart';
 import 'package:techtime/Helpers/localization/app_language_model.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/route_generator.dart';
 
+import 'Controllers/Repositories/client/Account/repository.dart';
 import 'Controllers/blocs/client/ads_bloc/ads_bloc.dart';
 import 'Controllers/blocs/client/categorisBloc/categories_bloc.dart';
 import 'Controllers/blocs/client/companiesListBloc.dart/companieslist_bloc.dart';

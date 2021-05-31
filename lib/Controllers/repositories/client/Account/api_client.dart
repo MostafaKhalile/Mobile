@@ -8,7 +8,6 @@ import 'package:techtime/Controllers/repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/network_constents.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
-import '../../Auth/repository.dart';
 
 class ClientApiClient {
   final PreferenceUtils prefs;
@@ -45,12 +44,14 @@ class ClientApiClient {
     final String _path = KAPIURL + NetworkConstants.editFirstName;
 
     try {
-      var resp = await http.post(Uri.parse(_path),
-          body: {"first_name": name, "LanguageCode": "AR"},
-          headers: {"Authorization": "Token $currentToken"});
+      var resp = await http.post(Uri.parse(_path), body: {
+        "first_name": name,
+        "LanguageCode": _authRepo.currentLanguageCode
+      }, headers: {
+        "Authorization": "Token $currentToken"
+      });
       final respData = json.decode(utf8.decode(resp.bodyBytes));
       if (respData["status"] == 201) {
-        print("First Name has been edited $respData");
         return true;
       } else {
         print(
@@ -67,9 +68,12 @@ class ClientApiClient {
     final String _path = KAPIURL + NetworkConstants.editLastName;
 
     try {
-      var resp = await http.post(Uri.parse(_path),
-          body: {"last_name": name, "LanguageCode": "AR"},
-          headers: {"Authorization": "Token $currentToken"});
+      var resp = await http.post(Uri.parse(_path), body: {
+        "last_name": name,
+        "LanguageCode": _authRepo.currentLanguageCode
+      }, headers: {
+        "Authorization": "Token $currentToken"
+      });
       final respData = json.decode(utf8.decode(resp.bodyBytes));
       if (respData["status"] == 201) {
         print("First Name has been edited $respData");

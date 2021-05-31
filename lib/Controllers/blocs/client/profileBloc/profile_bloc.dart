@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:techtime/Controllers/repositories/client/user/repository.dart';
+import 'package:techtime/Controllers/Repositories/client/Account/repository.dart';
 import 'package:techtime/models/client_profile.dart';
 
 part 'profile_event.dart';

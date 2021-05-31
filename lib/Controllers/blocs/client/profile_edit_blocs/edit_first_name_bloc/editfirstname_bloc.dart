@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:techtime/Controllers/repositories/client/user/repository.dart';
+import 'package:techtime/Controllers/Repositories/client/Account/repository.dart';
 
 part 'editfirstname_event.dart';
 part 'editfirstname_state.dart';
