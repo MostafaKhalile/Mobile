@@ -53,9 +53,7 @@ class _ProfileEditState extends State<ProfileEdit> {
   Widget build(BuildContext context) {
     ThemeData _theme = Theme.of(context);
     Size _size = MediaQuery.of(context).size;
-    // AppLocalizations _translator = AppLocalizations.of(context);
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       body: Builder(
         builder: (context) {
           return SizedBox(
@@ -63,21 +61,11 @@ class _ProfileEditState extends State<ProfileEdit> {
               child: Column(
                 children: [
                   Expanded(
-                      flex: 3,
-                      child: ProfileCoverAndImage(
-                          userData: _userProfile,
-                          imagePikerDecoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: _userProfile?.image != null
-                                    ? NetworkImage(
-                                        KAPIURL + _userProfile?.image,
-                                      )
-                                    : AssetImage(KPlaceHolderImage),
-                                fit: BoxFit.fill,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(KdefaultRadius),
-                              )))),
+                    flex: 3,
+                    child: ProfileCoverAndImage(
+                      userData: _userProfile,
+                    ),
+                  ),
                   Expanded(
                     flex: 5,
                     child: Padding(

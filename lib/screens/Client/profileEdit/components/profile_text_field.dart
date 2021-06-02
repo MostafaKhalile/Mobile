@@ -45,8 +45,7 @@ class ProfileTextField extends StatelessWidget {
         ]),
         Divider(
           height: KDefaultPadding / 2,
-          color: Colors.white,
-          thickness: 1,
+          thickness: 3,
           indent: 10,
           endIndent: 10,
         ),

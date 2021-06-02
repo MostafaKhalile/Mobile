@@ -100,5 +100,7 @@
     "choose_branche": "choose a branch",
     "pick_day": "pick a day",
     "select_time": "select time",
-    "edited_successfully": "done editing successfully"
+    "edited_successfully": "done editing successfully",
+    "photo_gallery": "Gallery",
+    "camera": "Camera"
 }
