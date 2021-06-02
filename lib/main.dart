@@ -15,6 +15,7 @@ import 'package:techtime/Helpers/localization/app_language_model.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/route_generator.dart';
 
+import 'Controllers/BLoCs/client/profile_edit_blocs/edit_mobile_bloc/editmobile_bloc.dart';
 import 'Controllers/Repositories/client/Account/repository.dart';
 import 'Controllers/blocs/client/ads_bloc/ads_bloc.dart';
 import 'Controllers/blocs/client/categorisBloc/categories_bloc.dart';
@@ -108,61 +109,66 @@ class MyApp extends StatelessWidget {
     USerRepo userRepo = USerRepo();
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(
+          ChangeNotifierProvider<CurrentUserProvider>(
               create: (context) => CurrentUserProvider()..loadCurrentUser()),
         ],
-        child: MultiBlocProvider(
-            providers: [
-              BlocProvider<InternetCubit>(
-                create: (internetCubitContext) =>
-                    InternetCubit(connectivity: connectivity),
-              ),
-              BlocProvider(
-                  create: (_) => AuthanticationBloc(
-                        authRepo: AuthRepo(),
-                      )),
-              BlocProvider(create: (context) => ProfileBloc(userRepo)),
-              BlocProvider(create: (context) => EditfirstnameBloc(userRepo)),
-              BlocProvider(create: (context) => EditLastnameBloc(userRepo)),
-              BlocProvider(create: (context) => EditemailaddressBloc(userRepo)),
-              BlocProvider(
-                  create: (context) => AdsBloc(apiClientHomeRepository)),
-              BlocProvider(
-                  create: (context) => CategoriesBloc(apiClientHomeRepository)),
-              BlocProvider(
-                  create: (context) =>
-                      RecommendedcompaniesBloc(apiClientHomeRepository)),
-              BlocProvider(
-                  create: (context) =>
-                      LeastcompaniesBloc(apiClientHomeRepository)),
-              BlocProvider(
-                  create: (context) =>
-                      CompanieslistBloc(apiCompaniesRepository)),
-              BlocProvider(
-                  create: (context) =>
-                      CompanyProfileBloc(apiCompaniesRepository)),
-              BlocProvider<LocaleCubit>(create: (_) => LocaleCubit()),
-            ],
-            child: BlocBuilder<LocaleCubit, LocaleState>(
-              buildWhen: (previousState, currentState) =>
-                  previousState != currentState,
-              builder: (_, localeState) {
-                return MaterialApp(
-                    locale: localeState.locale,
-                    supportedLocales: [
-                      Locale('en', 'US'),
-                      Locale('ar', ''),
-                    ],
-                    localizationsDelegates: [
-                      AppLocalizations.delegate,
-                      GlobalMaterialLocalizations.delegate,
-                      GlobalWidgetsLocalizations.delegate,
-                    ],
-                    title: KAppName,
-                    theme: Provider.of<ThemeModel>(context).currentTheme,
-                    initialRoute: '/',
-                    onGenerateRoute: appRouter.generateRoute);
-              },
-            )));
+        child: Builder(builder: (context) {
+          return MultiBlocProvider(
+              providers: [
+                BlocProvider<InternetCubit>(
+                  create: (internetCubitContext) =>
+                      InternetCubit(connectivity: connectivity),
+                ),
+                BlocProvider(
+                    create: (_) => AuthanticationBloc(
+                          authRepo: AuthRepo(),
+                        )),
+                BlocProvider(create: (context) => ProfileBloc(userRepo)),
+                BlocProvider(create: (context) => EditfirstnameBloc(userRepo)),
+                BlocProvider(create: (context) => EditLastnameBloc(userRepo)),
+                BlocProvider(create: (context) => EditmobileBloc(userRepo)),
+                BlocProvider(
+                    create: (context) => EditemailaddressBloc(userRepo)),
+                BlocProvider(
+                    create: (context) => AdsBloc(apiClientHomeRepository)),
+                BlocProvider(
+                    create: (context) =>
+                        CategoriesBloc(apiClientHomeRepository)),
+                BlocProvider(
+                    create: (context) =>
+                        RecommendedcompaniesBloc(apiClientHomeRepository)),
+                BlocProvider(
+                    create: (context) =>
+                        LeastcompaniesBloc(apiClientHomeRepository)),
+                BlocProvider(
+                    create: (context) =>
+                        CompanieslistBloc(apiCompaniesRepository)),
+                BlocProvider(
+                    create: (context) =>
+                        CompanyProfileBloc(apiCompaniesRepository)),
+                BlocProvider<LocaleCubit>(create: (_) => LocaleCubit()),
+              ],
+              child: BlocBuilder<LocaleCubit, LocaleState>(
+                buildWhen: (previousState, currentState) =>
+                    previousState != currentState,
+                builder: (_, localeState) {
+                  return MaterialApp(
+                      locale: localeState.locale,
+                      supportedLocales: [
+                        Locale('en', 'US'),
+                        Locale('ar', ''),
+                      ],
+                      localizationsDelegates: [
+                        AppLocalizations.delegate,
+                        GlobalMaterialLocalizations.delegate,
+                        GlobalWidgetsLocalizations.delegate,
+                      ],
+                      title: KAppName,
+                      theme: Provider.of<ThemeModel>(context).currentTheme,
+                      initialRoute: '/',
+                      onGenerateRoute: appRouter.generateRoute);
+                },
+              ));
+        }));
   }
 }

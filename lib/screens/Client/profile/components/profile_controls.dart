@@ -10,8 +10,8 @@ import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/themes/dark_theme.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
+import 'package:techtime/Models/client_profile.dart';
 
-import 'package:techtime/models/user.dart';
 import 'package:techtime/screens/Client/contact/contact_us.dart';
 import 'package:techtime/screens/Client/profileEdit/profile_edit.dart';
 import 'package:techtime/screens/Client/walletScreen/wallet_screen.dart';
@@ -30,7 +30,8 @@ class ProfileControls extends StatefulWidget {
 class _ProfileControlsState extends State<ProfileControls> {
   @override
   Widget build(BuildContext context) {
-    User _currentUser = Provider.of<CurrentUserProvider>(context).currentUser;
+    UserProfile _currentUser =
+        Provider.of<CurrentUserProvider>(context, listen: false).currentUser;
     var appTheme = Provider.of<ThemeModel>(context);
     ThemeData _theme = Theme.of(context);
     return Expanded(
@@ -130,7 +131,7 @@ class _ProfileControlsState extends State<ProfileControls> {
   }
 
   Text buildLoginLogoutText(
-      User _currentUser, BuildContext context, ThemeData _theme) {
+      UserProfile _currentUser, BuildContext context, ThemeData _theme) {
     return Text(
       _currentUser != null
           ? AppLocalizations.of(context).translate("signOut").toUpperCase()

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_mobile_bloc/editmobile_bloc.dart';
+import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/Controllers/blocs/client/profileBloc/profile_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/profile_edit_blocs/edit_email_bloc/editemailaddress_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/profile_edit_blocs/edit_first_name_bloc/editfirstname_bloc.dart';
@@ -10,6 +12,7 @@ import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Models/client_profile.dart';
 import 'components/cover_and_image.dart';
 import 'components/profile_text_field.dart';
 
@@ -22,18 +25,27 @@ class ProfileEdit extends StatefulWidget {
 }
 
 class _ProfileEditState extends State<ProfileEdit> {
+  UserProfile _userProfile;
+  AuthRepo _authRepo = AuthRepo();
   TextEditingController _firstNameController;
-
   TextEditingController _lastNameController;
   TextEditingController _emailController;
   TextEditingController _mobileController;
   TextEditingController _passwordController =
       TextEditingController(text: "Password");
-  // USerRepo _userRepo = USerRepo();
+
   @override
   void initState() {
     BlocProvider.of<ProfileBloc>(context).add(FetchProfileData());
-
+    _userProfile = _authRepo.currentUserProfile;
+    _firstNameController =
+        TextEditingController(text: _userProfile.firstName ?? "FirstName");
+    _lastNameController =
+        TextEditingController(text: _userProfile.lastName ?? "LastName");
+    _emailController =
+        TextEditingController(text: _userProfile.email ?? "email");
+    _mobileController =
+        TextEditingController(text: _userProfile.mobile.toString() ?? "mobile");
     super.initState();
   }
 
@@ -43,46 +55,34 @@ class _ProfileEditState extends State<ProfileEdit> {
     Size _size = MediaQuery.of(context).size;
     // AppLocalizations _translator = AppLocalizations.of(context);
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: BlocConsumer<ProfileBloc, ProfileState>(
-        listener: (context, state) {
-          if (state is ProfileDataLoaded) {
-            _firstNameController = TextEditingController(
-                text: state.profile.firstName ?? "FirstName");
-            _lastNameController = TextEditingController(
-                text: state.profile.lastName ?? "LastName");
-            _emailController =
-                TextEditingController(text: state.profile.email ?? "email");
-            _mobileController = TextEditingController(
-                text: state.profile.mobile.toString() ?? "mobile");
-          }
-        },
-        builder: (context, state) {
-          if (state is ProfileDataLoaded) {
-            return SizedBox(
-                width: double.infinity,
-                child: Column(
-                  children: [
-                    Expanded(
-                        flex: 3,
-                        child: ProfileCoverAndImage(
-                            userData: state.profile,
-                            imagePikerDecoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: state.profile?.image != null
-                                      ? NetworkImage(
-                                          KAPIURL + state.profile?.image,
-                                        )
-                                      : AssetImage(KPlaceHolderImage),
-                                  fit: BoxFit.fill,
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(KdefaultRadius),
-                                )))),
-                    Expanded(
-                      flex: 5,
-                      child: Padding(
-                        padding: EdgeInsets.only(top: _size.height * 0.18),
+      // resizeToAvoidBottomInset: false,
+      body: Builder(
+        builder: (context) {
+          return SizedBox(
+              width: double.infinity,
+              child: Column(
+                children: [
+                  Expanded(
+                      flex: 3,
+                      child: ProfileCoverAndImage(
+                          userData: _userProfile,
+                          imagePikerDecoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: _userProfile?.image != null
+                                    ? NetworkImage(
+                                        KAPIURL + _userProfile?.image,
+                                      )
+                                    : AssetImage(KPlaceHolderImage),
+                                fit: BoxFit.fill,
+                              ),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(KdefaultRadius),
+                              )))),
+                  Expanded(
+                    flex: 5,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: _size.height * 0.18),
+                      child: SingleChildScrollView(
                         child: Column(
                           children: [
                             ProfileTextField(
@@ -187,7 +187,37 @@ class _ProfileEditState extends State<ProfileEdit> {
                                 controller: _emailController,
                                 theme: _theme),
                             ProfileTextField(
-                                suffixWidget: buildFirstNameInitial(context),
+                                suffixWidget: BlocConsumer<EditmobileBloc,
+                                    EditmobileState>(
+                                  listener: (context, state) {
+                                    if (state is EditMobilesuccess) {
+                                      buildSuccessMessage();
+                                    } else if (state is EditMobileFaild) {
+                                      buildErrorMessage(state.message);
+                                    }
+                                  },
+                                  builder: (context, state) {
+                                    if (state is EditMobileLoading) {
+                                      return Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: KdefaultPadding),
+                                        child: SizedBox(
+                                          height: 10,
+                                          width: 10,
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      );
+                                    } else {
+                                      return SuffixTextButton(
+                                        onPressed: () =>
+                                            BlocProvider.of<EditmobileBloc>(
+                                                    context)
+                                                .add(EditMobile(
+                                                    _mobileController.text)),
+                                      );
+                                    }
+                                  },
+                                ),
                                 controller: _mobileController,
                                 theme: _theme),
                             ProfileTextField(
@@ -198,14 +228,10 @@ class _ProfileEditState extends State<ProfileEdit> {
                           ],
                         ),
                       ),
-                    )
-                  ],
-                ));
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+                    ),
+                  )
+                ],
+              ));
         },
       ),
     );

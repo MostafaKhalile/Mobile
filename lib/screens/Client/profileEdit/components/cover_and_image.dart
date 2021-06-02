@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/models/client_profile.dart';
+import 'package:techtime/Models/client_profile.dart';
 
 class ProfileCoverAndImage extends StatelessWidget {
   const ProfileCoverAndImage({
@@ -11,7 +11,7 @@ class ProfileCoverAndImage extends StatelessWidget {
     @required this.userData,
   })  : _imagePikerDecoration = imagePikerDecoration,
         super(key: key);
-  final USerProfile userData;
+  final UserProfile userData;
   final Decoration _imagePikerDecoration;
 
   @override

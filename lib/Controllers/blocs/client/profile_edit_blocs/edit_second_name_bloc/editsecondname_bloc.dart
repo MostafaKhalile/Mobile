@@ -18,7 +18,7 @@ class EditLastnameBloc extends Bloc<EditLastnameEvent, EditLastnameState> {
     if (event is EditLastName) {
       try {
         yield EditLastNameLoading();
-        final hasEdited = await _userRepo.editFirstName(event.lastName);
+        final hasEdited = await _userRepo.editSecondName(event.lastName);
         if (hasEdited == true) {
           yield EditLastNamesuccess();
         }

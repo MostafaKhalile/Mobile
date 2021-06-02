@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:techtime/Controllers/Repositories/client/Account/repository.dart';
 import 'package:techtime/Controllers/repositories/Auth/api_client.dart';
 import 'package:techtime/Helpers/enums.dart';
 import 'package:techtime/Helpers/network_constents.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
+import 'package:techtime/Models/client_profile.dart';
 import 'package:techtime/models/user.dart';
 
 class AuthRepo {
@@ -24,6 +26,7 @@ class AuthRepo {
       if (data["status"] == 201) {
         _saveUserToken(user.token);
         _saveCurrentUser(user.toJson());
+        USerRepo().getProfileData();
       } else {}
       return user;
     } catch (e) {
@@ -72,11 +75,22 @@ class AuthRepo {
     return User.fromJson(jsonDecode(userResp));
   }
 
+  UserProfile get currentUserProfile {
+    final userResp = _prefs.getValueWithKey(NetworkConstants.currentUserProfile,
+        hideDebugPrint: true);
+    if (userResp == null) {
+      return null;
+    }
+    print(UserProfile.fromJson(jsonDecode(userResp)).toString());
+    return UserProfile.fromJson(jsonDecode(userResp));
+  }
+
   Future<void> _removeUserLocalData() async {
     try {
       _prefs.removeMultipleValuesWithKeys([
         NetworkConstants.currentUser,
         NetworkConstants.currentUserToken,
+        NetworkConstants.currentUserProfile,
       ]);
     } catch (e) {
       print(e);

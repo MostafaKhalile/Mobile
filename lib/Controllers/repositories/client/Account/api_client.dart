@@ -9,11 +9,11 @@ import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/network_constents.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
 
-class ClientApiClient {
+class AccountApiClient {
   final PreferenceUtils prefs;
   final AuthRepo _authRepo = AuthRepo();
 
-  ClientApiClient({
+  AccountApiClient({
     @required this.prefs,
   }) : assert(prefs != null);
   Future getProfileData() async {
@@ -96,6 +96,31 @@ class ClientApiClient {
       var resp = await http.post(Uri.parse(_path),
           body: {"email": email, "LanguageCode": _authRepo.currentLanguageCode},
           headers: {"Authorization": "Token $currentToken"});
+      final respData = json.decode(utf8.decode(resp.bodyBytes));
+      if (respData["status"] == 201) {
+        print("First Name has been edited $respData");
+        return true;
+      } else {
+        print(
+            "[Edit User FirstName] status message: #${respData["status"]}, status code: #${respData["message"]}");
+        return Future.error(
+            json.decode(utf8.decode(resp.bodyBytes))['message']);
+      }
+    } catch (e) {
+      return Future.error(json.decode(utf8.decode(e.bodyBytes))['message']);
+    }
+  }
+
+  Future<bool> editMobile(String mobile) async {
+    final String _path = KAPIURL + NetworkConstants.editMobile;
+
+    try {
+      var resp = await http.post(Uri.parse(_path), body: {
+        "mobile": mobile,
+        "LanguageCode": _authRepo.currentLanguageCode
+      }, headers: {
+        "Authorization": "Token $currentToken"
+      });
       final respData = json.decode(utf8.decode(resp.bodyBytes));
       if (respData["status"] == 201) {
         print("First Name has been edited $respData");

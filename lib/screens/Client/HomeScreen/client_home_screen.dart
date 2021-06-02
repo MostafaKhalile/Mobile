@@ -15,7 +15,7 @@ import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/themes/dark_theme.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/Helpers/utils/custom_snackbar.dart';
-import 'package:techtime/models/user.dart';
+import 'package:techtime/Models/client_profile.dart';
 import 'package:techtime/screens/Client/Categories/client_categories_screen.dart';
 import 'package:techtime/screens/Core/notifications/notifications.dart';
 import 'package:techtime/screens/Core/search_screen.dart';
@@ -44,13 +44,14 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     final leastCompniesBloc = context.read<LeastcompaniesBloc>();
     leastCompniesBloc.add(GetLeastCompanies());
     categoriesBloc.add(GetCatgories());
+    Provider.of<CurrentUserProvider>(context, listen: false).loadCurrentUser();
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    User _currentUser =
+    UserProfile _currentUser =
         Provider.of<CurrentUserProvider>(context, listen: false).currentUser;
     var appTheme = Provider.of<ThemeModel>(context);
     AppLocalizations _translator = AppLocalizations.of(context);
@@ -288,14 +289,14 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
   }
 
   Widget buildAppBar(BuildContext context, ThemeModel appTheme,
-      AppLocalizations _translator, User _currentUser) {
+      AppLocalizations _translator, UserProfile _currentUser) {
     return AppBar(
       backgroundColor: Theme.of(context).primaryColorDark,
       centerTitle: false,
       elevation: 0,
       automaticallyImplyLeading: false,
       title: Text(
-          "${_translator.translate('hello')}${_currentUser?.name ?? ""} ",
+          "${_translator.translate('hello')}${_currentUser?.firstName ?? ""} ",
           style: Theme.of(context)
               .textTheme
               .headline5

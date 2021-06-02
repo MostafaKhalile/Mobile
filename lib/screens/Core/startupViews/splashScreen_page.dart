@@ -14,6 +14,8 @@ import 'package:techtime/screens/company/company_placeholder.dart';
 import '../../../main.dart';
 
 class SplashScreen extends StatefulWidget {
+  static const String routeName = '/';
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }

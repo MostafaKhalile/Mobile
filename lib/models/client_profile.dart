@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class USerProfile extends Equatable {
+class UserProfile extends Equatable {
   final String image;
   final dynamic coverImage;
   final int raty;
@@ -15,7 +15,7 @@ class USerProfile extends Equatable {
   final String regionAr;
   final String regionEn;
 
-  const USerProfile({
+  const UserProfile({
     this.image,
     this.coverImage,
     this.raty,
@@ -31,8 +31,8 @@ class USerProfile extends Equatable {
     this.regionEn,
   });
 
-  factory USerProfile.fromJson(Map<String, dynamic> json) {
-    return USerProfile(
+  factory UserProfile.fromJson(Map<String, dynamic> json) {
+    return UserProfile(
       image: json['Image'] as String,
       coverImage: json['CoverImage'],
       raty: json['raty'] as int,
