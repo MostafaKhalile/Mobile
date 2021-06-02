@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:techtime/Controllers/Services/image_picker_service.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
@@ -19,7 +20,7 @@ class ProfileCoverAndImage extends StatefulWidget {
 }
 
 class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
-  final ImagePicker _picker = ImagePicker();
+  final ImagePickerService _picker = ImagePickerService();
   File _profilePicture;
   File _cover;
 
@@ -139,17 +140,15 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
   }
 
   _imgFromCamera() async {
-    PickedFile image =
-        await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
+    File image = await _picker.imgFromCamera();
 
-    return File(image.path);
+    return image;
   }
 
   _imgFromGallery() async {
-    PickedFile image =
-        await _picker.getImage(source: ImageSource.gallery, imageQuality: 50);
+    File image = await _picker.imgFromGallery();
 
-    return File(image.path);
+    return image;
   }
 
   Future<File> _showPicker(context) {
