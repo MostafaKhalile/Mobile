@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_mobile_bloc/editmobile_bloc.dart';
+import 'package:techtime/Controllers/Providers/current_user_provider.dart';
 import 'package:techtime/Controllers/Repositories/client/Account/repository.dart';
 import 'package:techtime/Controllers/blocs/client/profile_edit_blocs/edit_email_bloc/editemailaddress_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/profile_edit_blocs/edit_first_name_bloc/editfirstname_bloc.dart';
@@ -36,7 +38,8 @@ class _ProfileEditState extends State<ProfileEdit> {
 
   @override
   void initState() {
-    _userProfile = _userRepo.currentUserProfile;
+    _userProfile =
+        Provider.of<CurrentUserProvider>(context, listen: false).currentUser;
     _firstNameController =
         TextEditingController(text: _userProfile.firstName ?? "FirstName");
     _lastNameController =
@@ -52,6 +55,8 @@ class _ProfileEditState extends State<ProfileEdit> {
   Widget build(BuildContext context) {
     ThemeData _theme = Theme.of(context);
     Size _size = MediaQuery.of(context).size;
+    UserProfile _currentUser =
+        Provider.of<CurrentUserProvider>(context, listen: false).currentUser;
     return Scaffold(
       body: Builder(
         builder: (context) {
@@ -62,7 +67,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                   Expanded(
                     flex: 3,
                     child: ProfileCoverAndImage(
-                      userData: _userProfile,
+                      userData: _currentUser,
                     ),
                   ),
                   Expanded(
@@ -79,6 +84,9 @@ class _ProfileEditState extends State<ProfileEdit> {
                                   listener: (context, state) {
                                     if (state is EditFirstNamesuccess) {
                                       _customToast.buildSuccessMessage(context);
+                                      Provider.of<CurrentUserProvider>(context,
+                                              listen: false)
+                                          .loadCurrentUser();
                                     } else if (state is EditFirstNameFaild) {
                                       buildErrorMessage(state.message);
                                     }

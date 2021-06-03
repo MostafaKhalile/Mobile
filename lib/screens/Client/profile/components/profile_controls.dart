@@ -2,21 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:techtime/Controllers/cubits/LocaleCubit/locale_cubit.dart';
-import 'package:techtime/Controllers/providers/current_user_provider.dart';
-import 'package:techtime/Controllers/repositories/Auth/repository.dart';
+import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
+import 'package:techtime/Controllers/Providers/current_user_provider.dart';
+import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/themes/dark_theme.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/Models/client_profile.dart';
-
-import 'package:techtime/screens/Client/contact/contact_us.dart';
-import 'package:techtime/screens/Client/profileEdit/profile_edit.dart';
-import 'package:techtime/screens/Client/walletScreen/wallet_screen.dart';
-import 'package:techtime/screens/Core/startupViews/language_selection_page.dart';
-import 'package:techtime/screens/Core/startupViews/loginScreen/login_page.dart';
+import 'package:techtime/Screens/Client/contact/contact_us.dart';
+import 'package:techtime/Screens/Client/profileEdit/profile_edit.dart';
+import 'package:techtime/Screens/Client/walletScreen/wallet_screen.dart';
+import 'package:techtime/Screens/Core/startupViews/language_selection_page.dart';
+import 'package:techtime/Screens/Core/startupViews/loginScreen/login_page.dart';
 
 class ProfileControls extends StatefulWidget {
   ProfileControls({

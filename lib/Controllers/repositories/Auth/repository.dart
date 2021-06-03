@@ -25,9 +25,9 @@ class AuthRepo {
       if (data["status"] == 201) {
         _saveUserToken(user.token);
         _saveCurrentUser(user.toJson());
-        USerRepo().getProfileData();
-      } else {}
-      return user;
+        await USerRepo().getProfileData();
+        return user;
+      }
     } catch (e) {
       final message = e;
       return Future.error(message);

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:techtime/Controllers/Providers/current_user_provider.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Models/client_profile.dart';
@@ -13,6 +15,7 @@ class HeaderProfileAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserProfile _currentUser = context.watch<CurrentUserProvider>().currentUser;
     return Expanded(
       flex: 1,
       child: SizedBox(
@@ -21,7 +24,7 @@ class HeaderProfileAvatar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomCircleAvatar(
-              image: userProfile?.image ?? null,
+              image: _currentUser?.image ?? null,
               height: 100,
               width: 100,
             ),
@@ -29,7 +32,7 @@ class HeaderProfileAvatar extends StatelessWidget {
               height: KdefaultPadding,
             ),
             Text(
-              userProfile?.firstName ?? KAppName,
+              _currentUser?.firstName ?? KAppName,
               style: Theme.of(context).textTheme.headline6,
             )
           ],

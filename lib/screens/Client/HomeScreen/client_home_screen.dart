@@ -8,7 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/Controllers/blocs/client/categorisBloc/categories_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
-import 'package:techtime/Controllers/providers/current_user_provider.dart';
+import 'package:techtime/Controllers/Providers/current_user_provider.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
@@ -44,14 +44,13 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     final leastCompniesBloc = context.read<LeastcompaniesBloc>();
     leastCompniesBloc.add(GetLeastCompanies());
     categoriesBloc.add(GetCatgories());
-    Provider.of<CurrentUserProvider>(context, listen: false).loadCurrentUser();
+    CurrentUserProvider().loadCurrentUser();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    UserProfile _currentUser =
-        Provider.of<CurrentUserProvider>(context, listen: false).currentUser;
+    UserProfile _currentUser = context.watch<CurrentUserProvider>().currentUser;
     var appTheme = Provider.of<ThemeModel>(context);
     AppLocalizations _translator = AppLocalizations.of(context);
     Snackbar _snackBar = Snackbar();

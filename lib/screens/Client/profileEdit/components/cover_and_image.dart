@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:techtime/Controllers/Providers/current_user_provider.dart';
 
 import 'package:techtime/Controllers/Repositories/client/Account/api_client.dart';
 import 'package:techtime/Controllers/Repositories/client/Account/repository.dart';
@@ -139,6 +141,8 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
               _uploadingProfilePicture = false;
             });
             _customToast.buildSuccessMessage(context);
+            Provider.of<CurrentUserProvider>(context, listen: false)
+                .loadCurrentUser();
           }
         });
       } else {
