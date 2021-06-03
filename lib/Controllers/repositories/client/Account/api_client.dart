@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-
+import 'package:path/path.dart';
+import 'package:async/async.dart';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
@@ -134,6 +136,77 @@ class AccountApiClient {
     } catch (e) {
       return Future.error(json.decode(utf8.decode(e.bodyBytes))['message']);
     }
+  }
+
+  Future uploadProfilePicture(File imageFile) async {
+    bool hasBeenUploaded;
+    // open a bytestream
+    var stream =
+        new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
+    // get file length
+    var length = await imageFile.length();
+    final String _path = KAPIURL + NetworkConstants.uploadProfilePicture;
+
+    // string to uri
+    var uri = Uri.parse(_path);
+
+    // create multipart request
+    var request = new http.MultipartRequest("POST", uri);
+    request.headers.addAll({"Authorization": "Token $currentToken"});
+
+    // multipart that takes file
+    var multipartFile = new http.MultipartFile('image', stream, length,
+        filename: basename(imageFile.path));
+
+    // add file to multipart
+    request.files.add(multipartFile);
+
+    // send
+    var response = await request.send();
+
+    // listen for response
+    response.stream.transform(utf8.decoder).listen((value) {
+      if (json.decode(value)['status'] == 201) {
+        hasBeenUploaded = true;
+      } else {
+        hasBeenUploaded = false;
+      }
+      return hasBeenUploaded;
+    });
+    return true;
+  }
+
+  uploadCover(File imageFile) async {
+    print("Start Uploading Image File");
+    // open a bytestream
+    var stream =
+        new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
+    // get file length
+    var length = await imageFile.length();
+    final String _path = KAPIURL + NetworkConstants.uploadCoverPicture;
+
+    // string to uri
+    var uri = Uri.parse(_path);
+
+    // create multipart request
+    var request = new http.MultipartRequest("POST", uri);
+    request.headers.addAll({"Authorization": "Token $currentToken"});
+
+    // multipart that takes file
+    var multipartFile = new http.MultipartFile('CoverImage', stream, length,
+        filename: basename(imageFile.path));
+
+    // add file to multipart
+    request.files.add(multipartFile);
+
+    // send
+    var response = await request.send();
+    print(response.toString());
+
+    // listen for response
+    response.stream.transform(utf8.decoder).listen((value) {
+      print(value);
+    });
   }
 
   void logOut() {}

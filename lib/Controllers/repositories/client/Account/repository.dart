@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:techtime/Helpers/network_constents.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
@@ -16,18 +17,27 @@ class USerRepo {
       prefs: _prefs,
     );
   }
+  UserProfile get currentUserProfile {
+    final userResp = _prefs.getValueWithKey(NetworkConstants.currentUserProfile,
+        hideDebugPrint: true);
+    if (userResp == null) {
+      return null;
+    }
+    print(UserProfile.fromJson(jsonDecode(userResp)).toString());
+    return UserProfile.fromJson(jsonDecode(userResp));
+  }
 
-  Future<UserProfile> getProfileData() async {
+  Future getProfileData() async {
     try {
       final dataResp = (await _apiClient.getProfileData());
       final data = json.decode(dataResp)['Data'] as Map;
       final UserProfile profileData = UserProfile.fromJson(data);
       if (json.decode(dataResp)['status'] == 201) {
         _saveCurrentUserProfile(profileData.toJson());
+        return profileData;
       } else {
         return Future.error(json.decode(dataResp));
       }
-      return profileData;
     } catch (e) {
       final message = e;
       return Future.error(message);
@@ -56,6 +66,16 @@ class USerRepo {
     final bool hasEdited = await _apiClient.editMobile(mobile);
     if (hasEdited) await getProfileData();
     return hasEdited;
+  }
+
+  Future<bool> uploadProfilePicture(File imageFile) async {
+    final bool hasBeenUploaded =
+        await _apiClient.uploadProfilePicture(imageFile);
+    if (hasBeenUploaded) {
+      await getProfileData();
+    }
+    print("[Upload Profile Picture Repository] $hasBeenUploaded");
+    return hasBeenUploaded;
   }
 
   Future<bool> _saveCurrentUserProfile(Map<String, dynamic> userData) async {

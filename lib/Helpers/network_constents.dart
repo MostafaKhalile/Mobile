@@ -7,4 +7,7 @@ class NetworkConstants {
   static const String editLastName = "/api/settings/profile/edit-last-name";
   static const String editMobile = "/api/settings/profile/edit-mobile";
   static const String editEmailAddress = "/api/settings/profile/edit-email";
+  static const String uploadProfilePicture = "/api/settings/profile/edit-image";
+  static const String uploadCoverPicture =
+      "/api/settings/profile/edit-cover-image";
 }

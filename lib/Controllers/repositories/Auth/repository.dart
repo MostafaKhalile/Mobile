@@ -5,7 +5,6 @@ import 'package:techtime/Controllers/repositories/Auth/api_client.dart';
 import 'package:techtime/Helpers/enums.dart';
 import 'package:techtime/Helpers/network_constents.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
-import 'package:techtime/Models/client_profile.dart';
 import 'package:techtime/models/user.dart';
 
 class AuthRepo {
@@ -73,16 +72,6 @@ class AuthRepo {
     }
     print(User.fromJson(jsonDecode(userResp)).toString());
     return User.fromJson(jsonDecode(userResp));
-  }
-
-  UserProfile get currentUserProfile {
-    final userResp = _prefs.getValueWithKey(NetworkConstants.currentUserProfile,
-        hideDebugPrint: true);
-    if (userResp == null) {
-      return null;
-    }
-    print(UserProfile.fromJson(jsonDecode(userResp)).toString());
-    return UserProfile.fromJson(jsonDecode(userResp));
   }
 
   Future<void> _removeUserLocalData() async {

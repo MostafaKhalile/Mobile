@@ -45,7 +45,6 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     leastCompniesBloc.add(GetLeastCompanies());
     categoriesBloc.add(GetCatgories());
     Provider.of<CurrentUserProvider>(context, listen: false).loadCurrentUser();
-
     super.initState();
   }
 

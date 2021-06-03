@@ -1,11 +1,15 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+
+import 'package:techtime/Controllers/Repositories/client/Account/api_client.dart';
+import 'package:techtime/Controllers/Repositories/client/Account/repository.dart';
 import 'package:techtime/Controllers/Services/image_picker_service.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Helpers/shared_perfs_provider.dart';
+import 'package:techtime/Helpers/utils/custom_toast.dart';
 import 'package:techtime/Models/client_profile.dart';
 
 class ProfileCoverAndImage extends StatefulWidget {
@@ -22,7 +26,12 @@ class ProfileCoverAndImage extends StatefulWidget {
 class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
   final ImagePickerService _picker = ImagePickerService();
   File _profilePicture;
+  bool _uploadingProfilePicture = false;
   File _cover;
+  //ToDo add a function to upload cover image
+  bool _uploadingCover = false;
+  USerRepo _userRepo = USerRepo();
+  CustomToast _customToast = CustomToast();
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +74,7 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
                                           ? NetworkImage(
                                               KAPIURL + widget.userData.image,
                                             )
-                                          : AssetImage(KPlaceHolderCover),
+                                          : AssetImage(KPlaceHolderImage),
                                   fit: BoxFit.cover,
                                 ),
                                 borderRadius: BorderRadius.all(
@@ -73,26 +82,18 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
                                 ))),
                         onTap: () => changeProfilePicture(),
                       ),
-                      Positioned(
-                        bottom: -28,
-                        left: -28,
-                        right: -28,
-                        child: Row(
-                          children: [
-                            ClipOval(
+                      _uploadingProfilePicture
+                          ? Center(
                               child: Container(
-                                  color: Colors.white10,
-                                  width: 56,
-                                  height: 56,
-                                  child: Icon(
-                                    Icons.camera_alt_outlined,
-                                    color: Colors.white,
-                                    size: 25,
-                                  )),
-                            ),
-                          ],
-                        ),
-                      ),
+                                width: 120,
+                                height: 120,
+                                color: Colors.black26,
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              ),
+                            )
+                          : Container(),
                     ]),
                   ],
                 ),
@@ -126,28 +127,47 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
   }
 
   changeProfilePicture() {
-    _showPicker(context).then((value) => setState(() {
-          print("Pp here =====> $value");
-          _profilePicture = value;
-        }));
+    _showPicker(context).then((image) async {
+      if (image != null) {
+        setState(() {
+          _uploadingProfilePicture = true;
+        });
+        await _userRepo.uploadProfilePicture(image).then((value) {
+          if (value = true) {
+            setState(() {
+              _profilePicture = image;
+              _uploadingProfilePicture = false;
+            });
+            _customToast.buildSuccessMessage(context);
+          }
+        });
+      } else {
+        _customToast.buildErrorMessage(context, "لم تقم بإختار صورة");
+        setState(() {
+          _uploadingProfilePicture = false;
+        });
+      }
+    });
   }
 
   changeCoverPicture() {
     _showPicker(context).then((value) => setState(() {
           print("Cover here =====> $value");
           _cover = value;
+          if (value != null) {
+            AccountApiClient(prefs: PreferenceUtils.getInstance())
+                .uploadCover(_cover);
+          }
         }));
   }
 
   _imgFromCamera() async {
     File image = await _picker.imgFromCamera();
-
     return image;
   }
 
   _imgFromGallery() async {
     File image = await _picker.imgFromGallery();
-
     return image;
   }
 

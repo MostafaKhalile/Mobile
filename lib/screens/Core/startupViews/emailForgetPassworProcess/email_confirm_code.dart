@@ -17,7 +17,7 @@ class EmailConfirmCode extends StatefulWidget {
 }
 
 class _EmailConfirmCodeState extends State<EmailConfirmCode> {
-  final _formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final _confirmationCodeController = TextEditingController();
   final Validator _validator = Validator();

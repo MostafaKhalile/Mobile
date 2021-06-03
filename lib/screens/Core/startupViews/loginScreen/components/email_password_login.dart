@@ -28,7 +28,7 @@ class _EmailPasswordLoginFormState extends State<EmailPasswordLoginForm> {
   Snackbar _snackbar = Snackbar();
   UserRole _userRole;
   AuthRepo _authRepo = AuthRepo();
-  final _formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();

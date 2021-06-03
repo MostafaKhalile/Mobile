@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_mobile_bloc/editmobile_bloc.dart';
-import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
-import 'package:techtime/Controllers/blocs/client/profileBloc/profile_bloc.dart';
+import 'package:techtime/Controllers/Repositories/client/Account/repository.dart';
 import 'package:techtime/Controllers/blocs/client/profile_edit_blocs/edit_email_bloc/editemailaddress_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/profile_edit_blocs/edit_first_name_bloc/editfirstname_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/profile_edit_blocs/edit_second_name_bloc/editsecondname_bloc.dart';
 
-import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Helpers/utils/custom_toast.dart';
 import 'package:techtime/Models/client_profile.dart';
 import 'components/cover_and_image.dart';
 import 'components/profile_text_field.dart';
@@ -26,7 +25,8 @@ class ProfileEdit extends StatefulWidget {
 
 class _ProfileEditState extends State<ProfileEdit> {
   UserProfile _userProfile;
-  AuthRepo _authRepo = AuthRepo();
+  USerRepo _userRepo = USerRepo();
+  CustomToast _customToast = CustomToast();
   TextEditingController _firstNameController;
   TextEditingController _lastNameController;
   TextEditingController _emailController;
@@ -36,8 +36,7 @@ class _ProfileEditState extends State<ProfileEdit> {
 
   @override
   void initState() {
-    BlocProvider.of<ProfileBloc>(context).add(FetchProfileData());
-    _userProfile = _authRepo.currentUserProfile;
+    _userProfile = _userRepo.currentUserProfile;
     _firstNameController =
         TextEditingController(text: _userProfile.firstName ?? "FirstName");
     _lastNameController =
@@ -79,7 +78,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                                     EditfirstnameState>(
                                   listener: (context, state) {
                                     if (state is EditFirstNamesuccess) {
-                                      buildSuccessMessage();
+                                      _customToast.buildSuccessMessage(context);
                                     } else if (state is EditFirstNameFaild) {
                                       buildErrorMessage(state.message);
                                     }
@@ -113,7 +112,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                                     EditLastnameState>(
                                   listener: (context, state) {
                                     if (state is EditLastNamesuccess) {
-                                      buildSuccessMessage();
+                                      _customToast.buildSuccessMessage(context);
                                     } else if (state is EditLastNameFaild) {
                                       buildErrorMessage(state.message);
                                     }
@@ -146,7 +145,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                                     EditemailaddressState>(
                                   listener: (context, state) {
                                     if (state is EditEmailAddresssuccess) {
-                                      buildSuccessMessage();
+                                      _customToast.buildSuccessMessage(context);
                                     } else if (state is EditEmailAddressFaild) {
                                       buildErrorMessage(state.message);
                                     }
@@ -179,7 +178,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                                     EditmobileState>(
                                   listener: (context, state) {
                                     if (state is EditMobilesuccess) {
-                                      buildSuccessMessage();
+                                      _customToast.buildSuccessMessage(context);
                                     } else if (state is EditMobileFaild) {
                                       buildErrorMessage(state.message);
                                     }
@@ -223,34 +222,6 @@ class _ProfileEditState extends State<ProfileEdit> {
         },
       ),
     );
-  }
-
-  void buildSuccessMessage() {
-    showToastWidget(
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.check_circle_outline,
-              color: Colors.greenAccent,
-              size: 30,
-            ),
-            Text(
-              AppLocalizations.of(context).translate("edited_successfully"),
-              style: Theme.of(context).textTheme.caption,
-            )
-          ],
-        ),
-        context: context,
-        position: StyledToastPosition.center,
-        dismissOtherToast: true,
-        isHideKeyboard: true,
-        animation: StyledToastAnimation.scale,
-        reverseAnimation: StyledToastAnimation.fade,
-        duration: Duration(seconds: 4),
-        animDuration: Duration(seconds: 1),
-        curve: Curves.elasticOut,
-        reverseCurve: Curves.linear);
   }
 
   void buildErrorMessage(String message) {

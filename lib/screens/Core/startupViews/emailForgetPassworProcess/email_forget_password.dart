@@ -17,7 +17,7 @@ class EmailForgetPassword extends StatefulWidget {
 class _EmailForgetPasswordState extends State<EmailForgetPassword> {
   Validator _validator = Validator();
 
-  final _formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final _emailController = TextEditingController();
 

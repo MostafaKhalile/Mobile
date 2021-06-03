@@ -1,16 +1,15 @@
 import 'package:flutter/foundation.dart';
+import 'package:techtime/Controllers/Repositories/client/Account/repository.dart';
 
-import 'package:techtime/Controllers/repositories/Auth/repository.dart';
 import 'package:techtime/Models/client_profile.dart';
 
 class CurrentUserProvider extends ChangeNotifier {
-  final AuthRepo _authRepo = AuthRepo();
+  final USerRepo _userRepo = USerRepo();
   UserProfile _userData;
   UserProfile get currentUser => _userData;
   UserProfile loadCurrentUser() {
     try {
-      _userData = _authRepo.currentUserProfile;
-      notifyListeners();
+      _userData = _userRepo.currentUserProfile;
       return _userData;
     } catch (e) {
       print("ERROR $e");
