@@ -207,6 +207,7 @@ class AccountApiClient {
     response.stream.transform(utf8.decoder).listen((value) {
       print(value);
     });
+    return true;
   }
 
   void logOut() {}

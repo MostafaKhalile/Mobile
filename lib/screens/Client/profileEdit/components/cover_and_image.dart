@@ -1,25 +1,23 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:techtime/Controllers/BLoCs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_profile_picture_Bloc/editprofilepicture_bloc.dart';
 import 'package:techtime/Controllers/Providers/current_user_provider.dart';
-
-import 'package:techtime/Controllers/Repositories/client/Account/api_client.dart';
 import 'package:techtime/Controllers/Repositories/client/Account/repository.dart';
 import 'package:techtime/Controllers/Services/image_picker_service.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/Helpers/shared_perfs_provider.dart';
 import 'package:techtime/Helpers/utils/custom_toast.dart';
 import 'package:techtime/Models/client_profile.dart';
 
 class ProfileCoverAndImage extends StatefulWidget {
   const ProfileCoverAndImage({
     Key key,
-    @required this.userData,
   }) : super(key: key);
-  final UserProfile userData;
 
   @override
   _ProfileCoverAndImageState createState() => _ProfileCoverAndImageState();
@@ -30,13 +28,14 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
   File _profilePicture;
   bool _uploadingProfilePicture = false;
   File _cover;
-  //ToDo add a function to upload cover image
   bool _uploadingCover = false;
   USerRepo _userRepo = USerRepo();
   CustomToast _customToast = CustomToast();
 
   @override
   Widget build(BuildContext context) {
+    UserProfile userData = context.watch<CurrentUserProvider>().currentUser;
+
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -46,9 +45,9 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
               image: DecorationImage(
             image: (_cover != null)
                 ? FileImage(_cover)
-                : widget.userData?.coverImage != null
+                : userData?.coverImage != null
                     ? NetworkImage(
-                        KAPIURL + widget.userData.coverImage,
+                        KAPIURL + userData.coverImage,
                       )
                     : AssetImage(KPlaceHolderCover),
             fit: BoxFit.cover,
@@ -56,6 +55,11 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
           child: Stack(
             clipBehavior: Clip.none,
             children: [
+              _uploadingCover
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Container(),
               Positioned(
                 bottom: -60,
                 right: 0,
@@ -63,40 +67,55 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Stack(clipBehavior: Clip.none, children: [
-                      InkWell(
-                        child: Container(
-                            height: 120,
-                            width: 120,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: (_profilePicture != null)
-                                      ? FileImage(_profilePicture)
-                                      : widget.userData?.image != null
+                    BlocConsumer<EditprofilepictureBloc,
+                        EditprofilepictureState>(
+                      listener: (context, state) {
+                        if (state is EditprofilepictureDone) {
+                          _customToast.buildSuccessMessage(context);
+                          Provider.of<CurrentUserProvider>(context,
+                                  listen: false)
+                              .loadCurrentUser();
+                        }
+                        if (state is EditprofilepictureFailure) {
+                          _customToast.buildErrorMessage(context, "حدث خطأ ما");
+                        }
+                      },
+                      builder: (context, state) {
+                        state = state;
+                        return Stack(clipBehavior: Clip.none, children: [
+                          InkWell(
+                            child: Container(
+                                height: 120,
+                                width: 120,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: userData?.image != null
                                           ? NetworkImage(
-                                              KAPIURL + widget.userData.image,
+                                              KAPIURL + userData.image,
                                             )
                                           : AssetImage(KPlaceHolderImage),
-                                  fit: BoxFit.cover,
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(KdefaultRadius),
-                                ))),
-                        onTap: () => changeProfilePicture(),
-                      ),
-                      _uploadingProfilePicture
-                          ? Center(
-                              child: Container(
-                                width: 120,
-                                height: 120,
-                                color: Colors.black26,
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              ),
-                            )
-                          : Container(),
-                    ]),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(KdefaultRadius),
+                                    ))),
+                            onTap: () => changeProfilePicture(),
+                          ),
+                          state is EditprofilepictureUploading
+                              ? Center(
+                                  child: Container(
+                                    width: 120,
+                                    height: 120,
+                                    color: Colors.black26,
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  ),
+                                )
+                              : Container(),
+                        ]);
+                      },
+                    ),
                   ],
                 ),
               )
@@ -134,11 +153,27 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
         setState(() {
           _uploadingProfilePicture = true;
         });
-        await _userRepo.uploadProfilePicture(image).then((value) {
+        context.read<EditprofilepictureBloc>().add(ChangeProfilePicture(image));
+      } else {
+        _customToast.buildErrorMessage(context, "لم تقم بإختار صورة");
+        setState(() {
+          _uploadingProfilePicture = false;
+        });
+      }
+    });
+  }
+
+  changeCoverPicture() {
+    _showPicker(context).then((image) async {
+      if (image != null) {
+        setState(() {
+          _uploadingCover = true;
+        });
+        await _userRepo.uploadCover(image).then((value) {
           if (value = true) {
             setState(() {
-              _profilePicture = image;
-              _uploadingProfilePicture = false;
+              _cover = image;
+              _uploadingCover = false;
             });
             _customToast.buildSuccessMessage(context);
             Provider.of<CurrentUserProvider>(context, listen: false)
@@ -152,17 +187,6 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
         });
       }
     });
-  }
-
-  changeCoverPicture() {
-    _showPicker(context).then((value) => setState(() {
-          print("Cover here =====> $value");
-          _cover = value;
-          if (value != null) {
-            AccountApiClient(prefs: PreferenceUtils.getInstance())
-                .uploadCover(_cover);
-          }
-        }));
   }
 
   _imgFromCamera() async {

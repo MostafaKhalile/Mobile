@@ -27,6 +27,8 @@ class AuthRepo {
         _saveCurrentUser(user.toJson());
         await USerRepo().getProfileData();
         return user;
+      } else {
+        return Future.error(data["message"]);
       }
     } catch (e) {
       final message = e;

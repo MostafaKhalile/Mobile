@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:techtime/Controllers/cubits/LocaleCubit/locale_cubit.dart';
+import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:techtime/Controllers/cubits/NetworkCubit/internet_cubit.dart';
+import 'package:techtime/Controllers/Cubits/NetworkCubit/internet_cubit.dart';
 
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 

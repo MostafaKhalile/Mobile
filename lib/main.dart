@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_profile_picture_Bloc/editprofilepicture_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/profileBloc/profile_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
@@ -16,6 +17,7 @@ import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/route_generator.dart';
 
 import 'Controllers/BLoCs/client/profile_edit_blocs/edit_mobile_bloc/editmobile_bloc.dart';
+import 'Controllers/Cubits/LocaleCubit/locale_cubit.dart';
 import 'Controllers/Repositories/client/Account/repository.dart';
 import 'Controllers/blocs/client/ads_bloc/ads_bloc.dart';
 import 'Controllers/blocs/client/categorisBloc/categories_bloc.dart';
@@ -25,8 +27,7 @@ import 'Controllers/blocs/client/profile_edit_blocs/edit_email_bloc/editemailadd
 import 'Controllers/blocs/client/profile_edit_blocs/edit_first_name_bloc/editfirstname_bloc.dart';
 import 'Controllers/blocs/client/profile_edit_blocs/edit_second_name_bloc/editsecondname_bloc.dart';
 import 'Controllers/blocs/core/Auth/authantication_bloc.dart';
-import 'Controllers/cubits/LocaleCubit/locale_cubit.dart';
-import 'Controllers/cubits/NetworkCubit/internet_cubit.dart';
+import 'Controllers/Cubits/NetworkCubit/internet_cubit.dart';
 import 'Controllers/Providers/current_user_provider.dart';
 import 'Controllers/repositories/client/companies/companies_repository.dart';
 import 'Controllers/repositories/client/home/user_home_repo.dart';
@@ -128,6 +129,8 @@ class MyApp extends StatelessWidget {
                 BlocProvider(create: (context) => EditLastnameBloc(userRepo)),
                 BlocProvider(create: (context) => EditmobileBloc(userRepo)),
                 BlocProvider(
+                    create: (context) => EditprofilepictureBloc(userRepo)),
+                BlocProvider(
                     create: (context) => EditemailaddressBloc(userRepo)),
                 BlocProvider(
                     create: (context) => AdsBloc(apiClientHomeRepository)),
@@ -146,7 +149,7 @@ class MyApp extends StatelessWidget {
                 BlocProvider(
                     create: (context) =>
                         CompanyProfileBloc(apiCompaniesRepository)),
-                BlocProvider<LocaleCubit>(create: (_) => LocaleCubit()),
+                BlocProvider<LocaleCubit>(create: (context) => LocaleCubit()),
               ],
               child: BlocBuilder<LocaleCubit, LocaleState>(
                 buildWhen: (previousState, currentState) =>

@@ -78,6 +78,15 @@ class USerRepo {
     return hasBeenUploaded;
   }
 
+  Future<bool> uploadCover(File imageFile) async {
+    final bool hasBeenUploaded = await _apiClient.uploadCover(imageFile);
+    if (hasBeenUploaded) {
+      await getProfileData();
+    }
+    print("[Upload Cover Picture Repository] $hasBeenUploaded");
+    return hasBeenUploaded;
+  }
+
   Future<bool> _saveCurrentUserProfile(Map<String, dynamic> userData) async {
     return _prefs.saveValueWithKey<String>(
         NetworkConstants.currentUserProfile, jsonEncode(userData));

@@ -66,9 +66,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                 children: [
                   Expanded(
                     flex: 3,
-                    child: ProfileCoverAndImage(
-                      userData: _currentUser,
-                    ),
+                    child: ProfileCoverAndImage(),
                   ),
                   Expanded(
                     flex: 5,
