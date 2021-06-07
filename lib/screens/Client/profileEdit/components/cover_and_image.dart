@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/BLoCs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_cover_bloc/editcover_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_profile_picture_Bloc/editprofilepicture_bloc.dart';
 import 'package:techtime/Controllers/Providers/current_user_provider.dart';
 import 'package:techtime/Controllers/Repositories/client/Account/repository.dart';
@@ -29,7 +30,6 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
   bool _uploadingProfilePicture = false;
   File _cover;
   bool _uploadingCover = false;
-  USerRepo _userRepo = USerRepo();
   CustomToast _customToast = CustomToast();
 
   @override
@@ -39,89 +39,102 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-            image: (_cover != null)
-                ? FileImage(_cover)
-                : userData?.coverImage != null
-                    ? NetworkImage(
-                        KAPIURL + userData.coverImage,
+        BlocConsumer<EditcoverBloc, EditcoverState>(listener: (context, state) {
+          if (state is EditCoverDone) {
+            _customToast.buildSuccessMessage(context);
+            Provider.of<CurrentUserProvider>(context, listen: false)
+                .loadCurrentUser();
+          }
+          if (state is EditCoverFailure) {
+            _customToast.buildErrorMessage(context, "حدث خطأ ما");
+          }
+        }, builder: (context, state) {
+          state = state;
+          return Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+              image: (_cover != null)
+                  ? FileImage(_cover)
+                  : userData?.coverImage != null
+                      ? NetworkImage(
+                          KAPIURL + userData.coverImage,
+                        )
+                      : AssetImage(KPlaceHolderCover),
+              fit: BoxFit.cover,
+            )),
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                (state is EditCoverUploading)
+                    ? Center(
+                        child: CircularProgressIndicator(),
                       )
-                    : AssetImage(KPlaceHolderCover),
-            fit: BoxFit.cover,
-          )),
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              _uploadingCover
-                  ? Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : Container(),
-              Positioned(
-                bottom: -60,
-                right: 0,
-                left: 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    BlocConsumer<EditprofilepictureBloc,
-                        EditprofilepictureState>(
-                      listener: (context, state) {
-                        if (state is EditprofilepictureDone) {
-                          _customToast.buildSuccessMessage(context);
-                          Provider.of<CurrentUserProvider>(context,
-                                  listen: false)
-                              .loadCurrentUser();
-                        }
-                        if (state is EditprofilepictureFailure) {
-                          _customToast.buildErrorMessage(context, "حدث خطأ ما");
-                        }
-                      },
-                      builder: (context, state) {
-                        state = state;
-                        return Stack(clipBehavior: Clip.none, children: [
-                          InkWell(
-                            child: Container(
-                                height: 120,
-                                width: 120,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: userData?.image != null
-                                          ? NetworkImage(
-                                              KAPIURL + userData.image,
-                                            )
-                                          : AssetImage(KPlaceHolderImage),
-                                      fit: BoxFit.cover,
+                    : Container(),
+                Positioned(
+                  bottom: -60,
+                  right: 0,
+                  left: 0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      BlocConsumer<EditprofilepictureBloc,
+                          EditprofilepictureState>(
+                        listener: (context, state) {
+                          if (state is EditprofilepictureDone) {
+                            _customToast.buildSuccessMessage(context);
+                            Provider.of<CurrentUserProvider>(context,
+                                    listen: false)
+                                .loadCurrentUser();
+                          }
+                          if (state is EditprofilepictureFailure) {
+                            _customToast.buildErrorMessage(
+                                context, "حدث خطأ ما");
+                          }
+                        },
+                        builder: (context, state) {
+                          state = state;
+                          return Stack(clipBehavior: Clip.none, children: [
+                            InkWell(
+                              child: Container(
+                                  height: 120,
+                                  width: 120,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: userData?.image != null
+                                            ? NetworkImage(
+                                                KAPIURL + userData.image,
+                                              )
+                                            : AssetImage(KPlaceHolderImage),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(KdefaultRadius),
+                                      ))),
+                              onTap: () => changeProfilePicture(),
+                            ),
+                            state is EditprofilepictureUploading
+                                ? Center(
+                                    child: Container(
+                                      width: 120,
+                                      height: 120,
+                                      color: Colors.black26,
+                                      child: Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
                                     ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(KdefaultRadius),
-                                    ))),
-                            onTap: () => changeProfilePicture(),
-                          ),
-                          state is EditprofilepictureUploading
-                              ? Center(
-                                  child: Container(
-                                    width: 120,
-                                    height: 120,
-                                    color: Colors.black26,
-                                    child: Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                  ),
-                                )
-                              : Container(),
-                        ]);
-                      },
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
+                                  )
+                                : Container(),
+                          ]);
+                        },
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        }),
         Row(
           children: [
             Padding(
@@ -169,21 +182,11 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
         setState(() {
           _uploadingCover = true;
         });
-        await _userRepo.uploadCover(image).then((value) {
-          if (value = true) {
-            setState(() {
-              _cover = image;
-              _uploadingCover = false;
-            });
-            _customToast.buildSuccessMessage(context);
-            Provider.of<CurrentUserProvider>(context, listen: false)
-                .loadCurrentUser();
-          }
-        });
+        context.read<EditcoverBloc>().add(ChangeCover(image));
       } else {
         _customToast.buildErrorMessage(context, "لم تقم بإختار صورة");
         setState(() {
-          _uploadingProfilePicture = false;
+          _uploadingCover = false;
         });
       }
     });

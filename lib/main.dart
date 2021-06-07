@@ -16,6 +16,7 @@ import 'package:techtime/Helpers/localization/app_language_model.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/route_generator.dart';
 
+import 'Controllers/BLoCs/client/profile_edit_blocs/edit_cover_bloc/editcover_bloc.dart';
 import 'Controllers/BLoCs/client/profile_edit_blocs/edit_mobile_bloc/editmobile_bloc.dart';
 import 'Controllers/Cubits/LocaleCubit/locale_cubit.dart';
 import 'Controllers/Repositories/client/Account/repository.dart';
@@ -130,6 +131,7 @@ class MyApp extends StatelessWidget {
                 BlocProvider(create: (context) => EditmobileBloc(userRepo)),
                 BlocProvider(
                     create: (context) => EditprofilepictureBloc(userRepo)),
+                BlocProvider(create: (context) => EditcoverBloc(userRepo)),
                 BlocProvider(
                     create: (context) => EditemailaddressBloc(userRepo)),
                 BlocProvider(
