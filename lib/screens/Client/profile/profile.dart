@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:techtime/Controllers/BLoCs/client/profileBloc/profile_bloc.dart';
 import 'package:techtime/Controllers/Repositories/client/Account/repository.dart';
 import 'package:techtime/Models/client_profile.dart';
 import 'package:techtime/screens/Client/profile/components/profile_controls.dart';
