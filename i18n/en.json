@@ -12,6 +12,8 @@
     "userName": "User Name",
     "mobile": "Mobile",
     "email": "Email",
+    "old_password": "old Password",
+    "reset_password": "Reset Password",
     "password": "Password",
     "Repassword": "Re Password",
     "facebookLogin": "CONTINUE WITH FACEBOOK",

@@ -12,8 +12,10 @@ import 'package:techtime/Controllers/blocs/client/profile_edit_blocs/edit_second
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Helpers/utils/custom_dialog.dart';
 import 'package:techtime/Helpers/utils/custom_toast.dart';
 import 'package:techtime/Models/client_profile.dart';
+import 'package:techtime/Screens/Core/startupViews/edit_password_screen.dart';
 import 'components/cover_and_image.dart';
 import 'components/profile_text_field.dart';
 
@@ -28,6 +30,7 @@ class ProfileEdit extends StatefulWidget {
 class _ProfileEditState extends State<ProfileEdit> {
   UserProfile _userProfile;
   USerRepo _userRepo = USerRepo();
+  CustomDialog _dialog = CustomDialog();
   CustomToast _customToast = CustomToast();
   TextEditingController _firstNameController;
   TextEditingController _lastNameController;
@@ -214,7 +217,10 @@ class _ProfileEditState extends State<ProfileEdit> {
                                 controller: _mobileController,
                                 theme: _theme),
                             ProfileTextField(
-                                suffixWidget: buildFirstNameInitial(context),
+                                suffixWidget: SuffixTextButton(
+                                    onPressed: () =>
+                                        _dialog.buildFullScreenDialog(
+                                            context, EditPasswordScreen())),
                                 enabled: false,
                                 controller: _passwordController,
                                 theme: _theme),

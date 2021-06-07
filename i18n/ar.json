@@ -12,6 +12,8 @@
     "userName": "اسم المستخدم",
     "mobile": "موبايل",
     "email": "بريدإلكترونى",
+    "old_password": "كلمة السر القديمة",
+    "reset_password": "إعادة تعيين كلمة السر",
     "password": "كلمة السر",
     "Repassword": "إعادة كلمة السر",
     "facebookLogin": "متابعة بواسطة فيسبوك",
