@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_passwod_bloc/editpassword_bloc.dart';
 import 'package:techtime/Helpers/network_constents.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
 import 'package:techtime/Models/client_profile.dart';
@@ -58,6 +59,12 @@ class USerRepo {
 
   Future<bool> editEmailAddress(String email) async {
     final bool hasEdited = await _apiClient.editEmailAddress(email);
+    if (hasEdited) await getProfileData();
+    return hasEdited;
+  }
+
+  Future<bool> editPassword(Map<String, String> data) async {
+    final bool hasEdited = await _apiClient.editPassword(data);
     if (hasEdited) await getProfileData();
     return hasEdited;
   }

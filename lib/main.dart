@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_passwod_bloc/editpassword_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_profile_picture_Bloc/editprofilepicture_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/profileBloc/profile_bloc.dart';
@@ -129,6 +130,7 @@ class MyApp extends StatelessWidget {
                 BlocProvider(create: (context) => EditfirstnameBloc(userRepo)),
                 BlocProvider(create: (context) => EditLastnameBloc(userRepo)),
                 BlocProvider(create: (context) => EditmobileBloc(userRepo)),
+                BlocProvider(create: (context) => EditpasswordBloc(userRepo)),
                 BlocProvider(
                     create: (context) => EditprofilepictureBloc(userRepo)),
                 BlocProvider(create: (context) => EditcoverBloc(userRepo)),

@@ -138,6 +138,33 @@ class AccountApiClient {
     }
   }
 
+  Future<bool> editPassword(Map<String, String> body) async {
+    final String _path = KAPIURL + NetworkConstants.editPassword;
+
+    try {
+      var resp = await http.post(Uri.parse(_path), body: {
+        "old_password": body["old_password"],
+        "password1": body["password1"],
+        "password2": body["password2"],
+        "LanguageCode": _authRepo.currentLanguageCode
+      }, headers: {
+        "Authorization": "Token $currentToken"
+      });
+      final respData = json.decode(utf8.decode(resp.bodyBytes));
+      if (respData["status"] == 200) {
+        print("Password has been edited $respData");
+        return true;
+      } else {
+        print(
+            "[Edit User FirstName] status message: #${respData["status"]}, status code: #${respData["message"]}");
+        return Future.error(
+            json.decode(utf8.decode(resp.bodyBytes))['message']);
+      }
+    } catch (e) {
+      return Future.error(json.decode(utf8.decode(e.bodyBytes))['message']);
+    }
+  }
+
   Future uploadProfilePicture(File imageFile) async {
     bool hasBeenUploaded;
     // open a bytestream
