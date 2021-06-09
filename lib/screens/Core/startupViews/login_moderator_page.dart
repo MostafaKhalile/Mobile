@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Screens/Core/startupViews/client_signup_page.dart';
 import 'package:techtime/screens/Core/ConnectivityView/network_sensitive.dart';
 
 class LoginModeratorPage extends StatelessWidget {
@@ -91,7 +92,7 @@ class LoginModeratorPage extends StatelessWidget {
                             // ignore: deprecated_member_use
                             child: RaisedButton(
                               onPressed: () => Navigator.pushNamed(
-                                  context, "/clientRegistration"),
+                                  context, ClientSignupPage.routeName),
                               child: Text(
                                 AppLocalizations.of(context)
                                     .translate('signup'),

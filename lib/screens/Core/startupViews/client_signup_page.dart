@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 
 class ClientSignupPage extends StatefulWidget {
+  static const String routeName = "/signUp";
   @override
   _ClientSignupPageState createState() => _ClientSignupPageState();
 }

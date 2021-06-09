@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Screens/Core/startupViews/client_signup_page.dart';
+import 'package:techtime/Screens/Core/startupViews/emailForgetPassworProcess/email_forget_password.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
 import 'package:techtime/widgets/core/social_button.dart';
 
@@ -118,6 +120,35 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                     )),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                        onPressed: () => Navigator.pushNamed(
+                            context, EmailForgetPassword.routeName),
+                        child: Text(
+                          AppLocalizations.of(context)
+                              .translate('forgotPassword'),
+                          style: Theme.of(context).textTheme.subtitle1.copyWith(
+                              color: Colors.black, fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      TextButton(
+                              onPressed: () => Navigator.pushNamed(
+                              context, ClientSignupPage.routeName),
+                          child: Text(
+                              AppLocalizations.of(context)
+                                  .translate('newAccount'),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1
+                                  .copyWith(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w700))),
+                    ],
+                  ),
+                ),
               ]))),
     );
   }

@@ -46,11 +46,11 @@ class RouteGenerator {
         );
       case LoginPage.routeName:
         return PageTransition(
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
           duration: Duration(milliseconds: 400),
           child: LoginPage(),
         );
-      case '/clientRegistration':
+      case ClientSignupPage.routeName:
         return PageTransition(
           type: PageTransitionType.rightToLeft,
           duration: Duration(milliseconds: 400),

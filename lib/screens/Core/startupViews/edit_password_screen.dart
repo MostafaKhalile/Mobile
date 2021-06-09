@@ -162,19 +162,37 @@ class _EditPasswordScreen extends State<EditPasswordScreen> {
                         width: 170,
                         // ignore: deprecated_member_use
                         child: RaisedButton(
-                            onPressed: () {
-                              BlocProvider.of<EditpasswordBloc>(context)
-                                  .add(EditPassword({
-                                "old_password": _oldPasswordController.text,
-                                "password1": _newPasswordController.text,
-                                "password2": _repeatPasswordController.text
-                              }));
-                            },
+                            onPressed: state is EditpasswordLoading
+                                ? null
+                                : () {
+                                    BlocProvider.of<EditpasswordBloc>(context)
+                                        .add(EditPassword({
+                                      "old_password":
+                                          _oldPasswordController.text,
+                                      "password1": _newPasswordController.text,
+                                      "password2":
+                                          _repeatPasswordController.text
+                                    }));
+                                  },
                             color: KPrimaryColor,
-                            child: Text(
-                              _translator.translate("confirm"),
-                              style: _theme.textTheme.button.copyWith(
-                                  color: _theme.scaffoldBackgroundColor),
+                            child: BlocBuilder<EditpasswordBloc,
+                                EditpasswordState>(
+                              builder: (context, state) {
+                                if (state is EditpasswordLoading) {
+                                  return SizedBox(
+                                    height: 10,
+                                    width: 10,
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  );
+                                }
+                                return Text(
+                                  _translator.translate("confirm"),
+                                  style: _theme.textTheme.button.copyWith(
+                                      color: _theme.scaffoldBackgroundColor),
+                                );
+                              },
                             )),
                       ),
                     ),
