@@ -110,6 +110,13 @@ class USerRepo {
     return walletTotalData;
   }
 
+  Future<Map<String, dynamic>> walletTransformPromocode(
+      String promocode) async {
+    final walletTotalData =
+        await _apiClient.walletTransformPromocode(promocode);
+    return walletTotalData;
+  }
+
   Future<bool> _saveCurrentUserProfile(Map<String, dynamic> userData) async {
     return _prefs.saveValueWithKey<String>(
         NetworkConstants.currentUserProfile, jsonEncode(userData));

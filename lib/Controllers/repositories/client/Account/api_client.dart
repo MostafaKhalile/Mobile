@@ -293,6 +293,24 @@ class AccountApiClient {
     }
   }
 
+  Future<Map<String, dynamic>> walletTransformPromocode(
+      String promocode) async {
+    final String _path = KAPIURL + NetworkConstants.walletTransformPromocode;
+    try {
+      var resp = await http.post(Uri.parse(_path), headers: {
+        "Authorization": "Token $currentToken"
+      }, body: {
+        "LanguageCode": _authRepo.currentLanguageCode,
+        "PromoCode": promocode
+      });
+      final respData = json.decode(utf8.decode(resp.bodyBytes));
+      print(respData);
+      return respData;
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
   void logOut() {}
   String get currentToken {
     return _authRepo.currentUserToken;

@@ -15,4 +15,6 @@ class NetworkConstants {
   static const String walletPointsToPrice = "/api/my-wallet/total-point-price";
   static const String walletTransformPointsToPrice =
       "/api/my-wallet/transformation-point-to-price";
+  static const String walletTransformPromocode =
+      "/api/my-wallet/transformation-promo-code";
 }

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_points_to_price_bloc/walletpointstoprice_bloc.dart';
-import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_total_data_bloc/wallet_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_transform_points_blob/wallettransformpoints_bloc.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';

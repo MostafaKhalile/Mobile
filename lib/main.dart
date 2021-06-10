@@ -12,6 +12,7 @@ import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_profil
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_points_to_price_bloc/walletpointstoprice_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_total_data_bloc/wallet_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_transform_points_blob/wallettransformpoints_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_transform_promocode_bloc/wallettransformpromocode_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/profileBloc/profile_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
@@ -135,9 +136,13 @@ class MyApp extends StatelessWidget {
                 BlocProvider(create: (context) => EditmobileBloc(userRepo)),
                 BlocProvider(create: (context) => EditpasswordBloc(userRepo)),
                 BlocProvider(create: (context) => WalletBloc(userRepo)),
-                BlocProvider(create: (context) => WallettransformpointsBloc(userRepo)),
+                BlocProvider(
+                    create: (context) => WallettransformpointsBloc(userRepo)),
                 BlocProvider(
                     create: (context) => WalletpointstopriceBloc(userRepo)),
+                BlocProvider(
+                    create: (context) =>
+                        WallettransformpromocodeBloc(userRepo)),
                 BlocProvider(
                     create: (context) => EditprofilepictureBloc(userRepo)),
                 BlocProvider(create: (context) => EditcoverBloc(userRepo)),
