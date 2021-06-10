@@ -146,7 +146,7 @@ class _CompanyProfileState extends State<CompanyProfile>
                   TabBar(
                     controller: _controller,
                     indicatorColor: KPrimaryColor,
-                    isScrollable: false,
+                    isScrollable: true,
                     tabs: [
                       Tab(
                         text: _translator.translate("services"),
