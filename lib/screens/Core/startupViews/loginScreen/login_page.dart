@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       TextButton(
-                              onPressed: () => Navigator.pushNamed(
+                          onPressed: () => Navigator.pushNamed(
                               context, ClientSignupPage.routeName),
                           child: Text(
                               AppLocalizations.of(context)

@@ -10,6 +10,8 @@ import 'package:techtime/Controllers/repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/network_constents.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
+import 'package:techtime/Models/client/wallet/wallet_points_to_price.dart';
+import 'package:techtime/Models/client/wallet/wallet_total_data.dart';
 
 class AccountApiClient {
   final PreferenceUtils prefs;
@@ -235,6 +237,60 @@ class AccountApiClient {
       print(value);
     });
     return true;
+  }
+
+  Future<WalletTotalData> getWalletTotalData() async {
+    final String _path = KAPIURL + NetworkConstants.walletTotal;
+    try {
+      var resp = await http.post(Uri.parse(_path),
+          headers: {"Authorization": "Token $currentToken"},
+          body: {"LanguageCode": _authRepo.currentLanguageCode});
+      final respData = json.decode(utf8.decode(resp.bodyBytes));
+      final WalletTotalData walletTotalData =
+          WalletTotalData.fromJson(respData);
+      print(walletTotalData.toString());
+      return walletTotalData;
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  Future<WalletPointsToPrice> walletPointsToPrice(String points) async {
+    final String _path = KAPIURL + NetworkConstants.walletPointsToPrice;
+    try {
+      var resp = await http.post(Uri.parse(_path), headers: {
+        "Authorization": "Token $currentToken"
+      }, body: {
+        "LanguageCode": _authRepo.currentLanguageCode,
+        "points": points
+      });
+      final respData = json.decode(utf8.decode(resp.bodyBytes));
+      final WalletPointsToPrice pointsToPrice =
+          WalletPointsToPrice.fromJson(respData);
+      print(pointsToPrice.toString());
+      return pointsToPrice;
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  walletTransformPoints(String points) async {
+    final String _path =
+        KAPIURL + NetworkConstants.walletTransformPointsToPrice;
+    try {
+      var resp = await http.post(Uri.parse(_path), headers: {
+        "Authorization": "Token $currentToken"
+      }, body: {
+        "RequestType": "API",
+        "LanguageCode": _authRepo.currentLanguageCode,
+        "points": points
+      });
+      final respData = json.decode(utf8.decode(resp.bodyBytes));
+      print(respData);
+      return respData;
+    } catch (e) {
+      return Future.error(e.toString());
+    }
   }
 
   void logOut() {}

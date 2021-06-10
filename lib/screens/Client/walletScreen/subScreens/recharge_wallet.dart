@@ -13,6 +13,7 @@ class RechargeWallet extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations _translator = AppLocalizations.of(context);
     ThemeData _theme = Theme.of(context);
+    TextEditingController promoCodeController = TextEditingController();
     return Padding(
       padding: const EdgeInsets.only(top: KdefaultPadding),
       child: Column(
@@ -40,6 +41,7 @@ class RechargeWallet extends StatelessWidget {
                     .copyWith(fontWeight: FontWeight.bold),
               ),
               WalletInputField(
+                controller: promoCodeController,
                 theme: _theme,
                 hintText: "_",
               ),

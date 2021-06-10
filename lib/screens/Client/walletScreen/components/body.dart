@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_total_data_bloc/wallet_bloc.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
@@ -22,6 +25,11 @@ class _WalletBodyState extends State<WalletBody> {
     keepPage: true,
   );
   int selectedPageIndex = 0;
+  @override
+  void initState() {
+    BlocProvider.of<WalletBloc>(context)..add(GetWalletTotalDate());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +42,42 @@ class _WalletBodyState extends State<WalletBody> {
         height: _size.height * 0.45,
         child: Column(
           children: [
-            PointsCount(),
-            MoneyCount(),
+            BlocConsumer<WalletBloc, WalletState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                if (state is WalletTotalDataSucceded) {
+                  return PointsCount(
+                    points: state.walletTotal.points.toString(),
+                  );
+                }
+                return Shimmer.fromColors(
+                  enabled: true,
+                  baseColor: Colors.grey[400],
+                  highlightColor: Colors.grey[400],
+                  child: PointsCount(),
+                );
+              },
+            ),
+            BlocConsumer<WalletBloc, WalletState>(
+              listener: (context, state) {
+                if (state is WalletTotalDataFailed) {
+                  print(state.message);
+                }
+              },
+              builder: (context, state) {
+                if (state is WalletTotalDataSucceded) {
+                  return MoneyCount(
+                    money: state.walletTotal.money.toString(),
+                  );
+                }
+                return Shimmer.fromColors(
+                    enabled: true,
+                    period: Duration(milliseconds: 800),
+                    baseColor: Colors.grey[500],
+                    highlightColor: Colors.grey[300],
+                    child: MoneyCount());
+              },
+            ),
             Spacer(),
             Center(
               child: Row(
@@ -164,7 +206,9 @@ class PageSelectionCard extends StatelessWidget {
 class MoneyCount extends StatelessWidget {
   const MoneyCount({
     Key key,
+    this.money,
   }) : super(key: key);
+  final String money;
 
   @override
   Widget build(BuildContext context) {
@@ -184,9 +228,9 @@ class MoneyCount extends StatelessWidget {
             Container(
               width: 80,
               child: Text(
-                "0",
+                "${money ?? 0}",
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline3,
+                style: Theme.of(context).textTheme.headline4,
               ),
             ),
             Text(
@@ -206,7 +250,9 @@ class MoneyCount extends StatelessWidget {
 class PointsCount extends StatelessWidget {
   const PointsCount({
     Key key,
+    this.points,
   }) : super(key: key);
+  final String points;
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +262,7 @@ class PointsCount extends StatelessWidget {
         children: [
           RichText(
             text: TextSpan(
-              text: "1000 \t\t",
+              text: "${points ?? 0} \t\t",
               style: Theme.of(context).textTheme.subtitle2,
               children: <TextSpan>[
                 TextSpan(

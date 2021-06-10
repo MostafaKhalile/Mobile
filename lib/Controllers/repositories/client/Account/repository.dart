@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_passwod_bloc/editpassword_bloc.dart';
 import 'package:techtime/Helpers/network_constents.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
+import 'package:techtime/Models/client/wallet/wallet_points_to_price.dart';
+import 'package:techtime/Models/client/wallet/wallet_total_data.dart';
 import 'package:techtime/Models/client_profile.dart';
 
 import 'api_client.dart';
@@ -92,6 +93,21 @@ class USerRepo {
     }
     print("[Upload Cover Picture Repository] $hasBeenUploaded");
     return hasBeenUploaded;
+  }
+
+  Future<WalletTotalData> getWalletTotalData() async {
+    final walletTotalData = await _apiClient.getWalletTotalData();
+    return walletTotalData;
+  }
+
+  Future<WalletPointsToPrice> walletPointsToPrice(String points) async {
+    final walletTotalData = await _apiClient.walletPointsToPrice(points);
+    return walletTotalData;
+  }
+
+  Future<Map<String, dynamic>> walletTransformPoints(String points) async {
+    final walletTotalData = await _apiClient.walletTransformPoints(points);
+    return walletTotalData;
   }
 
   Future<bool> _saveCurrentUserProfile(Map<String, dynamic> userData) async {
