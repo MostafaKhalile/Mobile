@@ -67,6 +67,7 @@ class _RechargeWalletState extends State<RechargeWallet> {
                     ),
                     WalletInputField(
                       controller: _promoCodeController,
+                      keyboardType: TextInputType.text,
                       theme: _theme,
                       hintText: "_",
                     ),

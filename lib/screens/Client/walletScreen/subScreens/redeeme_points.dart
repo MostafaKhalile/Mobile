@@ -75,6 +75,7 @@ class _RedeemPointsState extends State<RedeemPoints> {
                     ),
                     WalletInputField(
                       controller: _pointsController,
+                      keyboardType: TextInputType.number,
                       theme: _theme,
                       hintText: "0",
                     ),
