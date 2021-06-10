@@ -30,7 +30,6 @@ class ChooseBranch extends StatelessWidget {
                       itemBuilder: (_, i) => BranchCard(
                             isSelectable: false,
                             title: "اسم الفرع",
-                            description: "تقديم خدمات لكافة الأغراض",
                             address: "شارع 33, منطقة ميامي, الإسكندرية",
                             rating: 4.8,
                             image: KPlaceHolderImage,

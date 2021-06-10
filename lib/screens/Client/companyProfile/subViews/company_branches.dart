@@ -12,12 +12,11 @@ class CompanyBranchesScreen extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // AppLocalizations _translator = AppLocalizations.of(context);
-    // Size _size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: ListView.builder(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.all(
+            20,
+          ),
           physics: BouncingScrollPhysics(),
           shrinkWrap: true,
           itemCount: companyBranches.length,
@@ -26,7 +25,6 @@ class CompanyBranchesScreen extends StatelessWidget {
             return BranchCard(
               isSelectable: false,
               title: brancheData.brancheName,
-              description: "تقديم خدمات لكافة الأغراض",
               address: brancheData.branchAddressAR,
               rating: 4.8,
               image: KAPIURL + brancheData.image,

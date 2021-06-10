@@ -7,7 +7,6 @@ import 'package:techtime/widgets/core/horizontal_gap.dart';
 
 class BranchCard extends StatelessWidget {
   final String title;
-  final String description;
   final String address;
   final String image;
   final double rating;
@@ -18,7 +17,6 @@ class BranchCard extends StatelessWidget {
   const BranchCard({
     Key key,
     this.title,
-    this.description,
     this.address,
     this.image,
     this.rating,
@@ -43,7 +41,7 @@ class BranchCard extends StatelessWidget {
       child: InkWell(
         onTap: onPressed,
         child: Container(
-          height: 150,
+          height: 100,
           width: MediaQuery.of(context).size.width * 0.9,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(KDefaultPadding)),
@@ -60,10 +58,9 @@ class BranchCard extends StatelessWidget {
                         )),
                   )),
               Expanded(
-                  flex: 6,
+                  flex: 5,
                   child: Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+                    padding: EdgeInsets.all(KDefaultPadding / 2),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -72,57 +69,13 @@ class BranchCard extends StatelessWidget {
                           title,
                           style: _theme.textTheme.subtitle1,
                         ),
-                        description != null
-                            ? Text(
-                                description,
-                                style: _theme.textTheme.caption,
-                              )
-                            : Container(),
                         Row(
                           children: [
-                            Container(
-                              width: _size.width * 0.5,
-                              child: Text(
-                                address,
-                                style: _theme.textTheme.subtitle2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            )
-                          ],
-                        ),
-                        // VerticalGap(
-                        //   height: KDefaultPadding / 4,
-                        // ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.star_purple500_sharp,
-                              color: KPrimaryColor,
-                            ),
-                            HorizontalGap(
-                              width: 5.0,
-                            ),
                             Text(
-                              rating.toString(),
-                              style: _theme.textTheme.caption,
+                              address,
+                              style: _theme.textTheme.subtitle2,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            Spacer(),
-                            // ignore: deprecated_member_use
-                            isSelectable
-                                ? Container()
-                                : TextButton(
-                                    child: Text(
-                                      _translator.translate("show_more"),
-                                      style: _theme.textTheme.subtitle2,
-                                    ),
-                                    style: ButtonStyle(
-                                        foregroundColor:
-                                            MaterialStateColor.resolveWith(
-                                                (states) => KPrimaryColor)),
-                                    onPressed: () => Navigator.pushNamed(
-                                        context, BranchProfile.routeName),
-                                  ),
                           ],
                         ),
                       ],
