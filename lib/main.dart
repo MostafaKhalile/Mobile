@@ -7,16 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:techtime/Controllers/BLoCs/client/companyDataBlobs/bloc/companyservices_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/companyProfileBloc/company_profile_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_passwod_bloc/editpassword_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_profile_picture_Bloc/editprofilepicture_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_points_to_price_bloc/walletpointstoprice_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_total_data_bloc/wallet_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_transform_points_blob/wallettransformpoints_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_transform_promocode_bloc/wallettransformpromocode_bloc.dart';
+import 'package:techtime/Controllers/Repositories/client/companies/companies_repository.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/profileBloc/profile_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
-import 'package:techtime/Controllers/repositories/Auth/repository.dart';
+import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/localization/app_language_model.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/route_generator.dart';
@@ -28,15 +31,13 @@ import 'Controllers/Repositories/client/Account/repository.dart';
 import 'Controllers/blocs/client/ads_bloc/ads_bloc.dart';
 import 'Controllers/blocs/client/categorisBloc/categories_bloc.dart';
 import 'Controllers/blocs/client/companiesListBloc.dart/companieslist_bloc.dart';
-import 'Controllers/blocs/client/companyProfileBloc/company_profile_bloc.dart';
 import 'Controllers/blocs/client/profile_edit_blocs/edit_email_bloc/editemailaddress_bloc.dart';
 import 'Controllers/blocs/client/profile_edit_blocs/edit_first_name_bloc/editfirstname_bloc.dart';
 import 'Controllers/blocs/client/profile_edit_blocs/edit_second_name_bloc/editsecondname_bloc.dart';
 import 'Controllers/blocs/core/Auth/authantication_bloc.dart';
 import 'Controllers/Cubits/NetworkCubit/internet_cubit.dart';
 import 'Controllers/Providers/current_user_provider.dart';
-import 'Controllers/repositories/client/companies/companies_repository.dart';
-import 'Controllers/repositories/client/home/user_home_repo.dart';
+import 'Controllers/Repositories/client/home/user_home_repo.dart';
 import 'Helpers/APIUrls.dart';
 import 'Helpers/localization/app_localizations_delegates.dart';
 import 'Helpers/shared_perfs_provider.dart';
@@ -156,6 +157,9 @@ class MyApp extends StatelessWidget {
                 BlocProvider(
                     create: (context) =>
                         RecommendedcompaniesBloc(apiClientHomeRepository)),
+                BlocProvider(
+                    create: (context) =>
+                        CompanyservicesBloc(apiCompaniesRepository)),
                 BlocProvider(
                     create: (context) =>
                         LeastcompaniesBloc(apiClientHomeRepository)),

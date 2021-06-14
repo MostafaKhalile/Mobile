@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Controllers/repositories/Auth/repository.dart';
+import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/screens/Core/startupViews/language_selection_page.dart';
 
 // ignore: must_be_immutable

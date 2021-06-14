@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:techtime/Controllers/BLoCs/client/companyDataBlobs/bloc/companyservices_bloc.dart';
+import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Models/client/companyData/company_service.dart';
 import 'package:techtime/models/client/companyProfile/company_branches.dart';
 import 'package:techtime/screens/Client/newOrder/create_new_order.dart';
-
-import 'package:techtime/widgets/core/horizontal_gap.dart';
-import 'package:techtime/widgets/core/vertical_gab.dart';
 
 class CompanyServices extends StatefulWidget {
   final List<CompanyBranches> companyBranches;
@@ -23,113 +25,75 @@ class CompanyServices extends StatefulWidget {
 class CompanyServicesState extends State<CompanyServices> {
   List<String> _checked = [];
   @override
+  void initState() {
+    BlocProvider.of<CompanyservicesBloc>(context)
+        .add(GetCompanyServices(widget.companyBranches[0].brancheID));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     ThemeData _theme = Theme.of(context);
     Size _size = MediaQuery.of(context).size;
     // AppLocalizations _translator = AppLocalizations.of(context);
     return Scaffold(
-      body: Container(
-          width: _size.width,
-          child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Column(children: <Widget>[
-                CheckboxGroup(
-                  activeColor: KPrimaryColor,
-                  checkColor: _theme.primaryColorDark,
-                  orientation: GroupedButtonsOrientation.VERTICAL,
-                  onSelected: (List selected) => setState(() {
-                    _checked = selected;
-                  }),
-                  labels: <String>["A", "B", "c", "D"],
-                  checked: _checked,
-                  itemBuilder: (Checkbox cb, Text txt, int i) {
-                    return Card(
-                      elevation: 10,
-                      child: Wrap(
-                        direction: Axis.horizontal,
-                        children: <Widget>[
-                          Row(
-                            children: [
-                              Container(
-                                height: 80,
-                                width: 80,
-                                margin: EdgeInsets.all(KDefaultPadding / 4),
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(KPlaceHolderImage)),
-                                    borderRadius:
-                                        BorderRadius.circular(KdefaultRadius)),
-                              ),
-                              HorizontalGap(width: KDefaultPadding / 4),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      RichText(
-                                        overflow: TextOverflow.clip,
-                                        text: TextSpan(
-                                          text: 'Car Wash ' + "\n",
-                                          style: _theme.textTheme.headline6,
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                                text: '50 minuts ',
-                                                style:
-                                                    _theme.textTheme.caption),
-                                          ],
-                                        ),
-                                      ),
-                                      HorizontalGap(
-                                        width: KdefaultPadding * 1.5,
-                                      ),
-                                      RichText(
-                                        overflow: TextOverflow.clip,
-                                        text: TextSpan(
-                                          text: '150 - 100 EGP' + "\n",
-                                          style: _theme.textTheme.subtitle1,
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                                text: '200',
-                                                style: _theme
-                                                    .textTheme.subtitle2
-                                                    .copyWith(
-                                                        decoration:
-                                                            TextDecoration
-                                                                .lineThrough,
-                                                        decorationColor:
-                                                            KErrorColor)),
-                                            TextSpan(
-                                                text: '\t \t EGP',
-                                                style: _theme.textTheme.caption)
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  VerticalGap(
-                                    height: KDefaultPadding / 4,
-                                  ),
-                                  SizedBox(
-                                    width: _size.width * 0.55,
-                                    child: Text(
-                                        ' world! world! world! world! world! world! world! world! world! world! world! world! world! world! world! world! world!',
-                                        textAlign: TextAlign.start,
-                                        overflow: TextOverflow.fade,
-                                        maxLines: 2,
-                                        style: _theme.textTheme.caption),
-                                  ),
-                                ],
-                              ),
-                              // Spacer(),
-                              cb
-                            ],
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ]))),
+      body: BlocConsumer<CompanyservicesBloc, CompanyservicesState>(
+        listener: (context, state) {
+          if (state is CompanyservicesFaild) {
+            print(state.message);
+          }
+        },
+        builder: (context, state) {
+          if (state is CompanyservicesSuccess) {
+            return Container(
+                width: _size.width,
+                child: SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: KdefaultPadding),
+                      child: Column(children: <Widget>[
+                        CheckboxGroup(
+                          activeColor: KPrimaryColor,
+                          checkColor: _theme.primaryColorDark,
+                          orientation: GroupedButtonsOrientation.VERTICAL,
+                          onSelected: (List selected) => setState(() {
+                            _checked = selected;
+                            print(_checked);
+                          }),
+                          labels: state.services.map((element) {
+                            return element.toJson().toString();
+                          }).toList(),
+                          checked: _checked,
+                          itemBuilder: (Checkbox cb, Text txt, int i) {
+                            return ServiceCard(
+                              cb: cb,
+                              companyService: state.services[i],
+                            );
+                          },
+                        ),
+                      ]),
+                    )));
+          }
+          if (state is CompanyservicesLoading ||
+              state is CompanyservicesFaild) {
+            return ListView.builder(
+              itemCount: 5,
+              padding: EdgeInsets.all(KdefaultPadding),
+              itemBuilder: (context, i) => Shimmer.fromColors(
+                  baseColor: _theme.highlightColor,
+                  highlightColor: _theme.hoverColor.withOpacity(0.2),
+                  direction: ShimmerDirection.ltr,
+                  child: Container(
+                    margin: EdgeInsets.all(5),
+                    height: 100,
+                    width: _size.width,
+                    color: Colors.white,
+                  )),
+            );
+          }
+          return Container();
+        },
+      ),
       persistentFooterButtons: [
         Container(
           width: _size.width,
@@ -160,5 +124,98 @@ class CompanyServicesState extends State<CompanyServices> {
         : Fluttertoast.showToast(
             msg: AppLocalizations.of(context)
                 .translate("please_select_service_first"));
+  }
+}
+
+class ServiceCard extends StatelessWidget {
+  const ServiceCard({
+    Key key,
+    this.cb,
+    this.companyService,
+  }) : super(key: key);
+
+  final Checkbox cb;
+  final CompanyService companyService;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData _theme = Theme.of(context);
+    final Size _size = MediaQuery.of(context).size;
+    final AppLocalizations _translator = AppLocalizations.of(context);
+    return Stack(
+      children: [
+        Card(
+          child: Container(
+            width: _size.width * .9,
+            child: Wrap(
+              children: <Widget>[
+                ListTile(
+                  leading: Container(
+                    height: 50,
+                    width: 50,
+                    margin: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: (companyService?.image != null)
+                                ? NetworkImage(KAPIURL + companyService.image)
+                                : AssetImage(KPlaceHolderImage)),
+                        borderRadius: BorderRadius.circular(KdefaultRadius)),
+                  ),
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: RichText(
+                              overflow: TextOverflow.clip,
+                              text: TextSpan(
+                                text: companyService.nameServicesAr + "\n",
+                                style: _theme.textTheme.subtitle2,
+                                // children: <TextSpan>[
+                                //   TextSpan(
+                                //       text:
+                                //           '${companyService.fullTime} minutes',
+                                //       style: _theme.textTheme.caption),
+                                // ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                              child: RichText(
+                            overflow: TextOverflow.visible,
+                            text: TextSpan(
+                              text:
+                                  '${companyService.priceFrom} - ${companyService.priceTo} ${_translator.translate('EGP')}' +
+                                      "\n",
+                              style: _theme.textTheme.caption,
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: '${companyService.fullTime} minutes',
+                                    style: _theme.textTheme.caption),
+                              ],
+                            ),
+                          )),
+                        ],
+                      ),
+                    ],
+                  ),
+                  subtitle: Text(companyService.description,
+                      overflow: TextOverflow.visible,
+                      maxLines: 4,
+                      style: _theme.textTheme.caption),
+                  isThreeLine: true,
+                  contentPadding: EdgeInsets.all(0),
+                  horizontalTitleGap: 5.0,
+                  trailing: cb ?? Container(),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

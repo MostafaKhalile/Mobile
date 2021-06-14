@@ -4,10 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:techtime/models/client/advertise.dart';
 import 'package:techtime/models/client/category.dart';
 import 'package:techtime/models/client/company.dart';
-// TODO: Refactor this code to unify the methodology of Network.
 
 abstract class ClientHomeRepository {
-  /// Throws [NetworkException].
   Future<List<Category>> get fetchCategories;
   Future<List<Company>> get fetchRecommendedCo;
   Future<List<Advertise>> get fetchAdsAbove;
@@ -19,6 +17,7 @@ class APIClientHomeRepository implements ClientHomeRepository {
     "Content-Type": "application/json",
     "Accept": "application/json"
   };
+  @override
   Future<List<Category>> get fetchCategories async {
     final response = await http.post(Uri.parse(KAPIURL + KHomeAllCategories),
         headers: headers);
@@ -35,6 +34,7 @@ class APIClientHomeRepository implements ClientHomeRepository {
     }
   }
 
+  @override
   Future<List<Company>> get fetchRecommendedCo async {
     final response = await http.post(Uri.parse(KAPIURL + KHomeRecommendedCo),
         headers: headers);
@@ -50,6 +50,7 @@ class APIClientHomeRepository implements ClientHomeRepository {
     }
   }
 
+  @override
   Future<List<Advertise>> get fetchAdsAbove async {
     final response = await http.post(Uri.parse(KAPIURL + KHomeAdsAbove),
         body: {"RequestType": "API", "LanguageCode": "EN"});
@@ -65,6 +66,7 @@ class APIClientHomeRepository implements ClientHomeRepository {
     }
   }
 
+  @override
   Future<List<Company>> get fetchLeastCo async {
     final response =
         await http.post(Uri.parse(KAPIURL + KHomeLeastCo), headers: headers);

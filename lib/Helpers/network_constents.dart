@@ -17,4 +17,6 @@ class NetworkConstants {
       "/api/my-wallet/transformation-point-to-price";
   static const String walletTransformPromocode =
       "/api/my-wallet/transformation-promo-code";
+  static const String ViewBranchServices =
+      "/api/companies/company/view/branche/services/";
 }

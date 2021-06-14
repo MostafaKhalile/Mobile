@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:techtime/Controllers/Repositories/client/Account/repository.dart';
-import 'package:techtime/Controllers/repositories/Auth/api_client.dart';
+import 'package:techtime/Controllers/Repositories/Auth/api_client.dart';
 import 'package:techtime/Helpers/enums.dart';
 import 'package:techtime/Helpers/network_constents.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';

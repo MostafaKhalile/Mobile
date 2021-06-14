@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:techtime/Controllers/blocs/client/companyProfileBloc/company_profile_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/companyProfileBloc/company_profile_bloc.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
@@ -55,7 +55,9 @@ class _CompanyProfileState extends State<CompanyProfile>
               BlocListener<CompanyProfileBloc, CompanyProfileState>(
                 listener: (context, state) {
                   if (state is CompanyProfileFinished &&
-                      state.companyProfile.companyBranches.length > 0) {
+                      state.companyProfile.companyBranches.length > 0 &&
+                      state.companyProfile.companyData.companyCoverImage !=
+                          null) {
                     setState(() {
                       imgList = [
                         state.companyProfile.companyData.companyCoverImage
@@ -157,30 +159,37 @@ class _CompanyProfileState extends State<CompanyProfile>
         ),
       ),
       BlocBuilder<CompanyProfileBloc, CompanyProfileState>(
-          builder: (context, state) => Expanded(
-                flex: 3,
-                child: Container(
-                  width: double.infinity,
-                  child: TabBarView(
-                    physics: NeverScrollableScrollPhysics(),
-                    controller: _controller,
-                    children: <Widget>[
-                      CompanyServices(
-                        companyBranches: (state is CompanyProfileFinished)
-                            ? state.companyProfile.companyBranches
-                            : [],
-                      ),
-                      CompanyOffers(),
-                      CompanyBranchesScreen(
-                        companyBranches: (state is CompanyProfileFinished)
-                            ? state.companyProfile.companyBranches
-                            : [],
-                      ),
-                      CompanyReviews(),
-                    ],
+          builder: (context, state) {
+        if (state is CompanyProfileFinished) {
+          return Expanded(
+            flex: 3,
+            child: Container(
+              width: double.infinity,
+              child: TabBarView(
+                physics: NeverScrollableScrollPhysics(),
+                controller: _controller,
+                children: <Widget>[
+                  CompanyServices(
+                    companyBranches: state.companyProfile.companyBranches,
                   ),
-                ),
-              ))
+                  CompanyOffers(),
+                  CompanyBranchesScreen(
+                    companyBranches: state.companyProfile.companyBranches,
+                  ),
+                  CompanyReviews(),
+                ],
+              ),
+            ),
+          );
+        }
+        return Container(
+          height: _size.height * 0.3,
+          child: Center(
+            child: SizedBox(
+                height: 20, width: 20, child: CircularProgressIndicator()),
+          ),
+        );
+      })
     ]));
   }
 }

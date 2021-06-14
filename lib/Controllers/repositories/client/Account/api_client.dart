@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
-import 'package:techtime/Controllers/repositories/Auth/repository.dart';
+import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/network_constents.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';

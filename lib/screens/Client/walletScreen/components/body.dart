@@ -35,6 +35,7 @@ class _WalletBodyState extends State<WalletBody> {
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     AppLocalizations _translator = AppLocalizations.of(context);
+    ThemeData _theme = Theme.of(context);
 
     return Column(children: [
       Container(
@@ -52,8 +53,8 @@ class _WalletBodyState extends State<WalletBody> {
                 }
                 return Shimmer.fromColors(
                   enabled: true,
-                  baseColor: Colors.grey[400],
-                  highlightColor: Colors.grey[400],
+                  baseColor: _theme.highlightColor,
+                  highlightColor: _theme.cardColor.withOpacity(0.2),
                   child: PointsCount(),
                 );
               },
@@ -73,8 +74,8 @@ class _WalletBodyState extends State<WalletBody> {
                 return Shimmer.fromColors(
                     enabled: true,
                     period: Duration(milliseconds: 800),
-                    baseColor: Colors.grey[500],
-                    highlightColor: Colors.grey[300],
+                    baseColor: _theme.highlightColor,
+                    highlightColor: _theme.cardColor.withOpacity(0.2),
                     child: MoneyCount());
               },
             ),

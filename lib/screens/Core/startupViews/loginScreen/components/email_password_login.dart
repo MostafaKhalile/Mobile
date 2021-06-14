@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/blocs/core/Auth/authantication_bloc.dart';
 import 'package:techtime/Controllers/Providers/current_user_provider.dart';
-import 'package:techtime/Controllers/repositories/Auth/repository.dart';
+import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/enums.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:techtime/Controllers/repositories/client/companies/companies_repository.dart';
+import 'package:techtime/Controllers/Repositories/client/companies/companies_repository.dart';
 
 import 'package:techtime/models/client/companyProfile/company_profile.dart';
 
