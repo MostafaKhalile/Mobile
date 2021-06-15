@@ -600,7 +600,10 @@ class InfoTile extends StatelessWidget {
           icon: icon,
         ),
         SizedBox(width: 5),
-        Text(description)
+        Text(
+          description,
+          style: Theme.of(context).textTheme.caption,
+        )
       ],
     );
   }

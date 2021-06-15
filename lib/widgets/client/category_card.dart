@@ -39,7 +39,9 @@ class CategoryCard extends StatelessWidget {
                       borderRadius:
                           BorderRadius.all(Radius.circular(KdefaultRadius)),
                       image: DecorationImage(
-                          image: NetworkImage(KAPIURL + category.image),
+                          image: (category?.image != null)
+                              ? NetworkImage(KAPIURL + category.image)
+                              : AssetImage(KPlaceHolderCover),
                           repeat: ImageRepeat.noRepeat,
                           // alignment: Alignment.center,
                           fit: BoxFit.fill)),
@@ -49,10 +51,16 @@ class CategoryCard extends StatelessWidget {
             ),
             Expanded(
                 flex: 1,
-                child: Text(
-                  category.categoryEn,
-                  style: Theme.of(context).textTheme.subtitle2,
-                ))
+                child: (category?.categoryEn != null)
+                    ? Text(
+                        category.categoryEn,
+                        style: Theme.of(context).textTheme.subtitle2,
+                      )
+                    : Container(
+                        width: KdefaultPadding * 4,
+                        height: 3,
+                        color: Colors.white,
+                      ))
           ],
         ),
       ),

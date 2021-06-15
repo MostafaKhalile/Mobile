@@ -16,6 +16,7 @@ import 'package:techtime/Helpers/themes/dark_theme.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/Helpers/utils/custom_snackbar.dart';
 import 'package:techtime/Models/client_profile.dart';
+import 'package:techtime/Widgets/core/shimmer_effect.dart';
 import 'package:techtime/screens/Client/Categories/client_categories_screen.dart';
 import 'package:techtime/screens/Core/notifications/notifications.dart';
 import 'package:techtime/screens/Core/search_screen.dart';
@@ -127,10 +128,8 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
         // shrinkWrap: true,
         itemCount: 5,
         itemBuilder: (context, index) {
-          return SkeletonAnimation(
-            width: size.width * 0.85,
-            height: size.height * 0.25,
-            radius: KdefaultRadius,
+          return ShimmerEffect(
+            child: LeastCompanyCard(),
           );
         });
   }
@@ -261,9 +260,8 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
       itemBuilder: (BuildContext context, int index) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: SkeletonAnimation(
-            radius: KdefaultRadius,
-            width: size.width * 0.7,
+          child: ShimmerEffect(
+            child: CompanyCard(),
           ),
         );
       },
@@ -419,12 +417,10 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
       scrollDirection: Axis.horizontal,
       itemCount: 5,
       itemBuilder: (BuildContext context, int index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: SkeletonAnimation(
-            radius: KdefaultRadius,
-          ),
-        );
+        return ShimmerEffect(
+            child: CategoryCard(
+          width: size.width * 0.40,
+        ));
       },
     );
   }

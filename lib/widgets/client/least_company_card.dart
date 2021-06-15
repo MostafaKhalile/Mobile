@@ -60,7 +60,9 @@ class LeastCompanyCard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Hero(tag: company.companyName, child: buildCompanyLogo()),
+                      Hero(
+                          tag: company?.companyName ?? "",
+                          child: buildCompanyLogo()),
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -78,18 +80,22 @@ class LeastCompanyCard extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              company.categoryEn,
-                              style: _theme.textTheme.caption
-                                  .copyWith(color: Colors.black),
-                            ),
-                            Text(
-                              company.totalServices.toString() +
-                                  " " +
-                                  "Service",
-                              style: _theme.textTheme.caption
-                                  .copyWith(color: Colors.black),
-                            )
+                            company != null
+                                ? Text(
+                                    company.categoryEn,
+                                    style: _theme.textTheme.caption
+                                        .copyWith(color: Colors.black),
+                                  )
+                                : Container(),
+                            company != null
+                                ? Text(
+                                    company.totalServices.toString() +
+                                        " " +
+                                        "Service",
+                                    style: _theme.textTheme.caption
+                                        .copyWith(color: Colors.black),
+                                  )
+                                : Container()
                           ],
                         ),
                       )
@@ -104,7 +110,7 @@ class LeastCompanyCard extends StatelessWidget {
 
   DecorationImage buildCompanyCover() {
     return DecorationImage(
-      image: company.coverImage != null
+      image: company?.coverImage != null
           ? NetworkImage(
               "${KAPIURL + company?.coverImage}",
             )
@@ -114,19 +120,27 @@ class LeastCompanyCard extends StatelessWidget {
   }
 
   CustomCircleAvatar buildCompanyLogo() {
-    return CustomCircleAvatar(
-      width: 80,
-      height: 80,
-      image: company.logo,
-    );
+    return company != null
+        ? CustomCircleAvatar(
+            width: 80,
+            height: 80,
+            image: company.logo,
+          )
+        : CustomCircleAvatar(
+            image: null,
+            width: 80,
+            height: 80,
+          );
   }
 
-  Text buildCompanyName(ThemeData _theme) {
-    return Text(
-      company.companyName,
-      overflow: TextOverflow.ellipsis,
-      style: _theme.textTheme.subtitle2.copyWith(color: Colors.black),
-    );
+  Widget buildCompanyName(ThemeData _theme) {
+    return company != null
+        ? Text(
+            company?.companyName,
+            overflow: TextOverflow.ellipsis,
+            style: _theme.textTheme.subtitle2.copyWith(color: Colors.black),
+          )
+        : Container();
   }
 
   SmoothStarRating buildSmoothStarRating() {

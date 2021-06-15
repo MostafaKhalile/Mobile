@@ -43,7 +43,7 @@ class CompanyCard extends StatelessWidget {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: company.coverImage != null
+                          image: company?.coverImage != null
                               ? NetworkImage(KAPIURL + company.coverImage)
                               : AssetImage(KPlaceHolderCover),
                           fit: BoxFit.cover,
@@ -64,26 +64,32 @@ class CompanyCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Container(
-                              width: size.width * 0.4,
-                              child: RichText(
-                                  overflow: TextOverflow.clip,
-                                  textScaleFactor: 0.9,
-                                  text: TextSpan(
-                                    text: '${company.companyName} \n',
-                                    style: _theme.textTheme.caption
-                                        .copyWith(height: 1.12),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: '${company.categoryRegionEn} ',
-                                          style: _theme.textTheme.caption),
-                                      TextSpan(
-                                          text: ' ${company.categoryCityEn}, '
-                                              '${AppLocalizations.of(context).translate('Egypt')}.',
-                                          style: _theme.textTheme.caption),
-                                    ],
-                                  )),
-                            ),
+                            company != null
+                                ? Container(
+                                    width: size.width * 0.4,
+                                    child: RichText(
+                                        overflow: TextOverflow.clip,
+                                        textScaleFactor: 0.9,
+                                        text: TextSpan(
+                                          text: '${company.companyName} \n',
+                                          style: _theme.textTheme.caption
+                                              .copyWith(height: 1.12),
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                                text:
+                                                    '${company.categoryRegionEn} ',
+                                                style:
+                                                    _theme.textTheme.caption),
+                                            TextSpan(
+                                                text:
+                                                    ' ${company.categoryCityEn}, '
+                                                    '${AppLocalizations.of(context).translate('Egypt')}.',
+                                                style:
+                                                    _theme.textTheme.caption),
+                                          ],
+                                        )),
+                                  )
+                                : Container(),
                           ]),
                     ),
                   )
@@ -112,10 +118,12 @@ class CompanyCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Hero(
-                      tag: company.companyName,
+                      tag: company?.companyName ?? "",
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: CustomCircleAvatar(image: company.logo),
+                        child: company != null
+                            ? CustomCircleAvatar(image: company.logo)
+                            : CustomCircleAvatar(image: null),
                       ),
                     ),
                   ],
