@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
-import 'package:techtime/models/client/category.dart';
+import 'package:techtime/Models/client/category.dart';
 
 class TitleImageCard extends StatelessWidget {
   final Category category;

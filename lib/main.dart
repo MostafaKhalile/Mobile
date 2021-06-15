@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheProfileBloc/branche_profile_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/companyDataBlobs/bloc/companyservices_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/companyProfileBloc/company_profile_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_passwod_bloc/editpassword_bloc.dart';
@@ -15,6 +16,7 @@ import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_points_to_
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_total_data_bloc/wallet_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_transform_points_blob/wallettransformpoints_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_transform_promocode_bloc/wallettransformpromocode_bloc.dart';
+import 'package:techtime/Controllers/Repositories/client/branches/branches_repository.dart';
 import 'package:techtime/Controllers/Repositories/client/companies/companies_repository.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/profileBloc/profile_bloc.dart';
@@ -114,6 +116,7 @@ class MyApp extends StatelessWidget {
     precacheImage(AssetImage("assets/images/splashscreen.png"), context);
     APIClientHomeRepository apiClientHomeRepository = APIClientHomeRepository();
     APICompaniesRepository apiCompaniesRepository = APICompaniesRepository();
+    BranchesRepository apiBranchesRepository = BranchesRepository();
     USerRepo userRepo = USerRepo();
     return MultiProvider(
         providers: [
@@ -169,6 +172,9 @@ class MyApp extends StatelessWidget {
                 BlocProvider(
                     create: (context) =>
                         CompanyProfileBloc(apiCompaniesRepository)),
+                BlocProvider(
+                    create: (context) =>
+                        BrancheProfileBloc(apiBranchesRepository)),
                 BlocProvider<LocaleCubit>(create: (context) => LocaleCubit()),
               ],
               child: BlocBuilder<LocaleCubit, LocaleState>(

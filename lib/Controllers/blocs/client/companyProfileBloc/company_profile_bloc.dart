@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:techtime/Controllers/Repositories/client/companies/companies_repository.dart';
 
-import 'package:techtime/models/client/companyProfile/company_profile.dart';
+import 'package:techtime/Models/client/companyProfile/company_profile.dart';
 
 part 'company_profile_event.dart';
 part 'company_profile_state.dart';

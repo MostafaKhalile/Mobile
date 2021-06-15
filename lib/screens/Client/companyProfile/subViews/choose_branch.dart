@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
+import 'package:techtime/Screens/Client/branchProfile/branchProfile.dart';
 import 'package:techtime/widgets/client/branch_card.dart';
 
 class ChooseBranch extends StatelessWidget {
@@ -33,7 +34,8 @@ class ChooseBranch extends StatelessWidget {
                             address: "شارع 33, منطقة ميامي, الإسكندرية",
                             rating: 4.8,
                             image: KPlaceHolderImage,
-                            onPressed: () {},
+                            onPressed: () => Navigator.pushNamed(
+                                context, BranchProfile.routeName),
                           )),
                 ],
               )

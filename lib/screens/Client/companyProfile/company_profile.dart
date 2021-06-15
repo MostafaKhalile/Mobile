@@ -7,7 +7,7 @@ import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/models/client/company.dart';
+import 'package:techtime/Models/client/company.dart';
 import 'package:techtime/screens/Client/companyProfile/subViews/company_branches.dart';
 import 'package:techtime/widgets/client/custom_circle_avatar.dart';
 import 'package:techtime/widgets/core/gallery_view.dart';

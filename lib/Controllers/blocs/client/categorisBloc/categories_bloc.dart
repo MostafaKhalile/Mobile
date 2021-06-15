@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:techtime/Controllers/Repositories/client/home/user_home_repo.dart';
-import 'package:techtime/models/client/category.dart';
+import 'package:techtime/Models/client/category.dart';
 
 part 'categories_event.dart';
 part 'categories_state.dart';

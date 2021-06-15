@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:http/http.dart' as http;
-import 'package:techtime/models/client/advertise.dart';
-import 'package:techtime/models/client/category.dart';
-import 'package:techtime/models/client/company.dart';
+import 'package:techtime/Models/client/advertise.dart';
+import 'package:techtime/Models/client/category.dart';
+import 'package:techtime/Models/client/company.dart';
 
 abstract class ClientHomeRepository {
   Future<List<Category>> get fetchCategories;

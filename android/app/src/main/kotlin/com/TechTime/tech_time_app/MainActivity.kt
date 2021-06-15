@@ -1,4 +1,5 @@
-package com.TechTime.tech_time_app
+package com.TechTime.techtime1
+
 
 import io.flutter.embedding.android.FlutterActivity
 

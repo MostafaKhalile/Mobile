@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:techtime/Controllers/Repositories/client/companies/companies_repository.dart';
-import 'package:techtime/models/client/company.dart';
+import 'package:techtime/Models/client/company.dart';
 
 part 'companieslist_event.dart';
 part 'companieslist_state.dart';

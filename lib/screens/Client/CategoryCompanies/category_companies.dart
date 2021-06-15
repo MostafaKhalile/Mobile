@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/companiesListBloc.dart/companieslist_bloc.dart';
 import 'package:techtime/Helpers/utils/custom_snackbar.dart';
-import 'package:techtime/models/client/category.dart';
+import 'package:techtime/Models/client/category.dart';
 
 import 'components/companies_list_view.dart';
 

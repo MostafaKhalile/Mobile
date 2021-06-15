@@ -3,7 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
-import 'package:techtime/models/user.dart';
+import 'package:techtime/Models/user.dart';
 
 part 'authantication_event.dart';
 part 'authantication_state.dart';

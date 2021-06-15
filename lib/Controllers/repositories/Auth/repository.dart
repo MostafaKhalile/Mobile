@@ -5,7 +5,7 @@ import 'package:techtime/Controllers/Repositories/Auth/api_client.dart';
 import 'package:techtime/Helpers/enums.dart';
 import 'package:techtime/Helpers/network_constents.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
-import 'package:techtime/models/user.dart';
+import 'package:techtime/Models/user.dart';
 
 class AuthRepo {
   PreferenceUtils _prefs;

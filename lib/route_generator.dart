@@ -106,7 +106,10 @@ class RouteGenerator {
         return CupertinoPageRoute(builder: (_) => CompanyProfile());
         break;
       case BranchProfile.routeName:
-        return CupertinoPageRoute(builder: (_) => BranchProfile());
+        return CupertinoPageRoute(
+            builder: (_) => BranchProfile(
+                  branche: args,
+                ));
         break;
       case CreateNewOrder.routeName:
         return CupertinoPageRoute(

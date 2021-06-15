@@ -9,7 +9,7 @@ import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Models/client/companyData/company_service.dart';
-import 'package:techtime/models/client/companyProfile/company_branches.dart';
+import 'package:techtime/Models/client/companyProfile/company_branches.dart';
 import 'package:techtime/screens/Client/newOrder/create_new_order.dart';
 
 class CompanyServices extends StatefulWidget {
