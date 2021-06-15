@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheServicesBloc/brancheservices_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheProfileBloc/branche_profile_bloc.dart';
 import 'package:techtime/Controllers/Repositories/client/branches/branches_repository.dart';
@@ -11,7 +10,6 @@ import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Models/client/brancheData/brancheProfile/branche_images.dart';
 import 'package:techtime/Models/client/companyData/company_service.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
-import 'package:techtime/Screens/Client/companyProfile/subViews/company_services.dart';
 import 'package:techtime/Widgets/client/favorite_button.dart';
 import 'package:techtime/Widgets/core/gallery_view.dart';
 import 'package:techtime/Widgets/core/shimmer_effect.dart';
@@ -485,18 +483,17 @@ class ServiceRRect extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(50),
             child: Container(
-              width: 70,
-              height: 70,
-              color: KSecondryColor,
-              child: Center(
-                child: companyService?.image != null
-                    ? Image.network(
-                        KAPIURL + companyService.image,
-                        height: 40,
-                      )
-                    : Image.asset(KPlaceHolderImage),
-              ),
-            ),
+                width: 70,
+                height: 70,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: companyService?.image != null
+                      ? NetworkImage(
+                          KAPIURL + companyService.image,
+                        )
+                      : AssetImage(KPlaceHolderImage),
+                ))),
           ),
           Padding(
               padding: EdgeInsets.symmetric(vertical: KdefaultPadding / 2),
@@ -506,6 +503,7 @@ class ServiceRRect extends StatelessWidget {
                       child: Text(
                         companyService.nameServicesAr,
                         style: _theme.textTheme.subtitle2,
+                        textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                       ),
                     )
