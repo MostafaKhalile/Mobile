@@ -8,7 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheProfileBloc/branche_profile_bloc.dart';
-import 'package:techtime/Controllers/BLoCs/client/companyDataBlobs/bloc/companyservices_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheServicesBloc/brancheservices_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/companyDataBlocs/companyServicesBloc/companyservices_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/companyProfileBloc/company_profile_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_passwod_bloc/editpassword_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_profile_picture_Bloc/editprofilepicture_bloc.dart';
@@ -163,6 +164,9 @@ class MyApp extends StatelessWidget {
                 BlocProvider(
                     create: (context) =>
                         CompanyservicesBloc(apiCompaniesRepository)),
+                BlocProvider(
+                    create: (context) =>
+                        BrancheservicesBloc(apiBranchesRepository)),
                 BlocProvider(
                     create: (context) =>
                         LeastcompaniesBloc(apiClientHomeRepository)),

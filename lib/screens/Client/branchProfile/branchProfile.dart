@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheServicesBloc/brancheservices_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheProfileBloc/branche_profile_bloc.dart';
 import 'package:techtime/Controllers/Repositories/client/branches/branches_repository.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
@@ -9,9 +9,12 @@ import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Models/client/brancheData/brancheProfile/branche_images.dart';
+import 'package:techtime/Models/client/companyData/company_service.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
+import 'package:techtime/Screens/Client/companyProfile/subViews/company_services.dart';
 import 'package:techtime/Widgets/client/favorite_button.dart';
 import 'package:techtime/Widgets/core/gallery_view.dart';
+import 'package:techtime/Widgets/core/shimmer_effect.dart';
 import 'package:techtime/widgets/client/gradient_card.dart';
 import 'package:techtime/widgets/client/offer_card_body.dart';
 import 'package:techtime/widgets/client/review_card.dart';
@@ -81,6 +84,8 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
   void initState() {
     BlocProvider.of<BrancheProfileBloc>(context)
         .add(GetBrancheProfile(widget.branche.brancheID));
+    BlocProvider.of<BrancheservicesBloc>(context)
+        .add(GetBrancheservices(widget.branche.brancheID));
     super.initState();
   }
 
@@ -159,17 +164,12 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                                                       .textTheme.subtitle2,
                                                   overflow: TextOverflow.clip,
                                                 )
-                                              : Shimmer.fromColors(
+                                              : ShimmerEffect(
                                                   child: Container(
                                                     height: 10,
                                                     width: 20,
                                                     color: Colors.white,
                                                   ),
-                                                  baseColor:
-                                                      _theme.highlightColor,
-                                                  highlightColor: _theme
-                                                      .cardColor
-                                                      .withOpacity(0.2),
                                                 ),
                                           HorizontalGap(
                                             width: 5.0,
@@ -209,13 +209,10 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                                     isFavorite: isFavorite,
                                     onTap: onLikeButtonTapped,
                                   )
-                                : Shimmer.fromColors(
+                                : ShimmerEffect(
                                     child: FavoriteButton(
                                       buttonSize: 30,
                                     ),
-                                    baseColor: _theme.highlightColor,
-                                    highlightColor:
-                                        _theme.cardColor.withOpacity(0.2),
                                   ),
                             IconButton(icon: Icon(Icons.sms), onPressed: () {}),
                             IconButton(
@@ -225,24 +222,31 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                         ),
                       ),
                       //build Branch Previous work data
-                      (state is BrancheProfileSuccess)
-                          ? buildPreviousWorkData(
-                              _size, _theme, state.brancheProfile.brancheImages)
-                          : buildPreviousWorkNoData(_size, _theme),
+                      Builder(builder: (context) {
+                        if (state is BrancheProfileSuccess) {
+                          if (state.brancheProfile.brancheImages.length > 0) {
+                            return buildPreviousWorkData(_size, _theme,
+                                state.brancheProfile.brancheImages);
+                          } else {
+                            return Container();
+                          }
+                        } else
+                          return buildPreviousWorkLoading();
+                      }),
+
                       //build Branch Previous work data
-                      SubTitle(text: _translator.translate("services")),
-                      SizedBox(
-                        height: 100,
-                        child: ListView.separated(
-                            itemCount: 5,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            physics: BouncingScrollPhysics(),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: KDefaultPadding / 2),
-                            separatorBuilder: (_, i) => HorizontalGap(),
-                            itemBuilder: (ctx, i) =>
-                                ServiceRRect(theme: _theme)),
+                      BlocBuilder<BrancheservicesBloc, BrancheservicesState>(
+                        builder: (context, state) {
+                          if (state is BrancheservicesSuccess) {
+                            if (state.services.length > 0) {
+                              return buildServicesData(
+                                  _translator, _theme, state.services);
+                            } else {
+                              return Container();
+                            }
+                          }
+                          return buildServicesLoading(_translator, _theme);
+                        },
                       ),
 
                       //build Branch specialists
@@ -321,8 +325,52 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
     );
   }
 
-  Shimmer buildPreviousWorkNoData(Size _size, ThemeData _theme) {
-    return Shimmer.fromColors(
+  Widget buildServicesLoading(AppLocalizations _translator, ThemeData _theme) {
+    return ShimmerEffect(
+      child: Column(
+        children: [
+          SubTitle(text: _translator.translate("services")),
+          SizedBox(
+            height: 100,
+            child: ListView.separated(
+                itemCount: 5,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+                separatorBuilder: (_, i) => HorizontalGap(),
+                itemBuilder: (ctx, i) => ServiceRRect(theme: _theme)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Column buildServicesData(AppLocalizations _translator, ThemeData _theme,
+      List<CompanyService> services) {
+    return Column(
+      children: [
+        SubTitle(text: _translator.translate("services")),
+        SizedBox(
+          height: 120,
+          child: ListView.separated(
+              itemCount: services.length,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              physics: BouncingScrollPhysics(),
+              padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+              separatorBuilder: (_, i) => HorizontalGap(),
+              itemBuilder: (ctx, i) => ServiceRRect(
+                    theme: _theme,
+                    companyService: services[i],
+                  )),
+        ),
+      ],
+    );
+  }
+
+  Widget buildPreviousWorkLoading() {
+    return ShimmerEffect(
       child: Column(
         children: [
           SubTitle(text: AppLocalizations.of(context).translate("our_gallery")),
@@ -339,8 +387,6 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
           ),
         ],
       ),
-      baseColor: _theme.highlightColor,
-      highlightColor: _theme.cardColor.withOpacity(0.2),
     );
   }
 
@@ -424,11 +470,14 @@ class ServiceRRect extends StatelessWidget {
   const ServiceRRect({
     Key key,
     @required ThemeData theme,
+    this.companyService,
   }) : super(key: key);
+  final CompanyService companyService;
 
   @override
   Widget build(BuildContext context) {
     ThemeData _theme = Theme.of(context);
+    Size _size = MediaQuery.of(context).size;
     return Container(
       height: 100,
       child: Column(
@@ -440,14 +489,31 @@ class ServiceRRect extends StatelessWidget {
               height: 70,
               color: KSecondryColor,
               child: Center(
-                child: SvgPicture.asset(
-                  "assets/svg/makeup.svg",
-                  height: 40,
-                ),
+                child: companyService?.image != null
+                    ? Image.network(
+                        KAPIURL + companyService.image,
+                        height: 40,
+                      )
+                    : Image.asset(KPlaceHolderImage),
               ),
             ),
           ),
-          Text("مكياج العروسة", style: _theme.textTheme.subtitle2)
+          Padding(
+              padding: EdgeInsets.symmetric(vertical: KdefaultPadding / 2),
+              child: (companyService != null)
+                  ? SizedBox(
+                      width: _size.width * 0.3,
+                      child: Text(
+                        companyService.nameServicesAr,
+                        style: _theme.textTheme.subtitle2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    )
+                  : Container(
+                      width: KdefaultPadding * 2,
+                      height: KdefaultPadding / 2,
+                      color: Colors.white,
+                    ))
         ],
       ),
     );

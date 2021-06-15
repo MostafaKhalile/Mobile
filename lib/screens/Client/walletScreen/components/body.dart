@@ -6,6 +6,7 @@ import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_total_data
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Widgets/core/shimmer_effect.dart';
 import '../subScreens/recharge_wallet.dart';
 import '../subScreens/redeeme_points.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
@@ -51,10 +52,7 @@ class _WalletBodyState extends State<WalletBody> {
                     points: state.walletTotal.points.toString(),
                   );
                 }
-                return Shimmer.fromColors(
-                  enabled: true,
-                  baseColor: _theme.highlightColor,
-                  highlightColor: _theme.cardColor.withOpacity(0.2),
+                return ShimmerEffect(
                   child: PointsCount(),
                 );
               },
@@ -71,12 +69,7 @@ class _WalletBodyState extends State<WalletBody> {
                     money: state.walletTotal.money.toString(),
                   );
                 }
-                return Shimmer.fromColors(
-                    enabled: true,
-                    period: Duration(milliseconds: 800),
-                    baseColor: _theme.highlightColor,
-                    highlightColor: _theme.cardColor.withOpacity(0.2),
-                    child: MoneyCount());
+                return ShimmerEffect(child: MoneyCount());
               },
             ),
             Spacer(),

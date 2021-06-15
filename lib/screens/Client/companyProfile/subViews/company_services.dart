@@ -3,13 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:techtime/Controllers/BLoCs/client/companyDataBlobs/bloc/companyservices_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/companyDataBlocs/companyServicesBloc/companyservices_bloc.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Models/client/companyData/company_service.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
+import 'package:techtime/Widgets/core/shimmer_effect.dart';
 import 'package:techtime/screens/Client/newOrder/create_new_order.dart';
 
 class CompanyServices extends StatefulWidget {
@@ -79,16 +80,13 @@ class CompanyServicesState extends State<CompanyServices> {
             return ListView.builder(
               itemCount: 5,
               padding: EdgeInsets.all(KdefaultPadding),
-              itemBuilder: (context, i) => Shimmer.fromColors(
-                  baseColor: _theme.highlightColor,
-                  highlightColor: _theme.hoverColor.withOpacity(0.2),
-                  direction: ShimmerDirection.ltr,
+              itemBuilder: (context, i) => ShimmerEffect(
                   child: Container(
-                    margin: EdgeInsets.all(5),
-                    height: 100,
-                    width: _size.width,
-                    color: Colors.white,
-                  )),
+                margin: EdgeInsets.all(5),
+                height: 100,
+                width: _size.width,
+                color: Colors.white,
+              )),
             );
           }
           return Container();
