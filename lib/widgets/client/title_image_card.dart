@@ -31,7 +31,7 @@ class TitleImageCard extends StatelessWidget {
               ],
               borderRadius: BorderRadius.all(Radius.circular(KdefaultRadius)),
               image: DecorationImage(
-                  image: category.image != null
+                  image: category?.image != null
                       ? NetworkImage(KAPIURL + category.image)
                       : AssetImage(KPlaceHolderImage),
                   colorFilter: new ColorFilter.mode(
@@ -44,7 +44,7 @@ class TitleImageCard extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: KdefaultPadding),
                 child: Text(
-                  category.categoryEn ?? '',
+                  category?.categoryEn ?? '',
                   style: TextStyle(
                       fontSize: 24,
                       color: Colors.white,

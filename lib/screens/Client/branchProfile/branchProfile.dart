@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/branchEmployeesBloc/brancheemployees_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheServicesBloc/brancheservices_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheProfileBloc/branche_profile_bloc.dart';
 import 'package:techtime/Controllers/Repositories/client/branches/branches_repository.dart';
@@ -8,9 +9,11 @@ import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Models/client/brancheData/brancheProfile/branche_images.dart';
+import 'package:techtime/Models/client/brancheData/company_employee.dart';
 import 'package:techtime/Models/client/companyData/company_service.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
 import 'package:techtime/Widgets/client/favorite_button.dart';
+import 'package:techtime/Widgets/client/specialist_card.dart';
 import 'package:techtime/Widgets/core/gallery_view.dart';
 import 'package:techtime/Widgets/core/shimmer_effect.dart';
 import 'package:techtime/widgets/client/gradient_card.dart';
@@ -84,6 +87,8 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
         .add(GetBrancheProfile(widget.branche.brancheID));
     BlocProvider.of<BrancheservicesBloc>(context)
         .add(GetBrancheservices(widget.branche.brancheID));
+    BlocProvider.of<BrancheemployeesBloc>(context)
+        .add(GetBrancheEmployees(widget.branche.brancheID));
     super.initState();
   }
 
@@ -248,21 +253,19 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                       ),
 
                       //build Branch specialists
-                      SubTitle(text: _translator.translate("staff")),
-                      SizedBox(
-                        height: 100,
-                        child: ListView.separated(
-                            itemCount: 10,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            physics: BouncingScrollPhysics(),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: KDefaultPadding / 2),
-                            separatorBuilder: (_, i) => HorizontalGap(
-                                  width: KDefaultPadding / 2,
-                                ),
-                            itemBuilder: (ctx, i) =>
-                                SpecialistCard(size: _size, theme: _theme)),
+                      BlocBuilder<BrancheemployeesBloc, BrancheemployeesState>(
+                        builder: (context, state) {
+                          if (state is BrancheemployeesSuccess) {
+                            if (state.employees.length > 0) {
+                              return buildEmployeesData(
+                                  _translator, _size, _theme, state.employees);
+                            } else {
+                              return Container();
+                            }
+                          }
+                          return buildEmployeesLoading(
+                              _translator, _size, _theme);
+                        },
                       ),
                       //build our Offers section
                       SubTitle(text: _translator.translate("offers")),
@@ -320,6 +323,53 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget buildEmployeesLoading(
+      AppLocalizations _translator, Size _size, ThemeData _theme) {
+    return ShimmerEffect(
+        child: Column(
+      children: [
+        SubTitle(text: _translator.translate("staff")),
+        SizedBox(
+          height: 100,
+          child: ListView.separated(
+              itemCount: 10,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              physics: BouncingScrollPhysics(),
+              padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+              separatorBuilder: (_, i) => HorizontalGap(
+                    width: KDefaultPadding / 2,
+                  ),
+              itemBuilder: (ctx, i) => SpecialistCard()),
+        ),
+      ],
+    ));
+  }
+
+  Column buildEmployeesData(AppLocalizations _translator, Size _size,
+      ThemeData _theme, List<CompanyEmployee> employees) {
+    return Column(
+      children: [
+        SubTitle(text: _translator.translate("staff")),
+        SizedBox(
+          height: 100,
+          child: ListView.separated(
+              itemCount: employees.length,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              physics: BouncingScrollPhysics(),
+              padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+              separatorBuilder: (_, i) => HorizontalGap(
+                    width: KDefaultPadding / 2,
+                  ),
+              itemBuilder: (ctx, i) => SpecialistCard(
+                    companyEmployee: employees[i],
+                  )),
+        ),
+      ],
     );
   }
 
@@ -426,43 +476,59 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
   }
 }
 
-class SpecialistCard extends StatelessWidget {
-  const SpecialistCard({
-    Key key,
-    @required Size size,
-    @required ThemeData theme,
-  })  : _size = size,
-        _theme = theme,
-        super(key: key);
-
-  final Size _size;
-  final ThemeData _theme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 85,
-      width: _size.width * 0.15,
-      child: Column(
-        children: [
-          Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage("assets/images/profile_photo.png")),
-                borderRadius:
-                    BorderRadius.all(Radius.circular(KDefaultPadding))),
-          ),
-          Text("موظفة ",
-              style: _theme.textTheme.caption
-                  .copyWith(fontWeight: FontWeight.bold))
-        ],
-      ),
-    );
-  }
-}
+// class SpecialistCard extends StatelessWidget {
+//   const SpecialistCard({
+//     Key key,
+//     @required Size size,
+//     @required ThemeData theme,
+//     this.companyEmployee,
+//   }) : super(key: key);
+//   final CompanyEmployee companyEmployee;
+//   @override
+//   Widget build(BuildContext context) {
+//     final Size _size = MediaQuery.of(context).size;
+//     final ThemeData _theme = Theme.of(context);
+//     return Container(
+//       height: 85,
+//       width: _size.width * 0.2,
+//       child: Column(
+//         children: [
+//           Container(
+//             height: 50,
+//             width: 50,
+//             decoration: BoxDecoration(
+//                 image: DecorationImage(
+//                     fit: BoxFit.cover,
+//                     image: companyEmployee?.image != null
+//                         ? NetworkImage(KAPIURL + companyEmployee.image)
+//                         : AssetImage("assets/images/profile_photo.png")),
+//                 borderRadius:
+//                     BorderRadius.all(Radius.circular(KDefaultPadding))),
+//           ),
+//           Padding(
+//             padding: EdgeInsets.symmetric(
+//               vertical: KdefaultPadding / 2,
+//             ),
+//             child: companyEmployee != null
+//                 ? SizedBox(
+//                     width: _size.width * 0.3,
+//                     child: Text(companyEmployee.employeeName,
+//                         textAlign: TextAlign.center,
+//                         overflow: TextOverflow.ellipsis,
+//                         style: _theme.textTheme.caption
+//                             .copyWith(fontWeight: FontWeight.bold)),
+//                   )
+//                 : Container(
+//                     color: Colors.white,
+//                     height: KdefaultPadding / 2,
+//                     width: KdefaultPadding * 2,
+//                   ),
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 class ServiceRRect extends StatelessWidget {
   const ServiceRRect({

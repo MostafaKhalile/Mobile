@@ -1,4 +1,6 @@
+import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/branchEmployeesBloc/brancheemployees_bloc.dart';
 import 'package:techtime/Models/client/brancheData/brancheProfile/branche_profile.dart';
+import 'package:techtime/Models/client/brancheData/company_employee.dart';
 import 'package:techtime/Models/client/companyData/company_service.dart';
 
 import 'branches_api_client.dart';
@@ -28,6 +30,15 @@ class BranchesRepository {
     try {
       final dataResp = await _branchesApiClient.getBrancheServices(branchId);
       print(dataResp.toString());
+      return dataResp;
+    } catch (e) {
+      return Future.error(e.toString());
+    }
+  }
+
+  Future<List<CompanyEmployee>> getBrancheEmployees(int branchId) async {
+    try {
+      final dataResp = await _branchesApiClient.getBrancheEmployees(branchId);
       return dataResp;
     } catch (e) {
       return Future.error(e.toString());

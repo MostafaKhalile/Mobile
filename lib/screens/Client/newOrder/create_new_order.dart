@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/branchEmployeesBloc/brancheemployees_bloc.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Models/client/brancheData/company_employee.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
+import 'package:techtime/Widgets/client/specialist_card.dart';
+import 'package:techtime/Widgets/core/shimmer_effect.dart';
 import 'package:techtime/widgets/client/branch_card.dart';
 import 'package:intl/intl.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
@@ -38,8 +43,7 @@ class _CreateNewOrderState extends State<CreateNewOrder> {
             width: _size.width,
             height: _size.height,
             child: Column(children: [
-              // BranchNameAndRating(),
-              BranchProfileBody(companyBranches: widget.companyBranches)
+              BookingBody(companyBranches: widget.companyBranches)
             ])),
         persistentFooterButtons: [
           BottomBookingButton(
@@ -87,19 +91,19 @@ class BottomBookingButton extends StatelessWidget {
 }
 
 //Branch Profile Body White Section Below
-class BranchProfileBody extends StatefulWidget {
+class BookingBody extends StatefulWidget {
   final List<CompanyBranches> companyBranches;
 
-  const BranchProfileBody({
+  const BookingBody({
     Key key,
     this.companyBranches,
   }) : super(key: key);
 
   @override
-  _BranchProfileBodyState createState() => _BranchProfileBodyState();
+  _BookingBodyState createState() => _BookingBodyState();
 }
 
-class _BranchProfileBodyState extends State<BranchProfileBody> {
+class _BookingBodyState extends State<BookingBody> {
   CalendarFormat _calendarFormat = CalendarFormat.week;
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay;
@@ -107,8 +111,15 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
   int _selectedtime;
   int _selectedEmployee;
   @override
+  void initState() {
+    BlocProvider.of<BrancheemployeesBloc>(context)
+        .add(GetBrancheEmployees(widget.companyBranches[0].brancheID));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // Size _size = MediaQuery.of(context).size;
+    Size _size = MediaQuery.of(context).size;
     AppLocalizations _translator = AppLocalizations.of(context);
     ThemeData _theme = Theme.of(context);
     return Expanded(
@@ -144,6 +155,10 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                                   rating: 4.8,
                                   image: KAPIURL + brancheData.image,
                                   onPressed: () {
+                                    BlocProvider.of<BrancheemployeesBloc>(
+                                            context)
+                                        .add(GetBrancheEmployees(
+                                            brancheData.brancheID));
                                     setState(() {
                                       _selectedBranch = brancheData.brancheID;
                                     });
@@ -154,64 +169,70 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                         VerticalGap(
                           height: KDefaultPadding / 2,
                         ),
-                        SubTitle(text: _translator.translate("pick_day")),
-                        TableCalendar(
-                          calendarStyle: CalendarStyle(
-                              disabledTextStyle: TextStyle(color: Colors.grey),
-                              todayDecoration: BoxDecoration(
-                                color: KDarkGreyColor.withOpacity(0.2),
-                                shape: BoxShape.circle,
+                        Column(
+                          children: [
+                            SubTitle(text: _translator.translate("pick_day")),
+                            TableCalendar(
+                              calendarStyle: CalendarStyle(
+                                  disabledTextStyle:
+                                      TextStyle(color: Colors.grey),
+                                  todayDecoration: BoxDecoration(
+                                    color: KDarkGreyColor.withOpacity(0.2),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  selectedDecoration: BoxDecoration(
+                                    color: KPrimaryColor,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  selectedTextStyle:
+                                      TextStyle(color: Colors.black),
+                                  defaultTextStyle:
+                                      TextStyle(color: _theme.accentColor),
+                                  isTodayHighlighted: false),
+                              headerStyle: HeaderStyle(
+                                formatButtonVisible: false,
+                                titleCentered: true,
+                                titleTextStyle: _theme.textTheme.subtitle1,
                               ),
-                              selectedDecoration: BoxDecoration(
-                                color: KPrimaryColor,
-                                shape: BoxShape.circle,
-                              ),
-                              selectedTextStyle: TextStyle(color: Colors.black),
-                              defaultTextStyle:
-                                  TextStyle(color: _theme.accentColor),
-                              isTodayHighlighted: false),
-                          headerStyle: HeaderStyle(
-                            formatButtonVisible: false,
-                            titleCentered: true,
-                            titleTextStyle: _theme.textTheme.subtitle1,
-                          ),
-                          firstDay: kFirstDay,
-                          lastDay: kLastDay,
-                          daysOfWeekHeight: 50,
-                          focusedDay: _focusedDay,
-                          calendarFormat: _calendarFormat,
-                          selectedDayPredicate: (day) {
-                            // Use `selectedDayPredicate` to determine which day is currently selected.
-                            // If this returns true, then `day` will be marked as selected.
+                              firstDay: kFirstDay,
+                              lastDay: kLastDay,
+                              daysOfWeekHeight: 50,
+                              focusedDay: _focusedDay,
+                              calendarFormat: _calendarFormat,
+                              selectedDayPredicate: (day) {
+                                // Use `selectedDayPredicate` to determine which day is currently selected.
+                                // If this returns true, then `day` will be marked as selected.
 
-                            // Using `isSameDay` is recommended to disregard
-                            // the time-part of compared DateTime objects.
+                                // Using `isSameDay` is recommended to disregard
+                                // the time-part of compared DateTime objects.
 
-                            return isSameDay(_selectedDay, day);
-                          },
-                          onDaySelected: (selectedDay, focusedDay) {
-                            if (!isSameDay(_selectedDay, selectedDay)) {
-                              // Call `setState()` when updating the selected day
-                              print(
-                                  "Selected Day is ${DateFormat('EEEE').format(selectedDay)}");
-                              setState(() {
-                                _selectedDay = selectedDay;
+                                return isSameDay(_selectedDay, day);
+                              },
+                              onDaySelected: (selectedDay, focusedDay) {
+                                if (!isSameDay(_selectedDay, selectedDay)) {
+                                  // Call `setState()` when updating the selected day
+                                  print(
+                                      "Selected Day is ${DateFormat('EEEE').format(selectedDay)}");
+                                  setState(() {
+                                    _selectedDay = selectedDay;
+                                    _focusedDay = focusedDay;
+                                  });
+                                }
+                              },
+                              onFormatChanged: (format) {
+                                if (_calendarFormat != format) {
+                                  // Call `setState()` when updating calendar format
+                                  setState(() {
+                                    _calendarFormat = format;
+                                  });
+                                }
+                              },
+                              onPageChanged: (focusedDay) {
+                                // No need to call `setState()` here
                                 _focusedDay = focusedDay;
-                              });
-                            }
-                          },
-                          onFormatChanged: (format) {
-                            if (_calendarFormat != format) {
-                              // Call `setState()` when updating calendar format
-                              setState(() {
-                                _calendarFormat = format;
-                              });
-                            }
-                          },
-                          onPageChanged: (focusedDay) {
-                            // No need to call `setState()` here
-                            _focusedDay = focusedDay;
-                          },
+                              },
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -238,29 +259,76 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                   ),
 
                   //choose Branch specialists
-                  SubTitle(text: _translator.translate("staff")),
-                  SizedBox(
-                    height: 100,
-                    child: ListView.separated(
-                        itemCount: 10,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        physics: BouncingScrollPhysics(),
-                        separatorBuilder: (_, i) => HorizontalGap(
-                              width: KDefaultPadding / 2,
-                            ),
-                        itemBuilder: (ctx, i) => SpecialistCard(
-                              isSelected: _selectedEmployee == i,
-                              onPressed: () {
-                                setState(() {
-                                  _selectedEmployee = i;
-                                });
-                              },
-                            )),
+                  BlocBuilder<BrancheemployeesBloc, BrancheemployeesState>(
+                    builder: (context, state) {
+                      if (state is BrancheemployeesSuccess) {
+                        if (state.employees.length > 0) {
+                          return buildEmployeesData(
+                              _translator, _size, _theme, state.employees);
+                        } else {
+                          return Container();
+                        }
+                      }
+                      return buildEmployeesLoading(_translator, _size, _theme);
+                    },
                   ),
                 ],
               ),
             )));
+  }
+
+  Widget buildEmployeesLoading(
+      AppLocalizations _translator, Size _size, ThemeData _theme) {
+    return ShimmerEffect(
+        child: Column(
+      children: [
+        SubTitle(text: _translator.translate("staff")),
+        SizedBox(
+          height: 100,
+          child: ListView.separated(
+              itemCount: 10,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              physics: BouncingScrollPhysics(),
+              padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+              separatorBuilder: (_, i) => HorizontalGap(
+                    width: KDefaultPadding / 2,
+                  ),
+              itemBuilder: (ctx, i) => SpecialistCard()),
+        ),
+      ],
+    ));
+  }
+
+  Column buildEmployeesData(AppLocalizations _translator, Size _size,
+      ThemeData _theme, List<CompanyEmployee> employees) {
+    return Column(
+      children: [
+        SubTitle(text: _translator.translate("staff")),
+        SizedBox(
+          height: 100,
+          child: ListView.separated(
+              itemCount: employees.length,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              physics: BouncingScrollPhysics(),
+              padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+              separatorBuilder: (_, i) => HorizontalGap(
+                    width: KDefaultPadding / 2,
+                  ),
+              itemBuilder: (ctx, i) => SpecialistCard(
+                    companyEmployee: employees[i],
+                    isSelected: _selectedEmployee == i,
+                    selectable: true,
+                    onPressed: () {
+                      setState(() {
+                        _selectedEmployee = i;
+                      });
+                    },
+                  )),
+        ),
+      ],
+    );
   }
 }
 
@@ -306,61 +374,6 @@ class TimeSelectableCard extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class SpecialistCard extends StatelessWidget {
-  const SpecialistCard({
-    Key key,
-    this.isSelected,
-    this.onPressed,
-  }) : super(key: key);
-
-  final bool isSelected;
-  final Function onPressed;
-  @override
-  Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    ThemeData _theme = Theme.of(context);
-    return InkWell(
-      onTap: onPressed,
-      splashColor: Colors.transparent,
-      hoverColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      child: Container(
-        height: 95,
-        width: _size.width * 0.15,
-        child: Column(
-          children: [
-            Container(
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage("assets/images/profile_photo.png")),
-                  border: Border.all(
-                      color: isSelected ?? false
-                          ? KPrimaryColor
-                          : Colors.transparent,
-                      width: 3),
-                  borderRadius: BorderRadius.all(Radius.circular(50))),
-            ),
-            VerticalGap(
-              height: KdefaultPadding / 2,
-            ),
-            Text("موظفة ",
-                style: _theme.textTheme.caption.copyWith(
-                    fontWeight: isSelected ?? false
-                        ? FontWeight.bold
-                        : FontWeight.normal,
-                    color: isSelected ?? false
-                        ? KPrimaryColor
-                        : _theme.accentColor))
-          ],
         ),
       ),
     );

@@ -22,4 +22,6 @@ class NetworkConstants {
       "/api/companies/company/branche/add-or-remove-favorite/";
   static const String ViewBranchServices =
       "/api/companies/company/view/branche/services/";
+  static const String ViewBranchEmployees =
+      "/api/companies/company/view/branche/employees/";
 }
