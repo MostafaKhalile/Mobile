@@ -68,7 +68,7 @@ class _ProfileEditState extends State<ProfileEdit> {
               child: Column(
                 children: [
                   Expanded(
-                    flex: 3,
+                    flex: 2,
                     child: ProfileCoverAndImage(),
                   ),
                   Expanded(

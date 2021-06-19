@@ -96,9 +96,6 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
             _snackbar.showSnackBar(context, state.message);
           }
         }, builder: (context, state) {
-          if (state is LeastCompaniesError) {
-            return buildError(state);
-          }
           if (state is LeastCompaniesLoaded) {
             if (state.leastCompanies.isNotEmpty) {
               return Container(
@@ -132,12 +129,6 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
             child: LeastCompanyCard(),
           );
         });
-  }
-
-  Center buildError(var state) {
-    return Center(
-      child: Text(state.message),
-    );
   }
 
   SectionHeader buildLeastCompaniesHeader(BuildContext context) {
@@ -201,8 +192,6 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
                   builder: (context, state) {
                     if (state is RecommendedcompaniesLoaded) {
                       return buildRecommendedCompaniesData(state);
-                    } else if (state is RecommendedcompaniesError) {
-                      return buildError(state);
                     }
                     return buildRecommendedCoLoading(size);
                   },
@@ -242,8 +231,6 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
                   return buildCategoriesLoading(size);
                 } else if (state is CategoriesLoaded) {
                   return buildCategoriessData(state, size);
-                } else if (state is CategoriesError) {
-                  return buildError(state);
                 }
                 return Container();
               }),

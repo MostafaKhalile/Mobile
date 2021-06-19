@@ -3,15 +3,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_cover_bloc/editcover_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_profile_picture_Bloc/editprofilepicture_bloc.dart';
 import 'package:techtime/Controllers/Providers/current_user_provider.dart';
 import 'package:techtime/Controllers/Services/image_picker_service.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
-import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/utils/custom_toast.dart';
 import 'package:techtime/Models/client_profile.dart';
+import 'package:techtime/Widgets/client/custom_circle_avatar.dart';
 
 class ProfileCoverAndImage extends StatefulWidget {
   const ProfileCoverAndImage({
@@ -50,27 +50,27 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
           state = state;
           return Container(
             width: double.infinity,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-              image: (_cover != null)
-                  ? FileImage(_cover)
-                  : userData?.coverImage != null
-                      ? NetworkImage(
-                          KAPIURL + userData.coverImage,
-                        )
-                      : AssetImage(KPlaceHolderCover),
-              fit: BoxFit.cover,
-            )),
+            // decoration: BoxDecoration(
+            //     image: DecorationImage(
+            //   image: (_cover != null)
+            //       ? FileImage(_cover)
+            //       : userData?.coverImage != null
+            //           ? NetworkImage(
+            //               KAPIURL + userData.coverImage,
+            //             )
+            //           : AssetImage(KPlaceHolderCover),
+            //   fit: BoxFit.cover,
+            // )),
             child: Stack(
               clipBehavior: Clip.none,
               children: [
-                (state is EditCoverUploading)
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : Container(),
+                // (state is EditCoverUploading)
+                //     ? Center(
+                //         child: CircularProgressIndicator(),
+                //       )
+                //     : Container(),
                 Positioned(
-                  bottom: -60,
+                  bottom: 0,
                   right: 0,
                   left: 0,
                   child: Row(
@@ -93,23 +93,32 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
                         builder: (context, state) {
                           state = state;
                           return Stack(clipBehavior: Clip.none, children: [
-                            InkWell(
-                              child: Container(
+                            Stack(
+                              children: [
+                                CustomCircleAvatar(
+                                  image: userData?.image ?? null,
                                   height: 120,
                                   width: 120,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: userData?.image != null
-                                            ? NetworkImage(
-                                                KAPIURL + userData.image,
-                                              )
-                                            : AssetImage(KPlaceHolderImage),
-                                        fit: BoxFit.cover,
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  child: InkWell(
+                                    highlightColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
+                                    child: Container(
+                                      height: 60,
+                                      width: 120,
+                                      color: Colors.black26,
+                                      child: Icon(
+                                        Icons.camera_alt,
+                                        size: 30,
+                                        color: Colors.white,
                                       ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(KdefaultRadius),
-                                      ))),
-                              onTap: () => changeProfilePicture(),
+                                    ),
+                                    onTap: () => changeProfilePicture(),
+                                  ),
+                                ),
+                              ],
                             ),
                             state is EditprofilepictureUploading
                                 ? Center(
@@ -133,27 +142,27 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
             ),
           );
         }),
-        Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 80, right: 10, left: 10),
-              child: ClipOval(
-                child: Material(
-                    color: Colors.black26, // button color
-                    child: InkWell(
-                        child: SizedBox(
-                            width: 56,
-                            height: 56,
-                            child: Icon(
-                              Icons.camera_alt_outlined,
-                              color: Colors.white,
-                              size: 25,
-                            )),
-                        onTap: () => changeCoverPicture())),
-              ),
-            ),
-          ],
-        ),
+        // Row(
+        //   children: [
+        //     Padding(
+        //       padding: const EdgeInsets.only(top: 80, right: 10, left: 10),
+        //       child: ClipOval(
+        //         child: Material(
+        //             color: Colors.black26, // button color
+        //             child: InkWell(
+        //                 child: SizedBox(
+        //                     width: 56,
+        //                     height: 56,
+        //                     child: Icon(
+        //                       Icons.camera_alt_outlined,
+        //                       color: Colors.white,
+        //                       size: 25,
+        //                     )),
+        //                 onTap: () => changeCoverPicture())),
+        //       ),
+        //     ),
+        //   ],
+        // ),
       ],
     );
   }
