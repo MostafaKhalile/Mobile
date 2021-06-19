@@ -4,7 +4,6 @@ import 'package:techtime/Controllers/blocs/client/categorisBloc/categories_bloc.
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Widgets/core/shimmer_effect.dart';
 import 'package:techtime/widgets/client/title_image_card.dart';
-import 'package:techtime/widgets/core/skeleton.dart';
 
 class CategoriesBody extends StatelessWidget {
   @override
