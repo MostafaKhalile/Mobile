@@ -2,27 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
+import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
+import 'package:techtime/Models/client/companyData/brancheData/brancheReviews/reviews.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
 
 class ReviewCard extends StatelessWidget {
   const ReviewCard({
     Key key,
-    @required Size size,
-    @required ThemeData theme,
-  })  : _size = size,
-        _theme = theme,
-        super(key: key);
+    this.review,
+  }) : super(key: key);
 
-  final Size _size;
-  final ThemeData _theme;
-
+  final Review review;
   @override
   Widget build(BuildContext context) {
     Locale locale = BlocProvider.of<LocaleCubit>(context).state.locale;
+    Size _size = MediaQuery.of(context).size;
+    ThemeData _theme = Theme.of(context);
     return Container(
-      width: _size.width * 0.9,
+      width: _size.width * 0.7,
       child: Card(
         elevation: 10,
         child: Padding(
@@ -33,10 +32,16 @@ class ReviewCard extends StatelessWidget {
                   alignment: locale == Locale('ar')
                       ? Alignment.topLeft
                       : Alignment.topRight,
-                  child: Text(
-                    '18-5-2020',
-                    style: _theme.textTheme.subtitle1,
-                  )),
+                  child: (review != null)
+                      ? Text(
+                          review.date,
+                          style: _theme.textTheme.subtitle1,
+                        )
+                      : Container(
+                          height: 10,
+                          width: 30,
+                          color: Colors.white,
+                        )),
               Wrap(
                 children: <Widget>[
                   Row(
@@ -48,10 +53,14 @@ class ReviewCard extends StatelessWidget {
                         child: SizedBox(
                           width: 50,
                           height: 50,
-                          child: Image.asset(
-                            KPlaceHolderImage,
-                            fit: BoxFit.cover,
-                          ),
+                          child: (review != null)
+                              ? (review.image != null)
+                                  ? Image.network(
+                                      KAPIURL + review.image,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.asset(KPlaceHolderImage)
+                              : Container(),
                         ),
                       ),
                       HorizontalGap(width: KDefaultPadding / 2),
@@ -61,33 +70,34 @@ class ReviewCard extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                'سلامة الياسين',
-                                style: _theme.textTheme.subtitle2,
-                              ),
+                              (review != null)
+                                  ? Text(
+                                      review.name,
+                                      style: _theme.textTheme.subtitle2,
+                                    )
+                                  : Container(),
                             ],
                           ),
-                          SmoothStarRating(
-                            size: 14,
-                            rating: 4.0,
-                            allowHalfRating: true,
-                            isReadOnly: true,
-                          ),
+                          (review != null)
+                              ? SmoothStarRating(
+                                  size: 14,
+                                  rating: double.parse(review.raty.toString()),
+                                  allowHalfRating: true,
+                                  isReadOnly: true,
+                                )
+                              : Container(),
                           VerticalGap(
-                            height: KDefaultPadding / 4,
+                            height: KDefaultPadding,
                           ),
                           SizedBox(
-                            width: _size.width * 0.6,
-                            child: Text(
-                                ''' ريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور
-أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم,كيواس نوستريد
-
-أكسير سيتاشن يللأمكو لابورأس نيسي يت أليكيوب أكس أيا كوممودو كونسيكيوات 
-نيولا باراياتيور. أيكسسيبتيور ساينت''',
-                                textAlign: TextAlign.start,
-                                overflow: TextOverflow.fade,
-                                maxLines: 2,
-                                style: _theme.textTheme.caption),
+                            width: _size.width * 0.4,
+                            child: (review != null)
+                                ? Text('''${review.comment}''',
+                                    textAlign: TextAlign.start,
+                                    overflow: TextOverflow.fade,
+                                    maxLines: 2,
+                                    style: _theme.textTheme.caption)
+                                : Container(),
                           ),
                         ],
                       ),

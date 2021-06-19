@@ -6,7 +6,7 @@ import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/Models/client/brancheData/company_employee.dart';
+import 'package:techtime/Models/client/companyData/brancheData/company_employee.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
 import 'package:techtime/Widgets/client/specialist_card.dart';
 import 'package:techtime/Widgets/core/shimmer_effect.dart';

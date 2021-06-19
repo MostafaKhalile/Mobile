@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/branchEmployeesBloc/brancheemployees_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheOffersBloc/brancheoffers_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheReviewsBloc/branchereviews_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheServicesBloc/brancheservices_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheProfileBloc/branche_profile_bloc.dart';
 import 'package:techtime/Controllers/Repositories/client/branches/branches_repository.dart';
@@ -8,8 +10,10 @@ import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/Models/client/brancheData/brancheProfile/branche_images.dart';
-import 'package:techtime/Models/client/brancheData/company_employee.dart';
+import 'package:techtime/Models/client/companyData/brancheData/brancheOffers/branche_offers.dart';
+import 'package:techtime/Models/client/companyData/brancheData/brancheProfile/branche_images.dart';
+import 'package:techtime/Models/client/companyData/brancheData/brancheReviews/branche_reviews.dart';
+import 'package:techtime/Models/client/companyData/brancheData/company_employee.dart';
 import 'package:techtime/Models/client/companyData/company_service.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
 import 'package:techtime/Widgets/client/favorite_button.dart';
@@ -89,6 +93,10 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
         .add(GetBrancheservices(widget.branche.brancheID));
     BlocProvider.of<BrancheemployeesBloc>(context)
         .add(GetBrancheEmployees(widget.branche.brancheID));
+    BlocProvider.of<BranchereviewsBloc>(context)
+        .add(GetBrancheReviews(widget.branche.brancheID));
+    BlocProvider.of<BrancheOffersBloc>(context)
+        .add(GetBrancheOffers(widget.branche.brancheID));
     super.initState();
   }
 
@@ -268,49 +276,33 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                         },
                       ),
                       //build our Offers section
-                      SubTitle(text: _translator.translate("offers")),
-                      SizedBox(
-                        height: 150,
-                        child: ListView.separated(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: KDefaultPadding / 2),
-                            itemCount: 10,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            physics: BouncingScrollPhysics(),
-                            separatorBuilder: (_, i) => HorizontalGap(
-                                  width: KDefaultPadding / 2,
-                                ),
-                            itemBuilder: (ctx, i) => GradientCard(
-                                  width: _size.width * 0.9,
-                                  height: 120,
-                                  child: OfferCardBody(
-                                    theme: _theme,
-                                    image: KPlaceHolderImage,
-                                    title:
-                                        'على استعداد \n لتلبية كافة متطلبات\n',
-                                    subtitle: 'خصم 25 %',
-                                  ),
-                                )),
+                      BlocBuilder<BrancheOffersBloc, BrancheOffersState>(
+                        builder: (context, state) {
+                          if (state is BrancheOffersSuccess) {
+                            if (state.offers.length > 0) {
+                              return buildOffersData(
+                                  _translator, _size, _theme, state.offers);
+                            } else {
+                              return Container();
+                            }
+                          }
+                          return buildOffersLoading(_translator, _size, _theme);
+                        },
                       ),
-                      SubTitle(
-                        text: 'reviews',
-                      ),
-                      SizedBox(
-                        height: 150,
-                        child: ListView.separated(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: KDefaultPadding / 2),
-                          itemCount: 10,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          physics: BouncingScrollPhysics(),
-                          separatorBuilder: (_, i) => HorizontalGap(
-                            width: KDefaultPadding / 2,
-                          ),
-                          itemBuilder: (ctx, i) =>
-                              ReviewCard(size: _size, theme: _theme),
-                        ),
+
+                      BlocBuilder<BranchereviewsBloc, BranchereviewsState>(
+                        builder: (context, state) {
+                          if (state is BrancheReviewsSuccess) {
+                            if (state.reviews.reviews.length > 0) {
+                              return buildReviewsData(
+                                  _translator, _size, _theme, state.reviews);
+                            } else {
+                              return Container();
+                            }
+                          }
+                          return buildReviewsLoading(
+                              _translator, _size, _theme);
+                        },
                       ),
                     ],
                   ),
@@ -323,6 +315,128 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
           ),
         ],
       ),
+    );
+  }
+
+  Column buildOffersData(AppLocalizations _translator, Size _size,
+      ThemeData _theme, List<BrancheOffer> offers) {
+    return Column(
+      children: [
+        SubTitle(text: _translator.translate("offers")),
+        SizedBox(
+          height: 150,
+          child: ListView.separated(
+              padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+              itemCount: offers.length,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              physics: BouncingScrollPhysics(),
+              separatorBuilder: (_, i) => HorizontalGap(
+                    width: KDefaultPadding / 2,
+                  ),
+              itemBuilder: (ctx, i) {
+                final BrancheOffer offer = offers[i];
+                return GradientCard(
+                  width: _size.width * 0.9,
+                  height: 120,
+                  child: OfferCardBody(
+                    theme: _theme,
+                    image: offer.offerImage,
+                    title: offer.offerName,
+                    subtitle: offer.price.toString() +
+                        " ${_translator.translate("EGP")}",
+                  ),
+                );
+              }),
+        ),
+      ],
+    );
+  }
+
+  ShimmerEffect buildOffersLoading(
+      AppLocalizations _translator, Size _size, ThemeData _theme) {
+    return ShimmerEffect(
+      child: Column(
+        children: [
+          SubTitle(text: _translator.translate("offers")),
+          SizedBox(
+            height: 150,
+            child: ListView.separated(
+                padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+                itemCount: 10,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                physics: BouncingScrollPhysics(),
+                separatorBuilder: (_, i) => HorizontalGap(
+                      width: KDefaultPadding / 2,
+                    ),
+                itemBuilder: (ctx, i) => GradientCard(
+                      width: _size.width * 0.9,
+                      height: 120,
+                      child: OfferCardBody(
+                        theme: _theme,
+                        image: KPlaceHolderImage,
+                        title: 'على استعداد \n لتلبية كافة متطلبات\n',
+                        subtitle: 'خصم 25 %',
+                      ),
+                    )),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildReviewsLoading(
+      AppLocalizations _translator, Size _size, ThemeData _theme) {
+    return ShimmerEffect(
+      child: Column(
+        children: [
+          SubTitle(
+            text: _translator.translate("reviews"),
+          ),
+          SizedBox(
+            height: 150,
+            child: ListView.separated(
+              padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+              itemCount: 10,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              physics: BouncingScrollPhysics(),
+              separatorBuilder: (_, i) => HorizontalGap(
+                width: KDefaultPadding / 2,
+              ),
+              itemBuilder: (ctx, i) => ReviewCard(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildReviewsData(AppLocalizations _translator, Size _size,
+      ThemeData _theme, BrancheReviews reviews) {
+    return Column(
+      children: [
+        SubTitle(
+          text: _translator.translate("reviews"),
+        ),
+        SizedBox(
+          height: 150,
+          child: ListView.separated(
+            padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+            itemCount: reviews.reviews.length,
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            physics: BouncingScrollPhysics(),
+            separatorBuilder: (_, i) => HorizontalGap(
+              width: KDefaultPadding / 2,
+            ),
+            itemBuilder: (ctx, i) => ReviewCard(
+              review: reviews.reviews[i],
+            ),
+          ),
+        ),
+      ],
     );
   }
 

@@ -12,7 +12,7 @@ class Company extends Equatable {
   final String categoryAr;
   final String categoryEn;
   final int totalServices;
-  final double raty;
+  final dynamic raty;
 
   const Company({
     this.companyId,
@@ -47,7 +47,7 @@ class Company extends Equatable {
       categoryAr: json['CategoryAR'] as String,
       categoryEn: json['CategoryEN'] as String,
       totalServices: json['TotalServices'] as int,
-      raty: json['raty'] as double,
+      raty: json['raty'] as dynamic,
     );
   }
 

@@ -3,8 +3,10 @@ import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:http/http.dart' as http;
 import 'package:techtime/Helpers/network_constents.dart';
-import 'package:techtime/Models/client/brancheData/brancheProfile/branche_profile.dart';
-import 'package:techtime/Models/client/brancheData/company_employee.dart';
+import 'package:techtime/Models/client/companyData/brancheData/brancheOffers/branche_offers.dart';
+import 'package:techtime/Models/client/companyData/brancheData/brancheProfile/branche_profile.dart';
+import 'package:techtime/Models/client/companyData/brancheData/brancheReviews/branche_reviews.dart';
+import 'package:techtime/Models/client/companyData/brancheData/company_employee.dart';
 import 'package:techtime/Models/client/companyData/company_service.dart';
 
 class BranchesApiClient {
@@ -83,6 +85,48 @@ class BranchesApiClient {
       final data = json.decode(decoded)['AllBranchEmployees'] as List;
       return data.map((rawPost) {
         return CompanyEmployee.fromJson(rawPost);
+      }).toList();
+    } else {
+      throw Future.error('${json.decode(response.body).toString()}');
+    }
+  }
+
+  Future<BrancheReviews> getBrancheReviews(int id) async {
+    final String path =
+        KAPIURL + NetworkConstants.ViewBranchReviews + id.toString();
+    final response = await http.post(Uri.parse(path), headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Accept": "application/json",
+      "Authorization": "Token ${authRepo.currentUserToken}"
+    });
+    print(
+        "Branche Reviews ==> with status code [${response.statusCode}] and data is ${response.body}");
+
+    if (response.statusCode == 200) {
+      final decoded = utf8.decode(response.bodyBytes);
+      print("Company Reviews here $decoded");
+      final data = json.decode(decoded);
+      return BrancheReviews.fromJson(data);
+    } else {
+      throw Future.error('${json.decode(response.body).toString()}');
+    }
+  }
+
+  Future<List<BrancheOffer>> getBrancheOffers(int id) async {
+    final String path =
+        KAPIURL + NetworkConstants.ViewBranchOffers + id.toString();
+    final response = await http.post(Uri.parse(path), headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Accept": "application/json",
+      "Authorization": "Token ${authRepo.currentUserToken}"
+    });
+
+    if (response.statusCode == 200) {
+      final decoded = utf8.decode(response.bodyBytes);
+      print("Company services here $decoded");
+      final data = json.decode(decoded)['SendBranchOffers'] as List;
+      return data.map((rawPost) {
+        return BrancheOffer.fromJson(rawPost);
       }).toList();
     } else {
       throw Future.error('${json.decode(response.body).toString()}');

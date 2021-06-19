@@ -8,7 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/branchEmployeesBloc/brancheemployees_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheOffersBloc/brancheoffers_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheProfileBloc/branche_profile_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheReviewsBloc/branchereviews_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheServicesBloc/brancheservices_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/companyDataBlocs/companyServicesBloc/companyservices_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/companyProfileBloc/company_profile_bloc.dart';
@@ -171,6 +173,12 @@ class MyApp extends StatelessWidget {
                 BlocProvider(
                     create: (context) =>
                         BrancheemployeesBloc(apiBranchesRepository)),
+                BlocProvider(
+                    create: (context) =>
+                        BranchereviewsBloc(apiBranchesRepository)),
+                BlocProvider(
+                    create: (context) =>
+                        BrancheOffersBloc(apiBranchesRepository)),
                 BlocProvider(
                     create: (context) =>
                         LeastcompaniesBloc(apiClientHomeRepository)),

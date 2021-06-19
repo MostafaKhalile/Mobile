@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:techtime/Helpers/APIUrls.dart';
+import 'package:techtime/Helpers/app_consts.dart';
 
 class OfferCardBody extends StatelessWidget {
   final String image;
   final String title;
   final String subtitle;
+  final String price;
   const OfferCardBody({
     Key key,
     @required ThemeData theme,
     this.image,
     this.title,
     this.subtitle,
+    this.price,
   })  : _theme = theme,
         super(key: key);
 
@@ -23,7 +27,7 @@ class OfferCardBody extends StatelessWidget {
         RichText(
           textAlign: TextAlign.start,
           text: TextSpan(
-            text: title,
+            text: title + "\n",
             style: _theme.textTheme.subtitle1
                 .copyWith(fontSize: 18, fontWeight: FontWeight.bold),
             children: <TextSpan>[
@@ -31,13 +35,19 @@ class OfferCardBody extends StatelessWidget {
                   text: subtitle,
                   style:
                       _theme.textTheme.headline6.copyWith(color: Colors.white)),
+              TextSpan(
+                  text: price,
+                  style:
+                      _theme.textTheme.headline6.copyWith(color: Colors.white)),
             ],
           ),
         ),
         Spacer(),
-        Image.asset(
-          image,
-        )
+        (image != null)
+            ? Image.network(KAPIURL + image)
+            : Image.asset(
+                KPlaceHolderImage,
+              )
       ],
     );
   }

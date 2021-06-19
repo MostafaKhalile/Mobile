@@ -4,7 +4,7 @@ class CompanyEmployee extends Equatable {
   final String image;
   final int employeeId;
   final String employeeName;
-  final double raty;
+  final dynamic raty;
 
   const CompanyEmployee({
     this.image,
@@ -18,7 +18,7 @@ class CompanyEmployee extends Equatable {
       image: json['Image'] as String,
       employeeId: json['EmployeeID'] as int,
       employeeName: json['EmployeeName'] as String,
-      raty: json['raty'] as double,
+      raty: json['raty'] as dynamic,
     );
   }
 
@@ -35,7 +35,7 @@ class CompanyEmployee extends Equatable {
     String image,
     int employeeId,
     String employeeName,
-    int raty,
+    dynamic raty,
   }) {
     return CompanyEmployee(
       image: image ?? this.image,

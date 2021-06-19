@@ -24,4 +24,8 @@ class NetworkConstants {
       "/api/companies/company/view/branche/services/";
   static const String ViewBranchEmployees =
       "/api/companies/company/view/branche/employees/";
+  static const String ViewBranchReviews =
+      "/api/companies/company/branche/review/";
+  static const String ViewBranchOffers =
+      "/api/companies/company/view/branche/offers/";
 }

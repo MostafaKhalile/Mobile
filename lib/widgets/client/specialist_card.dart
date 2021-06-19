@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
-import 'package:techtime/Models/client/brancheData/company_employee.dart';
+import 'package:techtime/Models/client/companyData/brancheData/company_employee.dart';
 import 'package:techtime/Widgets/core/vertical_gab.dart';
 
 class SpecialistCard extends StatelessWidget {

@@ -40,7 +40,7 @@ class BranchCard extends StatelessWidget {
         onTap: onPressed,
         child: Container(
           height: 100,
-          width: MediaQuery.of(context).size.width * 0.9,
+          width: MediaQuery.of(context).size.width * 0.75,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(KDefaultPadding)),
           child: Row(
