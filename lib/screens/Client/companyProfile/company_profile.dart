@@ -126,8 +126,6 @@ class _CompanyProfileState extends State<CompanyProfile>
                     children: [
                       IconButton(
                           icon: Icon(Icons.favorite_border), onPressed: () {}),
-                      IconButton(
-                          icon: Icon(Icons.share_outlined), onPressed: () {})
                     ],
                   ),
                   Spacer()
@@ -170,13 +168,17 @@ class _CompanyProfileState extends State<CompanyProfile>
                 controller: _controller,
                 children: <Widget>[
                   CompanyServices(
-                    companyBranches: state.companyProfile.companyBranches,
+                    companyProfile: state.companyProfile,
                   ),
-                  CompanyOffers(),
+                  CompanyOffers(
+                    companyProfile: state.companyProfile,
+                  ),
                   CompanyBranchesScreen(
                     companyBranches: state.companyProfile.companyBranches,
                   ),
-                  CompanyReviews(),
+                  CompanyReviewsScreen(
+                    reviews: state.companyProfile.companyReviews,
+                  ),
                 ],
               ),
             ),

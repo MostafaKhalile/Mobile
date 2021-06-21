@@ -1,18 +1,18 @@
-class CompanyBranches {
+class CompanyBranche {
   int brancheID;
   String brancheName;
   String branchAddressAR;
   String branchAddressEN;
   String image;
 
-  CompanyBranches(
+  CompanyBranche(
       {this.brancheID,
       this.brancheName,
       this.branchAddressAR,
       this.branchAddressEN,
       this.image});
 
-  CompanyBranches.fromJson(Map<String, dynamic> json) {
+  CompanyBranche.fromJson(Map<String, dynamic> json) {
     brancheID = json['BrancheID'];
     brancheName = json['BrancheName'];
     branchAddressAR = json['BranchAddressAR'];

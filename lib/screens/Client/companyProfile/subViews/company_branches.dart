@@ -6,7 +6,7 @@ import 'package:techtime/Models/client/companyProfile/company_branches.dart';
 import 'package:techtime/widgets/client/branch_card.dart';
 
 class CompanyBranchesScreen extends StatelessWidget {
-  final List<CompanyBranches> companyBranches;
+  final List<CompanyBranche> companyBranches;
   const CompanyBranchesScreen({
     Key key,
     @required this.companyBranches,
@@ -37,42 +37,3 @@ class CompanyBranchesScreen extends StatelessWidget {
     );
   }
 }
-// Container(
-//             width: double.infinity,
-//             child: SingleChildScrollView(
-//                 physics: BouncingScrollPhysics(),
-//                 child: SizedBox(
-//                   width: double.infinity,
-//                   child: Column(
-//                     children: [
-//                       BranchAddressContainer(),
-//                       BranchWorkingHours(),
-//                       Container(
-//                           width: _size.width,
-//                           child: Card(
-//                               elevation: 10,
-//                               child: Container(
-//                                   padding: EdgeInsets.symmetric(
-//                                       vertical: KDefaultPadding, horizontal: 5),
-//                                   child: Wrap(children: [
-//                                     InfoCardHeader(
-//                                       title: _translator.translate("staff"),
-//                                       icon: Icons.person_outline,
-//                                     ),
-//                                     GridView.count(
-//                                       shrinkWrap: true,
-//                                       physics: BouncingScrollPhysics(),
-//                                       padding: EdgeInsets.all(KDefaultPadding),
-//                                       crossAxisCount: 3,
-//                                       children: <Widget>[
-//                                         EmployeeCard(),
-//                                         EmployeeCard(),
-//                                         EmployeeCard(),
-//                                         EmployeeCard(),
-//                                         EmployeeCard(),
-//                                       ],
-//                                     ),
-//                                   ]))))
-//                     ],
-//                   ),
-//                 ))))

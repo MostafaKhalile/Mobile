@@ -21,7 +21,7 @@ import 'package:techtime/widgets/core/vertical_gab.dart';
 
 class CreateNewOrder extends StatefulWidget {
   static const String routeName = "/create_new_order";
-  final List<CompanyBranches> companyBranches;
+  final List<CompanyBranche> companyBranches;
 
   const CreateNewOrder({Key key, this.companyBranches}) : super(key: key);
 
@@ -163,7 +163,8 @@ class _CreateNewOrderState extends State<CreateNewOrder> {
                                         SizedBox(
                                           height: 90,
                                           child: ListView.separated(
-                                              itemCount: 10,
+                                              itemCount: _selecteOrderdDay
+                                                  .orderTimes.length,
                                               shrinkWrap: true,
                                               scrollDirection: Axis.horizontal,
                                               physics: BouncingScrollPhysics(),

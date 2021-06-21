@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class BrancheData extends Equatable {
   final int companyId;
-  final double raty;
+  final dynamic raty;
   final int brancheId;
   final String brancheName;
   final String companyImage;
@@ -30,7 +30,7 @@ class BrancheData extends Equatable {
   factory BrancheData.fromJson(Map<String, dynamic> json) {
     return BrancheData(
       companyId: json['CompanyID'] as int,
-      raty: json['raty'] as double,
+      raty: json['raty'] as dynamic,
       brancheId: json['BrancheID'] as int,
       brancheName: json['BrancheName'] as String,
       companyImage: json['CompanyImage'] as String,

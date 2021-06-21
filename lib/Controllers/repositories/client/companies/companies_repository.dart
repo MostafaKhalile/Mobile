@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:http/http.dart' as http;
 import 'package:techtime/Helpers/network_constants.dart';
-import 'package:techtime/Models/client/companyData/company_service.dart';
+import 'package:techtime/Models/client/companyProfile/company_service.dart';
 import 'package:techtime/Models/client/company.dart';
 import 'package:techtime/Models/client/companyProfile/company_profile.dart';
 
@@ -53,7 +53,8 @@ class APICompaniesRepository {
       final data = json.decode(decoded) as Map;
       final CompanyProfile companyProfile = CompanyProfile.fromJson(data);
 
-      print("#Company PRofile response is $companyProfile");
+      print(
+          "#Company Profile response is ${companyProfile.companyBranches} ${companyProfile.companyOffers} ${companyProfile.companyReviews} ${companyProfile.companyServices}");
 
       return CompanyProfile.fromJson(data);
     } else {

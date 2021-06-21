@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:techtime/Controllers/BLoCs/client/companyDataBlocs/companyServicesBloc/companyservices_bloc.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/Models/client/companyData/company_service.dart';
-import 'package:techtime/Models/client/companyProfile/company_branches.dart';
-import 'package:techtime/Screens/Client/createOrder/create_new_order.dart';
-import 'package:techtime/Widgets/core/shimmer_effect.dart';
+import 'package:techtime/Models/client/companyProfile/company_profile.dart';
+import 'package:techtime/Models/client/companyProfile/company_service.dart';
+import 'package:techtime/Screens/Client/newOrder/create_new_order.dart';
 
 class CompanyServices extends StatefulWidget {
-  final List<CompanyBranches> companyBranches;
+  final CompanyProfile companyProfile;
 
-  const CompanyServices({Key key, @required this.companyBranches})
+  const CompanyServices({Key key, @required this.companyProfile})
       : super(key: key);
 
   @override
@@ -27,8 +23,6 @@ class CompanyServicesState extends State<CompanyServices> {
   List<String> _checked = [];
   @override
   void initState() {
-    BlocProvider.of<CompanyservicesBloc>(context)
-        .add(GetCompanyServices(widget.companyBranches[0].brancheID));
     super.initState();
   }
 
@@ -38,60 +32,36 @@ class CompanyServicesState extends State<CompanyServices> {
     Size _size = MediaQuery.of(context).size;
     // AppLocalizations _translator = AppLocalizations.of(context);
     return Scaffold(
-      body: BlocConsumer<CompanyservicesBloc, CompanyservicesState>(
-        listener: (context, state) {
-          if (state is CompanyservicesFaild) {
-            print(state.message);
-          }
-        },
-        builder: (context, state) {
-          if (state is CompanyservicesSuccess) {
-            return Container(
-                width: _size.width,
-                child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: KdefaultPadding),
-                      child: Column(children: <Widget>[
-                        CheckboxGroup(
-                          activeColor: KPrimaryColor,
-                          checkColor: _theme.primaryColorDark,
-                          orientation: GroupedButtonsOrientation.VERTICAL,
-                          onSelected: (List selected) => setState(() {
-                            _checked = selected;
-                            print(_checked);
-                          }),
-                          labels: state.services.map((element) {
-                            return element.toJson().toString();
-                          }).toList(),
-                          checked: _checked,
-                          itemBuilder: (Checkbox cb, Text txt, int i) {
-                            return ServiceCard(
-                              cb: cb,
-                              companyService: state.services[i],
-                            );
-                          },
-                        ),
-                      ]),
-                    )));
-          }
-          if (state is CompanyservicesLoading ||
-              state is CompanyservicesFaild) {
-            return ListView.builder(
-              itemCount: 5,
-              padding: EdgeInsets.all(KdefaultPadding),
-              itemBuilder: (context, i) => ShimmerEffect(
-                  child: Container(
-                margin: EdgeInsets.all(5),
-                height: 100,
-                width: _size.width,
-                color: Colors.white,
-              )),
-            );
-          }
-          return Container();
-        },
-      ),
+      body: Container(
+          width: _size.width,
+          child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: KdefaultPadding),
+                child: Column(children: <Widget>[
+                  CheckboxGroup(
+                    activeColor: KPrimaryColor,
+                    checkColor: _theme.primaryColorDark,
+                    orientation: GroupedButtonsOrientation.VERTICAL,
+                    onSelected: (List selected) => setState(() {
+                      _checked = selected;
+                      print(_checked);
+                    }),
+                    labels:
+                        widget.companyProfile.companyServices.map((element) {
+                      return element.toJson().toString();
+                    }).toList(),
+                    checked: _checked,
+                    itemBuilder: (Checkbox cb, Text txt, int i) {
+                      return ServiceCard(
+                        cb: cb,
+                        companyService:
+                            widget.companyProfile.companyServices[i],
+                      );
+                    },
+                  ),
+                ]),
+              ))),
       persistentFooterButtons: [
         Container(
           width: _size.width,
@@ -118,7 +88,7 @@ class CompanyServicesState extends State<CompanyServices> {
   _bookHandler() {
     _checked.length != 0
         ? Navigator.pushNamed(context, CreateNewOrder.routeName,
-            arguments: widget.companyBranches)
+            arguments: widget.companyProfile.companyBranches)
         : Fluttertoast.showToast(
             msg: AppLocalizations.of(context)
                 .translate("please_select_service_first"));
@@ -160,7 +130,7 @@ class ServiceCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(KdefaultRadius)),
                   ),
                   title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -172,12 +142,6 @@ class ServiceCard extends StatelessWidget {
                               text: TextSpan(
                                 text: companyService.nameServicesAr + "\n",
                                 style: _theme.textTheme.subtitle2,
-                                // children: <TextSpan>[
-                                //   TextSpan(
-                                //       text:
-                                //           '${companyService.fullTime} minutes',
-                                //       style: _theme.textTheme.caption),
-                                // ],
                               ),
                             ),
                           ),
@@ -202,6 +166,7 @@ class ServiceCard extends StatelessWidget {
                   ),
                   subtitle: Text(companyService.description,
                       overflow: TextOverflow.visible,
+                      textAlign: TextAlign.justify,
                       maxLines: 4,
                       style: _theme.textTheme.caption),
                   isThreeLine: true,

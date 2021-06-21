@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:techtime/Models/client/companyData/company_service.dart';
+import 'package:techtime/Models/client/companyProfile/company_service.dart';
 
 import 'companies_repository.dart';
 

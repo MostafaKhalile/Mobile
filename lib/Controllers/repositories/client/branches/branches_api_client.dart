@@ -8,7 +8,7 @@ import 'package:techtime/Models/client/companyData/brancheData/brancheProfile/br
 import 'package:techtime/Models/client/companyData/brancheData/brancheReviews/branche_reviews.dart';
 import 'package:techtime/Models/client/companyData/brancheData/branche_working_day.dart';
 import 'package:techtime/Models/client/companyData/brancheData/company_employee.dart';
-import 'package:techtime/Models/client/companyData/company_service.dart';
+import 'package:techtime/Models/client/companyProfile/company_service.dart';
 
 class BranchesApiClient {
   AuthRepo authRepo = AuthRepo();

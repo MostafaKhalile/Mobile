@@ -14,8 +14,8 @@ import 'package:techtime/Models/client/companyData/brancheData/brancheOffers/bra
 import 'package:techtime/Models/client/companyData/brancheData/brancheProfile/branche_images.dart';
 import 'package:techtime/Models/client/companyData/brancheData/brancheReviews/branche_reviews.dart';
 import 'package:techtime/Models/client/companyData/brancheData/company_employee.dart';
-import 'package:techtime/Models/client/companyData/company_service.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
+import 'package:techtime/Models/client/companyProfile/company_service.dart';
 import 'package:techtime/Widgets/client/favorite_button.dart';
 import 'package:techtime/Widgets/client/specialist_card.dart';
 import 'package:techtime/Widgets/core/gallery_view.dart';
@@ -29,7 +29,7 @@ import 'package:techtime/widgets/core/vertical_gab.dart';
 
 class BranchProfile extends StatelessWidget {
   static const String routeName = '/Branch_profile';
-  final CompanyBranches branche;
+  final CompanyBranche branche;
 
   const BranchProfile({Key key, @required this.branche}) : super(key: key);
   @override
@@ -78,7 +78,7 @@ class BranchProfileBody extends StatefulWidget {
     Key key,
     @required this.branche,
   }) : super(key: key);
-  final CompanyBranches branche;
+  final CompanyBranche branche;
 
   @override
   _BranchProfileBodyState createState() => _BranchProfileBodyState();
@@ -228,9 +228,6 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                                     ),
                                   ),
                             IconButton(icon: Icon(Icons.sms), onPressed: () {}),
-                            IconButton(
-                                icon: Icon(Icons.share_outlined),
-                                onPressed: () {}),
                           ],
                         ),
                       ),
@@ -797,7 +794,7 @@ class BranchProfilePicture extends StatelessWidget {
     Key key,
     this.branche,
   }) : super(key: key);
-  final CompanyBranches branche;
+  final CompanyBranche branche;
   @override
   Widget build(BuildContext context) {
     ThemeData _theme = Theme.of(context);

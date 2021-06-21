@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/Controllers/blocs/client/companiesListBloc.dart/companieslist_bloc.dart';
+import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/utils/custom_snackbar.dart';
 import 'package:techtime/Models/client/category.dart';
+import 'package:techtime/Widgets/core/horizontal_gap.dart';
+import 'package:techtime/Widgets/core/shimmer_effect.dart';
+import 'package:techtime/Widgets/core/vertical_gab.dart';
 
 import 'components/companies_list_view.dart';
 
@@ -27,6 +32,7 @@ class _CategoryCompaniesScreenState extends State<CategoryCompaniesScreen> {
   Snackbar _snackbar = Snackbar();
   @override
   Widget build(BuildContext context) {
+    ThemeData _theme = Theme.of(context);
     return Scaffold(
       appBar: buildAppBar(context),
       body: BlocConsumer<CompanieslistBloc, CompanieslistState>(
@@ -41,15 +47,37 @@ class _CategoryCompaniesScreenState extends State<CategoryCompaniesScreen> {
               return CompaniesListView(companies: state.companies);
             } else {
               return Center(
-                  child: Text(
-                "No Data Yet",
-                style: Theme.of(context).textTheme.caption,
-              ));
+                child: SvgPicture.asset(
+                  KComingSoonIcon,
+                  height: 150,
+                  color: _theme.accentColor,
+                ),
+              );
             }
           } else {
             return Center(
               child: CircularProgressIndicator(),
             );
+            // return ShimmerEffect(
+            //   child: Column(
+            //     children: [
+            //       SizedBox(
+            //         height: MediaQuery.of(context).size.height,
+            //         child: ListView.separated(
+            //             itemCount: 10,
+            //             shrinkWrap: true,
+            //             scrollDirection: Axis.vertical,
+            //             physics: BouncingScrollPhysics(),
+            //             separatorBuilder: (_, i) => VerticalGap(),
+            //             itemBuilder: (ctx, i) => Container(
+            //                   height: MediaQuery.of(context).size.height * 0.33,
+            //                   width: MediaQuery.of(context).size.width,
+            //                   color: Colors.white,
+            //                 )),
+            //       ),
+            //     ],
+            //   ),
+            // );
           }
         },
       ),

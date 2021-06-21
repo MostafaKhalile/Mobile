@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:techtime/Controllers/Repositories/client/branches/branches_repository.dart';
-import 'package:techtime/Models/client/companyData/company_service.dart';
+import 'package:techtime/Models/client/companyProfile/company_service.dart';
 
 part 'brancheservices_event.dart';
 part 'brancheservices_state.dart';
