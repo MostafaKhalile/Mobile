@@ -422,9 +422,14 @@ class _CreateNewOrderState extends State<CreateNewOrder> {
                     isSelected: _selectedEmployee == employees[i].employeeId,
                     selectable: true,
                     onPressed: () {
-                      setState(() {
-                        _selectedEmployee = employees[i].employeeId;
-                      });
+                      if (_selectedBranch == null) {
+                        CustomToast().buildErrorMessage(context,
+                            _translator.translate("choose_branche_first"));
+                      } else {
+                        setState(() {
+                          _selectedEmployee = employees[i].employeeId;
+                        });
+                      }
                     },
                   )),
         ),
