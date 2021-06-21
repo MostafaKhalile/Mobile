@@ -1,4 +1,5 @@
 class NetworkConstants {
+  // User and Profile Routes
   static const String currentUserToken = "currentUserToken";
   static const String currentUser = "currentUser";
   static const String currentUserProfile = "currentUserProfile";
@@ -11,12 +12,16 @@ class NetworkConstants {
   static const String uploadProfilePicture = "/api/settings/profile/edit-image";
   static const String uploadCoverPicture =
       "/api/settings/profile/edit-cover-image";
+
+  // User Wallet Routes
   static const String walletTotal = "/api/my-wallet/total-data";
   static const String walletPointsToPrice = "/api/my-wallet/total-point-price";
   static const String walletTransformPointsToPrice =
       "/api/my-wallet/transformation-point-to-price";
   static const String walletTransformPromocode =
       "/api/my-wallet/transformation-promo-code";
+
+  // Branche Profile Data Routes
   static const String ViewBranche = "/api/companies/company/view/branche/";
   static const String BrancheAddRemoveFavorite =
       "/api/companies/company/branche/add-or-remove-favorite/";
@@ -28,4 +33,9 @@ class NetworkConstants {
       "/api/companies/company/branche/review/";
   static const String ViewBranchOffers =
       "/api/companies/company/view/branche/offers/";
+  static const String ViewBranchWorkingDays =
+      "/api/companies/company/view/branche/work-days/";
+
+  //Order Routes
+  static const String orderDateTime = "/api/companies/order/date-time-order/";
 }

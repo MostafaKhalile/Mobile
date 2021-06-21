@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:techtime/Helpers/network_constents.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
 import 'package:techtime/Models/client/wallet/wallet_points_to_price.dart';
 import 'package:techtime/Models/client/wallet/wallet_total_data.dart';

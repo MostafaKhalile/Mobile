@@ -97,6 +97,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
         .add(GetBrancheReviews(widget.branche.brancheID));
     BlocProvider.of<BrancheOffersBloc>(context)
         .add(GetBrancheOffers(widget.branche.brancheID));
+
     super.initState();
   }
 
@@ -170,7 +171,8 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                                               ? Text(
                                                   state.brancheProfile
                                                       .brancheData.raty
-                                                      .toString(),
+                                                      .round()
+                                                      .toStringAsFixed(1),
                                                   style: _theme
                                                       .textTheme.subtitle2,
                                                   overflow: TextOverflow.clip,
@@ -376,8 +378,8 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                       child: OfferCardBody(
                         theme: _theme,
                         image: KPlaceHolderImage,
-                        title: 'على استعداد \n لتلبية كافة متطلبات\n',
-                        subtitle: 'خصم 25 %',
+                        title: '',
+                        subtitle: '',
                       ),
                     )),
           ),

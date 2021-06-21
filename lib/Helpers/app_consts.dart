@@ -23,4 +23,4 @@ const String KShieldIcon = "assets/svg/security_shield.svg";
 
 final kNow = DateTime.now();
 final kFirstDay = DateTime(kNow.year, kNow.month, kNow.day);
-final kLastDay = DateTime(kNow.year, kNow.month + 3, kNow.day);
+final kLastDay = DateTime(kNow.year, kNow.month + 1, kNow.day);

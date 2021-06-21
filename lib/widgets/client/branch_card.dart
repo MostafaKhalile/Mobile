@@ -28,26 +28,26 @@ class BranchCard extends StatelessWidget {
     ThemeData _theme = Theme.of(context);
     Size _size = MediaQuery.of(context).size;
     AppLocalizations _translator = AppLocalizations.of(context);
-    return Card(
-      margin: EdgeInsets.only(bottom: KDefaultPadding),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-        side: BorderSide(
-            color: isSelected ?? false ? KPrimaryColor : Colors.transparent,
-            width: 2.0),
-      ),
-      child: InkWell(
-        onTap: onPressed,
-        child: Container(
-          height: 100,
-          width: MediaQuery.of(context).size.width * 0.75,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(KDefaultPadding)),
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.75,
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(KDefaultPadding)),
+      child: Card(
+        margin: EdgeInsets.only(bottom: KDefaultPadding),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          side: BorderSide(
+              color: isSelected ?? false ? KPrimaryColor : Colors.transparent,
+              width: 2.0),
+        ),
+        child: InkWell(
+          onTap: onPressed,
           child: Row(
             children: [
               Expanded(
                   flex: 3,
                   child: Container(
+                    height: 120,
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             fit: BoxFit.fill, image: NetworkImage(image)),

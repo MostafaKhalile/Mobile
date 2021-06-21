@@ -12,14 +12,18 @@ import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheOffersBloc
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheProfileBloc/branche_profile_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheReviewsBloc/branchereviews_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheServicesBloc/brancheservices_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheWorkingDaysBloc/brancheworkingdays_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/companyDataBlocs/companyServicesBloc/companyservices_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/companyProfileBloc/company_profile_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/orderBlocs/orderDateTimeBloc/orderdatetime_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/orderBlocs/orderTimesBloc/ordertimes_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_passwod_bloc/editpassword_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_profile_picture_Bloc/editprofilepicture_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_points_to_price_bloc/walletpointstoprice_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_total_data_bloc/wallet_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_transform_points_blob/wallettransformpoints_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_transform_promocode_bloc/wallettransformpromocode_bloc.dart';
+import 'package:techtime/Controllers/Repositories/client/Order/order_repository.dart';
 import 'package:techtime/Controllers/Repositories/client/branches/branches_repository.dart';
 import 'package:techtime/Controllers/Repositories/client/companies/companies_repository.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
@@ -121,6 +125,7 @@ class MyApp extends StatelessWidget {
     APIClientHomeRepository apiClientHomeRepository = APIClientHomeRepository();
     APICompaniesRepository apiCompaniesRepository = APICompaniesRepository();
     BranchesRepository apiBranchesRepository = BranchesRepository();
+    OrdersRepository orderRepository = OrdersRepository();
     USerRepo userRepo = USerRepo();
     return MultiProvider(
         providers: [
@@ -178,6 +183,9 @@ class MyApp extends StatelessWidget {
                         BranchereviewsBloc(apiBranchesRepository)),
                 BlocProvider(
                     create: (context) =>
+                        BrancheWorkingDaysBloc(apiBranchesRepository)),
+                BlocProvider(
+                    create: (context) =>
                         BrancheOffersBloc(apiBranchesRepository)),
                 BlocProvider(
                     create: (context) =>
@@ -191,6 +199,9 @@ class MyApp extends StatelessWidget {
                 BlocProvider(
                     create: (context) =>
                         BrancheProfileBloc(apiBranchesRepository)),
+                BlocProvider(
+                    create: (context) => OrderDateTimeBloc(orderRepository)),
+                BlocProvider(create: (context) => OrderTimesBloc()),
                 BlocProvider<LocaleCubit>(create: (context) => LocaleCubit()),
               ],
               child: BlocBuilder<LocaleCubit, LocaleState>(

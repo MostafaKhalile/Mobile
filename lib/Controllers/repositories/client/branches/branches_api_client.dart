@@ -2,10 +2,11 @@ import 'dart:convert';
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:http/http.dart' as http;
-import 'package:techtime/Helpers/network_constents.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/companyData/brancheData/brancheOffers/branche_offers.dart';
 import 'package:techtime/Models/client/companyData/brancheData/brancheProfile/branche_profile.dart';
 import 'package:techtime/Models/client/companyData/brancheData/brancheReviews/branche_reviews.dart';
+import 'package:techtime/Models/client/companyData/brancheData/branche_working_day.dart';
 import 'package:techtime/Models/client/companyData/brancheData/company_employee.dart';
 import 'package:techtime/Models/client/companyData/company_service.dart';
 
@@ -127,6 +128,27 @@ class BranchesApiClient {
       final data = json.decode(decoded)['SendBranchOffers'] as List;
       return data.map((rawPost) {
         return BrancheOffer.fromJson(rawPost);
+      }).toList();
+    } else {
+      throw Future.error('${json.decode(response.body).toString()}');
+    }
+  }
+
+  Future<List<BrancheWorkingDay>> getBrancheWorkingDays(int id) async {
+    final String path =
+        KAPIURL + NetworkConstants.ViewBranchWorkingDays + id.toString();
+    final response = await http.post(Uri.parse(path), headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Accept": "application/json",
+      "Authorization": "Token ${authRepo.currentUserToken}"
+    });
+
+    if (response.statusCode == 200) {
+      final decoded = utf8.decode(response.bodyBytes);
+      print("Branche $id Working days  here ====> $decoded");
+      final data = json.decode(decoded)['AllBranchWorkDays'] as List;
+      return data.map((rawPost) {
+        return BrancheWorkingDay.fromJson(rawPost);
       }).toList();
     } else {
       throw Future.error('${json.decode(response.body).toString()}');

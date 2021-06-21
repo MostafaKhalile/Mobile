@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
-import 'package:techtime/Helpers/network_constents.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
 import 'package:techtime/Models/client/wallet/wallet_points_to_price.dart';
 import 'package:techtime/Models/client/wallet/wallet_total_data.dart';

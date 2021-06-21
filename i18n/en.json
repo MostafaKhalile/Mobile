@@ -104,6 +104,7 @@
     "book_again": "book again",
     "book_appointment": "Book an appointment",
     "choose_branche": "choose a branch",
+    "choose_branche_first": "Please Choose a Branche First",
     "pick_day": "pick a day",
     "select_time": "select time",
     "edited_successfully": "done editing successfully",

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/ads_bloc/ads_bloc.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
+import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Widgets/core/shimmer_effect.dart';
 
 final List<dynamic> imgList = [
   {"image": 'assets/images/default_cover.png'},
@@ -37,51 +39,55 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return BlocBuilder<AdsBloc, AdsState>(builder: (context, state) {
-      if (state is AdsLoaded && state.ads.length > 0) {
-        return Stack(children: <Widget>[
-          CarouselSlider(
-              items: buildCarouselItems(size, state.ads),
-              options: CarouselOptions(
-                onPageChanged: (index, _) {
-                  setState(() {
-                    _current = index;
-                  });
-                },
-                height: size.height * 0.33,
-                autoPlay: true,
-                viewportFraction: 1.0,
-                aspectRatio: MediaQuery.of(context).size.aspectRatio,
-              )),
-          Positioned(
-              bottom: 10,
-              right: MediaQuery.of(context).size.width * 0.45,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: map<Widget>(
-                    state.ads,
-                    (index, url) {
-                      return Container(
-                        width: 12.0,
-                        height: 12.0,
-                        margin: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 2.0),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: _current == index
-                                ? KPrimaryColor
-                                : Colors.grey[600]),
-                      );
-                    },
-                  )))
-        ]);
-      } else if (state is AdsError) {
-        return Container(
-          child: Center(
-            child: Text(state.message),
-          ),
-        );
+      if (state is AdsLoaded) {
+        if (state.ads.length > 0) {
+          return Stack(children: <Widget>[
+            CarouselSlider(
+                items: buildCarouselItems(size, state.ads),
+                options: CarouselOptions(
+                  onPageChanged: (index, _) {
+                    setState(() {
+                      _current = index;
+                    });
+                  },
+                  height: size.height * 0.33,
+                  autoPlay: true,
+                  viewportFraction: 1.0,
+                  aspectRatio: MediaQuery.of(context).size.aspectRatio,
+                )),
+            Positioned(
+                bottom: 10,
+                right: 0,
+                left: 0,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: map<Widget>(
+                      state.ads,
+                      (index, url) {
+                        return Container(
+                          width: 12.0,
+                          height: 12.0,
+                          margin: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 2.0),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _current == index
+                                  ? KPrimaryColor
+                                  : Colors.grey[600]),
+                        );
+                      },
+                    )))
+          ]);
+        } else {
+          return Container();
+        }
       }
-      return Container();
+      return ShimmerEffect(
+          child: Container(
+        height: size.height * 0.33,
+        width: double.infinity,
+        color: Colors.white,
+      ));
     });
   }
 
@@ -91,18 +97,17 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
       (index, ad) {
         return Container(
           height: size.height * 0.33,
-          color: Colors.yellow,
           child: Stack(children: <Widget>[
-            FadeInImage.assetNetwork(
-              placeholder: 'assets/images/default_cover.png',
-              imageErrorBuilder: (_, error, er) {
-                return Text(error.toString());
-              },
-              image: "${KAPIURL + ad.image}",
-              fit: BoxFit.fill,
-              width: double.infinity,
-              height: size.height * 0.33,
-            ),
+            (ad.image != null)
+                ? Image.network(
+                    "${KAPIURL + ad.image}",
+                    fit: BoxFit.fill,
+                    width: double.infinity,
+                    height: size.height * 0.33,
+                  )
+                : Image.asset(
+                    KPlaceHolderCover,
+                  ),
             // Positioned(
             //   bottom: 0.0,
             //   left: 0.0,

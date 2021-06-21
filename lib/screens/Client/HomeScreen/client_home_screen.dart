@@ -60,7 +60,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
       appBar: buildAppBar(context, appTheme, _translator, _currentUser),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 30),
+          padding: EdgeInsets.symmetric(vertical: 10),
           child: Column(
             children: [
               buildAdsCarouselContainer(size),
@@ -281,7 +281,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
           "${_translator.translate('hello')}${_currentUser?.firstName ?? ""} ",
           style: Theme.of(context)
               .textTheme
-              .headline5
+              .headline6
               .copyWith(color: KPrimaryColor)),
       bottom: PreferredSize(
           child: Padding(
@@ -290,22 +290,12 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          // Text(
-                          //   _translator.translate('yourLocation'),
-                          //   style: Theme.of(context)
-                          //       .textTheme
-                          //       .subtitle2
-                          //       .copyWith(color: KDarkGreyColor),
-                          // ),
-                          // SizedBox(
-                          //   height: 5,
-                          // ),
                           Row(
                             children: [
                               Row(children: [
@@ -342,56 +332,47 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
                   // VerticalGap(),
                 ],
               )),
-          preferredSize: Size.fromHeight(40.0)),
+          preferredSize: Size.fromHeight(25.0)),
       actions: [
-        Padding(
-          padding: const EdgeInsets.all(KDefaultPadding / 8),
-          child: IconButton(
-              icon: _currentUser != null
-                  ? Badge(
-                      badgeContent: Text('2'),
-                      animationType: BadgeAnimationType.slide,
-                      toAnimate: true,
-                      child: Icon(
-                        Icons.notifications_none_outlined,
-                        // size: 26,
-                        color: Theme.of(context).iconTheme.color,
-                      ))
-                  : Icon(
+        IconButton(
+            icon: _currentUser != null
+                ? Badge(
+                    badgeContent: Text('2'),
+                    animationType: BadgeAnimationType.slide,
+                    toAnimate: true,
+                    child: Icon(
                       Icons.notifications_none_outlined,
                       // size: 26,
                       color: Theme.of(context).iconTheme.color,
-                    ),
-              onPressed: () {
-                if (_currentUser != null) {
-                  Navigator.pushNamed(context, Notifications.routeName);
-                } else {
-                  Fluttertoast.showToast(
-                      msg: _translator.translate("please_login_first"));
-                }
-              }),
-        ),
-        Padding(
-            padding: const EdgeInsets.all(KDefaultPadding / 8),
-            child: IconButton(
-              icon: Icon(
-                Icons.search,
-                color: Theme.of(context).iconTheme.color,
-                // height: 16,
-              ),
-              onPressed: () =>
-                  Navigator.pushNamed(context, SearchScreen.routeName),
-            )),
-        Padding(
-          padding: const EdgeInsets.all(KDefaultPadding / 8),
-          child: IconButton(
-            icon: SvgPicture.asset(
-              "assets/svg/favorites.svg",
-              color: Theme.of(context).iconTheme.color,
-              // height: 16,
-            ),
-            onPressed: () {},
+                    ))
+                : Icon(
+                    Icons.notifications_none_outlined,
+                    // size: 26,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+            onPressed: () {
+              if (_currentUser != null) {
+                Navigator.pushNamed(context, Notifications.routeName);
+              } else {
+                Fluttertoast.showToast(
+                    msg: _translator.translate("please_login_first"));
+              }
+            }),
+        IconButton(
+          icon: Icon(
+            Icons.search,
+            color: Theme.of(context).iconTheme.color,
+            // height: 16,
           ),
+          onPressed: () => Navigator.pushNamed(context, SearchScreen.routeName),
+        ),
+        IconButton(
+          icon: SvgPicture.asset(
+            "assets/svg/favorites.svg",
+            color: Theme.of(context).iconTheme.color,
+            height: 15,
+          ),
+          onPressed: () {},
         ),
       ],
     );
