@@ -125,7 +125,10 @@ class RouteGenerator {
         break;
       case Notifications.routeName:
         return CupertinoPageRoute(
-            fullscreenDialog: true, builder: (_) => Notifications());
+            fullscreenDialog: true,
+            builder: (_) => Notifications(
+                  notifications: args,
+                ));
         break;
       case WalletScreen.routeName:
         return CupertinoPageRoute(

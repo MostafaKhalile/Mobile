@@ -139,9 +139,10 @@ class _ProfileControlsState extends State<ProfileControls> {
     );
   }
 
-  _logout(context) {
-    AuthRepo().logout();
-    Provider.of<CurrentUserProvider>(context, listen: false).loadCurrentUser();
+  _logout(context) async {
+    await AuthRepo().logout();
+    await Provider.of<CurrentUserProvider>(context, listen: false)
+        .loadCurrentUser();
     Navigator.pushNamedAndRemoveUntil(
         context, LanguageSelectionPage.routeName, (route) => false);
   }

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:techtime/Controllers/BLoCs/client/notificationsBloc/notifications_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/categorisBloc/categories_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
@@ -44,13 +45,17 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     final leastCompniesBloc = context.read<LeastcompaniesBloc>();
     leastCompniesBloc.add(GetLeastCompanies());
     categoriesBloc.add(GetCatgories());
-    CurrentUserProvider().loadCurrentUser();
+    context.read<NotificationsBloc>()..add(GetAllUserNotifications());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<CurrentUserProvider>(context, listen: false)
+          .loadCurrentUser();
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    UserProfile _currentUser = context.watch<CurrentUserProvider>().currentUser;
+    final _currentUser = Provider.of<CurrentUserProvider>(context).currentUser;
     var appTheme = Provider.of<ThemeModel>(context);
     AppLocalizations _translator = AppLocalizations.of(context);
     Snackbar _snackBar = Snackbar();
@@ -334,30 +339,45 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
               )),
           preferredSize: Size.fromHeight(25.0)),
       actions: [
-        IconButton(
-            icon: _currentUser != null
-                ? Badge(
-                    badgeContent: Text('2'),
-                    animationType: BadgeAnimationType.slide,
-                    toAnimate: true,
-                    child: Icon(
+        _currentUser != null
+            ? BlocBuilder<NotificationsBloc, NotificationsState>(
+                builder: (context, state) {
+                  if (state is NotificationsSuccess) {
+                    return IconButton(
+                        icon: Badge(
+                            badgeContent:
+                                Text(state.notifications.length.toString()),
+                            animationType: BadgeAnimationType.slide,
+                            toAnimate: true,
+                            child: Icon(
+                              Icons.notifications_none_outlined,
+                              // size: 26,
+                              color: Theme.of(context).iconTheme.color,
+                            )),
+                        onPressed: () {
+                          Navigator.pushNamed(context, Notifications.routeName,
+                              arguments: state.notifications);
+                        });
+                  } else {
+                    return Icon(
                       Icons.notifications_none_outlined,
-                      // size: 26,
+                      size: 24,
                       color: Theme.of(context).iconTheme.color,
-                    ))
-                : Icon(
-                    Icons.notifications_none_outlined,
-                    // size: 26,
-                    color: Theme.of(context).iconTheme.color,
-                  ),
-            onPressed: () {
-              if (_currentUser != null) {
-                Navigator.pushNamed(context, Notifications.routeName);
-              } else {
-                Fluttertoast.showToast(
-                    msg: _translator.translate("please_login_first"));
-              }
-            }),
+                    );
+                  }
+                },
+              )
+            : IconButton(
+                icon: Icon(
+                  Icons.notifications_none_outlined,
+                  // size: 26,
+                  color: Theme.of(context).iconTheme.color,
+                ),
+                onPressed: () {
+                  Fluttertoast.showToast(
+                      msg: _translator.translate("please_login_first"));
+                },
+              ),
         IconButton(
           icon: Icon(
             Icons.search,

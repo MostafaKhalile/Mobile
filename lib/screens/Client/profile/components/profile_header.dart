@@ -15,7 +15,7 @@ class HeaderProfileAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UserProfile _currentUser = context.watch<CurrentUserProvider>().currentUser;
+    final _currentUser = Provider.of<CurrentUserProvider>(context).currentUser;
     return Expanded(
       flex: 1,
       child: SizedBox(

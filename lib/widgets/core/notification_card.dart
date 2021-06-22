@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Models/user_notification.dart';
 
 class NotificationCard extends StatelessWidget {
   const NotificationCard({
     Key key,
     @required this.hasBeenRead,
+    this.notification,
   }) : super(key: key);
-
+  final UserNotification notification;
   final bool hasBeenRead;
 
   @override
@@ -18,14 +20,21 @@ class NotificationCard extends StatelessWidget {
               width: 8)),
       child: ListTile(
         // leading: CircleAvatarProfile(),
-        title: Text('عنوان الاشعار'),
-        subtitle: RichText(
+        subtitle: Text(notification.notificationNotesEn ?? ""),
+        title: RichText(
           text: TextSpan(
-            text: ' لوريم ايبسومت ,كونسيكتيتور أدايبا يسكينج\n',
+            text: notification.notificationDate,
             style: Theme.of(context).textTheme.subtitle1,
             children: <TextSpan>[
               TextSpan(
-                text: 'منذ 7 ساعات',
+                text: TimeOfDay(
+                        hour: int.parse(notification.notificationTime
+                            .toString()
+                            .split(":")[0]),
+                        minute: int.parse(notification.notificationTime
+                            .toString()
+                            .split(":")[1]))
+                    .format(context),
               )
             ],
           ),

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Models/user_notification.dart';
 import 'package:techtime/widgets/core/notification_card.dart';
-
-final items = List<String>.generate(15, (i) => "Item ${i + 1}");
 
 class Notifications extends StatefulWidget {
   static const String routeName = "/notifications";
+  final List<UserNotification> notifications;
 
+  const Notifications({Key key, this.notifications}) : super(key: key);
   @override
   _NotificationsState createState() => _NotificationsState();
 }
@@ -27,20 +28,20 @@ class _NotificationsState extends State<Notifications> {
           ),
         ),
         body: ListView.builder(
-            itemCount: items.length,
+            itemCount: widget.notifications.length,
             padding: EdgeInsets.all(KDefaultPadding / 2),
             itemBuilder: (context, index) {
-              final item = items[index];
+              final item = widget.notifications[index];
 
               return Dismissible(
                   // Each Dismissible must contain a Key. Keys allow Flutter to
                   // uniquely identify widgets.
-                  key: Key(item),
+                  key: Key(item.toString()),
                   // Provide a function that tells the app
                   // what to do after an item has been swiped away.
                   onDismissed: (direction) {
                     // Remove the item from the data source.
-                    buildOnDismiss(index, context, item);
+                    buildOnDismiss(index, context, item.toString());
                   },
                   confirmDismiss: (direction) async {
                     return await buildShowDialog(context, _translator);
@@ -61,20 +62,22 @@ class _NotificationsState extends State<Notifications> {
                       ],
                     ),
                   ),
-                  child:
-                      NotificationCard(hasBeenRead: index < 2 ? false : true));
+                  child: NotificationCard(
+                    hasBeenRead: widget.notifications[index].notificationOpen,
+                    notification: widget.notifications[index],
+                  ));
             }));
   }
 
   void buildOnDismiss(int index, BuildContext context, String item) {
     // Remove the item from the data source.
     setState(() {
-      items.removeAt(index);
+      widget.notifications.removeAt(index);
     });
 
-    // Then show a snackbar.
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text("$item dismissed")));
+    // // Then show a snackbar.
+    // ScaffoldMessenger.of(context)
+    //     .showSnackBar(SnackBar(content: Text("$item dismissed")));
   }
 
   Future<bool> buildShowDialog(
@@ -85,37 +88,21 @@ class _NotificationsState extends State<Notifications> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(_translator.translate("are_sure_to_delete_object")),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                // ignore: deprecated_member_use
-                OutlineButton(
-                  child: Text(
-                    _translator.translate("agree"),
-                    style: Theme.of(context).textTheme.button,
-                  ),
-                  onPressed: () => Navigator.pop(context, true),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                // ignore: deprecated_member_use
-                OutlineButton(
-                  onPressed: () => Navigator.pop(context, false),
-                  borderSide: BorderSide(
-                    color: Colors.purple,
-                  ),
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    _translator.translate("doesn't_agree"),
-                    style: Theme.of(context).textTheme.button,
-                  ),
-                ),
-              ],
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                _translator.translate("confirm"),
+                style: Theme.of(context).textTheme.button,
+              ),
+              onPressed: () => Navigator.pop(context, true),
             ),
-          ),
+            TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: Text(
+                  _translator.translate("cancel"),
+                  style: Theme.of(context).textTheme.button,
+                )),
+          ],
         );
       },
     );

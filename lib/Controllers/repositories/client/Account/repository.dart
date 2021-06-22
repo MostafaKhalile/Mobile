@@ -6,6 +6,7 @@ import 'package:techtime/Helpers/shared_perfs_provider.dart';
 import 'package:techtime/Models/client/wallet/wallet_points_to_price.dart';
 import 'package:techtime/Models/client/wallet/wallet_total_data.dart';
 import 'package:techtime/Models/client_profile.dart';
+import 'package:techtime/Models/user_notification.dart';
 
 import 'api_client.dart';
 
@@ -20,8 +21,9 @@ class USerRepo {
     );
   }
   UserProfile get currentUserProfile {
-    final userResp = _prefs.getValueWithKey(NetworkConstants.currentUserProfile,
-        hideDebugPrint: true);
+    final userResp = _prefs.getValueWithKey(
+      NetworkConstants.currentUserProfile,
+    );
     if (userResp == null) {
       return null;
     }
@@ -120,5 +122,11 @@ class USerRepo {
   Future<bool> _saveCurrentUserProfile(Map<String, dynamic> userData) async {
     return _prefs.saveValueWithKey<String>(
         NetworkConstants.currentUserProfile, jsonEncode(userData));
+  }
+
+  Future<List<UserNotification>> getUserNotifications() async {
+    final userNotifications = await _apiClient.getUserNotifications();
+
+    return userNotifications;
   }
 }

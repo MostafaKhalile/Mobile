@@ -15,6 +15,7 @@ import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheServicesBl
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheWorkingDaysBloc/brancheworkingdays_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/companyDataBlocs/companyServicesBloc/companyservices_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/companyProfileBloc/company_profile_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/notificationsBloc/notifications_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/orderBlocs/orderDateTimeBloc/orderdatetime_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/orderBlocs/orderTimesBloc/ordertimes_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_passwod_bloc/editpassword_bloc.dart';
@@ -130,7 +131,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider<CurrentUserProvider>(
-              create: (context) => CurrentUserProvider()..loadCurrentUser()),
+              create: (context) => CurrentUserProvider()),
         ],
         child: Builder(builder: (context) {
           return MultiBlocProvider(
@@ -143,6 +144,7 @@ class MyApp extends StatelessWidget {
                     create: (_) => AuthanticationBloc(
                           authRepo: AuthRepo(),
                         )),
+                BlocProvider(create: (context) => NotificationsBloc(userRepo)),
                 BlocProvider(create: (context) => ProfileBloc(userRepo)),
                 BlocProvider(create: (context) => EditfirstnameBloc(userRepo)),
                 BlocProvider(create: (context) => EditLastnameBloc(userRepo)),

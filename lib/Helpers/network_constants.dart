@@ -12,6 +12,8 @@ class NetworkConstants {
   static const String uploadProfilePicture = "/api/settings/profile/edit-image";
   static const String uploadCoverPicture =
       "/api/settings/profile/edit-cover-image";
+  static const String allUserNotification =
+      "/api/companies/notification/all-user-notification";
 
   // User Wallet Routes
   static const String walletTotal = "/api/my-wallet/total-data";

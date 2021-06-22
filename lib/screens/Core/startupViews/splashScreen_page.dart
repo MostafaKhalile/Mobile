@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     });
     Future.delayed(Duration(seconds: 1), () async {
-      Navigator.pushNamed(
+      Navigator.pushReplacementNamed(
         context,
         _isSignedIn
             ? _userRole == UserRole.client
