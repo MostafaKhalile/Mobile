@@ -18,7 +18,6 @@ class BranchesApiClient {
     final response = await http.post(Uri.parse(path), headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Accept": "application/json",
-      "Authorization": "Token ${authRepo.currentUserToken}"
     });
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
@@ -56,7 +55,6 @@ class BranchesApiClient {
     final response = await http.post(Uri.parse(path), headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Accept": "application/json",
-      "Authorization": "Token ${authRepo.currentUserToken}"
     });
 
     if (response.statusCode == 200) {
@@ -77,7 +75,6 @@ class BranchesApiClient {
     final response = await http.post(Uri.parse(path), headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Accept": "application/json",
-      "Authorization": "Token ${authRepo.currentUserToken}"
     });
 
     if (response.statusCode == 200) {
@@ -98,7 +95,6 @@ class BranchesApiClient {
     final response = await http.post(Uri.parse(path), headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Accept": "application/json",
-      "Authorization": "Token ${authRepo.currentUserToken}"
     });
     print(
         "Branche Reviews ==> with status code [${response.statusCode}] and data is ${response.body}");
@@ -119,7 +115,6 @@ class BranchesApiClient {
     final response = await http.post(Uri.parse(path), headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Accept": "application/json",
-      "Authorization": "Token ${authRepo.currentUserToken}"
     });
 
     if (response.statusCode == 200) {
@@ -140,7 +135,6 @@ class BranchesApiClient {
     final response = await http.post(Uri.parse(path), headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Accept": "application/json",
-      "Authorization": "Token ${authRepo.currentUserToken}"
     });
 
     if (response.statusCode == 200) {

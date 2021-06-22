@@ -219,7 +219,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                             (state is BrancheProfileSuccess)
                                 ? FavoriteButton(
                                     buttonSize: 30,
-                                    isFavorite: isFavorite,
+                                    isFavorite: isFavorite ?? false,
                                     onTap: onLikeButtonTapped,
                                   )
                                 : ShimmerEffect(

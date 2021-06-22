@@ -33,6 +33,7 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
   @override
   Widget build(BuildContext context) {
     UserProfile userData = context.watch<CurrentUserProvider>().currentUser;
+    ThemeData _theme = Theme.of(context);
 
     return Stack(
       clipBehavior: Clip.none,
@@ -70,7 +71,7 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
                 //       )
                 //     : Container(),
                 Positioned(
-                  bottom: 0,
+                  bottom: 10,
                   right: 0,
                   left: 0,
                   child: Row(
@@ -92,8 +93,9 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
                         },
                         builder: (context, state) {
                           state = state;
-                          return Stack(clipBehavior: Clip.none, children: [
+                          return Stack(children: [
                             Stack(
+                              clipBehavior: Clip.none,
                               children: [
                                 CustomCircleAvatar(
                                   image: userData?.image ?? null,
@@ -102,17 +104,22 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
                                 ),
                                 Positioned(
                                   bottom: 0,
+                                  right: -5,
                                   child: InkWell(
                                     highlightColor: Colors.transparent,
                                     splashColor: Colors.transparent,
                                     child: Container(
-                                      height: 60,
-                                      width: 120,
-                                      color: Colors.black26,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color:
+                                            _theme.accentColor.withOpacity(0.5),
+                                      ),
+                                      height: 40,
+                                      width: 40,
                                       child: Icon(
                                         Icons.camera_alt,
-                                        size: 30,
-                                        color: Colors.white,
+                                        size: 15,
+                                        color: _theme.scaffoldBackgroundColor,
                                       ),
                                     ),
                                     onTap: () => changeProfilePicture(),

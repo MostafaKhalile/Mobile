@@ -68,13 +68,13 @@ class _ProfileEditState extends State<ProfileEdit> {
               child: Column(
                 children: [
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: ProfileCoverAndImage(),
                   ),
                   Expanded(
                     flex: 5,
                     child: Padding(
-                      padding: EdgeInsets.only(top: _size.height * 0.18),
+                      padding: EdgeInsets.only(top: 50),
                       child: SingleChildScrollView(
                         child: Column(
                           children: [

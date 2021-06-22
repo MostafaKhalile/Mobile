@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
+import 'package:provider/provider.dart';
+import 'package:techtime/Controllers/Providers/current_user_provider.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Models/client/companyProfile/company_profile.dart';
 import 'package:techtime/Models/client/companyProfile/company_service.dart';
+import 'package:techtime/Models/client_profile.dart';
 import 'package:techtime/Screens/Client/newOrder/create_new_order.dart';
 
 class CompanyServices extends StatefulWidget {
@@ -30,6 +33,8 @@ class CompanyServicesState extends State<CompanyServices> {
   Widget build(BuildContext context) {
     ThemeData _theme = Theme.of(context);
     Size _size = MediaQuery.of(context).size;
+    final _currentUser = Provider.of<CurrentUserProvider>(context).currentUser;
+
     // AppLocalizations _translator = AppLocalizations.of(context);
     return Scaffold(
       body: Container(
@@ -71,7 +76,7 @@ class CompanyServicesState extends State<CompanyServices> {
                   // ignore: deprecated_member_use
                   child: RaisedButton(
                 padding: EdgeInsets.all(10),
-                onPressed: () => _bookHandler(),
+                onPressed: () => _bookHandler(_currentUser),
                 disabledColor: Colors.black38,
                 child: Text(
                   "Book Now",
@@ -85,13 +90,18 @@ class CompanyServicesState extends State<CompanyServices> {
     );
   }
 
-  _bookHandler() {
-    _checked.length != 0
-        ? Navigator.pushNamed(context, CreateNewOrder.routeName,
-            arguments: widget.companyProfile.companyBranches)
-        : Fluttertoast.showToast(
-            msg: AppLocalizations.of(context)
-                .translate("please_select_service_first"));
+  _bookHandler(UserProfile _currentUser) {
+    if (_currentUser != null) {
+      _checked.length != 0
+          ? Navigator.pushNamed(context, CreateNewOrder.routeName,
+              arguments: widget.companyProfile.companyBranches)
+          : Fluttertoast.showToast(
+              msg: AppLocalizations.of(context)
+                  .translate("please_select_service_first"));
+    } else {
+      Fluttertoast.showToast(
+          msg: AppLocalizations.of(context).translate("please_login_first"));
+    }
   }
 }
 
