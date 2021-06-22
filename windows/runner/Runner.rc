@@ -92,10 +92,10 @@ BEGIN
             VALUE "CompanyName", "com.TechTime" "\0"
             VALUE "FileDescription", "A new Flutter project." "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "tech_time_app" "\0"
+            VALUE "InternalName", "Tech Time" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2021 com.TechTime. All rights reserved." "\0"
-            VALUE "OriginalFilename", "tech_time_app.exe" "\0"
-            VALUE "ProductName", "tech_time_app" "\0"
+            VALUE "OriginalFilename", "Tech Time.exe" "\0"
+            VALUE "ProductName", "Tech Time" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

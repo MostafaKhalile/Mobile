@@ -50,6 +50,7 @@ import 'Controllers/Cubits/NetworkCubit/internet_cubit.dart';
 import 'Controllers/Providers/current_user_provider.dart';
 import 'Controllers/Repositories/client/home/user_home_repo.dart';
 import 'Helpers/APIUrls.dart';
+import 'Helpers/app_data.dart';
 import 'Helpers/localization/app_localizations_delegates.dart';
 import 'Helpers/shared_perfs_provider.dart';
 import 'Helpers/utils/app_bloc_observer.dart';
@@ -80,6 +81,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await PreferenceUtils.init();
+  await AppInfo.init();
 
   // Set the background messaging handler early on, as a named top-level function
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);

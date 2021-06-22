@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
-project(tech_time_app LANGUAGES CXX)
+project(Tech Time LANGUAGES CXX)
 
-set(BINARY_NAME "tech_time_app")
+set(BINARY_NAME "Tech Time")
 
 cmake_policy(SET CMP0063 NEW)
 

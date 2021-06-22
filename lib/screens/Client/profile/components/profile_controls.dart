@@ -14,6 +14,7 @@ import 'package:techtime/Models/client_profile.dart';
 import 'package:techtime/Screens/Client/contact/contact_us.dart';
 import 'package:techtime/Screens/Client/profileEdit/profile_edit.dart';
 import 'package:techtime/Screens/Client/walletScreen/wallet_screen.dart';
+import 'package:techtime/Screens/Core/aboutUs/about_us_screen.dart';
 import 'package:techtime/Screens/Core/startupViews/language_selection_page.dart';
 import 'package:techtime/Screens/Core/startupViews/loginScreen/login_page.dart';
 
@@ -103,6 +104,14 @@ class _ProfileControlsState extends State<ProfileControls> {
                       .toUpperCase(),
                   onTap: () =>
                       Navigator.pushNamed(context, ContactUS.routeName)),
+              // About us
+              buildProfileListTile(context, _theme,
+                  leading: Icons.info_outline,
+                  title: AppLocalizations.of(context)
+                      .translate("about_us")
+                      .toUpperCase(),
+                  onTap: () =>
+                      Navigator.pushNamed(context, AboutUsScreen.routeName)),
               // Signup or signout
               //
               ProfileListTile(
