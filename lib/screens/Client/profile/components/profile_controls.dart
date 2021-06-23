@@ -14,7 +14,8 @@ import 'package:techtime/Models/client_profile.dart';
 import 'package:techtime/Screens/Client/contact/contact_us.dart';
 import 'package:techtime/Screens/Client/profileEdit/profile_edit.dart';
 import 'package:techtime/Screens/Client/walletScreen/wallet_screen.dart';
-import 'package:techtime/Screens/Core/aboutUs/about_us_screen.dart';
+import 'package:techtime/Screens/Core/aboutUs/about_us.dart';
+import 'package:techtime/Screens/Core/aboutUs/follow_us.dart';
 import 'package:techtime/Screens/Core/startupViews/language_selection_page.dart';
 import 'package:techtime/Screens/Core/startupViews/loginScreen/login_page.dart';
 
@@ -35,7 +36,7 @@ class _ProfileControlsState extends State<ProfileControls> {
     var appTheme = Provider.of<ThemeModel>(context);
     ThemeData _theme = Theme.of(context);
     return Expanded(
-      flex: 2,
+      flex: 4,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: KDefaultPadding),
         width: double.infinity,
@@ -104,6 +105,14 @@ class _ProfileControlsState extends State<ProfileControls> {
                       .toUpperCase(),
                   onTap: () =>
                       Navigator.pushNamed(context, ContactUS.routeName)),
+              // Contact us
+              buildProfileListTile(context, _theme,
+                  leading: Icons.screen_share,
+                  title: AppLocalizations.of(context)
+                      .translate("follow_us")
+                      .toUpperCase(),
+                  onTap: () =>
+                      Navigator.pushNamed(context, FollowUsScreen.routeName)),
               // About us
               buildProfileListTile(context, _theme,
                   leading: Icons.info_outline,
@@ -127,7 +136,7 @@ class _ProfileControlsState extends State<ProfileControls> {
                   },
                   leading: Icon(
                     Icons.exit_to_app_outlined,
-                    size: 30,
+                    size: 20,
                   ),
                   // trailing: trailing,
                   title: buildLoginLogoutText(_currentUser, context, _theme))
@@ -205,7 +214,7 @@ class _ProfileControlsState extends State<ProfileControls> {
         onTap: onTap,
         leading: Icon(
           leading,
-          size: 30,
+          size: 20,
         ),
         trailing: trailing,
         title: Text(
@@ -262,6 +271,8 @@ class ProfileListTile extends StatelessWidget {
     return Column(
       children: [
         ListTile(
+          horizontalTitleGap: 0,
+          dense: true,
           onTap: onTap,
           leading: leading ??
               Container(

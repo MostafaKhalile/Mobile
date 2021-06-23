@@ -17,7 +17,7 @@ class HeaderProfileAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     final _currentUser = Provider.of<CurrentUserProvider>(context).currentUser;
     return Expanded(
-      flex: 1,
+      flex: 2,
       child: SizedBox(
         width: double.infinity,
         child: Column(

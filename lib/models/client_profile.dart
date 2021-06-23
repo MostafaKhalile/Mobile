@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class UserProfile extends Equatable {
   final String image;
   final dynamic coverImage;
-  final int raty;
+  final dynamic raty;
   final dynamic typeCategoryAr;
   final dynamic typeCategoryEn;
   final String firstName;
@@ -35,7 +35,7 @@ class UserProfile extends Equatable {
     return UserProfile(
       image: json['Image'] as String,
       coverImage: json['CoverImage'],
-      raty: json['raty'] as int,
+      raty: json['raty'] as dynamic,
       typeCategoryAr: json['TypeCategoryAR'],
       typeCategoryEn: json['TypeCategoryEN'],
       firstName: json['First_name'] as String,

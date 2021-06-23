@@ -112,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                             height: 50.0,
                             backgroundColor: Color(0xFF4267B2),
                             child: SvgPicture.asset(
-                              'assets/svg/Facebook.svg',
+                              'assets/svg/Facebook-f.svg',
                               height: 10,
                               color: Colors.white,
                             ),

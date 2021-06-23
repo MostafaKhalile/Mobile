@@ -65,6 +65,9 @@ class Body extends StatelessWidget {
     var whatsappUrl = "whatsapp://send?phone=+201276777241";
     await canLaunch(whatsappUrl)
         ? launch(whatsappUrl)
-        : launch("https://wa.me/+201276777241/?text=hello");
+        : launch(
+            "https://wa.me/+201276777241/?text=hello",
+          );
+    // forceWebView: true,universalLinksOnly: true
   }
 }

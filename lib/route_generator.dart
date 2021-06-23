@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:techtime/Screens/Client/newOrder/create_new_order.dart';
-import 'package:techtime/Screens/Core/aboutUs/about_us_screen.dart';
+import 'package:techtime/Screens/Core/aboutUs/about_us.dart';
+import 'package:techtime/Screens/Core/aboutUs/follow_us.dart';
 
 import 'package:techtime/screens/Client/contact/contact_us.dart';
 import 'package:techtime/screens/Client/profileEdit/profile_edit.dart';
@@ -142,6 +143,10 @@ class RouteGenerator {
       case AboutUsScreen.routeName:
         return CupertinoPageRoute(
             fullscreenDialog: true, builder: (_) => AboutUsScreen());
+        break;
+      case FollowUsScreen.routeName:
+        return CupertinoPageRoute(
+            fullscreenDialog: true, builder: (_) => FollowUsScreen());
         break;
       case EmailForgetPassword.routeName:
         return CupertinoPageRoute(
