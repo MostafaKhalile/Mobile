@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:techtime/Screens/Client/newOrder/create_new_order.dart';
+import 'package:techtime/Screens/Client/booking/bookingTable/table_reservation.dart';
+import 'package:techtime/Screens/Client/booking/orderFirstStep/order_first_step.dart';
 import 'package:techtime/Screens/Core/aboutUs/about_us.dart';
 import 'package:techtime/Screens/Core/aboutUs/follow_us.dart';
 
@@ -113,12 +114,18 @@ class RouteGenerator {
                   branche: args,
                 ));
         break;
-      case CreateNewOrder.routeName:
+      case OrderFirstStep.routeName:
         return CupertinoPageRoute(
           fullscreenDialog: true,
-          builder: (_) => CreateNewOrder(
+          builder: (_) => OrderFirstStep(
             companyBranches: args,
           ),
+        );
+        break;
+      case TableReservation.routeName:
+        return CupertinoPageRoute(
+          fullscreenDialog: true,
+          builder: (_) => TableReservation(),
         );
         break;
       case SearchScreen.routeName:

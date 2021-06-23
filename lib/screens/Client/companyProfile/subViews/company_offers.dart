@@ -7,7 +7,7 @@ import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Models/client/companyProfile/companyOffer/company_offer.dart';
 import 'package:techtime/Models/client/companyProfile/company_profile.dart';
-import 'package:techtime/Screens/Client/newOrder/create_new_order.dart';
+import 'package:techtime/Screens/Client/booking/orderFirstStep/order_first_step.dart';
 
 class CompanyOffers extends StatefulWidget {
   final CompanyProfile companyProfile;
@@ -75,7 +75,7 @@ class CompanyOffersState extends State<CompanyOffers> {
                       onPressed: () => _bookHandler(),
                       disabledColor: Colors.black38,
                       child: Text(
-                        "Book Now",
+                        _translator.translate("book_now"),
                         style: Theme.of(context).textTheme.button,
                       ),
                     ))
@@ -96,7 +96,7 @@ class CompanyOffersState extends State<CompanyOffers> {
 
   _bookHandler() {
     _checked.length != 0
-        ? Navigator.pushNamed(context, CreateNewOrder.routeName,
+        ? Navigator.pushNamed(context, OrderFirstStep.routeName,
             arguments: widget.companyProfile.companyBranches)
         : Fluttertoast.showToast(
             msg: AppLocalizations.of(context)

@@ -12,6 +12,7 @@ import 'package:techtime/Helpers/utils/custom_toast.dart';
 import 'package:techtime/Models/client/companyData/brancheData/company_employee.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
 import 'package:techtime/Models/client/orders/order_date_time.dart';
+import 'package:techtime/Screens/Client/booking/bookingTable/table_reservation.dart';
 import 'package:techtime/Widgets/client/specialist_card.dart';
 import 'package:techtime/Widgets/core/shimmer_effect.dart';
 import 'package:techtime/widgets/client/branch_card.dart';
@@ -19,17 +20,17 @@ import 'package:intl/intl.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
 
-class CreateNewOrder extends StatefulWidget {
-  static const String routeName = "/create_new_order";
+class OrderFirstStep extends StatefulWidget {
+  static const String routeName = "/order_first_step";
   final List<CompanyBranche> companyBranches;
 
-  const CreateNewOrder({Key key, this.companyBranches}) : super(key: key);
+  const OrderFirstStep({Key key, this.companyBranches}) : super(key: key);
 
   @override
-  _CreateNewOrderState createState() => _CreateNewOrderState();
+  _OrderFirstStepState createState() => _OrderFirstStepState();
 }
 
-class _CreateNewOrderState extends State<CreateNewOrder> {
+class _OrderFirstStepState extends State<OrderFirstStep> {
   CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay;
@@ -221,6 +222,7 @@ class _CreateNewOrderState extends State<CreateNewOrder> {
           BottomBookingButton(
             onPressed: () {
               bool isValid = _validateBooking();
+              // Navigator.pushNamed(context, TableReservation.routeName);
               print("Booking $isValid ");
             },
           )
@@ -499,7 +501,7 @@ class TimeSelectableCard extends StatelessWidget {
               color: isSelected ?? false
                   ? KPrimaryColor
                   : _theme.scaffoldBackgroundColor,
-              border: Border.all(width: 1, color: Colors.white),
+              border: Border.all(width: 1, color: _theme.accentColor),
               borderRadius: BorderRadius.all(Radius.circular(10))),
           child: Center(
             child: workingHour != null

@@ -10,7 +10,7 @@ import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Models/client/companyProfile/company_profile.dart';
 import 'package:techtime/Models/client/companyProfile/company_service.dart';
 import 'package:techtime/Models/client_profile.dart';
-import 'package:techtime/Screens/Client/newOrder/create_new_order.dart';
+import 'package:techtime/Screens/Client/booking/orderFirstStep/order_first_step.dart';
 
 class CompanyServices extends StatefulWidget {
   final CompanyProfile companyProfile;
@@ -35,7 +35,7 @@ class CompanyServicesState extends State<CompanyServices> {
     Size _size = MediaQuery.of(context).size;
     final _currentUser = Provider.of<CurrentUserProvider>(context).currentUser;
 
-    // AppLocalizations _translator = AppLocalizations.of(context);
+    AppLocalizations _translator = AppLocalizations.of(context);
     return Scaffold(
       body: Container(
           width: _size.width,
@@ -79,7 +79,7 @@ class CompanyServicesState extends State<CompanyServices> {
                 onPressed: () => _bookHandler(_currentUser),
                 disabledColor: Colors.black38,
                 child: Text(
-                  "Book Now",
+                  _translator.translate("book_now"),
                   style: Theme.of(context).textTheme.button,
                 ),
               ))
@@ -93,7 +93,7 @@ class CompanyServicesState extends State<CompanyServices> {
   _bookHandler(UserProfile _currentUser) {
     if (_currentUser != null) {
       _checked.length != 0
-          ? Navigator.pushNamed(context, CreateNewOrder.routeName,
+          ? Navigator.pushNamed(context, OrderFirstStep.routeName,
               arguments: widget.companyProfile.companyBranches)
           : Fluttertoast.showToast(
               msg: AppLocalizations.of(context)
