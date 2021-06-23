@@ -111,6 +111,7 @@ class FollowUsBody extends StatelessWidget {
 • Manage your invoices.
 • Easily communicate with businesses via the built-in chat.
 • Enjoy the booking journey through our delightful UI/UX.''',
+                              textDirection: TextDirection.ltr,
                               textAlign: TextAlign.justify,
                               style: _theme.textTheme.caption
                                   .copyWith(color: Colors.white),
