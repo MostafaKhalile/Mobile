@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Models/client/company.dart';
@@ -143,17 +143,16 @@ class LeastCompanyCard extends StatelessWidget {
         : Container();
   }
 
-  SmoothStarRating buildSmoothStarRating() {
-    return SmoothStarRating(
-      rating: 0.0,
-      isReadOnly: true,
-      size: 14,
-      filledIconData: Icons.star,
-      halfFilledIconData: Icons.star_half,
-      defaultIconData: Icons.star_border,
-      starCount: 5,
-      allowHalfRating: false,
-      spacing: 2.0,
+  RatingBarIndicator buildSmoothStarRating() {
+    return RatingBarIndicator(
+      rating: 5.00,
+      itemBuilder: (context, index) => Icon(
+        Icons.star,
+        color: Colors.amber,
+      ),
+      itemCount: 5,
+      itemSize: 14.0,
+                                  direction: Axis.horizontal,
     );
   }
 }

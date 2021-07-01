@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:techtime/Controllers/BLoCs/client/companyProfileBloc/company_profile_bloc.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
@@ -113,10 +113,15 @@ class _CompanyProfileState extends State<CompanyProfile>
                       VerticalGap(
                         height: KdefaultPadding / 2,
                       ),
-                      SmoothStarRating(
-                        isReadOnly: true,
-                        rating: 5.0,
-                        size: 14,
+                      RatingBarIndicator(
+                        rating: 5.00,
+                        itemBuilder: (context, index) => Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        itemCount: 5,
+                        itemSize: 14.0,
+                                  direction: Axis.horizontal,
                       ),
                     ],
                   ),

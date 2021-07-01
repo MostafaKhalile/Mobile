@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/widgets/client/custom_circle_avatar.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
@@ -21,11 +21,16 @@ class EmployeeCard extends StatelessWidget {
         VerticalGap(height: KDefaultPadding / 2),
         Text("name"),
         VerticalGap(height: KDefaultPadding / 2),
-        SmoothStarRating(
-          isReadOnly: true,
-          size: 14,
-          rating: 5.0,
-        )
+        RatingBarIndicator(
+          rating: 5.00,
+          itemBuilder: (context, index) => Icon(
+            Icons.star,
+            color: Colors.amber,
+          ),
+          itemCount: 5,
+          itemSize: 50.0,
+                                  direction: Axis.horizontal,
+        ),
       ],
     );
   }

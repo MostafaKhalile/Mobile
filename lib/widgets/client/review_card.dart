@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
@@ -79,11 +79,15 @@ class ReviewCard extends StatelessWidget {
                             ],
                           ),
                           (review != null)
-                              ? SmoothStarRating(
-                                  size: 14,
-                                  rating: double.parse(review.raty.toString()),
-                                  allowHalfRating: true,
-                                  isReadOnly: true,
+                              ? RatingBarIndicator(
+                                  rating: 5.00,
+                                  itemBuilder: (context, index) => Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                  ),
+                                  itemCount: 5,
+                                  itemSize: 14.0,
+                                  direction: Axis.horizontal,
                                 )
                               : Container(),
                           VerticalGap(
