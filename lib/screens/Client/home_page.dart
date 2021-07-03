@@ -1,12 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'profile/profile.dart';
+
 import 'package:techtime/screens/Core/Prevent_close_button.dart';
+
 import 'Categories/client_categories_screen.dart';
 import 'HomeScreen/client_home_screen.dart';
-import 'Offres/client_offers_screen.dart';
+import 'profile/profile.dart';
 import 'scheduleScreen/schedule_screen.dart';
+import 'walletScreen/wallet_screen.dart';
 
 class ClientHomePage extends StatefulWidget {
   static const String routeName = "/clientHome";
@@ -46,7 +48,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
               Padding(
                 padding: EdgeInsets.all(5),
                 child: SvgPicture.asset(
-                  "assets/svg/offers.svg",
+                  "assets/svg/wallet.svg",
                   height: 20,
                   color: appTheme.primaryColorDark,
                 ),
@@ -54,14 +56,14 @@ class _ClientHomePageState extends State<ClientHomePage> {
               Padding(
                   padding: EdgeInsets.all(5),
                   child: SvgPicture.asset(
-                    "assets/svg/account.svg",
+                    "assets/svg/schedule.svg",
                     height: 20,
                     color: appTheme.primaryColorDark,
                   )),
               Padding(
                   padding: EdgeInsets.all(5),
                   child: SvgPicture.asset(
-                    "assets/svg/schedule.svg",
+                    "assets/svg/account.svg",
                     height: 20,
                     color: appTheme.primaryColorDark,
                   )),
@@ -94,9 +96,9 @@ class _ClientHomePageState extends State<ClientHomePage> {
               ClientCategoriesScreen(
                 isCloseable: false,
               ),
-              ClientOffersScreen(),
-              ProfileScreen(),
+              WalletScreen(),
               ScheduleScreen(),
+              ProfileScreen(),
             ],
           )),
     );

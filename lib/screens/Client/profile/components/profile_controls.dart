@@ -58,18 +58,18 @@ class _ProfileControlsState extends State<ProfileControls> {
                   _showToast(context);
                 }
               }),
-              //Wallet
-              buildProfileListTile(context, _theme,
-                  leading: Icons.account_balance_wallet, onTap: () {
-                if (_currentUser != null) {
-                  Navigator.pushNamed(context, WalletScreen.routeName);
-                } else {
-                  _showToast(context);
-                }
-              },
-                  title: AppLocalizations.of(context)
-                      .translate("myWallet")
-                      .toUpperCase()),
+              // //Wallet
+              // buildProfileListTile(context, _theme,
+              //     leading: Icons.account_balance_wallet, onTap: () {
+              //   if (_currentUser != null) {
+              //     Navigator.pushNamed(context, WalletScreen.routeName);
+              //   } else {
+              //     _showToast(context);
+              //   }
+              // },
+              //     title: AppLocalizations.of(context)
+              //         .translate("myWallet")
+              //         .toUpperCase()),
               //language
               buildProfileListTile(
                 context,
@@ -81,22 +81,22 @@ class _ProfileControlsState extends State<ProfileControls> {
                     .toUpperCase(),
               ),
               // darkMode
-              buildProfileListTile(
-                context,
-                _theme,
-                leading: Icons.brightness_3_sharp,
-                title: AppLocalizations.of(context)
-                    .translate("darkMode")
-                    .toUpperCase(),
-                trailing: Switch(
-                  activeColor: KPrimaryColor,
-                  // trackColor: KPrimaryColor,
-                  value: appTheme.currentTheme == darkTheme ? true : false,
-                  onChanged: (value) =>
-                      Provider.of<ThemeModel>(context, listen: false)
-                          .toggleTheme(),
-                ),
-              ),
+              // buildProfileListTile(
+              //   context,
+              //   _theme,
+              //   leading: Icons.brightness_3_sharp,
+              //   title: AppLocalizations.of(context)
+              //       .translate("darkMode")
+              //       .toUpperCase(),
+              //   trailing: Switch(
+              //     activeColor: KPrimaryColor,
+              //     // trackColor: KPrimaryColor,
+              //     value: appTheme.currentTheme == darkTheme ? true : false,
+              //     onChanged: (value) =>
+              //         Provider.of<ThemeModel>(context, listen: false)
+              //             .toggleTheme(),
+              //   ),
+              // ),
               // Contact us
               buildProfileListTile(context, _theme,
                   leading: Icons.mail,
@@ -187,6 +187,7 @@ class _ProfileControlsState extends State<ProfileControls> {
               SimpleDialogOption(
                 onPressed: () {
                   BlocProvider.of<LocaleCubit>(context).toArabic();
+                  Navigator.pop(context);
                 },
                 child: Text(
                   AppLocalizations.of(context).translate("arabic"),
@@ -196,6 +197,7 @@ class _ProfileControlsState extends State<ProfileControls> {
               SimpleDialogOption(
                 onPressed: () {
                   BlocProvider.of<LocaleCubit>(context).toEnglish();
+                  Navigator.pop(context);
                 },
                 child: Text(
                   AppLocalizations.of(context).translate("english"),

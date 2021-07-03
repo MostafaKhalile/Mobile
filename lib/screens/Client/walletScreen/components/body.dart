@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_total_data_bloc/wallet_bloc.dart';
+import 'package:techtime/Controllers/Providers/current_user_provider.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
@@ -36,7 +37,8 @@ class _WalletBodyState extends State<WalletBody> {
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     AppLocalizations _translator = AppLocalizations.of(context);
-    ThemeData _theme = Theme.of(context);
+    // ThemeData _theme = Theme.of(context);
+    final _currentUser = Provider.of<CurrentUserProvider>(context).currentUser;
 
     return Column(children: [
       Container(
@@ -44,34 +46,42 @@ class _WalletBodyState extends State<WalletBody> {
         height: _size.height * 0.45,
         child: Column(
           children: [
-            BlocConsumer<WalletBloc, WalletState>(
-              listener: (context, state) {},
-              builder: (context, state) {
-                if (state is WalletTotalDataSucceded) {
-                  return PointsCount(
-                    points: state.walletTotal.points.toString(),
-                  );
-                }
-                return ShimmerEffect(
-                  child: PointsCount(),
-                );
-              },
-            ),
-            BlocConsumer<WalletBloc, WalletState>(
-              listener: (context, state) {
-                if (state is WalletTotalDataFailed) {
-                  print(state.message);
-                }
-              },
-              builder: (context, state) {
-                if (state is WalletTotalDataSucceded) {
-                  return MoneyCount(
-                    money: state.walletTotal.money.toString(),
-                  );
-                }
-                return ShimmerEffect(child: MoneyCount());
-              },
-            ),
+            (_currentUser != null)
+                ? BlocConsumer<WalletBloc, WalletState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      if (state is WalletTotalDataSucceded) {
+                        return PointsCount(
+                          points: state.walletTotal.points.toString(),
+                        );
+                      }
+                      return ShimmerEffect(
+                        child: PointsCount(),
+                      );
+                    },
+                  )
+                : PointsCount(
+                    points: 0.0.toString(),
+                  ),
+            (_currentUser != null)
+                ? BlocConsumer<WalletBloc, WalletState>(
+                    listener: (context, state) {
+                      if (state is WalletTotalDataFailed) {
+                        print(state.message);
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is WalletTotalDataSucceded) {
+                        return MoneyCount(
+                          money: state.walletTotal.money.toString(),
+                        );
+                      }
+                      return ShimmerEffect(child: MoneyCount());
+                    },
+                  )
+                : MoneyCount(
+                    money: 0.0.toString(),
+                  ),
             Spacer(),
             Center(
               child: Row(
@@ -147,7 +157,7 @@ class PageSelectionCard extends StatelessWidget {
     this.title,
     this.isSelected,
   }) : super(key: key);
-  final Function onTap;
+  final VoidCallback onTap;
   final String icon;
   final String title;
   final bool isSelected;

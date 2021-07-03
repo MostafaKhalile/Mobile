@@ -13,7 +13,6 @@ import 'package:techtime/Controllers/Providers/current_user_provider.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/Helpers/themes/dark_theme.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/Helpers/utils/custom_snackbar.dart';
 import 'package:techtime/Models/client_profile.dart';
@@ -309,35 +308,17 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
                                 ),
                                 Text(_translator.translate('Alex'),
                                     style:
-                                        Theme.of(context).textTheme.headline5)
+                                        Theme.of(context).textTheme.subtitle2)
                               ])
                             ],
                           ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Icon(Icons.brightness_5),
-                          Switch(
-                            activeColor: KPrimaryColor,
-                            value: appTheme.currentTheme == darkTheme
-                                ? true
-                                : false,
-                            onChanged: (toggle) =>
-                                Provider.of<ThemeModel>(context, listen: false)
-                                    .toggleTheme(),
-                          ),
-                          Icon(Icons.brightness_3_sharp)
-                        ],
-                      ),
                     ],
                   ),
-                  // VerticalGap(),
-                  // HomeSearchBox(),
-                  // VerticalGap(),
                 ],
               )),
-          preferredSize: Size.fromHeight(25.0)),
+          preferredSize: Size.fromHeight(20.0)),
       actions: [
         _currentUser != null
             ? BlocBuilder<NotificationsBloc, NotificationsState>(

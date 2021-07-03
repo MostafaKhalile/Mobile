@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:techtime/Controllers/providers/current_user_provider.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 
 import 'components/body.dart';
@@ -18,6 +20,7 @@ class _WalletScreenState extends State<WalletScreen> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
+        automaticallyImplyLeading: false,
         title: Text(
           _translator.translate("myWallet"),
           style: Theme.of(context)

@@ -8,7 +8,6 @@ import 'package:techtime/Screens/Core/aboutUs/follow_us.dart';
 
 import 'package:techtime/screens/Client/contact/contact_us.dart';
 import 'package:techtime/screens/Client/profileEdit/profile_edit.dart';
-import 'package:techtime/screens/Client/walletScreen/wallet_screen.dart';
 import 'package:techtime/screens/Core/ConnectivityView/network_sensitive.dart';
 import 'package:techtime/screens/Core/notifications/notifications.dart';
 import 'package:techtime/screens/Core/search_screen.dart';
@@ -139,10 +138,7 @@ class RouteGenerator {
                   notifications: args,
                 ));
         break;
-      case WalletScreen.routeName:
-        return CupertinoPageRoute(
-            fullscreenDialog: true, builder: (_) => WalletScreen());
-        break;
+
       case ContactUS.routeName:
         return CupertinoPageRoute(
             fullscreenDialog: true, builder: (_) => ContactUS());
