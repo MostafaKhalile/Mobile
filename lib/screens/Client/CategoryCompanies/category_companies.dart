@@ -5,9 +5,6 @@ import 'package:techtime/Controllers/blocs/client/companiesListBloc.dart/compani
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/utils/custom_snackbar.dart';
 import 'package:techtime/Models/client/category.dart';
-import 'package:techtime/Widgets/core/horizontal_gap.dart';
-import 'package:techtime/Widgets/core/shimmer_effect.dart';
-import 'package:techtime/Widgets/core/vertical_gab.dart';
 
 import 'components/companies_list_view.dart';
 

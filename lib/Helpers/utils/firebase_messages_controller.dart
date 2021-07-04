@@ -1,1 +1,3 @@
-class FirebaseMessagesController {}
+class FirebaseMessagesController {
+  
+}

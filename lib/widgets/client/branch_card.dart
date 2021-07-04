@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
-import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 
 class BranchCard extends StatelessWidget {
   final String title;
@@ -26,8 +25,8 @@ class BranchCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData _theme = Theme.of(context);
-    Size _size = MediaQuery.of(context).size;
-    AppLocalizations _translator = AppLocalizations.of(context);
+    // Size _size = MediaQuery.of(context).size;
+    // AppLocalizations _translator = AppLocalizations.of(context);
     return Container(
       width: MediaQuery.of(context).size.width * 0.75,
       decoration:

@@ -51,7 +51,6 @@ import 'Controllers/blocs/client/profile_edit_blocs/edit_second_name_bloc/editse
 import 'Controllers/blocs/core/Auth/authantication_bloc.dart';
 import 'Helpers/APIUrls.dart';
 import 'Helpers/app_data.dart';
-import 'Helpers/enums.dart';
 import 'Helpers/localization/app_localizations_delegates.dart';
 import 'Helpers/shared_perfs_provider.dart';
 import 'Helpers/themes/dark_theme.dart';

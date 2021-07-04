@@ -709,7 +709,7 @@ class PreviousWorkCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
-    ThemeData _theme = Theme.of(context);
+    // ThemeData _theme = Theme.of(context);
     return InkWell(
       onTap: onTap,
       child: Material(

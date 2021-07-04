@@ -6,14 +6,10 @@ import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
 import 'package:techtime/Controllers/Providers/current_user_provider.dart';
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/Helpers/themes/dark_theme.dart';
-import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/Models/client_profile.dart';
 import 'package:techtime/Screens/Client/contact/contact_us.dart';
 import 'package:techtime/Screens/Client/profileEdit/profile_edit.dart';
-import 'package:techtime/Screens/Client/walletScreen/wallet_screen.dart';
 import 'package:techtime/Screens/Core/aboutUs/about_us.dart';
 import 'package:techtime/Screens/Core/aboutUs/follow_us.dart';
 import 'package:techtime/Screens/Core/startupViews/language_selection_page.dart';
@@ -33,7 +29,7 @@ class _ProfileControlsState extends State<ProfileControls> {
   Widget build(BuildContext context) {
     UserProfile _currentUser =
         Provider.of<CurrentUserProvider>(context, listen: false).currentUser;
-    var appTheme = Provider.of<ThemeModel>(context);
+    // var appTheme = Provider.of<ThemeModel>(context);
     ThemeData _theme = Theme.of(context);
     return Expanded(
       flex: 4,

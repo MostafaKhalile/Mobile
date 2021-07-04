@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
-import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/oval_bottom_clipper.dart';
 import 'package:techtime/Helpers/utils/app_intents.dart';
@@ -13,7 +12,7 @@ class FollowUsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
-    ThemeData _theme = Theme.of(context);
+    // ThemeData _theme = Theme.of(context);
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_cover_bloc/editcover_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_profile_picture_Bloc/editprofilepicture_bloc.dart';
 import 'package:techtime/Controllers/Providers/current_user_provider.dart';
