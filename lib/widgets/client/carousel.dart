@@ -50,7 +50,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
                       _current = index;
                     });
                   },
-                  height: size.height * 0.33,
+                  height: size.height * 0.25,
                   autoPlay: true,
                   viewportFraction: 1.0,
                   aspectRatio: MediaQuery.of(context).size.aspectRatio,
@@ -84,7 +84,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
       }
       return ShimmerEffect(
           child: Container(
-        height: size.height * 0.33,
+        height: size.height * 0.25,
         width: double.infinity,
         color: Colors.white,
       ));
@@ -96,14 +96,14 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
       items,
       (index, ad) {
         return Container(
-          height: size.height * 0.33,
+          height: size.height * 0.25,
           child: Stack(children: <Widget>[
             (ad.image != null)
                 ? Image.network(
                     "${KAPIURL + ad.image}",
                     fit: BoxFit.fill,
                     width: double.infinity,
-                    height: size.height * 0.33,
+                    height: size.height * 0.25,
                   )
                 : Image.asset(
                     KPlaceHolderCover,
