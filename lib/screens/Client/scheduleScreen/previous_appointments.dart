@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Widgets/client/order_card.dart';
 import 'package:techtime/widgets/appointment_card.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
 
@@ -38,15 +39,8 @@ class PreviousAppointmentCard extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(10),
-          child: AppointmentCard(
-            theme: _theme,
-            translator: _translator,
-            isReadOnly: true,
-            title: "صالون بيوتى",
-            description: "تقديم خدمات لكافة مستلزمات الافراح",
-            address: "شارع 33, منطقة الميدان, جدة",
-            rating: 4.8,
-            image: KPlaceHolderCover,
+          child: OrderCard(
+            statusCode: 22,
           ),
         ),
         Padding(
@@ -54,13 +48,13 @@ class PreviousAppointmentCard extends StatelessWidget {
           child: ListBody(
             children: <Widget>[
               // ignore: deprecated_member_use
-              RaisedButton(
-                child: Text(
-                  _translator.translate("book_again"),
-                  style: Theme.of(context).textTheme.button,
-                ),
-                onPressed: () {},
-              ),
+              // RaisedButton(
+              //   child: Text(
+              //     _translator.translate("book_again"),
+              //     style: Theme.of(context).textTheme.button,
+              //   ),
+              //   onPressed: () {},
+              // ),
             ],
           ),
         ),

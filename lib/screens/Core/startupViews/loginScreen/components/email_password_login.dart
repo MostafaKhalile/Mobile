@@ -163,8 +163,10 @@ class _EmailPasswordLoginFormState extends State<EmailPasswordLoginForm> {
                                       KeyboardUtil.hideKeyboard(context);
                                       BlocProvider.of<AuthanticationBloc>(
                                               context)
-                                          .add(StartLogin(_emailController.text,
-                                              _passwordController.text));
+                                          .add(StartLogin(
+                                              _emailController.text,
+                                              _passwordController.text,
+                                              _token));
                                     }
                                   },
                             disabledColor: KDarkGreyColor,

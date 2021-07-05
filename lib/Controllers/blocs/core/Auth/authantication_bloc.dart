@@ -23,7 +23,7 @@ class AuthanticationBloc
       yield LoginInProgress();
       try {
         // ignore: unused_local_variable
-        final result = await authRepo.loginUser(event.email, event.password);
+        final result = await authRepo.loginUser(event.email, event.password,event.fcmToken);
         if (result.statusCode == 201) {
           yield LoginSuccesseded(result);
         } else {

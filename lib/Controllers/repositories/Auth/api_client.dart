@@ -16,13 +16,15 @@ class AuthApiClient {
   Future loginUser({
     String email,
     String password,
+    String fcmToken,
   }) async {
     final String _path = KAPIURL + KLoginPAth;
     final Map<String, dynamic> data = {
       "RequestType": "API",
       "LanguageCode": "EN",
       "username": "$email",
-      "password": "$password"
+      "password": "$password",
+      "RegistrationId":"$fcmToken"
     };
     try {
       var resp = await http.post(

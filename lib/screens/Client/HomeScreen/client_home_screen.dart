@@ -33,6 +33,7 @@ class ClientHomeScreen extends StatefulWidget {
 }
 
 class _ClientHomeScreenState extends State<ClientHomeScreen> {
+  double _sectionHeight = 0.0;
   @override
   void initState() {
     // ignore: close_sinks
@@ -54,6 +55,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _sectionHeight = MediaQuery.of(context).size.height * 0.2;
     final _currentUser = Provider.of<CurrentUserProvider>(context).currentUser;
     var appTheme = Provider.of<ThemeModel>(context);
     AppLocalizations _translator = AppLocalizations.of(context);
@@ -102,7 +104,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
           if (state is LeastCompaniesLoaded) {
             if (state.leastCompanies.isNotEmpty) {
               return Container(
-                  height: size.height * 0.35,
+                  height: _sectionHeight,
                   child: buildLeastCompaniesData(state));
             }
             if (state.leastCompanies.isEmpty) {
@@ -110,8 +112,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
             }
           }
           return Container(
-              height: size.height * 0.35,
-              child: buildLeastCompaniesLoading(size));
+              height: _sectionHeight, child: buildLeastCompaniesLoading(size));
         })
       ],
     );
@@ -217,7 +218,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
               arguments: true),
         ),
         SizedBox(
-            height: size.height * 0.15,
+            height: _sectionHeight,
             child: GlowingOverscrollIndicator(
               axisDirection: AxisDirection.right,
               color: Colors.transparent,
@@ -387,7 +388,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
       itemBuilder: (BuildContext context, int index) {
         return ShimmerEffect(
             child: CategoryCard(
-          width: size.width * 0.40,
+          width: size.width * 0.45,
         ));
       },
     );
@@ -406,7 +407,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
       itemCount: state.categories.length,
       itemBuilder: (BuildContext context, int index) {
         return CategoryCard(
-          width: size.width * 0.40,
+          width: size.width * 0.45,
           category: state.categories[index],
         );
       },

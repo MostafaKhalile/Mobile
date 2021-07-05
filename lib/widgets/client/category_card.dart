@@ -49,18 +49,16 @@ class CategoryCard extends StatelessWidget {
             SizedBox(
               height: 5,
             ),
-            Expanded(
-                flex: 1,
-                child: (category?.categoryEn != null)
-                    ? Text(
-                        category.categoryEn,
-                        style: Theme.of(context).textTheme.subtitle2,
-                      )
-                    : Container(
-                        width: KdefaultPadding * 4,
-                        height: 3,
-                        color: Colors.white,
-                      ))
+            (category?.categoryEn != null)
+                ? Text(
+                    category.categoryEn,
+                    style: Theme.of(context).textTheme.subtitle1,
+                  )
+                : Container(
+                    width: 120,
+                    height: 30,
+                    color: Colors.white,
+                  )
           ],
         ),
       ),

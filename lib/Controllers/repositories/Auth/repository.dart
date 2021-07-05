@@ -16,10 +16,10 @@ class AuthRepo {
     _apiClient = AuthApiClient(prefs: _prefs);
   }
 
-  Future<User> loginUser(String email, String password) async {
+  Future<User> loginUser(String email, String password, String fcmToken) async {
     try {
-      final dataResp =
-          (await _apiClient.loginUser(email: email, password: password));
+      final dataResp = (await _apiClient.loginUser(
+          email: email, password: password, fcmToken: fcmToken));
       final data = json.decode(dataResp) as Map;
       final User user = User.fromJson(data);
       if (data["status"] == 201) {

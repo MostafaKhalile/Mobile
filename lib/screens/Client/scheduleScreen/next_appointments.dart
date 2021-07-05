@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Widgets/client/order_card.dart';
+import 'package:techtime/Widgets/core/vertical_gab.dart';
 import 'package:techtime/widgets/appointment_card.dart';
 
 final items = List<String>.generate(6, (i) => "Item ${i + 1}");
@@ -17,56 +19,46 @@ class NextAppointmentsState extends State<NextAppointments> {
     ThemeData _theme = Theme.of(context);
 
     return Scaffold(
-      body: ListView.builder(
+      body: ListView.separated(
         itemCount: items.length,
+        padding: EdgeInsets.symmetric(vertical: KdefaultPadding),
+        physics: BouncingScrollPhysics(),
+        separatorBuilder: (_, i) => VerticalGap(),
         itemBuilder: (context, index) {
           final item = items[index];
 
           return Dismissible(
-            // Each Dismissible must contain a Key. Keys allow Flutter to
-            // uniquely identify widgets.
-            key: Key(item),
-            // Provide a function that tells the app
-            // what to do after an item has been swiped away.
-            onDismissed: (direction) {
-              // Remove the item from the data source.
-              buildOnDismiss(index, context, item);
-            },
-
-            confirmDismiss: (direction) async {
-              return await buildShowDialog(context, _translator);
-            },
-            // Show a red background as the item is swiped away.
-            background: Container(
-              color: Colors.redAccent.withOpacity(0.2),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      _translator.translate("cancel"),
-                      style: TextStyle(color: Colors.white),
+              // Each Dismissible must contain a Key. Keys allow Flutter to
+              // uniquely identify widgets.
+              key: Key(item),
+              // Provide a function that tells the app
+              // what to do after an item has been swiped away.
+              onDismissed: (direction) {
+                // Remove the item from the data source.
+                buildOnDismiss(index, context, item);
+              },
+              confirmDismiss: (direction) async {
+                return await buildShowDialog(context, _translator);
+              },
+              // Show a red background as the item is swiped away.
+              background: Container(
+                color: Colors.redAccent.withOpacity(0.2),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        _translator.translate("cancel"),
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: AppointmentCard(
-                theme: _theme,
-                translator: _translator,
-                isReadOnly: true,
-                title: "صالون بيوتى",
-                description: "تقديم خدمات لكافة مستلزمات الافراح",
-                address: "شارع 33, منطقة الميدان, جدة",
-                rating: 4.8,
-                image: KPlaceHolderCover,
-              ),
-            ),
-          );
+              child: OrderCard(
+                statusCode: 40,
+              ));
         },
       ),
     );
