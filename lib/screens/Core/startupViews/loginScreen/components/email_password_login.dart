@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +33,9 @@ class _EmailPasswordLoginFormState extends State<EmailPasswordLoginForm> {
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  String _token;
+  Stream<String> _tokenStream;
+
   @override
   void dispose() {
     // Clean up the controller when the widget is removed from the widget tree.
@@ -48,6 +52,25 @@ class _EmailPasswordLoginFormState extends State<EmailPasswordLoginForm> {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+
+  void setToken(String token) {
+    print('FCM Token: $token');
+    setState(() {
+      _token = token;
+    });
+  }
+
+  @override
+  void initState() {
+    FirebaseMessaging.instance
+        .getToken(
+            vapidKey:
+                'BFmXjDka5aR-tYzYfHufiqcFJi1G5wx-woYAwcoa00bJEVajUCO57W4qlFWMc1Ik2A7etSjgVROmGvACGeBJNS8')
+        .then(setToken);
+    _tokenStream = FirebaseMessaging.instance.onTokenRefresh;
+    _tokenStream.listen(setToken);
+    super.initState();
   }
 
   @override

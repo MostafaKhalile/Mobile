@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/enums.dart';
+import 'package:techtime/Screens/Core/notifications/notifications.dart';
 import 'package:techtime/screens/Client/home_page.dart';
 import 'package:techtime/screens/Core/startupViews/language_selection_page.dart';
 import 'package:techtime/screens/company/company_placeholder.dart';
@@ -24,6 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   bool _isSignedIn;
   UserRole _userRole;
   AuthRepo _authRepo;
+
   @override
   void initState() {
     _authRepo = AuthRepo();
@@ -34,6 +37,8 @@ class _SplashScreenState extends State<SplashScreen> {
         .then((RemoteMessage message) {
       if (message != null) {
         print(message);
+        //new line for routing on message ;
+
       }
     });
     Future.delayed(Duration(seconds: 1), () async {
@@ -46,7 +51,14 @@ class _SplashScreenState extends State<SplashScreen> {
             : LanguageSelectionPage.routeName,
       );
     });
-    super.initState();
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('A new onMessageOpenedApp event was published!');
+      Navigator.pushNamed(
+        context,
+        Notifications.routeName,
+      );
+      print(message);
+    });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification notification = message.notification;
@@ -67,10 +79,7 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     });
 
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('A new onMessageOpenedApp event was published!');
-      print(message);
-    });
+    super.initState();
   }
 
   @override
