@@ -12,7 +12,6 @@ class VisitApp {
   }
 
   void callApp(String url, String package) {
-    print(url);
     if (const LocalPlatform().isAndroid) {
       final AndroidIntent intent = AndroidIntent(
           action: 'action_view', data: Uri.encodeFull(url), package: package);

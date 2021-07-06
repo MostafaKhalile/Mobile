@@ -34,7 +34,6 @@ class APICompaniesRepository {
 
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
-      print("Company services here $decoded");
       final data = json.decode(decoded)['AllBranchServices'] as List;
       return data.map((rawPost) {
         return CompanyService.fromJson(rawPost as Map<String, dynamic>);

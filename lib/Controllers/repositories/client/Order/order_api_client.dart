@@ -19,7 +19,6 @@ class OrdersApiClient {
     });
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
-      print("Branche Profile here $decoded");
       final data = json.decode(decoded) as List;
       return data.map((rawPost) {
         return OrderDateTime.fromJson(rawPost as Map<String, dynamic>);

@@ -21,7 +21,6 @@ class BranchesApiClient {
     });
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
-      print("Branche Profile here $decoded");
       final data = json.decode(decoded) as Map<String, dynamic>;
 
       return BrancheProfile.fromJson(data);
@@ -40,7 +39,6 @@ class BranchesApiClient {
     });
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
-      print("Branche Profile here $decoded");
       final data = json.decode(decoded);
 
       return data['Favorite'] as bool;
@@ -59,7 +57,6 @@ class BranchesApiClient {
 
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
-      print("Company services here $decoded");
       final data = json.decode(decoded)['AllBranchServices'] as List;
       return data.map((rawPost) {
         return CompanyService.fromJson(rawPost as Map<String, dynamic>);
@@ -79,7 +76,6 @@ class BranchesApiClient {
 
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
-      print("Company services here $decoded");
       final data = json.decode(decoded)['AllBranchEmployees'] as List;
       return data.map((rawPost) {
         return CompanyEmployee.fromJson(rawPost as Map<String, dynamic>);
@@ -96,12 +92,10 @@ class BranchesApiClient {
       "Content-Type": "application/json; charset=utf-8",
       "Accept": "application/json",
     });
-    print(
-        "Branche Reviews ==> with status code [${response.statusCode}] and data is ${response.body}");
+
 
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
-      print("Company Reviews here $decoded");
       final data = json.decode(decoded);
       return BrancheReviews.fromJson(data as Map<String, dynamic>);
     } else {
@@ -119,7 +113,6 @@ class BranchesApiClient {
 
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
-      print("Company services here $decoded");
       final data = json.decode(decoded)['SendBranchOffers'] as List;
       return data.map((rawPost) {
         return BrancheOffer.fromJson(rawPost as Map<String, dynamic>);
@@ -139,7 +132,6 @@ class BranchesApiClient {
 
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
-      print("Branche $id Working days  here ====> $decoded");
       final data = json.decode(decoded)['AllBranchWorkDays'] as List;
       return data.map((rawPost) {
         return BrancheWorkingDay.fromJson(rawPost as Map<String, dynamic>);

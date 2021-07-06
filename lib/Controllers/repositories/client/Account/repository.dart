@@ -27,9 +27,7 @@ class USerRepo {
     if (userResp == null) {
       return null;
     }
-    print(UserProfile.fromJson(
-            jsonDecode(userResp.toString()) as Map<String, dynamic>)
-        .toString());
+   
     return UserProfile.fromJson(
         jsonDecode(userResp.toString()) as Map<String, dynamic>);
   }
@@ -86,7 +84,6 @@ class USerRepo {
     if (hasBeenUploaded) {
       await getProfileData();
     }
-    print("[Upload Profile Picture Repository] $hasBeenUploaded");
     return hasBeenUploaded;
   }
 
@@ -96,7 +93,7 @@ class USerRepo {
     if (hasBeenUploaded) {
       await getProfileData();
     }
-    print("[Upload Cover Picture Repository] $hasBeenUploaded");
+   
     return hasBeenUploaded;
   }
 

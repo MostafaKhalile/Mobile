@@ -48,7 +48,6 @@ class CompanyOffersState extends State<CompanyOffers> {
                         orientation: GroupedButtonsOrientation.VERTICAL,
                         onSelected: (List selected) => setState(() {
                           _checked = selected as List<String>;
-                          print(_checked);
                         }),
                         labels:
                             widget.companyProfile.companyOffers.map((element) {

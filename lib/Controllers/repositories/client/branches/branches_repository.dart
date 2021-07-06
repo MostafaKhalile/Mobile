@@ -31,7 +31,6 @@ class BranchesRepository {
   Future<List<CompanyService>> getBrancheServices(int brancheId) async {
     try {
       final dataResp = await _branchesApiClient.getBrancheServices(brancheId);
-      print(dataResp.toString());
       return dataResp;
     } catch (e) {
       return Future.error(e.toString());

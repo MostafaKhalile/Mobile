@@ -7,10 +7,10 @@ import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 class FilterationBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    AppLocalizations _translator = AppLocalizations.of(context);
-    ThemeData _theme = Theme.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context);
+    final ThemeData _theme = Theme.of(context);
     return Container(
-      padding: EdgeInsets.all(KdefaultPadding),
+      padding: const EdgeInsets.all(KdefaultPadding),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

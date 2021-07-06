@@ -108,7 +108,6 @@ class _EmailConfirmCodeState extends State<EmailConfirmCode> {
                             onPressed: () {
                               if (_formKey.currentState.validate()) {
                                 _formKey.currentState.save();
-                                print(_formKey.currentState.toString());
                               }
                             },
                             color: KPrimaryColor,

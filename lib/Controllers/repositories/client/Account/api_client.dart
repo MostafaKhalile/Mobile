@@ -27,13 +27,10 @@ class AccountApiClient {
       final resp = await http.post(Uri.parse(_path),
           headers: {"Authorization": "Token $currentToken"});
       final decoded = utf8.decode(resp.bodyBytes);
-      print(
-          "[Login User] status message: #${resp.statusCode}, status code: #${resp.statusCode}");
+
       if (resp.statusCode == 200) {
         return decoded;
       } else {
-        print(
-            "[Login User] status message: #${resp.statusCode}, status code: #${resp.statusCode}");
         final data = resp.body;
         return Future.error(data);
       }
@@ -58,8 +55,6 @@ class AccountApiClient {
       if (respData["status"] == 201) {
         return true;
       } else {
-        print(
-            "[Edit User FirstName] status message: #${respData["status"]}, status code: #${respData["message"]}");
         return Future.error(
             json.decode(utf8.decode(resp.bodyBytes))['message']);
       }
@@ -80,11 +75,8 @@ class AccountApiClient {
       });
       final respData = json.decode(utf8.decode(resp.bodyBytes));
       if (respData["status"] == 201) {
-        print("First Name has been edited $respData");
         return true;
       } else {
-        print(
-            "[Edit User FirstName] status message: #${respData["status"]}, status code: #${respData["message"]}");
         return Future.error(
             json.decode(utf8.decode(resp.bodyBytes))['message']);
       }
@@ -102,11 +94,8 @@ class AccountApiClient {
           headers: {"Authorization": "Token $currentToken"});
       final respData = json.decode(utf8.decode(resp.bodyBytes));
       if (respData["status"] == 201) {
-        print("First Name has been edited $respData");
         return true;
       } else {
-        print(
-            "[Edit User FirstName] status message: #${respData["status"]}, status code: #${respData["message"]}");
         return Future.error(
             json.decode(utf8.decode(resp.bodyBytes))['message']);
       }
@@ -127,11 +116,8 @@ class AccountApiClient {
       });
       final respData = json.decode(utf8.decode(resp.bodyBytes));
       if (respData["status"] == 201) {
-        print("First Name has been edited $respData");
         return true;
       } else {
-        print(
-            "[Edit User FirstName] status message: #${respData["status"]}, status code: #${respData["message"]}");
         return Future.error(
             json.decode(utf8.decode(resp.bodyBytes))['message']);
       }
@@ -154,11 +140,8 @@ class AccountApiClient {
       });
       final respData = json.decode(utf8.decode(resp.bodyBytes));
       if (respData["status"] == 200) {
-        print("Password has been edited $respData");
         return true;
       } else {
-        print(
-            "[Edit User FirstName] status message: #${respData["status"]}, status code: #${respData["message"]}");
         return Future.error(
             json.decode(utf8.decode(resp.bodyBytes))['message']);
       }
@@ -232,12 +215,9 @@ class AccountApiClient {
 
     // send
     final response = await request.send();
-    print(response.toString());
 
     // listen for response
-    response.stream.transform(utf8.decoder).listen((value) {
-      print(value);
-    });
+    response.stream.transform(utf8.decoder).listen((value) {});
     return true;
   }
 
@@ -251,7 +231,7 @@ class AccountApiClient {
           json.decode(utf8.decode(resp.bodyBytes)) as Map<String, dynamic>;
       final WalletTotalData walletTotalData =
           WalletTotalData.fromJson(respData);
-      print(walletTotalData.toString());
+
       return walletTotalData;
     } catch (e) {
       return Future.error(e);
@@ -271,7 +251,7 @@ class AccountApiClient {
           json.decode(utf8.decode(resp.bodyBytes)) as Map<String, dynamic>;
       final WalletPointsToPrice pointsToPrice =
           WalletPointsToPrice.fromJson(respData);
-      print(pointsToPrice.toString());
+
       return pointsToPrice;
     } catch (e) {
       return Future.error(e);
@@ -290,7 +270,7 @@ class AccountApiClient {
         "points": points
       });
       final respData = json.decode(utf8.decode(resp.bodyBytes));
-      print(respData);
+
       return respData;
     } catch (e) {
       return Future.error(e.toString());
@@ -309,7 +289,7 @@ class AccountApiClient {
       });
       final respData =
           json.decode(utf8.decode(resp.bodyBytes)) as Map<String, dynamic>;
-      print(respData);
+
       return respData;
     } catch (e) {
       return Future.error(e);

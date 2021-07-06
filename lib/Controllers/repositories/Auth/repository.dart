@@ -76,8 +76,7 @@ class AuthRepo {
     if (userResp == null) {
       return null;
     }
-    print(User.fromJson(
-        json.decode(userResp.toString()) as Map<String, dynamic>));
+
     return User.fromJson(
         json.decode(userResp.toString()) as Map<String, dynamic>);
   }

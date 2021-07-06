@@ -16,11 +16,9 @@ class NotificatiosApiClient {
       "Accept": "application/json",
       "Authorization": "Token ${_authRepo.currentUserToken}"
     });
-    print(response);
 
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
-      print("Notifications Status [${response.statusCode}] $decoded");
       final data = json.decode(decoded) as Map<String, dynamic>;
 
       return AllNotifications.fromJson(data);

@@ -36,8 +36,7 @@ class AuthApiClient {
       if (resp.statusCode == 200) {
         return decoded;
       } else {
-        print(
-            "[Login User] status message: #${resp.statusCode}, status code: #${resp.statusCode}");
+       
         final data = resp.body;
         return Future.error(data);
       }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/enums.dart';
+import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Models/notifications/user_notification.dart';
 
 class NotificationCard extends StatelessWidget {
@@ -13,6 +15,8 @@ class NotificationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData _theme = Theme.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context);
     return Card(
       shape: Border(
           left: BorderSide(
@@ -39,7 +43,46 @@ class NotificationCard extends StatelessWidget {
             ],
           ),
         ),
-        trailing: Icon(Icons.more_horiz),
+        trailing: PopupMenuButton<NotificationsActions>(
+          icon: const Icon(Icons.more_horiz),
+          onSelected: (NotificationsActions result) {
+            if (result == NotificationsActions.delete) {
+              print("delete");
+            }
+          },
+          itemBuilder: (BuildContext context) =>
+              <PopupMenuEntry<NotificationsActions>>[
+            PopupMenuItem<NotificationsActions>(
+              value: NotificationsActions.read,
+              textStyle: _theme.textTheme.subtitle2,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Icon(
+                      Icons.check,
+                      color: _theme.accentColor,
+                    ),
+                  ),
+                  Text(_translator.translate('mark_as_read')),
+                ],
+              ),
+            ),
+            PopupMenuItem<NotificationsActions>(
+                value: NotificationsActions.delete,
+                textStyle: _theme.textTheme.subtitle2,
+                child: Row(children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Icon(
+                      Icons.delete_forever,
+                      color: _theme.accentColor,
+                    ),
+                  ),
+                  Text(_translator.translate('delete')),
+                ])),
+          ],
+        ),
         isThreeLine: true,
       ),
     );
