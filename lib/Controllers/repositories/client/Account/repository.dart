@@ -41,6 +41,8 @@ class USerRepo {
       if (json.decode(dataResp.toString())['status'] == 201) {
         _saveCurrentUserProfile(profileData.toJson());
         return profileData;
+      } else {
+        return Future.error(dataResp.toString());
       }
     } catch (e) {
       final message = e;
