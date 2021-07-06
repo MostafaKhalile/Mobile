@@ -12,7 +12,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   UserProfile _userProfile;
-  USerRepo _userRepo = USerRepo();
+  final USerRepo _userRepo = USerRepo();
   @override
   void initState() {
     _userProfile = _userRepo.currentUserProfile;
@@ -29,7 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             HeaderProfileAvatar(
               userProfile: _userProfile,
             ),
-            ProfileControls()
+            const ProfileControls()
           ],
         ),
       ),

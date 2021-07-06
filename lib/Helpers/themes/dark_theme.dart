@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 
 ThemeData darkTheme = ThemeData.dark().copyWith(
     // applyElevationOverlayColor: true,
     brightness: Brightness.dark,
     accentColor: Colors.white,
-    primaryColor: KPrimaryColor,
+    primaryColor: AppColors.primaryColor,
     shadowColor: const Color(0xFF303030),
     primaryColorDark: Colors.black,
     bottomAppBarColor: Colors.white,
@@ -15,7 +15,7 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
         labelColor: Colors.white,
         labelStyle: textTheme().subtitle1.apply(fontFamily: 'cocon')),
     // ignore: deprecated_member_use
-    cursorColor: KPrimaryColor,
+    cursorColor: AppColors.primaryColor,
     scaffoldBackgroundColor: Colors.black,
     inputDecorationTheme: inputDecorationTheme(),
     textTheme: textTheme().apply(
@@ -28,8 +28,7 @@ ButtonThemeData buttonThemeData() {
   return ButtonThemeData(
     height: 50,
     buttonColor: Colors.black,
-    shape:
-        RoundedRectangleBorder(borderRadius:  BorderRadius.circular(30.0)),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
   );
 }
 
@@ -54,7 +53,7 @@ TextTheme textTheme() {
     subtitle2: TextStyle(color: Colors.white),
     caption: TextStyle(color: Colors.white),
     button: TextStyle(
-      color: KPrimaryColor,
+      color: AppColors.primaryColor,
       fontWeight: FontWeight.bold,
       fontSize: 18,
       wordSpacing: 1.5,
@@ -81,4 +80,5 @@ InputDecorationTheme inputDecorationTheme() {
       hintStyle: TextStyle(color: Colors.black));
 }
 
-IconThemeData iconThemeData() => const IconThemeData(color: KPrimaryColor, size: 18);
+IconThemeData iconThemeData() =>
+    const IconThemeData(color: AppColors.primaryColor, size: 18);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/api_urls.dart';
+
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Screens/Core/startupViews/client_signup_page.dart';
 import 'package:techtime/screens/Core/ConnectivityView/network_sensitive.dart';
 
@@ -57,7 +58,7 @@ class LoginModeratorPage extends StatelessWidget {
                           const SizedBox(
                             height: 5,
                           ),
-                          const Text(KAppName,
+                          const Text(NetworkConstants.appName,
                               style: TextStyle(
                                   fontSize: 30,
                                   color: Colors.black,

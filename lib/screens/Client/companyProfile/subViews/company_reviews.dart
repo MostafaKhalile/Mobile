@@ -9,37 +9,38 @@ class CompanyReviewsScreen extends StatelessWidget {
   const CompanyReviewsScreen({Key key, this.reviews}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    AppLocalizations _translator = AppLocalizations.of(context);
-    ThemeData _theme = Theme.of(context);
-    Size _size = MediaQuery.of(context).size;
+    final AppLocalizations _translator = AppLocalizations.of(context);
+    final ThemeData _theme = Theme.of(context);
+    final Size _size = MediaQuery.of(context).size;
     // Locale locale = BlocProvider.of<LocaleCubit>(context).state.locale;
 
-    return reviews.companyReviews.length > 0
-        ? SizedBox(
-            width: double.infinity,
-            child: ListView.builder(
-              physics: BouncingScrollPhysics(),
-              itemCount: reviews.companyReviews.length,
-              itemBuilder: (context, i) => Container(
-                width: _size.width,
-                child: ReviewCard(
-                  review: reviews.companyReviews[i],
-                ),
-              ),
+    if (reviews.companyReviews.isNotEmpty) {
+      return SizedBox(
+        width: double.infinity,
+        child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          itemCount: reviews.companyReviews.length,
+          itemBuilder: (context, i) => SizedBox(
+            width: _size.width,
+            child: ReviewCard(
+              review: reviews.companyReviews[i],
             ),
-          )
-        : Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // SvgPicture.asset("assets/svg/NoMessages.svg"),
-                Text(
-                  _translator.translate("no_reviews"),
-                  style: _theme.textTheme.subtitle1,
-                )
-              ],
-            ),
-          );
+          ),
+        ),
+      );
+    } else {
+      return SizedBox(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // SvgPicture.asset("assets/svg/NoMessages.svg"),
+            Text(
+              _translator.translate("no_reviews"),
+              style: _theme.textTheme.subtitle1,
+            )
+          ],
+        ),
+      );
+    }
   }
 }

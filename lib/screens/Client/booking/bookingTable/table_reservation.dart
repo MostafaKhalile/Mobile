@@ -20,9 +20,9 @@ class _TableReservationState extends State<TableReservation> {
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    AppLocalizations _translator = AppLocalizations.of(context);
-    ThemeData _theme = Theme.of(context);
+    final Size _size = MediaQuery.of(context).size;
+    final AppLocalizations _translator = AppLocalizations.of(context);
+    final ThemeData _theme = Theme.of(context);
     String dropdownValue;
 
     return Scaffold(
@@ -31,10 +31,10 @@ class _TableReservationState extends State<TableReservation> {
           _translator.translate("book_your_table"),
           style: _theme.textTheme.headline6.copyWith(color: Colors.black),
         ),
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: Container(
-        padding: EdgeInsets.all(KdefaultPadding),
+        padding: const EdgeInsets.all(defaultPadding),
         width: double.infinity,
         child: Column(
           children: [
@@ -49,7 +49,7 @@ class _TableReservationState extends State<TableReservation> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     IconButton(
-                      icon: Icon(Icons.remove),
+                      icon: const Icon(Icons.remove),
                       onPressed: () {
                         setState(() {
                           if (counter > 0) {
@@ -59,14 +59,14 @@ class _TableReservationState extends State<TableReservation> {
                       },
                       color: Colors.redAccent.withOpacity(0.8),
                     ),
-                    HorizontalGap(),
+                    const HorizontalGap(),
                     Text(
                       counter.toString(),
                       style: _theme.textTheme.headline6,
                     ),
-                    HorizontalGap(),
+                    const HorizontalGap(),
                     IconButton(
-                      icon: Icon(Icons.add),
+                      icon: const Icon(Icons.add),
                       color: Colors.greenAccent.withOpacity(0.8),
                       onPressed: () {
                         setState(() {
@@ -87,7 +87,7 @@ class _TableReservationState extends State<TableReservation> {
               onTap: () async {
                 DateTime date = DateTime(1900);
                 TimeOfDay time = TimeOfDay.now();
-                FocusScope.of(context).requestFocus(new FocusNode());
+                FocusScope.of(context).requestFocus(FocusNode());
 
                 date = await showDatePicker(
                     context: context,
@@ -98,12 +98,11 @@ class _TableReservationState extends State<TableReservation> {
                   initialTime: TimeOfDay.now(),
                   context: context,
                 );
-                dateCtl.text = DateFormat('dd-MM-y').format(date) +
-                    "\t" +
-                    time.format(context);
+                dateCtl.text =
+                    "${DateFormat('dd-MM-y').format(date)}\t${time.format(context)}";
               },
             ),
-            VerticalGap(),
+            const VerticalGap(),
             DropdownButton<String>(
               isExpanded: true,
               value: dropdownValue,
@@ -121,7 +120,7 @@ class _TableReservationState extends State<TableReservation> {
                 );
               }).toList(),
             ),
-            VerticalGap(),
+            const VerticalGap(),
             TextFormField(
               controller: noteCtl,
               maxLines: 3,
@@ -133,14 +132,14 @@ class _TableReservationState extends State<TableReservation> {
         ),
       ),
       persistentFooterButtons: [
-        Container(
+        SizedBox(
           width: _size.width,
           child: Row(
             children: [
               Expanded(
                   // ignore: deprecated_member_use
                   child: RaisedButton(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 onPressed: () => {},
                 disabledColor: Colors.black38,
                 child: Text(

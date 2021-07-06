@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 
 import 'next_appointments.dart';
@@ -30,14 +30,14 @@ class _ScheduleScreenState extends State<ScheduleScreen>
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
-    AppLocalizations _translator = AppLocalizations.of(context);
+    final ThemeData _theme = Theme.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Material(
             elevation: 5,
-            borderRadius: BorderRadius.all(Radius.circular(KdefaultRadius)),
+            borderRadius: const BorderRadius.all(Radius.circular(defaultRadius)),
             child: TextField(
               decoration: InputDecoration(
                   prefixIcon: Icon(
@@ -52,7 +52,7 @@ class _ScheduleScreenState extends State<ScheduleScreen>
         bottom: TabBar(
           labelColor: Colors.white,
           controller: _controller,
-          indicatorColor: KPrimaryColor,
+          indicatorColor: AppColors.primaryColor,
           tabs: [
             Tab(
               text: _translator.translate("next_appointments"),

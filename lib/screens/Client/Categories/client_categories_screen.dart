@@ -22,7 +22,7 @@ class ClientCategoriesScreen extends StatelessWidget {
         style:
             Theme.of(context).textTheme.headline6.copyWith(color: Colors.black),
       ),
-      iconTheme: IconThemeData(color: Colors.black),
+      iconTheme: const IconThemeData(color: Colors.black),
       automaticallyImplyLeading: isCloseable,
       excludeHeaderSemantics: true,
     );

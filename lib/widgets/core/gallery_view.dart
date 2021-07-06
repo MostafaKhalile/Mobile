@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/api_urls.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 
 class GalleryView extends StatelessWidget {
   static const String routeName = "/gallery_view";
@@ -11,7 +11,7 @@ class GalleryView extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
+    final ThemeData _theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: _theme.scaffoldBackgroundColor,
@@ -27,19 +27,16 @@ class GalleryView extends StatelessWidget {
             options: CarouselOptions(
               height: height,
               viewportFraction: 1.0,
-              enlargeCenterPage: false,
-              pauseAutoPlayOnManualNavigate: true,
               autoPlay: true,
             ),
             items: imgList
-                .map((item) => Container(
-                      child: Center(
+                .map((item) => Center(
                           child: Image.network(
-                        KAPIURL + item,
+                        NetworkConstants.baseUrl + item,
                         fit: BoxFit.fill,
                         // height: height,
                       )),
-                    ))
+                    )
                 .toList(),
           );
         },

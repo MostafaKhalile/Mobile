@@ -32,7 +32,8 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
 
   @override
   Widget build(BuildContext context) {
-    final UserProfile userData = context.watch<CurrentUserProvider>().currentUser;
+    final UserProfile userData =
+        context.watch<CurrentUserProvider>().currentUser;
     final ThemeData _theme = Theme.of(context);
 
     return Stack(
@@ -57,9 +58,9 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
             //       ? FileImage(_cover)
             //       : userData?.coverImage != null
             //           ? NetworkImage(
-            //               KAPIURL + userData.coverImage,
+            //               NetworkConstants.baseUrl + userData.coverImage,
             //             )
-            //           : AssetImage(KPlaceHolderCover),
+            //           : AssetImage(placeHolderCover),
             //   fit: BoxFit.cover,
             // )),
             child: Stack(
@@ -127,16 +128,19 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
                                 ),
                               ],
                             ),
-                            if (state is EditprofilepictureUploading) Center(
-                                    child: Container(
-                                      width: 120,
-                                      height: 120,
-                                      color: Colors.black26,
-                                      child: const Center(
-                                        child: CircularProgressIndicator(),
-                                      ),
-                                    ),
-                                  ) else Container(),
+                            if (state is EditprofilepictureUploading)
+                              Center(
+                                child: Container(
+                                  width: 120,
+                                  height: 120,
+                                  color: Colors.black26,
+                                  child: const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                ),
+                              )
+                            else
+                              Container(),
                           ]);
                         },
                       ),
@@ -172,7 +176,7 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
     );
   }
 
- void changeProfilePicture() {
+  void changeProfilePicture() {
     _showPicker(context).then((image) async {
       if (image != null) {
         setState(() {

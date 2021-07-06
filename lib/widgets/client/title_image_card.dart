@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/api_urls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/category.dart';
 
 class TitleImageCard extends StatelessWidget {
@@ -17,10 +18,10 @@ class TitleImageCard extends StatelessWidget {
         onTap: () => Navigator.pushNamed(context, "/CompaniesListPage",
             arguments: category),
         child: Container(
-          margin: const EdgeInsets.symmetric(vertical: KdefaultPadding),
+          margin: const EdgeInsets.symmetric(vertical: defaultPadding),
           height: 200,
           decoration: BoxDecoration(
-              border: Border.all(color: KPrimaryColor),
+              border: Border.all(color: AppColors.primaryColor),
               boxShadow: [
                 BoxShadow(
                   color: Theme.of(context).shadowColor.withOpacity(0.1),
@@ -30,11 +31,12 @@ class TitleImageCard extends StatelessWidget {
                 ),
               ],
               borderRadius:
-                  const BorderRadius.all(Radius.circular(KdefaultRadius)),
+                  const BorderRadius.all(Radius.circular(defaultRadius)),
               image: DecorationImage(
                   image: category?.image != null
-                      ? NetworkImage(KAPIURL + category.image) as ImageProvider
-                      : const AssetImage(KPlaceHolderImage),
+                      ? NetworkImage(NetworkConstants.baseUrl + category.image)
+                          as ImageProvider
+                      : const AssetImage(placeHolderImage),
                   colorFilter: ColorFilter.mode(
                       Colors.black.withOpacity(0.5), BlendMode.darken),
                   // alignment: Alignment.center,
@@ -42,7 +44,7 @@ class TitleImageCard extends StatelessWidget {
           child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: KdefaultPadding),
+                padding: const EdgeInsets.symmetric(vertical: defaultPadding),
                 child: Text(
                   category?.categoryEn ?? '',
                   style: const TextStyle(

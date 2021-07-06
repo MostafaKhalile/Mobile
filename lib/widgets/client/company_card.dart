@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/api_urls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/company.dart';
 import 'package:techtime/screens/Client/companyProfile/company_profile.dart';
 
@@ -21,12 +22,12 @@ class CompanyCard extends StatelessWidget {
             arguments: company),
         child: Container(
           width: size.width * 0.7,
-          margin: const EdgeInsets.symmetric(horizontal: KdefaultPadding / 4),
+          margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 4),
           decoration: BoxDecoration(
               color: _theme.scaffoldBackgroundColor,
               border: Border.all(color: _theme.accentColor, width: 2.0),
               borderRadius:
-                  const BorderRadius.all(Radius.circular(KdefaultRadius)),
+                  const BorderRadius.all(Radius.circular(defaultRadius)),
               boxShadow: const <BoxShadow>[
                 BoxShadow(
                   color: Colors.black26,
@@ -45,14 +46,14 @@ class CompanyCard extends StatelessWidget {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: company?.coverImage != null
-                              ? NetworkImage(KAPIURL + company.coverImage)
-                                  as ImageProvider
-                              : const AssetImage(KPlaceHolderCover),
+                              ? NetworkImage(NetworkConstants.baseUrl +
+                                  company.coverImage) as ImageProvider
+                              : const AssetImage(placeHolderCover),
                           fit: BoxFit.cover,
                         ),
                         borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(KdefaultRadius),
-                            topRight: Radius.circular(KdefaultRadius)),
+                            topLeft: Radius.circular(defaultRadius),
+                            topRight: Radius.circular(defaultRadius)),
                       ),
                     ),
                   ),
@@ -61,7 +62,7 @@ class CompanyCard extends StatelessWidget {
                     child: Container(
                       margin: const EdgeInsets.all(5),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: KDefaultPadding),
+                          horizontal: defaultPadding),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -103,7 +104,7 @@ class CompanyCard extends StatelessWidget {
                       Icon(
                         Icons.favorite_border,
                         size: 25,
-                        color: KPrimaryColor,
+                        color: AppColors.primaryColor,
                       ),
                     ],
                   )),

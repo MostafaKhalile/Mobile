@@ -12,7 +12,7 @@ class CategoriesBody extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.all(KdefaultPadding / 2),
+          padding: const EdgeInsets.all(defaultPadding / 2),
           child: BlocBuilder<CategoriesBloc, CategoriesState>(
             builder: (context, state) {
               if (state is CategoriesLoaded) {
@@ -29,7 +29,7 @@ class CategoriesBody extends StatelessWidget {
               return ListView.builder(
                   itemCount: 5,
                   itemBuilder: (ctx, i) {
-                    return ShimmerEffect(
+                    return const ShimmerEffect(
                       child: TitleImageCard(),
                     );
                   });

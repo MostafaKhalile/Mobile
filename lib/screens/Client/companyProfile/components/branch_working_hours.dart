@@ -11,21 +11,21 @@ class BranchWorkingHours extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations _translator = AppLocalizations.of(context);
-    Size _size = MediaQuery.of(context).size;
-    return Container(
+    final AppLocalizations _translator = AppLocalizations.of(context);
+    final Size _size = MediaQuery.of(context).size;
+    return SizedBox(
         width: _size.width,
         child: Card(
             elevation: 10,
             child: Container(
-                padding: EdgeInsets.symmetric(
-                    vertical: KDefaultPadding, horizontal: 5),
+                padding: const EdgeInsets.symmetric(
+                    vertical: defaultPadding, horizontal: 5),
                 child: Wrap(children: [
                   InfoCardHeader(
                     title: _translator.translate("workingHours"),
                     icon: Icons.access_time,
                   ),
-                  WorkingDayHours(
+                  const WorkingDayHours(
                     day: "Saturday",
                     start: "10:00PM",
                     end: "12:00PM",
@@ -47,9 +47,9 @@ class WorkingDayHours extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
+    final ThemeData _theme = Theme.of(context);
     return Container(
-      padding: EdgeInsets.all(KDefaultPadding),
+      padding: const EdgeInsets.all(defaultPadding),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -58,13 +58,13 @@ class WorkingDayHours extends StatelessWidget {
             style: _theme.textTheme.subtitle1
                 .copyWith(fontWeight: FontWeight.bold),
           ),
-          Spacer(),
+          const Spacer(),
           Text(
             start,
             style: _theme.textTheme.subtitle1
                 .copyWith(fontWeight: FontWeight.bold),
           ),
-          Text("\t ــ \t"),
+          const Text("\t ــ \t"),
           Text(
             end,
             style: _theme.textTheme.subtitle1

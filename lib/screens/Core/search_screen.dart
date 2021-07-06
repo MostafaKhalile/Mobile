@@ -203,8 +203,8 @@ class _SearchScreenState extends State<SearchScreen> {
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(KdefaultRadius),
-              topRight: Radius.circular(KdefaultRadius)),
+              topLeft: Radius.circular(defaultRadius),
+              topRight: Radius.circular(defaultRadius)),
         ),
         builder: (context) {
           return Wrap(children: <Widget>[FilterationBody()]);

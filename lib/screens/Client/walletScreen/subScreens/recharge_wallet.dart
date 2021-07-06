@@ -17,8 +17,8 @@ class RechargeWallet extends StatefulWidget {
 }
 
 class _RechargeWalletState extends State<RechargeWallet> {
-  TextEditingController _promoCodeController = TextEditingController();
-  CustomToast _customToast = CustomToast();
+  final TextEditingController _promoCodeController = TextEditingController();
+  final CustomToast _customToast = CustomToast();
   @override
   void initState() {
     BlocProvider.of<WallettransformpromocodeBloc>(context);
@@ -27,8 +27,8 @@ class _RechargeWalletState extends State<RechargeWallet> {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations _translator = AppLocalizations.of(context);
-    ThemeData _theme = Theme.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context);
+    final ThemeData _theme = Theme.of(context);
     // final _currentUser = context.watch<CurrentUserProvider>().currentUser;
     return BlocConsumer<WallettransformpromocodeBloc,
         WallettransformpromocodeState>(
@@ -40,25 +40,24 @@ class _RechargeWalletState extends State<RechargeWallet> {
       builder: (context, state) {
         final walletState = state;
         return Padding(
-            padding: const EdgeInsets.only(top: KdefaultPadding),
+            padding: const EdgeInsets.only(top: defaultPadding),
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5),
+                  padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Text(
                     _translator.translate("recharge_wallet"),
                     style: _theme.textTheme.headline5,
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5),
+                  padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Text(
                     _translator.translate("Enter_the_promo_code"),
                     style: _theme.textTheme.subtitle1,
                   ),
                 ),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       _translator.translate("promocode"),
@@ -71,7 +70,7 @@ class _RechargeWalletState extends State<RechargeWallet> {
                       theme: _theme,
                       hintText: "_",
                     ),
-                    VerticalGap(),
+                    const VerticalGap(),
                     // ignore: deprecated_member_use
                     RaisedButton(
                       onPressed: (walletState
@@ -82,7 +81,7 @@ class _RechargeWalletState extends State<RechargeWallet> {
                               .add(WalletTranseferePromocode(
                                   _promoCodeController.text)),
                       child: (walletState is WallettransformpromocodeLoading)
-                          ? SizedBox(
+                          ? const SizedBox(
                               width: 10,
                               height: 10,
                               child: CircularProgressIndicator(),

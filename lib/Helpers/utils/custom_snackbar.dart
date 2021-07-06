@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 
 class Snackbar {
   void showSnackBar(BuildContext context, String message) {
@@ -35,6 +35,6 @@ class Snackbar {
           ],
         ),
         duration: const Duration(seconds: 5),
-        backgroundColor: KErrorColor));
+        backgroundColor: AppColors.errorColor));
   }
 }

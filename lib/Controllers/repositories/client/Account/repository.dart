@@ -27,7 +27,7 @@ class USerRepo {
     if (userResp == null) {
       return null;
     }
-   
+
     return UserProfile.fromJson(
         jsonDecode(userResp.toString()) as Map<String, dynamic>);
   }
@@ -88,12 +88,11 @@ class USerRepo {
   }
 
   Future<bool> uploadCover(File imageFile) async {
-    final bool hasBeenUploaded =
-        await _apiClient.uploadCover(imageFile) as bool;
+    final bool hasBeenUploaded = await _apiClient.uploadCover(imageFile);
     if (hasBeenUploaded) {
       await getProfileData();
     }
-   
+
     return hasBeenUploaded;
   }
 

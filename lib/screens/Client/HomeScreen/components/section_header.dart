@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 
 class SectionHeader extends StatelessWidget {
@@ -22,7 +22,7 @@ class SectionHeader extends StatelessWidget {
                   Text(
                     AppLocalizations.of(context).translate('viewAll'),
                     style: Theme.of(context).textTheme.subtitle1.copyWith(
-                          color: KPrimaryColor,
+                          color: AppColors.primaryColor,
                         ),
                   ),
                   const SizedBox(
@@ -30,7 +30,7 @@ class SectionHeader extends StatelessWidget {
                   ),
                   const Icon(
                     Icons.arrow_forward,
-                    color: KPrimaryColor,
+                    color: AppColors.primaryColor,
                   )
                 ],
               ))

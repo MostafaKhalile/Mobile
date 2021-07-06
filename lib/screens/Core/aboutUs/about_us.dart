@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:techtime/Helpers/api_urls.dart';
+
 import 'package:techtime/Helpers/app_data.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Helpers/oval_bottom_clipper.dart';
 
 class AboutUsScreen extends StatelessWidget {
@@ -11,26 +12,26 @@ class AboutUsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
+    final Size _size = MediaQuery.of(context).size;
     // ThemeData _theme = Theme.of(context);
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         flexibleSpace: Container(
           height: _size.height * 0.2,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(
                   "assets/images/background.png",
                 ),
                 fit: BoxFit.cover),
-            color: KPrimaryColor,
+            color: AppColors.primaryColor,
           ),
         ),
       ),
-      body: AboutUsBody(),
+      body: const AboutUsBody(),
     );
   }
 }
@@ -42,74 +43,72 @@ class AboutUsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    ThemeData _theme = Theme.of(context);
+    final Size _size = MediaQuery.of(context).size;
+    final ThemeData _theme = Theme.of(context);
     return Column(
       children: [
         Expanded(
-            flex: 1,
             child: ClipPath(
-              clipper: OvalBottomBorderClipper(),
-              child: Container(
-                height: _size.height * 0.2,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                        "assets/images/background.png",
-                      ),
-                      fit: BoxFit.cover),
-                  color: KPrimaryColor,
-                ),
-                child: Center(
-                    child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        "assets/svg/logo.svg",
-                        height: 50,
-                      ),
-                      Text(KAppName,
-                          style: TextStyle(
-                              fontSize: 25,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold)),
-                      Text("V ${AppInfo.version}",
-                          style: _theme.textTheme.caption.copyWith(
-                              color: Colors.black,
-                              letterSpacing: 1.5,
-                              fontWeight: FontWeight.bold))
-                    ],
+          clipper: OvalBottomBorderClipper(),
+          child: Container(
+            height: _size.height * 0.2,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(
+                    "assets/images/background.png",
                   ),
-                )),
+                  fit: BoxFit.cover),
+              color: AppColors.primaryColor,
+            ),
+            child: Center(
+                child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    "assets/svg/logo.svg",
+                    height: 50,
+                  ),
+                  const Text(NetworkConstants.appName,
+                      style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold)),
+                  Text("V ${AppInfo.version}",
+                      style: _theme.textTheme.caption.copyWith(
+                          color: Colors.black,
+                          letterSpacing: 1.5,
+                          fontWeight: FontWeight.bold))
+                ],
               ),
             )),
+          ),
+        )),
         Expanded(
             flex: 3,
-            child: Container(
+            child: SizedBox(
                 width: double.infinity,
                 child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: <Widget>[
-                      AboustSection(
+                      const AboustSection(
                         header: "About Tech Time",
                         paragraph:
                             "Tech Time is a single booking application for everyday needs. The easiest platform to book your services from multiple places in different businesses. Book your services and save your time using technology",
                       ),
-                      AboustSection(
+                      const AboustSection(
                         header: "Our Mission To Fight The Corona Virus !",
                         paragraph:
                             "Get safe from one-click virus infection with our booking Application, We will help you to avoid crowding indoors and maintain your health. #Stay_Safe_Use_Tech Time.",
                       ),
-                      AboustSection(
+                      const AboustSection(
                         header: "For Businesses",
                         paragraph:
                             "List your business on Tech Time and attract more customers online.",
                       ),
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
+                        children: const <Widget>[
                           BusinessOptionTile(
                               icon: Icons.calendar_today_outlined,
                               header: "Online Booking",
@@ -142,10 +141,10 @@ class AboutUsBody extends StatelessWidget {
                                   "Having a trouble using Tech Time? We are here to help you."),
                         ],
                       ),
-                      AboustSection(
+                      const AboustSection(
                         header: "For Customers",
-                        paragraph:
-                            '''• Tech Time covers a wide range of businesses.
+                        paragraph: '''
+                            • Tech Time covers a wide range of businesses.
 • Book an appointment nearby.
 • Explore all the year offers nearby.
 • Get reminded of your upcoming bookings.
@@ -154,7 +153,7 @@ class AboutUsBody extends StatelessWidget {
 • Enjoy the booking journey through our delightful UI/UX.''',
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20),
+                        padding: const EdgeInsets.symmetric(vertical: 20),
                         child: Text(
                           "© 2021 Tech Time All rights reserved. \n Powered by TechTime",
                           textAlign: TextAlign.center,
@@ -183,7 +182,7 @@ class BusinessOptionTile extends StatelessWidget {
   final String body;
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
+    final ThemeData _theme = Theme.of(context);
 
     return Directionality(
       textDirection: TextDirection.ltr,
@@ -191,25 +190,26 @@ class BusinessOptionTile extends StatelessWidget {
         padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width * 0.15, vertical: 15),
         child: ListTile(
-          contentPadding: EdgeInsets.all(0),
+          contentPadding: const EdgeInsets.all(0),
           horizontalTitleGap: 0,
           leading: Icon(
             icon,
             size: 25.0,
-            color: KPrimaryColor,
+            color: AppColors.primaryColor,
           ),
           title: Text(header,
               textDirection: TextDirection.ltr,
               textAlign: TextAlign.left,
               style: _theme.textTheme.caption.copyWith(
-                color: KPrimaryColor,
+                color: AppColors.primaryColor,
                 fontWeight: FontWeight.bold,
               )),
           subtitle: Text(
-            '''$body''',
+            '''
+            $body''',
             textDirection: TextDirection.ltr,
             textAlign: TextAlign.left,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
           dense: true,
         ),
@@ -229,26 +229,26 @@ class AboustSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    ThemeData _theme = Theme.of(context);
+    final Size _size = MediaQuery.of(context).size;
+    final ThemeData _theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.only(top: 30),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             header,
             textDirection: TextDirection.ltr,
             textAlign: TextAlign.left,
             style: _theme.textTheme.subtitle2.copyWith(
-              color: KPrimaryColor,
+              color: AppColors.primaryColor,
               fontWeight: FontWeight.bold,
             ),
           ),
-          Container(
+          SizedBox(
             width: _size.width * 0.8,
             child: Text(
-              '''$paragraph''',
+              '''
+              $paragraph''',
               textDirection: TextDirection.ltr,
               textAlign: TextAlign.justify,
               style: _theme.textTheme.caption.copyWith(color: Colors.white),

@@ -2,9 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/ads_bloc/ads_bloc.dart';
-import 'package:techtime/Helpers/api_urls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Widgets/core/shimmer_effect.dart';
 
 final List<dynamic> imgList = [
@@ -31,7 +32,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
   int _current = 0;
   @override
   void initState() {
-    BlocProvider.of<AdsBloc>(context).add(GetAdsAbove());
+    BlocProvider.of<AdsBloc>(context).add(const GetAdsAbove());
     super.initState();
   }
 
@@ -72,7 +73,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: _current == index
-                                  ? KPrimaryColor
+                                  ? AppColors.primaryColor
                                   : Colors.grey[600]),
                         );
                       },
@@ -100,14 +101,14 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
           child: Stack(children: <Widget>[
             if (ad.image != null)
               Image.network(
-                KAPIURL + (ad.image as String),
+                NetworkConstants.baseUrl + (ad.image as String),
                 fit: BoxFit.fill,
                 width: double.infinity,
                 height: size.height * 0.25,
               )
             else
               Image.asset(
-                KPlaceHolderCover,
+                placeHolderCover,
               ),
             // Positioned(
             //   bottom: 0.0,

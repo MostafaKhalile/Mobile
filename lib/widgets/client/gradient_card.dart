@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 
 class GradientCard extends StatelessWidget {
   final double width;
@@ -18,13 +18,13 @@ class GradientCard extends StatelessWidget {
     return Container(
       height: height,
       width: width,
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [KPrimaryColor, KSecondryColor]),
-          borderRadius: BorderRadius.circular(KDefaultPadding)),
+              colors: [AppColors.primaryColor, AppColors.secondryColor]),
+          borderRadius: BorderRadius.circular(defaultPadding)),
       child: child,
     );
   }

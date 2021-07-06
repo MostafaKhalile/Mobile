@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 
 ThemeData lightTheme = ThemeData.light().copyWith(
     brightness: Brightness.light,
-    primaryColor: KPrimaryColor,
+    primaryColor: AppColors.primaryColor,
     accentColor: Colors.black,
     iconTheme: iconThemeData(),
     tabBarTheme: TabBarTheme(
@@ -14,7 +14,7 @@ ThemeData lightTheme = ThemeData.light().copyWith(
     bottomAppBarColor: Colors.black,
     // ignore: deprecated_member_use
     cursorColor: Colors.black,
-    scaffoldBackgroundColor: KLightScaffoldColor,
+    scaffoldBackgroundColor: AppColors.lightScaffoldColor,
     inputDecorationTheme: inputDecorationTheme(),
     textTheme: textTheme().apply(
       fontFamily: 'cocon',
@@ -28,7 +28,7 @@ ButtonThemeData buttonThemeData() {
     buttonColor: Colors.black,
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),
-        side: const BorderSide(color: KPrimaryColor, width: 2)),
+        side: const BorderSide(color: AppColors.primaryColor, width: 2)),
   );
 }
 
@@ -54,7 +54,7 @@ TextTheme textTheme() {
     subtitle2: TextStyle(color: Colors.black),
     caption: TextStyle(color: Colors.black),
     button: TextStyle(
-        color: KPrimaryColor,
+        color: AppColors.primaryColor,
         fontWeight: FontWeight.bold,
         fontSize: 18,
         wordSpacing: 1.5,

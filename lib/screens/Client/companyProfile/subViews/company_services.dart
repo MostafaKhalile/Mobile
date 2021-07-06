@@ -3,10 +3,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/Providers/current_user_provider.dart';
-import 'package:techtime/Helpers/api_urls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/companyProfile/company_profile.dart';
 import 'package:techtime/Models/client/companyProfile/company_service.dart';
 import 'package:techtime/Models/client_profile.dart';
@@ -42,10 +43,10 @@ class CompanyServicesState extends State<CompanyServices> {
           child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: KdefaultPadding),
+                padding: const EdgeInsets.symmetric(vertical: defaultPadding),
                 child: Column(children: <Widget>[
                   CheckboxGroup(
-                    activeColor: KPrimaryColor,
+                    activeColor: AppColors.primaryColor,
                     checkColor: _theme.primaryColorDark,
                     onSelected: (List selected) => setState(() {
                       _checked = selected as List<String>;
@@ -134,10 +135,10 @@ class ServiceCard extends StatelessWidget {
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             image: (companyService?.image != null)
-                                ? NetworkImage(KAPIURL + companyService.image)
-                                    as ImageProvider
-                                : const AssetImage(KPlaceHolderImage)),
-                        borderRadius: BorderRadius.circular(KdefaultRadius)),
+                                ? NetworkImage(NetworkConstants.baseUrl +
+                                    companyService.image) as ImageProvider
+                                : const AssetImage(placeHolderImage)),
+                        borderRadius: BorderRadius.circular(defaultRadius)),
                   ),
                   title: Column(
                     children: [

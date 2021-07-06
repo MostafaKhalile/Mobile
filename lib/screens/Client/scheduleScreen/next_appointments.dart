@@ -3,7 +3,6 @@ import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Widgets/client/order_card.dart';
 import 'package:techtime/Widgets/core/vertical_gab.dart';
-import 'package:techtime/widgets/appointment_card.dart';
 
 final items = List<String>.generate(6, (i) => "Item ${i + 1}");
 
@@ -15,15 +14,14 @@ class NextAppointments extends StatefulWidget {
 class NextAppointmentsState extends State<NextAppointments> {
   @override
   Widget build(BuildContext context) {
-    AppLocalizations _translator = AppLocalizations.of(context);
-    ThemeData _theme = Theme.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context);
 
     return Scaffold(
       body: ListView.separated(
         itemCount: items.length,
-        padding: EdgeInsets.symmetric(vertical: KdefaultPadding),
-        physics: BouncingScrollPhysics(),
-        separatorBuilder: (_, i) => VerticalGap(),
+        padding: const EdgeInsets.symmetric(vertical: defaultPadding),
+        physics: const BouncingScrollPhysics(),
+        separatorBuilder: (_, i) => const VerticalGap(),
         itemBuilder: (context, index) {
           final item = items[index];
 
@@ -38,7 +36,7 @@ class NextAppointmentsState extends State<NextAppointments> {
                 buildOnDismiss(index, context, item);
               },
               confirmDismiss: (direction) async {
-                return await buildShowDialog(context, _translator);
+                return buildShowDialog(context, _translator);
               },
               // Show a red background as the item is swiped away.
               background: Container(
@@ -50,13 +48,13 @@ class NextAppointmentsState extends State<NextAppointments> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         _translator.translate("cancel"),
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                   ],
                 ),
               ),
-              child: OrderCard(
+              child: const OrderCard(
                 statusCode: 40,
               ));
         },
@@ -88,22 +86,22 @@ class NextAppointmentsState extends State<NextAppointments> {
               children: <Widget>[
                 // ignore: deprecated_member_use
                 RaisedButton(
+                  onPressed: () => Navigator.pop(context, true),
                   child: Text(
                     _translator.translate("cancel"),
                     style: Theme.of(context).textTheme.button,
                   ),
-                  onPressed: () => Navigator.pop(context, true),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 // ignore: deprecated_member_use
                 RaisedButton(
+                  onPressed: () => Navigator.pop(context, false),
                   child: Text(
                     _translator.translate("confirm"),
                     style: Theme.of(context).textTheme.button,
                   ),
-                  onPressed: () => Navigator.pop(context, false),
                 ),
               ],
             ),

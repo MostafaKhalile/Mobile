@@ -5,7 +5,7 @@ import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 class PreventCloseButton extends StatefulWidget {
   final Widget child;
 
-  PreventCloseButton({Key key, this.child}) : super(key: key);
+  const PreventCloseButton({Key key, this.child}) : super(key: key);
 
   @override
   _PreventCloseButtonState createState() => _PreventCloseButtonState();
@@ -17,14 +17,14 @@ class _PreventCloseButtonState extends State<PreventCloseButton> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: WillPopScope(child: widget.child, onWillPop: onWillPop),
+      body: WillPopScope(onWillPop: onWillPop, child: widget.child),
     );
   }
 
   Future<bool> onWillPop() {
-    DateTime now = DateTime.now();
+    final DateTime now = DateTime.now();
     if (currentBackPressTime == null ||
-        now.difference(currentBackPressTime) > Duration(seconds: 5)) {
+        now.difference(currentBackPressTime) > const Duration(seconds: 5)) {
       currentBackPressTime = now;
       Fluttertoast.showToast(
           gravity: ToastGravity.BOTTOM,

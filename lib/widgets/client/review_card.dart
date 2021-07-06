@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
-import 'package:techtime/Helpers/api_urls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/companyData/brancheData/brancheReviews/reviews.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
@@ -56,14 +57,15 @@ class ReviewCard extends StatelessWidget {
                           child: (review != null)
                               ? (review.image != null)
                                   ? Image.network(
-                                      KAPIURL + (review.image as String),
+                                      NetworkConstants.baseUrl +
+                                          (review.image as String),
                                       fit: BoxFit.cover,
                                     )
-                                  : Image.asset(KPlaceHolderImage)
+                                  : Image.asset(placeHolderImage)
                               : Container(),
                         ),
                       ),
-                      const HorizontalGap(width: KDefaultPadding / 2),
+                      const HorizontalGap(width: defaultPadding / 2),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -88,7 +90,7 @@ class ReviewCard extends StatelessWidget {
                           else
                             Container(),
                           const VerticalGap(
-                            height: KDefaultPadding,
+                            height: defaultPadding,
                           ),
                           SizedBox(
                             width: _size.width * 0.4,

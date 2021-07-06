@@ -18,7 +18,7 @@ class SectionHeaderMore extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: const EdgeInsets.only(right: KDefaultPadding),
+          padding: const EdgeInsets.only(right: defaultPadding),
           child: Text(
             header,
             style: _theme.textTheme.subtitle2

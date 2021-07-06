@@ -7,11 +7,10 @@ class ShimmerEffect extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
+    final ThemeData _theme = Theme.of(context);
     return Shimmer.fromColors(
         baseColor: _theme.highlightColor,
         highlightColor: _theme.hoverColor.withOpacity(0.2),
-        direction: ShimmerDirection.ltr,
         child: child);
   }
 }

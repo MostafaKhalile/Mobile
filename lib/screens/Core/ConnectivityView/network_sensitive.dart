@@ -8,7 +8,7 @@ import 'package:techtime/screens/Core/ConnectivityView/connectivity_page.dart';
 class NetworkSensitive extends StatelessWidget {
   final Widget child;
 
-  NetworkSensitive({
+  const NetworkSensitive({
     this.child,
   });
 
@@ -21,7 +21,7 @@ class NetworkSensitive extends StatelessWidget {
           if (state is InternetDisconnected) {
             print("Dialog page Change state");
             Timer(
-                Duration(milliseconds: 900),
+                const Duration(milliseconds: 900),
                 () => showDialog(
                     barrierDismissible: false,
                     context: context,

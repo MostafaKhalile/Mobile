@@ -13,7 +13,7 @@ class CompanyPlaceholder extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Company App is Under Development Right Now"),
+            const Text("Company App is Under Development Right Now"),
             TextButton(
                 onPressed: () async {
                   isLogedOut = await AuthRepo().logout();

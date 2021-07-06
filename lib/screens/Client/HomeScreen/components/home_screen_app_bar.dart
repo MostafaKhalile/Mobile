@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 
 import 'package:techtime/Helpers/themes/dark_theme.dart';
@@ -24,10 +24,11 @@ class ClientHomeScreenAppBar extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .headline5
-              .copyWith(color: KPrimaryColor)),
+              .copyWith(color: AppColors.primaryColor)),
       bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(60.0),
           child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -41,15 +42,15 @@ class ClientHomeScreenAppBar extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .subtitle2
-                            .copyWith(color: KDarkGreyColor),
+                            .copyWith(color: AppColors.darkGreyColor),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Row(
                         children: [
                           Row(children: [
-                            Icon(
+                            const Icon(
                               Icons.location_on_outlined,
                             ),
                             Text(AppLocalizations.of(context).translate('Alex'),
@@ -61,23 +62,21 @@ class ClientHomeScreenAppBar extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Icon(Icons.brightness_5),
+                      const Icon(Icons.brightness_5),
                       Switch(
-                        activeColor: KPrimaryColor,
-                        // trackColor: KPrimaryColor,
-                        value:
-                            appTheme.currentTheme == darkTheme ? true : false,
+                        activeColor: AppColors.primaryColor,
+                        // trackColor: AppColors.primaryColor,
+                        value: appTheme.currentTheme == darkTheme || false,
                         onChanged: (value) => appTheme.toggleTheme(),
                       ),
-                      Icon(Icons.brightness_3_sharp)
+                      const Icon(Icons.brightness_3_sharp)
                     ],
                   )
                 ],
-              )),
-          preferredSize: Size.fromHeight(60.0)),
+              ))),
       actions: [
         Padding(
-          padding: const EdgeInsets.all(KDefaultPadding / 8),
+          padding: const EdgeInsets.all(defaultPadding / 8),
           child: IconButton(
             icon: Icon(
               Icons.notifications_none_outlined,
@@ -88,7 +87,7 @@ class ClientHomeScreenAppBar extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(KDefaultPadding / 8),
+          padding: const EdgeInsets.all(defaultPadding / 8),
           child: IconButton(
             icon: SvgPicture.asset(
               "assets/svg/calendar.svg",
@@ -99,7 +98,7 @@ class ClientHomeScreenAppBar extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(KDefaultPadding / 8),
+          padding: const EdgeInsets.all(defaultPadding / 8),
           child: IconButton(
             icon: SvgPicture.asset(
               "assets/svg/favorites.svg",

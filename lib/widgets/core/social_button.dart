@@ -26,7 +26,7 @@ class SocialButton extends StatelessWidget {
           ],
           borderRadius: const BorderRadius.all(Radius.circular(50))),
       child: Padding(
-          padding: const EdgeInsets.all(KdefaultPadding / 2), child: child),
+          padding: const EdgeInsets.all(defaultPadding / 2), child: child),
     );
   }
 }

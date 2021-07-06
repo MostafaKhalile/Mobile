@@ -13,14 +13,14 @@ class EmployeeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomCircleAvatar(
+        const CustomCircleAvatar(
           height: 60,
           width: 60,
           image: null,
         ),
-        VerticalGap(height: KDefaultPadding / 2),
-        Text("name"),
-        VerticalGap(height: KDefaultPadding / 2),
+        const VerticalGap(height: defaultPadding / 2),
+        const Text("name"),
+        const VerticalGap(height: defaultPadding / 2),
         SmoothStarRating(
           isReadOnly: true,
           size: 14,

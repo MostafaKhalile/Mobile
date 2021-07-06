@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
 import 'package:techtime/Controllers/Providers/current_user_provider.dart';
-import 'package:techtime/Helpers/api_urls.dart';
 
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 
 class LanguageSelectionPage extends StatefulWidget {
   static const String routeName = '/languageSelection';
@@ -44,7 +44,7 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
                 child: Column(
                   children: [
                     SvgPicture.asset("assets/svg/logo.svg"),
-                    const Text(KAppName,
+                    const Text(NetworkConstants.appName,
                         style: TextStyle(
                             fontSize: 37,
                             color: Colors.black,

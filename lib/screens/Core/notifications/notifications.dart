@@ -81,7 +81,7 @@ class _NotificationsState extends State<Notifications> {
               //       height: 5,
               //       child: LinearProgressIndicator(
               //         valueColor: AlwaysStoppedAnimation<Color>(
-              //           KDarkGreyColor,
+              //           AppColors.darkGreyColor,
               //         ),
               //         backgroundColor: Colors.black,
               //       )),
@@ -90,7 +90,7 @@ class _NotificationsState extends State<Notifications> {
                 child: ListView.builder(
                     itemCount: widget.notifications.notReadNotification.length +
                         widget.notifications.readNotification.length,
-                    padding: const EdgeInsets.all(KDefaultPadding / 2),
+                    padding: const EdgeInsets.all(defaultPadding / 2),
                     itemBuilder: (context, index) {
                       final List<UserNotification> notifications =
                           widget.notifications.notReadNotification +

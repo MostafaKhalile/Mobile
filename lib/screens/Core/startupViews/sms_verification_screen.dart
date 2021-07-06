@@ -11,23 +11,23 @@ class SmsVerification extends StatefulWidget {
 class _SmsVerificationState extends State<SmsVerification> {
   bool _onEditing = true;
   String _code;
-  Snackbar _snackBar = Snackbar();
+  final Snackbar _snackBar = Snackbar();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
+        title: const Center(
           child: Text(
             'SMS verify code',
             style: TextStyle(color: Colors.black),
           ),
         ),
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Center(
               child: Text(
@@ -40,11 +40,9 @@ class _SmsVerificationState extends State<SmsVerification> {
               builder: (context) => VerificationCode(
                     textStyle: TextStyle(
                         fontSize: 20.0, color: Theme.of(context).primaryColor),
-                    keyboardType: TextInputType.number,
                     underlineColor: Theme.of(context).primaryColor,
-                    length: 4,
-                    clearAll: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    clearAll: const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Text(
                         'clear all',
                         style: TextStyle(
@@ -74,10 +72,10 @@ class _SmsVerificationState extends State<SmsVerification> {
                     },
                   )),
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Center(
               child: _onEditing
-                  ? Text('Please enter full code')
+                  ? const Text('Please enter full code')
                   : Text('Your code: $_code'),
             ),
           )

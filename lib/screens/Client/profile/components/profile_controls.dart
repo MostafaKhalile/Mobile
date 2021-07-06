@@ -34,7 +34,7 @@ class _ProfileControlsState extends State<ProfileControls> {
     return Expanded(
       flex: 4,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: KDefaultPadding),
+        padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
         width: double.infinity,
         child: SingleChildScrollView(
           child: Column(
@@ -85,8 +85,8 @@ class _ProfileControlsState extends State<ProfileControls> {
               //       .translate("darkMode")
               //       .toUpperCase(),
               //   trailing: Switch(
-              //     activeColor: KPrimaryColor,
-              //     // trackColor: KPrimaryColor,
+              //     activeColor: AppColors.primaryColor,
+              //     // trackColor: AppColors.primaryColor,
               //     value: appTheme.currentTheme == darkTheme ? true : false,
               //     onChanged: (value) =>
               //         Provider.of<ThemeModel>(context, listen: false)
@@ -286,7 +286,7 @@ class ProfileListTile extends StatelessWidget {
               ),
         ),
         const Divider(
-          height: KDefaultPadding / 2,
+          height: defaultPadding / 2,
           thickness: 3,
           indent: 10,
           endIndent: 10,

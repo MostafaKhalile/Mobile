@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/api_urls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 
 class CustomCircleAvatar extends StatelessWidget {
   final double width;
@@ -21,14 +22,15 @@ class CustomCircleAvatar extends StatelessWidget {
     return Container(
       width: width ?? 80.0,
       height: height ?? 80.0,
-      margin: const EdgeInsets.all(KdefaultPadding / 4),
+      margin: const EdgeInsets.all(defaultPadding / 4),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: _theme.scaffoldBackgroundColor,
-        border: Border.all(width: 2, color: KPrimaryColor),
+        border: Border.all(width: 2, color: AppColors.primaryColor),
         image: DecorationImage(
             image: image != null
-                ? NetworkImage(KAPIURL + image) as ImageProvider
+                ? NetworkImage(NetworkConstants.baseUrl + image)
+                    as ImageProvider
                 : const AssetImage("assets/images/default_logo.png"),
             fit: BoxFit.cover),
         boxShadow: [

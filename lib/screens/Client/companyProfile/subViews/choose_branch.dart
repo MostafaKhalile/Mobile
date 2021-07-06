@@ -18,14 +18,14 @@ class ChooseBranch extends StatelessWidget {
           excludeHeaderSemantics: true,
         ),
         body: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Column(children: <Widget>[
               Column(
                 children: [
                   ListView.builder(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                      physics: BouncingScrollPhysics(),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 20),
+                      physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: 8,
                       itemBuilder: (_, i) => BranchCard(
@@ -33,7 +33,7 @@ class ChooseBranch extends StatelessWidget {
                             title: "اسم الفرع",
                             address: "شارع 33, منطقة ميامي, الإسكندرية",
                             rating: 4.8,
-                            image: KPlaceHolderImage,
+                            image: placeHolderImage,
                             onPressed: () => Navigator.pushNamed(
                                 context, BranchProfile.routeName),
                           )),

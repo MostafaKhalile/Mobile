@@ -84,7 +84,7 @@ class _OrderCardState extends State<OrderCard> {
       onTap: () {},
       child: Card(
         elevation: 1.0,
-        margin: const EdgeInsets.symmetric(horizontal: KdefaultPadding / 2),
+        margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
         shape: RoundedRectangleBorder(
           side: const BorderSide(color: Colors.white70),
           borderRadius: BorderRadius.circular(10),
@@ -129,8 +129,7 @@ class _OrderCardState extends State<OrderCard> {
               ),
               Container(
                 width: double.infinity,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: KdefaultPadding),
+                padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
                 child: Row(
                   children: [
                     Expanded(
@@ -149,9 +148,9 @@ class _OrderCardState extends State<OrderCard> {
                                   // margin: EdgeInsets.all(5),
                                   decoration: BoxDecoration(
                                       image: const DecorationImage(
-                                          image: AssetImage(KPlaceHolderImage)),
-                                      borderRadius: BorderRadius.circular(
-                                          KdefaultRadius)),
+                                          image: AssetImage(placeHolderImage)),
+                                      borderRadius:
+                                          BorderRadius.circular(defaultRadius)),
                                 ),
                                 const SizedBox(
                                   width: 10,

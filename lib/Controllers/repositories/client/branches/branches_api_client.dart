@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
-import 'package:techtime/Helpers/api_urls.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/companyData/brancheData/brancheOffers/branche_offers.dart';
@@ -14,7 +14,8 @@ class BranchesApiClient {
   AuthRepo authRepo = AuthRepo();
 
   Future<BrancheProfile> getBrancheProfile(int id) async {
-    final String path = KAPIURL + NetworkConstants.ViewBranche + id.toString();
+    final String path =
+        NetworkConstants.baseUrl + NetworkConstants.viewBranche + id.toString();
     final response = await http.post(Uri.parse(path), headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Accept": "application/json",
@@ -30,8 +31,9 @@ class BranchesApiClient {
   }
 
   Future<bool> brancheAddRemoveFavorite(int id) async {
-    final String path =
-        KAPIURL + NetworkConstants.BrancheAddRemoveFavorite + id.toString();
+    final String path = NetworkConstants.baseUrl +
+        NetworkConstants.brancheAddRemoveFavorite +
+        id.toString();
     final response = await http.post(Uri.parse(path), headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Accept": "application/json",
@@ -48,8 +50,9 @@ class BranchesApiClient {
   }
 
   Future<List<CompanyService>> getBrancheServices(int id) async {
-    final String path =
-        KAPIURL + NetworkConstants.ViewBranchServices + id.toString();
+    final String path = NetworkConstants.baseUrl +
+        NetworkConstants.viewBranchServices +
+        id.toString();
     final response = await http.post(Uri.parse(path), headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Accept": "application/json",
@@ -67,8 +70,9 @@ class BranchesApiClient {
   }
 
   Future<List<CompanyEmployee>> getBrancheEmployees(int id) async {
-    final String path =
-        KAPIURL + NetworkConstants.ViewBranchEmployees + id.toString();
+    final String path = NetworkConstants.baseUrl +
+        NetworkConstants.viewBranchemployees +
+        id.toString();
     final response = await http.post(Uri.parse(path), headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Accept": "application/json",
@@ -86,13 +90,13 @@ class BranchesApiClient {
   }
 
   Future<BrancheReviews> getBrancheReviews(int id) async {
-    final String path =
-        KAPIURL + NetworkConstants.ViewBranchReviews + id.toString();
+    final String path = NetworkConstants.baseUrl +
+        NetworkConstants.viewBranchReviews +
+        id.toString();
     final response = await http.post(Uri.parse(path), headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Accept": "application/json",
     });
-
 
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
@@ -104,8 +108,9 @@ class BranchesApiClient {
   }
 
   Future<List<BrancheOffer>> getBrancheOffers(int id) async {
-    final String path =
-        KAPIURL + NetworkConstants.ViewBranchOffers + id.toString();
+    final String path = NetworkConstants.baseUrl +
+        NetworkConstants.viewBranchOffers +
+        id.toString();
     final response = await http.post(Uri.parse(path), headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Accept": "application/json",
@@ -123,8 +128,9 @@ class BranchesApiClient {
   }
 
   Future<List<BrancheWorkingDay>> getBrancheWorkingDays(int id) async {
-    final String path =
-        KAPIURL + NetworkConstants.ViewBranchWorkingDays + id.toString();
+    final String path = NetworkConstants.baseUrl +
+        NetworkConstants.viewBranchWorkingDays +
+        id.toString();
     final response = await http.post(Uri.parse(path), headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Accept": "application/json",

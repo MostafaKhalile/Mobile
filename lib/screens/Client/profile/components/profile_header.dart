@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/Providers/current_user_provider.dart';
-import 'package:techtime/Helpers/api_urls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client_profile.dart';
 import 'package:techtime/widgets/client/custom_circle_avatar.dart';
 
@@ -29,10 +30,10 @@ class HeaderProfileAvatar extends StatelessWidget {
               width: 100,
             ),
             const SizedBox(
-              height: KdefaultPadding,
+              height: defaultPadding,
             ),
             Text(
-              _currentUser?.firstName ?? KAppName,
+              _currentUser?.firstName ?? NetworkConstants.appName,
               style: Theme.of(context).textTheme.headline6,
             )
           ],

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:techtime/Helpers/api_urls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/company.dart';
 import 'package:techtime/screens/Client/companyProfile/company_profile.dart';
 import 'package:techtime/widgets/client/custom_circle_avatar.dart';
@@ -22,11 +23,11 @@ class LeastCompanyCard extends StatelessWidget {
       child: Container(
         width: size.width * 0.85,
         height: size.height * 0.35,
-        margin: const EdgeInsets.symmetric(horizontal: KdefaultPadding / 4),
+        margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 4),
         decoration: BoxDecoration(
             image: buildCompanyCover(),
             borderRadius: const BorderRadius.all(
-              Radius.circular(KdefaultRadius),
+              Radius.circular(defaultRadius),
             ),
             boxShadow: const <BoxShadow>[
               BoxShadow(
@@ -41,7 +42,7 @@ class LeastCompanyCard extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.white, width: 2.0),
                 borderRadius: const BorderRadius.all(
-                  Radius.circular(KdefaultRadius),
+                  Radius.circular(defaultRadius),
                 ),
               ),
             ),
@@ -50,13 +51,13 @@ class LeastCompanyCard extends StatelessWidget {
                 child: Container(
                   height: 110,
                   width: size.width * 0.85,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: KdefaultPadding / 4),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: defaultPadding / 4),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: _theme.accentColor, width: 0.2),
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(KdefaultRadius))),
+                      borderRadius: const BorderRadius.all(
+                          Radius.circular(defaultRadius))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -80,16 +81,22 @@ class LeastCompanyCard extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            if (company != null) Text(
-                                    company.categoryEn,
-                                    style: _theme.textTheme.caption
-                                        .copyWith(color: Colors.black),
-                                  ) else Container(),
-                            if (company != null) Text(
-                                    "${company.totalServices} Service",
-                                    style: _theme.textTheme.caption
-                                        .copyWith(color: Colors.black),
-                                  ) else Container()
+                            if (company != null)
+                              Text(
+                                company.categoryEn,
+                                style: _theme.textTheme.caption
+                                    .copyWith(color: Colors.black),
+                              )
+                            else
+                              Container(),
+                            if (company != null)
+                              Text(
+                                "${company.totalServices} Service",
+                                style: _theme.textTheme.caption
+                                    .copyWith(color: Colors.black),
+                              )
+                            else
+                              Container()
                           ],
                         ),
                       )
@@ -106,9 +113,9 @@ class LeastCompanyCard extends StatelessWidget {
     return DecorationImage(
       image: company?.coverImage != null
           ? NetworkImage(
-              KAPIURL + company?.coverImage,
+              NetworkConstants.baseUrl + company?.coverImage,
             ) as ImageProvider
-          : const AssetImage(KPlaceHolderCover),
+          : const AssetImage(placeHolderCover),
       fit: BoxFit.fill,
     );
   }

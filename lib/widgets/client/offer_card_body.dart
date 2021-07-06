@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/api_urls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 
 class OfferCardBody extends StatelessWidget {
   final String image;
@@ -41,9 +42,12 @@ class OfferCardBody extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        if (image != null) Image.network(KAPIURL + image) else Image.asset(
-                KPlaceHolderImage,
-              )
+        if (image != null)
+          Image.network(NetworkConstants.baseUrl + image)
+        else
+          Image.asset(
+            placeHolderImage,
+          )
       ],
     );
   }

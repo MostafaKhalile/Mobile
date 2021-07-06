@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 
 class BranchCard extends StatelessWidget {
   final String title;
@@ -30,13 +30,15 @@ class BranchCard extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width * 0.75,
       decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(KDefaultPadding)),
+          BoxDecoration(borderRadius: BorderRadius.circular(defaultPadding)),
       child: Card(
-        margin: const EdgeInsets.only(bottom: KDefaultPadding),
+        margin: const EdgeInsets.only(bottom: defaultPadding),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
           side: BorderSide(
-              color: isSelected ?? false ? KPrimaryColor : Colors.transparent,
+              color: isSelected ?? false
+                  ? AppColors.primaryColor
+                  : Colors.transparent,
               width: 2.0),
         ),
         child: InkWell(
@@ -57,7 +59,7 @@ class BranchCard extends StatelessWidget {
               Expanded(
                   flex: 5,
                   child: Container(
-                    padding: const EdgeInsets.all(KDefaultPadding / 2),
+                    padding: const EdgeInsets.all(defaultPadding / 2),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,

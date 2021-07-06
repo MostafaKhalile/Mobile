@@ -26,10 +26,10 @@ class _CategoryCompaniesScreenState extends State<CategoryCompaniesScreen> {
     super.initState();
   }
 
-  Snackbar _snackbar = Snackbar();
+  final Snackbar _snackbar = Snackbar();
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
+    final ThemeData _theme = Theme.of(context);
     return Scaffold(
       appBar: buildAppBar(context),
       body: BlocConsumer<CompanieslistBloc, CompanieslistState>(
@@ -45,14 +45,14 @@ class _CategoryCompaniesScreenState extends State<CategoryCompaniesScreen> {
             } else {
               return Center(
                 child: SvgPicture.asset(
-                  KComingSoonIcon,
+                  comingSoonIcon,
                   height: 150,
                   color: _theme.accentColor,
                 ),
               );
             }
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
             // return ShimmerEffect(
@@ -85,9 +85,9 @@ class _CategoryCompaniesScreenState extends State<CategoryCompaniesScreen> {
     return AppBar(
       title: Text(
         widget.category.categoryEn,
-        style: TextStyle(color: Colors.black),
+        style: const TextStyle(color: Colors.black),
       ),
-      iconTheme: IconThemeData(color: Colors.black),
+      iconTheme: const IconThemeData(color: Colors.black),
       excludeHeaderSemantics: true,
     );
   }

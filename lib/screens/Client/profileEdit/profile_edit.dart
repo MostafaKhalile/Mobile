@@ -4,13 +4,12 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_mobile_bloc/editmobile_bloc.dart';
 import 'package:techtime/Controllers/Providers/current_user_provider.dart';
-import 'package:techtime/Controllers/Repositories/client/Account/repository.dart';
 import 'package:techtime/Controllers/blocs/client/profile_edit_blocs/edit_email_bloc/editemailaddress_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/profile_edit_blocs/edit_first_name_bloc/editfirstname_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/profile_edit_blocs/edit_second_name_bloc/editsecondname_bloc.dart';
 
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/utils/custom_dialog.dart';
 import 'package:techtime/Helpers/utils/custom_toast.dart';
@@ -92,7 +91,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                                     if (state is EditFirstNameLoading) {
                                       return const Padding(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: KdefaultPadding),
+                                            horizontal: defaultPadding),
                                         child: SizedBox(
                                           height: 10,
                                           width: 10,
@@ -126,7 +125,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                                     if (state is EditLastNameLoading) {
                                       return const Padding(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: KdefaultPadding),
+                                            horizontal: defaultPadding),
                                         child: SizedBox(
                                           height: 10,
                                           width: 10,
@@ -159,7 +158,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                                     if (state is EditEmailAddressLoading) {
                                       return const Padding(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: KdefaultPadding),
+                                            horizontal: defaultPadding),
                                         child: SizedBox(
                                           height: 10,
                                           width: 10,
@@ -192,7 +191,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                                     if (state is EditMobileLoading) {
                                       return const Padding(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: KdefaultPadding),
+                                            horizontal: defaultPadding),
                                         child: SizedBox(
                                           height: 10,
                                           width: 10,
@@ -239,7 +238,7 @@ class _ProfileEditState extends State<ProfileEdit> {
           children: [
             const Icon(
               Icons.error_outline,
-              color: KErrorColor,
+              color: AppColors.errorColor,
               size: 30,
             ),
             Text(

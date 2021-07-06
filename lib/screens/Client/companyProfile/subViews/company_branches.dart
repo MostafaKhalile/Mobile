@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/api_urls.dart';
+import 'package:techtime/Helpers/network_constants.dart';
+
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
 import 'package:techtime/widgets/client/branch_card.dart';
 
@@ -28,7 +29,7 @@ class CompanyBranchesScreen extends StatelessWidget {
               title: brancheData.brancheName,
               address: brancheData.branchAddressAR,
               rating: 4.8,
-              image: KAPIURL + brancheData.image,
+              image: NetworkConstants.baseUrl + brancheData.image,
               onPressed: () => Navigator.pushNamed(
                   context, BranchProfile.routeName,
                   arguments: companyBranches[i]),

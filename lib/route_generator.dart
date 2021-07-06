@@ -5,7 +5,6 @@ import 'package:techtime/Models/client/category.dart';
 import 'package:techtime/Models/client/company.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
 import 'package:techtime/Models/notifications/all_notifications.dart';
-import 'package:techtime/Models/notifications/user_notification.dart';
 import 'package:techtime/Screens/Client/booking/bookingTable/table_reservation.dart';
 import 'package:techtime/Screens/Client/booking/orderFirstStep/order_first_step.dart';
 import 'package:techtime/Screens/Core/aboutUs/about_us.dart';

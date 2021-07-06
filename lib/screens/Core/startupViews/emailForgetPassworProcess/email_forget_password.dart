@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/validation.dart';
 import 'package:techtime/screens/Core/startupViews/emailForgetPassworProcess/email_confirm_code.dart';
@@ -15,20 +15,21 @@ class EmailForgetPassword extends StatefulWidget {
 }
 
 class _EmailForgetPasswordState extends State<EmailForgetPassword> {
-  Validator _validator = Validator();
+  final Validator _validator = Validator();
 
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final _emailController = TextEditingController();
 
+  @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    AppLocalizations _translator = AppLocalizations.of(context);
+    final Size _size = MediaQuery.of(context).size;
+    final AppLocalizations _translator = AppLocalizations.of(context);
 
-    ThemeData _theme = Theme.of(context);
+    final ThemeData _theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         title: Text(
           _translator.translate("forgotPassword"),
           style: Theme.of(context)
@@ -48,23 +49,23 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                 child: Column(
                   children: [
                     Padding(
-                        padding: EdgeInsets.only(top: KdefaultPadding * 2),
+                        padding: const EdgeInsets.only(top: defaultPadding * 2),
                         child: Text(
                           _translator.translate("forgotPassword"),
                           style: _theme.textTheme.headline5
                               .copyWith(fontWeight: FontWeight.bold),
                         )),
-                    VerticalGap(),
-                    SvgPicture.asset(KContactUsIcon),
+                    const VerticalGap(),
+                    SvgPicture.asset(contactUsIcon),
                     // VerticalGap(),
                     Padding(
-                      padding: const EdgeInsets.all(KdefaultPadding),
+                      padding: const EdgeInsets.all(defaultPadding),
                       child: Text(
                         _translator.translate("enter_your_email"),
                         style: _theme.textTheme.subtitle2,
                       ),
                     ),
-                    Container(
+                    SizedBox(
                         width: _size.width * .7,
                         child: TextFormField(
                           controller: _emailController,
@@ -72,21 +73,21 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                           onSaved: (newValue) =>
                               _emailController.text = newValue,
                           validator: (data) {
-                            String error =
+                            final String error =
                                 _validator.validateEmail(context, data);
                             return error;
                           },
                           style: _theme.textTheme.bodyText1
-                              .copyWith(color: KDarkGreyColor),
+                              .copyWith(color: AppColors.darkGreyColor),
                           decoration: InputDecoration(
                               fillColor: Colors.white,
                               filled: true,
                               hintText:
                                   _translator.translate("enter_your_email"),
                               hintStyle: _theme.textTheme.caption
-                                  .copyWith(color: KDarkGreyColor),
-                              contentPadding:
-                                  EdgeInsets.only(bottom: 5, right: 8, left: 8),
+                                  .copyWith(color: AppColors.darkGreyColor),
+                              contentPadding: const EdgeInsets.only(
+                                  bottom: 5, right: 8, left: 8),
                               border: InputBorder.none,
                               errorBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,
@@ -94,8 +95,8 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                         )),
 
                     Padding(
-                      padding: EdgeInsets.only(top: KdefaultPadding),
-                      child: Container(
+                      padding: const EdgeInsets.only(top: defaultPadding),
+                      child: SizedBox(
                         width: 170,
                         // ignore: deprecated_member_use
                         child: RaisedButton(
@@ -107,7 +108,7 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                                     arguments: _emailController.text);
                               }
                             },
-                            color: KPrimaryColor,
+                            color: AppColors.primaryColor,
                             child: Text(
                               _translator.translate("confirm"),
                               style: _theme.textTheme.button.copyWith(
@@ -116,8 +117,8 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: KdefaultPadding),
-                      child: Container(
+                      padding: const EdgeInsets.only(top: defaultPadding),
+                      child: SizedBox(
                         width: 170,
                         // ignore: deprecated_member_use
                         child: RaisedButton(

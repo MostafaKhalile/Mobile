@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
-import 'package:techtime/Helpers/api_urls.dart';
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
 import 'package:techtime/Models/client/wallet/wallet_points_to_price.dart';
@@ -21,7 +20,8 @@ class AccountApiClient {
     @required this.prefs,
   }) : assert(prefs != null);
   Future getProfileData() async {
-    final String _path = KAPIURL + NetworkConstants.userProfileAPI;
+    const String _path =
+        NetworkConstants.baseUrl + NetworkConstants.userProfileAPI;
 
     try {
       final resp = await http.post(Uri.parse(_path),
@@ -42,7 +42,8 @@ class AccountApiClient {
   }
 
   Future<bool> editFirstName(String name) async {
-    final String _path = KAPIURL + NetworkConstants.editFirstName;
+    final String _path =
+        NetworkConstants.baseUrl + NetworkConstants.editFirstName;
 
     try {
       final resp = await http.post(Uri.parse(_path), body: {
@@ -64,7 +65,8 @@ class AccountApiClient {
   }
 
   Future<bool> editSecondName(String name) async {
-    final String _path = KAPIURL + NetworkConstants.editLastName;
+    final String _path =
+        NetworkConstants.baseUrl + NetworkConstants.editLastName;
 
     try {
       final resp = await http.post(Uri.parse(_path), body: {
@@ -86,7 +88,8 @@ class AccountApiClient {
   }
 
   Future<bool> editEmailAddress(String email) async {
-    final String _path = KAPIURL + NetworkConstants.editEmailAddress;
+    final String _path =
+        NetworkConstants.baseUrl + NetworkConstants.editEmailAddress;
 
     try {
       final resp = await http.post(Uri.parse(_path),
@@ -105,7 +108,7 @@ class AccountApiClient {
   }
 
   Future<bool> editMobile(String mobile) async {
-    final String _path = KAPIURL + NetworkConstants.editMobile;
+    final String _path = NetworkConstants.baseUrl + NetworkConstants.editMobile;
 
     try {
       final resp = await http.post(Uri.parse(_path), body: {
@@ -127,7 +130,8 @@ class AccountApiClient {
   }
 
   Future<bool> editPassword(Map<String, String> body) async {
-    final String _path = KAPIURL + NetworkConstants.editPassword;
+    final String _path =
+        NetworkConstants.baseUrl + NetworkConstants.editPassword;
 
     try {
       final resp = await http.post(Uri.parse(_path), body: {
@@ -158,7 +162,8 @@ class AccountApiClient {
         http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
     // get file length
     final length = await imageFile.length();
-    final String _path = KAPIURL + NetworkConstants.uploadProfilePicture;
+    final String _path =
+        NetworkConstants.baseUrl + NetworkConstants.uploadProfilePicture;
 
     // string to uri
     final uri = Uri.parse(_path);
@@ -178,6 +183,7 @@ class AccountApiClient {
     final response = await request.send();
 
     // listen for response
+    // ignore: void_checks
     response.stream.transform(utf8.decoder).listen((value) {
       if (json.decode(value)['status'] == 201) {
         hasBeenUploaded = true;
@@ -197,7 +203,8 @@ class AccountApiClient {
         http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
     // get file length
     final length = await imageFile.length();
-    final String _path = KAPIURL + NetworkConstants.uploadCoverPicture;
+    final String _path =
+        NetworkConstants.baseUrl + NetworkConstants.uploadCoverPicture;
 
     // string to uri
     final uri = Uri.parse(_path);
@@ -222,7 +229,8 @@ class AccountApiClient {
   }
 
   Future<WalletTotalData> getWalletTotalData() async {
-    final String _path = KAPIURL + NetworkConstants.walletTotal;
+    final String _path =
+        NetworkConstants.baseUrl + NetworkConstants.walletTotal;
     try {
       final resp = await http.post(Uri.parse(_path),
           headers: {"Authorization": "Token $currentToken"},
@@ -239,7 +247,8 @@ class AccountApiClient {
   }
 
   Future<WalletPointsToPrice> walletPointsToPrice(String points) async {
-    final String _path = KAPIURL + NetworkConstants.walletPointsToPrice;
+    final String _path =
+        NetworkConstants.baseUrl + NetworkConstants.walletPointsToPrice;
     try {
       final resp = await http.post(Uri.parse(_path), headers: {
         "Authorization": "Token $currentToken"
@@ -259,8 +268,8 @@ class AccountApiClient {
   }
 
   Future walletTransformPoints(String points) async {
-    final String _path =
-        KAPIURL + NetworkConstants.walletTransformPointsToPrice;
+    final String _path = NetworkConstants.baseUrl +
+        NetworkConstants.walletTransformPointsToPrice;
     try {
       final resp = await http.post(Uri.parse(_path), headers: {
         "Authorization": "Token $currentToken"
@@ -279,7 +288,8 @@ class AccountApiClient {
 
   Future<Map<String, dynamic>> walletTransformPromocode(
       String promocode) async {
-    final String _path = KAPIURL + NetworkConstants.walletTransformPromocode;
+    final String _path =
+        NetworkConstants.baseUrl + NetworkConstants.walletTransformPromocode;
     try {
       final resp = await http.post(Uri.parse(_path), headers: {
         "Authorization": "Token $currentToken"

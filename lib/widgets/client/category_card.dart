@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/api_urls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/category.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -15,7 +16,7 @@ class CategoryCard extends StatelessWidget {
       onTap: () => Navigator.pushNamed(context, "/CompaniesListPage",
           arguments: category),
       child: SizedBox(
-        // margin: EdgeInsets.symmetric(horizontal: KdefaultPadding / 4),
+        // margin: EdgeInsets.symmetric(horizontal: defaultPadding / 4),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -23,12 +24,12 @@ class CategoryCard extends StatelessWidget {
                 flex: 3,
                 child: Container(
                   margin: const EdgeInsets.symmetric(
-                      horizontal: KdefaultPadding / 4),
+                      horizontal: defaultPadding / 4),
                   padding: const EdgeInsets.all(2),
                   width: width ?? 150,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      border: Border.all(color: KPrimaryColor),
+                      border: Border.all(color: AppColors.primaryColor),
                       boxShadow: [
                         BoxShadow(
                           color: Theme.of(context).shadowColor.withOpacity(0.1),
@@ -39,12 +40,13 @@ class CategoryCard extends StatelessWidget {
                         ),
                       ],
                       borderRadius: const BorderRadius.all(
-                          Radius.circular(KdefaultRadius)),
+                          Radius.circular(defaultRadius)),
                       image: DecorationImage(
                           image: (category?.image != null)
-                              ? NetworkImage(KAPIURL + category.image)
+                              ? NetworkImage(
+                                      NetworkConstants.baseUrl + category.image)
                                   as ImageProvider
-                              : const AssetImage(KPlaceHolderCover),
+                              : const AssetImage(placeHolderCover),
                           // alignment: Alignment.center,
                           fit: BoxFit.fill)),
                 )),

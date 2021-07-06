@@ -6,10 +6,11 @@ import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheReviewsBlo
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheServicesBloc/brancheservices_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheProfileBloc/branche_profile_bloc.dart';
 import 'package:techtime/Controllers/Repositories/client/branches/branches_repository.dart';
-import 'package:techtime/Helpers/api_urls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/companyData/brancheData/brancheOffers/branche_offers.dart';
 import 'package:techtime/Models/client/companyData/brancheData/brancheProfile/branche_images.dart';
 import 'package:techtime/Models/client/companyData/brancheData/brancheReviews/branche_reviews.dart';
@@ -137,7 +138,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                     children: [
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: KDefaultPadding),
+                            horizontal: defaultPadding),
                         child: Column(
                           children: [
                             //Row of Branch Name and Rating
@@ -159,7 +160,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                                         horizontal: 10),
                                     decoration: const BoxDecoration(
                                         borderRadius: BorderRadius.all(
-                                      Radius.circular(KDefaultPadding),
+                                      Radius.circular(defaultPadding),
                                     )),
                                     child: Row(children: [
                                       if (state is BrancheProfileSuccess)
@@ -183,12 +184,12 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                                         width: 5.0,
                                       ),
                                       const Icon(Icons.star_purple500_sharp,
-                                          color: KPrimaryColor),
+                                          color: AppColors.primaryColor),
                                     ]),
                                   )
                                 ])),
                             const VerticalGap(
-                              height: KDefaultPadding / 2,
+                              height: defaultPadding / 2,
                             ),
                             Column(
                               children: [
@@ -199,13 +200,13 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                               ],
                             ),
                             const VerticalGap(
-                              height: KDefaultPadding / 2,
+                              height: defaultPadding / 2,
                             ),
                           ],
                         ),
                       ),
                       SizedBox(
-                        // color: KDarkGreyColor,
+                        // color: AppColors.darkGreyColor,
                         height: 50,
                         width: MediaQuery.of(context).size.width,
                         child: Row(
@@ -324,13 +325,13 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
           height: 150,
           child: ListView.separated(
               padding:
-                  const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
               itemCount: offers.length,
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               separatorBuilder: (_, i) => const HorizontalGap(
-                    width: KDefaultPadding / 2,
+                    width: defaultPadding / 2,
                   ),
               itemBuilder: (ctx, i) {
                 final BrancheOffer offer = offers[i];
@@ -361,20 +362,20 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
             height: 150,
             child: ListView.separated(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+                    const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
                 itemCount: 10,
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
                 separatorBuilder: (_, i) => const HorizontalGap(
-                      width: KDefaultPadding / 2,
+                      width: defaultPadding / 2,
                     ),
                 itemBuilder: (ctx, i) => GradientCard(
                       width: _size.width * 0.9,
                       height: 120,
                       child: OfferCardBody(
                         theme: _theme,
-                        image: KPlaceHolderImage,
+                        image: placeHolderImage,
                         title: '',
                         subtitle: '',
                       ),
@@ -397,13 +398,13 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
             height: 150,
             child: ListView.separated(
               padding:
-                  const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
               itemCount: 10,
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               separatorBuilder: (_, i) => const HorizontalGap(
-                width: KDefaultPadding / 2,
+                width: defaultPadding / 2,
               ),
               itemBuilder: (ctx, i) => const ReviewCard(),
             ),
@@ -423,14 +424,13 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
         SizedBox(
           height: 150,
           child: ListView.separated(
-            padding:
-                const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+            padding: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
             itemCount: reviews.reviews.length,
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
             separatorBuilder: (_, i) => const HorizontalGap(
-              width: KDefaultPadding / 2,
+              width: defaultPadding / 2,
             ),
             itemBuilder: (ctx, i) => ReviewCard(
               review: reviews.reviews[i],
@@ -455,9 +455,9 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               padding:
-                  const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
               separatorBuilder: (_, i) => const HorizontalGap(
-                    width: KDefaultPadding / 2,
+                    width: defaultPadding / 2,
                   ),
               itemBuilder: (ctx, i) => const SpecialistCard()),
         ),
@@ -478,9 +478,9 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               padding:
-                  const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
               separatorBuilder: (_, i) => const HorizontalGap(
-                    width: KDefaultPadding / 2,
+                    width: defaultPadding / 2,
                   ),
               itemBuilder: (ctx, i) => SpecialistCard(
                     companyEmployee: employees[i],
@@ -503,7 +503,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
                 padding:
-                    const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+                    const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
                 separatorBuilder: (_, i) => const HorizontalGap(),
                 itemBuilder: (ctx, i) => const ServiceRRect()),
           ),
@@ -525,7 +525,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               padding:
-                  const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
               separatorBuilder: (_, i) => const HorizontalGap(),
               itemBuilder: (ctx, i) => ServiceRRect(
                     companyService: services[i],
@@ -546,7 +546,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                 itemCount: 5,
                 shrinkWrap: true,
                 padding:
-                    const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+                    const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
                 separatorBuilder: (_, i) => const HorizontalGap(),
@@ -567,7 +567,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
           child: ListView.separated(
               itemCount: images.length,
               padding:
-                  const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
@@ -623,14 +623,13 @@ class ServiceRRect extends StatelessWidget {
                   fit: BoxFit.fill,
                   image: companyService?.image != null
                       ? NetworkImage(
-                          KAPIURL + companyService.image,
+                          NetworkConstants.baseUrl + companyService.image,
                         ) as ImageProvider
-                      : const AssetImage(KPlaceHolderImage),
+                      : const AssetImage(placeHolderImage),
                 ))),
           ),
           Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: KdefaultPadding / 2),
+              padding: const EdgeInsets.symmetric(vertical: defaultPadding / 2),
               child: (companyService != null)
                   ? SizedBox(
                       width: _size.width * 0.3,
@@ -642,8 +641,8 @@ class ServiceRRect extends StatelessWidget {
                       ),
                     )
                   : Container(
-                      width: KdefaultPadding * 2,
-                      height: KdefaultPadding / 2,
+                      width: defaultPadding * 2,
+                      height: defaultPadding / 2,
                       color: Colors.white,
                     ))
         ],
@@ -675,10 +674,11 @@ class PreviousWorkCard extends StatelessWidget {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: (image != null)
-                      ? NetworkImage(KAPIURL + image.image) as ImageProvider
-                      : const AssetImage(KPlaceHolderImage)),
+                      ? NetworkImage(NetworkConstants.baseUrl + image.image)
+                          as ImageProvider
+                      : const AssetImage(placeHolderImage)),
               borderRadius:
-                  const BorderRadius.all(Radius.circular(KDefaultPadding / 4))),
+                  const BorderRadius.all(Radius.circular(defaultPadding / 4))),
         ),
       ),
     );
@@ -697,7 +697,7 @@ class SubTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData _theme = Theme.of(context);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: KDefaultPadding),
+      padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
       child: Column(
         children: [
           const VerticalGap(),
@@ -759,15 +759,16 @@ class BranchProfilePicture extends StatelessWidget {
       child: Container(
         width: 100.0,
         height: 100.0,
-        margin: const EdgeInsets.all(KDefaultPadding / 4),
+        margin: const EdgeInsets.all(defaultPadding / 4),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Theme.of(context).scaffoldBackgroundColor,
-          border: Border.all(width: 2, color: KPrimaryColor),
+          border: Border.all(width: 2, color: AppColors.primaryColor),
           image: DecorationImage(
               image: (branche.image != null)
-                  ? NetworkImage(KAPIURL + branche.image) as ImageProvider
-                  : const AssetImage(KPlaceHolderImage),
+                  ? NetworkImage(NetworkConstants.baseUrl + branche.image)
+                      as ImageProvider
+                  : const AssetImage(placeHolderImage),
               fit: BoxFit.fill),
           boxShadow: [
             BoxShadow(

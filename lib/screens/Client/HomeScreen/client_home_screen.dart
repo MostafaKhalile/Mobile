@@ -11,7 +11,7 @@ import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompan
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
 import 'package:techtime/Controllers/Providers/current_user_provider.dart';
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/Helpers/utils/custom_snackbar.dart';
@@ -40,13 +40,12 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     final categoriesBloc = context.read<CategoriesBloc>();
     // ignore: close_sinks
     final recommenddedCompniesBloc = context.read<RecommendedcompaniesBloc>();
-    recommenddedCompniesBloc.add(GetRecommendedCompnies());
+    recommenddedCompniesBloc.add(const GetRecommendedCompnies());
     // ignore: close_sinks
     final leastCompniesBloc = context.read<LeastcompaniesBloc>();
-    leastCompniesBloc.add(GetLeastCompanies());
+    leastCompniesBloc.add(const GetLeastCompanies());
     categoriesBloc.add(GetCatgories());
-    final notificationsBloc =
-        context.read<NotificationsBloc>(); 
+    final notificationsBloc = context.read<NotificationsBloc>();
     notificationsBloc.add(const GetAllUserNotifications());
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<CurrentUserProvider>(context, listen: false)
@@ -124,7 +123,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     return ListView.separated(
         separatorBuilder: (context, index) {
           return const SizedBox(
-            width: KDefaultPadding / 2,
+            width: defaultPadding / 2,
           );
         },
         scrollDirection: Axis.horizontal,
@@ -143,7 +142,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
         children: [
           const Icon(
             Icons.new_releases_sharp,
-            color: KPrimaryColor,
+            color: AppColors.primaryColor,
           ),
           const SizedBox(
             width: 10,
@@ -178,7 +177,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
                 children: [
                   const Icon(
                     Icons.star_border,
-                    color: KPrimaryColor,
+                    color: AppColors.primaryColor,
                   ),
                   const SizedBox(
                     width: 10,
@@ -289,7 +288,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
           style: Theme.of(context)
               .textTheme
               .headline6
-              .copyWith(color: KPrimaryColor)),
+              .copyWith(color: AppColors.primaryColor)),
       bottom: PreferredSize(
           preferredSize: const Size.fromHeight(20.0),
           child: Padding(
@@ -435,7 +434,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
 //           tag: "SearchBox",
 //           child: Material(
 //             elevation: 5,
-//             borderRadius: BorderRadius.all(Radius.circular(KdefaultRadius)),
+//             borderRadius: BorderRadius.all(Radius.circular(defaultRadius)),
 //             child: Padding(
 //               padding: const EdgeInsets.all(8.0),
 //               child: Row(
@@ -455,7 +454,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
 //                     color: Colors.grey[400],
 //                   ),
 //                   HorizontalGap(
-//                     width: KdefaultPadding / 4,
+//                     width: defaultPadding / 4,
 //                   ),
 //                   Icon(
 //                     Icons.search,

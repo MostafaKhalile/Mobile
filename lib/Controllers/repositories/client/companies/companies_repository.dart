@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:techtime/Helpers/api_urls.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/companyProfile/company_service.dart';
@@ -12,7 +12,10 @@ class APICompaniesRepository {
     "Accept": "application/json"
   };
   Future<List<Company>> fetchCategoryCompanies(int id) async {
-    final response = await http.post(Uri.parse("$KAPIURL$KCompaniesList$id"),
+    final response = await http.post(
+        Uri.parse(NetworkConstants.baseUrl +
+            NetworkConstants.homeCompaniesList +
+            id.toString()),
         headers: headers);
 
     if (response.statusCode == 200) {
@@ -28,8 +31,9 @@ class APICompaniesRepository {
   }
 
   Future<List<CompanyService>> getCompanyServices(int id) async {
-    final String path =
-        KAPIURL + NetworkConstants.ViewBranchServices + id.toString();
+    final String path = NetworkConstants.baseUrl +
+        NetworkConstants.viewBranchServices +
+        id.toString();
     final response = await http.post(Uri.parse(path), headers: headers);
 
     if (response.statusCode == 200) {
@@ -44,7 +48,10 @@ class APICompaniesRepository {
   }
 
   Future<CompanyProfile> companyView(int id) async {
-    final response = await http.post(Uri.parse("$KAPIURL$KCompanyView$id"),
+    final response = await http.post(
+        Uri.parse(NetworkConstants.baseUrl +
+            NetworkConstants.companyView +
+            id.toString()),
         headers: headers);
 
     if (response.statusCode == 200) {

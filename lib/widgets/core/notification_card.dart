@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/enums.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Models/notifications/user_notification.dart';
@@ -20,7 +20,7 @@ class NotificationCard extends StatelessWidget {
     return Card(
       shape: Border(
           left: BorderSide(
-              color: hasBeenRead ? Colors.transparent : KPrimaryColor,
+              color: hasBeenRead ? Colors.transparent : AppColors.primaryColor,
               width: 8)),
       child: ListTile(
         // leading: CircleAvatarProfile(),

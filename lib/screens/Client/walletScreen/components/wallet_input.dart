@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 
 class WalletInputField extends StatelessWidget {
   const WalletInputField({
@@ -22,7 +22,7 @@ class WalletInputField extends StatelessWidget {
       controller: controller,
       keyboardType: keyboardType,
       textAlign: TextAlign.center,
-      cursorColor: KPrimaryColor,
+      cursorColor: AppColors.primaryColor,
       decoration: InputDecoration(
           hintText: hintText,
           hintStyle: _theme.textTheme.headline3

@@ -51,9 +51,9 @@ import 'Controllers/blocs/client/profile_edit_blocs/edit_email_bloc/editemailadd
 import 'Controllers/blocs/client/profile_edit_blocs/edit_first_name_bloc/editfirstname_bloc.dart';
 import 'Controllers/blocs/client/profile_edit_blocs/edit_second_name_bloc/editsecondname_bloc.dart';
 import 'Controllers/blocs/core/Auth/authantication_bloc.dart';
-import 'Helpers/api_urls.dart';
 import 'Helpers/app_data.dart';
 import 'Helpers/localization/app_localizations_delegates.dart';
+import 'Helpers/network_constants.dart';
 import 'Helpers/shared_perfs_provider.dart';
 import 'Helpers/themes/dark_theme.dart';
 import 'Helpers/utils/app_bloc_observer.dart';
@@ -235,16 +235,16 @@ class MyApp extends StatelessWidget {
                 builder: (_, localeState) {
                   return MaterialApp(
                       locale: localeState.locale,
-                      supportedLocales: [
+                      supportedLocales: const <Locale>[
                         Locale('en', 'US'),
                         Locale('ar', ''),
                       ],
-                      localizationsDelegates: [
+                      localizationsDelegates: const [
                         AppLocalizations.delegate,
                         GlobalMaterialLocalizations.delegate,
                         GlobalWidgetsLocalizations.delegate,
                       ],
-                      title: KAppName,
+                      title: NetworkConstants.appName,
                       theme:
                           darkTheme, //to use multi theme replace with this code => Provider.of<ThemeModel>(context).currentTheme
                       initialRoute: '/',

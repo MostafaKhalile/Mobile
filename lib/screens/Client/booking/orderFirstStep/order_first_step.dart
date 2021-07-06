@@ -4,10 +4,11 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/branchEmployeesBloc/brancheemployees_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/orderBlocs/orderDateTimeBloc/orderdatetime_bloc.dart';
 import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
-import 'package:techtime/Helpers/api_urls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Helpers/utils/custom_toast.dart';
 import 'package:techtime/Models/client/companyData/brancheData/company_employee.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
@@ -85,7 +86,7 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
                                   height: 150,
                                   child: ListView.separated(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: KDefaultPadding),
+                                          horizontal: defaultPadding),
                                       itemCount: widget.companyBranches.length,
                                       shrinkWrap: true,
                                       scrollDirection: Axis.horizontal,
@@ -102,7 +103,8 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
                                           title: brancheData.brancheName,
                                           address: brancheData.branchAddressAR,
                                           rating: 4.8,
-                                          image: KAPIURL + brancheData.image,
+                                          image: NetworkConstants.baseUrl +
+                                              brancheData.image,
                                           onPressed: () {
                                             BlocProvider.of<
                                                         BrancheemployeesBloc>(
@@ -126,7 +128,7 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
                                       }),
                                 ),
                                 const VerticalGap(
-                                  height: KDefaultPadding / 2,
+                                  height: defaultPadding / 2,
                                 ),
                                 BlocBuilder<OrderDateTimeBloc,
                                     OrderDateTimeState>(
@@ -277,11 +279,11 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
           calendarStyle: CalendarStyle(
               disabledTextStyle: TextStyle(color: Colors.grey[700]),
               todayDecoration: BoxDecoration(
-                color: KDarkGreyColor.withOpacity(0.2),
+                color: AppColors.darkGreyColor.withOpacity(0.2),
                 shape: BoxShape.circle,
               ),
               selectedDecoration: const BoxDecoration(
-                color: KPrimaryColor,
+                color: AppColors.primaryColor,
                 shape: BoxShape.circle,
               ),
               holidayDecoration: const BoxDecoration(
@@ -357,7 +359,7 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
             calendarStyle: CalendarStyle(
                 disabledTextStyle: const TextStyle(color: Colors.grey),
                 todayDecoration: BoxDecoration(
-                  color: KDarkGreyColor.withOpacity(0.2),
+                  color: AppColors.darkGreyColor.withOpacity(0.2),
                   shape: BoxShape.circle,
                 ),
                 selectedTextStyle: const TextStyle(color: Colors.black),
@@ -390,9 +392,9 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               padding:
-                  const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
               separatorBuilder: (_, i) => const HorizontalGap(
-                    width: KDefaultPadding / 2,
+                    width: defaultPadding / 2,
                   ),
               itemBuilder: (ctx, i) => const SpecialistCard()),
         ),
@@ -413,9 +415,9 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               padding:
-                  const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
               separatorBuilder: (_, i) => const HorizontalGap(
-                    width: KDefaultPadding / 2,
+                    width: defaultPadding / 2,
                   ),
               itemBuilder: (ctx, i) => SpecialistCard(
                     companyEmployee: employees[i],
@@ -496,7 +498,7 @@ class TimeSelectableCard extends StatelessWidget {
           width: 70,
           decoration: BoxDecoration(
               color: isSelected ?? false
-                  ? KPrimaryColor
+                  ? AppColors.primaryColor
                   : _theme.scaffoldBackgroundColor,
               border: Border.all(color: _theme.accentColor),
               borderRadius: const BorderRadius.all(Radius.circular(10))),
@@ -550,11 +552,11 @@ class SubTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData _theme = Theme.of(context);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: KDefaultPadding),
+      padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
       child: Column(
         children: [
           const VerticalGap(
-            height: KdefaultPadding / 2,
+            height: defaultPadding / 2,
           ),
           Row(
             children: [
@@ -566,7 +568,7 @@ class SubTitle extends StatelessWidget {
             ],
           ),
           const VerticalGap(
-            height: KdefaultPadding / 2,
+            height: defaultPadding / 2,
           ),
         ],
       ),

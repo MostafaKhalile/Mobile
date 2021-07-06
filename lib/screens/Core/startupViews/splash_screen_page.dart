@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
-import 'package:techtime/Helpers/api_urls.dart';
+
 import 'package:techtime/Helpers/enums.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Screens/Core/notifications/notifications.dart';
 import 'package:techtime/screens/Client/home_page.dart';
 import 'package:techtime/screens/Core/startupViews/language_selection_page.dart';
@@ -40,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
       }
     });
-    Future.delayed(Duration(seconds: 1), () async {
+    Future.delayed(const Duration(seconds: 1), () async {
       Navigator.pushReplacementNamed(
         context,
         _isSignedIn
@@ -60,8 +61,8 @@ class _SplashScreenState extends State<SplashScreen> {
     });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification notification = message.notification;
-      AndroidNotification android = message.notification?.android;
+      final RemoteNotification notification = message.notification;
+      final AndroidNotification android = message.notification?.android;
       if (notification != null && android != null) {
         flutterLocalNotificationsPlugin.show(
             notification.hashCode,
@@ -87,7 +88,7 @@ class _SplashScreenState extends State<SplashScreen> {
         body: Stack(
       children: <Widget>[
         Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(
                   "assets/images/background.png",
@@ -99,7 +100,7 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset("assets/svg/logo.svg"),
-                Text(KAppName,
+                const Text(NetworkConstants.appName,
                     style: TextStyle(
                         fontSize: 37,
                         color: Colors.black,

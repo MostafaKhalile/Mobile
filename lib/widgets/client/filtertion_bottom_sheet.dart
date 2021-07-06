@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 
 class FilterationBody extends StatelessWidget {
@@ -10,7 +10,7 @@ class FilterationBody extends StatelessWidget {
     final AppLocalizations _translator = AppLocalizations.of(context);
     final ThemeData _theme = Theme.of(context);
     return Container(
-      padding: const EdgeInsets.all(KdefaultPadding),
+      padding: const EdgeInsets.all(defaultPadding),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,7 +24,7 @@ class FilterationBody extends StatelessWidget {
             children: [
               Expanded(
                   child: CheckboxGroup(
-                      activeColor: KPrimaryColor,
+                      activeColor: AppColors.primaryColor,
                       checkColor: Theme.of(context).scaffoldBackgroundColor,
                       labelStyle: Theme.of(context).textTheme.subtitle2,
                       labels: <String>[
@@ -36,7 +36,7 @@ class FilterationBody extends StatelessWidget {
                           print(checked.toString()))),
               Expanded(
                   child: CheckboxGroup(
-                      activeColor: KPrimaryColor,
+                      activeColor: AppColors.primaryColor,
                       checkColor: Theme.of(context).scaffoldBackgroundColor,
                       labelStyle: Theme.of(context).textTheme.subtitle2,
                       labels: <String>[
@@ -54,7 +54,7 @@ class FilterationBody extends StatelessWidget {
                 .copyWith(fontWeight: FontWeight.bold),
           ),
           RadioButtonGroup(
-              activeColor: KPrimaryColor,
+              activeColor: AppColors.primaryColor,
               labelStyle: _theme.textTheme.subtitle2,
               labels: <String>[
                 _translator.translate("alphabetical"),

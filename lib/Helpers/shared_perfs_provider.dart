@@ -75,6 +75,7 @@ class PreferenceUtils {
   Future<void> removeMultipleValuesWithKeys(List<String> keys) async {
     assert(_preferences != null);
     assert(_instance != null);
+    // ignore: prefer_typing_uninitialized_variables
     var value;
     for (final String key in keys) {
       value = _preferences.get(key);

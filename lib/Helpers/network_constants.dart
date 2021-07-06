@@ -1,4 +1,18 @@
 class NetworkConstants {
+  // #############Strings################
+  static const String appName = "Tech Time";
+// static const String NetworkConstants.baseUrl = "https://www.techtime.app";
+  static const String baseUrl = "https://www.test.techtime.app";
+  static const String placeHolder = "https://via.placeholder.com/150";
+
+// #############Routes##################
+  static const String login = "/api/login";
+  static const String homeAllCategories = "/api/home/all-category";
+  static const String homeRecommendedCo = "/api/home/favorite-companies";
+  static const String homeLeastCo = "/api/home/Lest-companies";
+  static const String homeAdsAbove = "/api/home/ads-above-home";
+  static const String homeCompaniesList = "/api/home/filter-category-companies/";
+  static const String companyView = "/api/companies/company/view/";
   // User and Profile Routes
   static const String currentUserToken = "currentUserToken";
   static const String currentUser = "currentUser";
@@ -24,18 +38,18 @@ class NetworkConstants {
       "/api/my-wallet/transformation-promo-code";
 
   // Branche Profile Data Routes
-  static const String ViewBranche = "/api/companies/company/view/branche/";
-  static const String BrancheAddRemoveFavorite =
+  static const String viewBranche = "/api/companies/company/view/branche/";
+  static const String brancheAddRemoveFavorite =
       "/api/companies/company/branche/add-or-remove-favorite/";
-  static const String ViewBranchServices =
+  static const String viewBranchServices =
       "/api/companies/company/view/branche/services/";
-  static const String ViewBranchEmployees =
+  static const String viewBranchemployees =
       "/api/companies/company/view/branche/employees/";
-  static const String ViewBranchReviews =
+  static const String viewBranchReviews =
       "/api/companies/company/branche/review/";
-  static const String ViewBranchOffers =
+  static const String viewBranchOffers =
       "/api/companies/company/view/branche/offers/";
-  static const String ViewBranchWorkingDays =
+  static const String viewBranchWorkingDays =
       "/api/companies/company/view/branche/work-days/";
 
   //Order Routes

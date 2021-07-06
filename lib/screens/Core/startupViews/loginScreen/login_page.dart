@@ -18,14 +18,14 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
           child: Container(
               width: size.width,
               height: size.height,
               padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(
                       "assets/images/background.png",
@@ -33,16 +33,15 @@ class _LoginPageState extends State<LoginPage> {
                     fit: BoxFit.fill),
               ),
               child:
-                  Column(mainAxisAlignment: MainAxisAlignment.start, children: <
+                  Column(children: <
                       Widget>[
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: KdefaultPadding * 2),
+                      padding: const EdgeInsets.only(top: defaultPadding * 2),
                       child: IconButton(
                           onPressed: () => Navigator.pop(context),
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.arrow_back_ios_rounded,
                             size: 30,
                             color: Colors.black,
@@ -52,9 +51,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: KDefaultPadding * 1.5),
+                      vertical: defaultPadding * 1.5),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(AppLocalizations.of(context).translate('login'),
                           style: Theme.of(context).textTheme.headline4.copyWith(
@@ -64,12 +62,11 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                EmailPasswordLoginForm(),
+                const EmailPasswordLoginForm(),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Expanded(
+                      const Expanded(
                           child: Divider(
                         thickness: 2.0,
                         color: Colors.black,
@@ -80,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                           style: Theme.of(context).textTheme.subtitle1.copyWith(
                               color: Colors.black,
                               fontWeight: FontWeight.bold)),
-                      Expanded(
+                      const Expanded(
                           child: Divider(
                         thickness: 2.0,
                         color: Colors.black,
@@ -91,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                 Expanded(
                     flex: 2,
                     child: Padding(
-                      padding: EdgeInsets.all(KdefaultPadding),
+                      padding: const EdgeInsets.all(defaultPadding),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,18 +96,18 @@ class _LoginPageState extends State<LoginPage> {
                           SocialButton(
                             width: 50.0,
                             height: 50.0,
-                            backgroundColor: Color(0xFFDB4437),
+                            backgroundColor: const Color(0xFFDB4437),
                             child: SvgPicture.asset(
                               'assets/svg/Google+.svg',
                               color: Colors.white,
                               height: 10,
                             ),
                           ),
-                          HorizontalGap(),
+                          const HorizontalGap(),
                           SocialButton(
                             width: 50.0,
                             height: 50.0,
-                            backgroundColor: Color(0xFF4267B2),
+                            backgroundColor: const Color(0xFF4267B2),
                             child: SvgPicture.asset(
                               'assets/svg/Facebook-f.svg',
                               height: 10,
