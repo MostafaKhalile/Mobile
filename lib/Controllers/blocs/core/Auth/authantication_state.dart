@@ -1,15 +1,14 @@
 part of 'authantication_bloc.dart';
 
 abstract class AuthanticationState extends Equatable {
-  final Key key;
-  const AuthanticationState(this.key);
+  const AuthanticationState();
 
   @override
-  List<Object> get props => [key];
+  List<Object> get props => [];
 }
 
 class AuthanticationInitial extends AuthanticationState {
-  AuthanticationInitial({Key key}) : super(key);
+  const AuthanticationInitial() : super();
 }
 
 /*
@@ -17,13 +16,15 @@ class AuthanticationInitial extends AuthanticationState {
 */
 
 class LoginInProgress extends AuthanticationState {
-  LoginInProgress({Key key}) : super(key);
+  const LoginInProgress() : super();
 }
 
 class LoginSuccesseded extends AuthanticationState {
   final User user;
 
-  const LoginSuccesseded(this.user, {Key key}) : super(key);
+  const LoginSuccesseded(
+    this.user,
+  ) : super();
 
   @override
   List<Object> get props => [user];
@@ -31,10 +32,10 @@ class LoginSuccesseded extends AuthanticationState {
 
 class LoginFailed extends AuthanticationState {
   final String message;
-  final Key key;
-  const LoginFailed({@required this.message, this.key})
+  @override
+  const LoginFailed({@required this.message})
       : assert(message != null),
-        super(key);
+        super();
   @override
   List<Object> get props => [
         message,
@@ -46,7 +47,7 @@ class LoginFailed extends AuthanticationState {
 */
 
 class CheckCodeInProgress extends AuthanticationState {
-  CheckCodeInProgress({Key key}) : super(key);
+  const CheckCodeInProgress() : super();
 }
 
 class CheckCodeSuccesseded extends AuthanticationState {
@@ -54,7 +55,7 @@ class CheckCodeSuccesseded extends AuthanticationState {
 
   const CheckCodeSuccesseded({@required this.user})
       : assert(user != null),
-        super(null);
+        super();
 
   @override
   List<Object> get props => [user];
@@ -64,7 +65,7 @@ class CheckCodeFailed extends AuthanticationState {
   final String message;
   const CheckCodeFailed({@required this.message})
       : assert(message != null),
-        super(null);
+        super();
   @override
   List<Object> get props => [message];
 }
@@ -73,35 +74,35 @@ class CheckCodeFailed extends AuthanticationState {
 
 */
 class RegisterInProgress extends AuthanticationState {
-  RegisterInProgress({Key key}) : super(key);
+  const RegisterInProgress() : super();
 }
 
 class RegisterSuccesseded extends AuthanticationState {
-  RegisterSuccesseded({Key key}) : super(key);
+  const RegisterSuccesseded() : super();
 }
 
 class RegisterFailed extends AuthanticationState {
   final String message;
-  const RegisterFailed({@required this.message, Key key})
+  const RegisterFailed({@required this.message,  })
       : assert(message != null),
-        super(key);
+        super();
   @override
   List<Object> get props => [message];
 }
 
 class LogOutInProgress extends AuthanticationState {
-  LogOutInProgress({Key key}) : super(key);
+  const LogOutInProgress() : super();
 }
 
 class LogOutSuccesseded extends AuthanticationState {
-  LogOutSuccesseded({Key key}) : super(key);
+  const LogOutSuccesseded() : super();
 }
 
 class LogOutFailed extends AuthanticationState {
   final String message;
   const LogOutFailed({@required this.message})
       : assert(message != null),
-        super(null);
+        super();
   @override
   List<Object> get props => [message];
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
-import 'package:techtime/Screens/Client/branchProfile/branchProfile.dart';
-
+import 'package:techtime/Helpers/api_urls.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
 import 'package:techtime/widgets/client/branch_card.dart';
+
+import '../../branchProfile/branch_profile.dart';
 
 class CompanyBranchesScreen extends StatelessWidget {
   final List<CompanyBranche> companyBranches;
@@ -15,14 +15,14 @@ class CompanyBranchesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-          padding: EdgeInsets.all(
+          padding: const EdgeInsets.all(
             20,
           ),
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           shrinkWrap: true,
           itemCount: companyBranches.length,
           itemBuilder: (_, i) {
-            var brancheData = companyBranches[i];
+            final brancheData = companyBranches[i];
             return BranchCard(
               isSelectable: false,
               title: brancheData.brancheName,

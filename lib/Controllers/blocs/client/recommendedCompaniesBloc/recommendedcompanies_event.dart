@@ -8,5 +8,5 @@ abstract class RecommendedcompaniesEvent extends Equatable {
 }
 
 class GetRecommendedCompnies extends RecommendedcompaniesEvent {
-  GetRecommendedCompnies();
+  const GetRecommendedCompnies();
 }

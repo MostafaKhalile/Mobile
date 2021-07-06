@@ -8,18 +8,18 @@ class AppLanguage extends ChangeNotifier {
   }
 
   Future<Locale> get fetchLocale async {
-    var prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     if (prefs.getString('language_code') == null) {
-      appLocale = Locale('en');
-      return appLocale;
+      
+      return appLocale = const Locale('en');
     }
-    appLocale = Locale(prefs.getString('language_code'));
-    return appLocale;
+   
+    return  appLocale = Locale(prefs.getString('language_code'));
   }
 
-  void changeLanguage(Locale type) async {
-    var prefs = await SharedPreferences.getInstance();
-    if (type == Locale("ar")) {
+  Future<void> changeLanguage(Locale type) async {
+    final prefs = await SharedPreferences.getInstance();
+    if (type == const Locale("ar")) {
       await prefs.setString('language_code', 'ar');
       await prefs.setString('countryCode', 'EG');
     } else {

@@ -27,24 +27,24 @@ ButtonThemeData buttonThemeData() {
     height: 50,
     buttonColor: Colors.black,
     shape: RoundedRectangleBorder(
-        borderRadius: new BorderRadius.circular(30.0),
-        side: BorderSide(color: KPrimaryColor, width: 2)),
+        borderRadius: BorderRadius.circular(30.0),
+        side: const BorderSide(color: KPrimaryColor, width: 2)),
   );
 }
 
 AppBarTheme appBarTheme() {
   return AppBarTheme(
       brightness: Brightness.light,
-      color: Color(0xffFFDC00),
+      color: const Color(0xffFFDC00),
       centerTitle: true,
       elevation: 8,
       shadowColor: Colors.grey[300],
-      iconTheme: IconThemeData(color: Colors.black),
-      actionsIconTheme: IconThemeData(color: Colors.black));
+      iconTheme: const IconThemeData(color: Colors.black),
+      actionsIconTheme: const IconThemeData(color: Colors.black));
 }
 
 TextTheme textTheme() {
-  return TextTheme(
+  return const TextTheme(
     headline1: TextStyle(color: Colors.black),
     headline3: TextStyle(color: Colors.black),
     headline4: TextStyle(color: Colors.black),
@@ -63,7 +63,7 @@ TextTheme textTheme() {
 }
 
 InputDecorationTheme inputDecorationTheme() {
-  return InputDecorationTheme(
+  return const InputDecorationTheme(
       fillColor: Colors.white,
       contentPadding: EdgeInsets.only(bottom: 20.0, left: 20.0, right: 20.0),
       border: OutlineInputBorder(
@@ -81,4 +81,5 @@ InputDecorationTheme inputDecorationTheme() {
       hintStyle: TextStyle(color: Colors.black));
 }
 
-IconThemeData iconThemeData() => IconThemeData(color: Colors.black, size: 18);
+IconThemeData iconThemeData() =>
+    const IconThemeData(color: Colors.black, size: 18);

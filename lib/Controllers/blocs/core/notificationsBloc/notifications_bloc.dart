@@ -19,7 +19,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     if (event is GetAllUserNotifications) {
       yield NotificationsLoading();
       try {
-        AllNotifications notifications =
+        final AllNotifications notifications =
             await _notificationsRepo.getUserNotifications();
         yield NotificationsSuccess(notifications);
       } catch (e) {

@@ -16,5 +16,5 @@ class EditFirstNamesuccess extends EditfirstnameState {}
 class EditFirstNameFaild extends EditfirstnameState {
   final String message;
 
-  EditFirstNameFaild(this.message);
+  const EditFirstNameFaild(this.message);
 }

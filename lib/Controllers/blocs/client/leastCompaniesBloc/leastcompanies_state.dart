@@ -10,15 +10,15 @@ abstract class LeastcompaniesState extends Equatable {
 class LeastcompaniesInitial extends LeastcompaniesState {}
 
 class Leastcompaniesloading extends LeastcompaniesState {
-  Leastcompaniesloading();
+  const Leastcompaniesloading();
 }
 
 class LeastCompaniesLoaded extends LeastcompaniesState {
   final List<Company> leastCompanies;
-  LeastCompaniesLoaded(this.leastCompanies);
+  const LeastCompaniesLoaded(this.leastCompanies);
 }
 
 class LeastCompaniesError extends LeastcompaniesState {
   final String message;
-  LeastCompaniesError(this.message);
+  const LeastCompaniesError(this.message);
 }

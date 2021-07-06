@@ -14,11 +14,11 @@ class BrancheReviewsLoading extends BranchereviewsState {}
 class BrancheReviewsSuccess extends BranchereviewsState {
   final BrancheReviews reviews;
 
-  BrancheReviewsSuccess(this.reviews);
+  const BrancheReviewsSuccess(this.reviews);
 }
 
 class BrancheReviewsFaild extends BranchereviewsState {
   final String message;
 
-  BrancheReviewsFaild(this.message);
+  const BrancheReviewsFaild(this.message);
 }

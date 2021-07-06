@@ -30,7 +30,7 @@ class WalletPointsToPrice extends Equatable {
   WalletPointsToPrice copyWith({
     int status,
     dynamic message,
-    int money,
+    double money,
   }) {
     return WalletPointsToPrice(
       status: status ?? this.status,

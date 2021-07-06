@@ -14,11 +14,11 @@ class WalletPointsToPriceLoading extends WalletpointstopriceState {}
 class WalletPointsToPriceSucceded extends WalletpointstopriceState {
   final WalletPointsToPrice walletTotal;
 
-  WalletPointsToPriceSucceded(this.walletTotal);
+  const WalletPointsToPriceSucceded(this.walletTotal);
 }
 
 class WalletPointsToPriceFailed extends WalletpointstopriceState {
   final String message;
 
-  WalletPointsToPriceFailed(this.message);
+  const WalletPointsToPriceFailed(this.message);
 }

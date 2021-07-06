@@ -8,5 +8,5 @@ abstract class NotificationsEvent extends Equatable {
 }
 
 class GetAllUserNotifications extends NotificationsEvent {
-  GetAllUserNotifications();
+  const GetAllUserNotifications();
 }

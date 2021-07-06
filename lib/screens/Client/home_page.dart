@@ -18,35 +18,34 @@ class ClientHomePage extends StatefulWidget {
 
 class _ClientHomePageState extends State<ClientHomePage> {
   int _page = 0;
-  GlobalKey _bottomNavigationKey = GlobalKey();
+  final GlobalKey _bottomNavigationKey = GlobalKey();
   final _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
-    var appTheme = Theme.of(context);
+    final appTheme = Theme.of(context);
     return PreventCloseButton(
       child: Scaffold(
           bottomNavigationBar: CurvedNavigationBar(
             key: _bottomNavigationKey,
-            index: 0,
             height: 60.0,
             items: <Widget>[
               Padding(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   child: SvgPicture.asset(
                     "assets/svg/home.svg",
                     height: 20,
                     color: appTheme.primaryColorDark,
                   )),
               Padding(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   child: SvgPicture.asset(
                     "assets/svg/categories.svg",
                     height: 20,
                     color: appTheme.primaryColorDark,
                   )),
               Padding(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 child: SvgPicture.asset(
                   "assets/svg/wallet.svg",
                   height: 20,
@@ -54,14 +53,14 @@ class _ClientHomePageState extends State<ClientHomePage> {
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   child: SvgPicture.asset(
                     "assets/svg/schedule.svg",
                     height: 20,
                     color: appTheme.primaryColorDark,
                   )),
               Padding(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   child: SvgPicture.asset(
                     "assets/svg/account.svg",
                     height: 20,
@@ -73,7 +72,8 @@ class _ClientHomePageState extends State<ClientHomePage> {
             backgroundColor: appTheme.scaffoldBackgroundColor,
             color: appTheme.bottomAppBarColor,
             animationCurve: Curves.easeInOut,
-            animationDuration: Duration(milliseconds: 600),
+            // ignore: avoid_redundant_argument_values
+            animationDuration: const Duration(milliseconds: 600),
             onTap: (index) {
               setState(() {});
               _pageController.jumpToPage(index);
@@ -81,19 +81,19 @@ class _ClientHomePageState extends State<ClientHomePage> {
             // letIndexChange: (index) => true,
           ),
           body: PageView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             controller: _pageController,
             onPageChanged: (index) {
               setState(() {
                 _page = index;
               });
-              CurvedNavigationBarState navBarState =
-                  _bottomNavigationKey.currentState;
+              final CurvedNavigationBarState navBarState =
+                  _bottomNavigationKey.currentState as CurvedNavigationBarState;
               navBarState.setPage(_page);
             },
             children: [
               ClientHomeScreen(),
-              ClientCategoriesScreen(
+              const ClientCategoriesScreen(
                 isCloseable: false,
               ),
               WalletScreen(),

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+import 'package:techtime/Helpers/api_urls.dart';
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/notifications/all_notifications.dart';
 import 'package:http/http.dart' as http;
@@ -21,7 +21,7 @@ class NotificatiosApiClient {
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
       print("Notifications Status [${response.statusCode}] $decoded");
-      final data = json.decode(decoded);
+      final data = json.decode(decoded) as Map<String, dynamic>;
 
       return AllNotifications.fromJson(data);
     } else {

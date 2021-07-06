@@ -16,7 +16,7 @@ import 'package:techtime/Screens/Core/startupViews/language_selection_page.dart'
 import 'package:techtime/Screens/Core/startupViews/loginScreen/login_page.dart';
 
 class ProfileControls extends StatefulWidget {
-  ProfileControls({
+  const ProfileControls({
     Key key,
   }) : super(key: key);
 
@@ -27,14 +27,14 @@ class ProfileControls extends StatefulWidget {
 class _ProfileControlsState extends State<ProfileControls> {
   @override
   Widget build(BuildContext context) {
-    UserProfile _currentUser =
+    final UserProfile _currentUser =
         Provider.of<CurrentUserProvider>(context, listen: false).currentUser;
     // var appTheme = Provider.of<ThemeModel>(context);
-    ThemeData _theme = Theme.of(context);
+    final ThemeData _theme = Theme.of(context);
     return Expanded(
       flex: 4,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: KDefaultPadding),
+        padding: const EdgeInsets.symmetric(horizontal: KDefaultPadding),
         width: double.infinity,
         child: SingleChildScrollView(
           child: Column(
@@ -122,7 +122,7 @@ class _ProfileControlsState extends State<ProfileControls> {
               ProfileListTile(
                   onTap: () async {
                     if (_currentUser != null) {
-                      bool logOut = await buildShowDialog(
+                      final bool logOut = await buildShowDialog(
                           context, AppLocalizations.of(context));
                       if (logOut) _logout(context);
                     } else {
@@ -130,7 +130,7 @@ class _ProfileControlsState extends State<ProfileControls> {
                           context, LoginPage.routeName, (route) => false);
                     }
                   },
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.exit_to_app_outlined,
                     size: 20,
                   ),
@@ -153,15 +153,15 @@ class _ProfileControlsState extends State<ProfileControls> {
     );
   }
 
-  _logout(context) async {
+  Future<void> _logout(BuildContext context) async {
     await AuthRepo().logout();
-    await Provider.of<CurrentUserProvider>(context, listen: false)
-        .loadCurrentUser();
+    Provider.of<CurrentUserProvider>(context, listen: false)
+        .loadCurrentUser(); //TODO : add await here if lohin/Logout crashes
     Navigator.pushNamedAndRemoveUntil(
         context, LanguageSelectionPage.routeName, (route) => false);
   }
 
-  _showToast(context) {
+  void _showToast(BuildContext context) {
     Fluttertoast.showToast(
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.black,
@@ -170,7 +170,7 @@ class _ProfileControlsState extends State<ProfileControls> {
         msg: AppLocalizations.of(context).translate("please_login_first"));
   }
 
-  Future<void> _chooseLanguage(context) async {
+  Future<void> _chooseLanguage(BuildContext context) async {
     switch (await showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -207,7 +207,7 @@ class _ProfileControlsState extends State<ProfileControls> {
   }
 
   ProfileListTile buildProfileListTile(BuildContext context, ThemeData _theme,
-      {IconData leading, String title, Widget trailing, Function onTap}) {
+      {IconData leading, String title, Widget trailing, VoidCallback onTap}) {
     return ProfileListTile(
         onTap: onTap,
         leading: Icon(
@@ -231,11 +231,11 @@ class _ProfileControlsState extends State<ProfileControls> {
           title: Text(_translator.translate("confirm_signout")),
           actions: <Widget>[
             TextButton(
+              onPressed: () => Navigator.pop(context, true),
               child: Text(
                 _translator.translate("confirm"),
                 style: Theme.of(context).textTheme.button,
               ),
-              onPressed: () => Navigator.pop(context, true),
             ),
             TextButton(
                 onPressed: () => Navigator.pop(context, false),
@@ -254,7 +254,7 @@ class ProfileListTile extends StatelessWidget {
   final Widget title;
   final Widget leading;
   final Widget trailing;
-  final Function onTap;
+  final VoidCallback onTap;
 
   const ProfileListTile({
     Key key,
@@ -285,7 +285,7 @@ class ProfileListTile extends StatelessWidget {
                 width: 0,
               ),
         ),
-        Divider(
+        const Divider(
           height: KDefaultPadding / 2,
           thickness: 3,
           indent: 10,

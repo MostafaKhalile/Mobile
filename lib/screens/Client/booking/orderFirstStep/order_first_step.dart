@@ -4,7 +4,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/branchEmployeesBloc/brancheemployees_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/orderBlocs/orderDateTimeBloc/orderdatetime_bloc.dart';
 import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+import 'package:techtime/Helpers/api_urls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
@@ -30,7 +30,7 @@ class OrderFirstStep extends StatefulWidget {
 }
 
 class _OrderFirstStepState extends State<OrderFirstStep> {
-  CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
+  final CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay;
   OrderDateTime _selecteOrderdDay;
@@ -47,16 +47,16 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
     BlocProvider.of<BrancheemployeesBloc>(context)
         .add(GetBrancheEmployees(widget.companyBranches[0].brancheID));
     BlocProvider.of<OrderDateTimeBloc>(context)
-      ..add(GetOrderDateTimes(widget.companyBranches[0].brancheID));
+        .add(GetOrderDateTimes(widget.companyBranches[0].brancheID));
     locale = BlocProvider.of<LocaleCubit>(context).state.locale;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    AppLocalizations _translator = AppLocalizations.of(context);
-    ThemeData _theme = Theme.of(context);
+    final Size _size = MediaQuery.of(context).size;
+    final AppLocalizations _translator = AppLocalizations.of(context);
+    final ThemeData _theme = Theme.of(context);
 
     return Scaffold(
         appBar: AppBar(
@@ -64,89 +64,82 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
             _translator.translate("book_appointment"),
             style: _theme.textTheme.headline6.copyWith(color: Colors.black),
           ),
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.black),
         ),
         body: SizedBox(
             width: _size.width,
             height: _size.height,
             child: Column(children: [
               Expanded(
-                  flex: 1,
-                  child: Container(
+                  child: SizedBox(
                       width: double.infinity,
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            Container(
-                              // padding: EdgeInsets.symmetric(horizontal: KDefaultPadding),
-                              child: Column(
-                                children: [
-                                  SubTitle(
-                                      text: _translator
-                                          .translate("choose_branche")),
-                                  SizedBox(
-                                    height: 150,
-                                    child: ListView.separated(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: KDefaultPadding),
-                                        itemCount:
-                                            widget.companyBranches.length,
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.horizontal,
-                                        physics: BouncingScrollPhysics(),
-                                        separatorBuilder: (_, i) =>
-                                            HorizontalGap(),
-                                        itemBuilder: (_, i) {
-                                          var brancheData =
-                                              widget.companyBranches[i];
-                                          return BranchCard(
-                                            isSelectable: true,
-                                            isSelected: brancheData.brancheID ==
-                                                _selectedBranch,
-                                            title: brancheData.brancheName,
-                                            address:
-                                                brancheData.branchAddressAR,
-                                            rating: 4.8,
-                                            image: KAPIURL + brancheData.image,
-                                            onPressed: () {
-                                              BlocProvider.of<
-                                                          BrancheemployeesBloc>(
-                                                      context)
-                                                  .add(GetBrancheEmployees(
-                                                      brancheData.brancheID));
-                                              BlocProvider.of<
-                                                          OrderDateTimeBloc>(
-                                                      context)
-                                                  .add(GetOrderDateTimes(
-                                                      brancheData.brancheID));
-                                              setState(() {
-                                                _selectedBranch =
-                                                    brancheData.brancheID;
-                                                _selecteOrderdDay = null;
-                                                _selecteOrderTime = null;
-                                                _selectedDay = null;
-                                                _selectedEmployee = null;
-                                              });
-                                            },
-                                          );
-                                        }),
-                                  ),
-                                  VerticalGap(
-                                    height: KDefaultPadding / 2,
-                                  ),
-                                  BlocBuilder<OrderDateTimeBloc,
-                                      OrderDateTimeState>(
-                                    builder: (context, state) {
-                                      if (state is OrderDateTimeSuccess) {
-                                        return buildCalendarData(_translator,
-                                            _theme, state.orderDateTimes);
-                                      }
-                                      return buildCalendarLoading(
-                                          _translator, _theme);
-                                    },
-                                  ),
-                                ],
-                              ),
+                            Column(
+                              children: [
+                                SubTitle(
+                                    text: _translator
+                                        .translate("choose_branche")),
+                                SizedBox(
+                                  height: 150,
+                                  child: ListView.separated(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: KDefaultPadding),
+                                      itemCount: widget.companyBranches.length,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      physics: const BouncingScrollPhysics(),
+                                      separatorBuilder: (_, i) =>
+                                          const HorizontalGap(),
+                                      itemBuilder: (_, i) {
+                                        final brancheData =
+                                            widget.companyBranches[i];
+                                        return BranchCard(
+                                          isSelectable: true,
+                                          isSelected: brancheData.brancheID ==
+                                              _selectedBranch,
+                                          title: brancheData.brancheName,
+                                          address: brancheData.branchAddressAR,
+                                          rating: 4.8,
+                                          image: KAPIURL + brancheData.image,
+                                          onPressed: () {
+                                            BlocProvider.of<
+                                                        BrancheemployeesBloc>(
+                                                    context)
+                                                .add(GetBrancheEmployees(
+                                                    brancheData.brancheID));
+                                            BlocProvider.of<OrderDateTimeBloc>(
+                                                    context)
+                                                .add(GetOrderDateTimes(
+                                                    brancheData.brancheID));
+                                            setState(() {
+                                              _selectedBranch =
+                                                  brancheData.brancheID;
+                                              _selecteOrderdDay = null;
+                                              _selecteOrderTime = null;
+                                              _selectedDay = null;
+                                              _selectedEmployee = null;
+                                            });
+                                          },
+                                        );
+                                      }),
+                                ),
+                                const VerticalGap(
+                                  height: KDefaultPadding / 2,
+                                ),
+                                BlocBuilder<OrderDateTimeBloc,
+                                    OrderDateTimeState>(
+                                  builder: (context, state) {
+                                    if (state is OrderDateTimeSuccess) {
+                                      return buildCalendarData(_translator,
+                                          _theme, state.orderDateTimes);
+                                    }
+                                    return buildCalendarLoading(
+                                        _translator, _theme);
+                                  },
+                                ),
+                              ],
                             ),
 
                             //build Branch Previous work data
@@ -167,22 +160,25 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
                                                   .orderTimes.length,
                                               shrinkWrap: true,
                                               scrollDirection: Axis.horizontal,
-                                              physics: BouncingScrollPhysics(),
+                                              physics:
+                                                  const BouncingScrollPhysics(),
                                               separatorBuilder: (_, i) =>
-                                                  HorizontalGap(),
+                                                  const HorizontalGap(),
                                               itemBuilder: (ctx, i) =>
                                                   TimeSelectableCard(
                                                     isSelected:
                                                         i == _selectedtime,
                                                     workingHour:
                                                         _selecteOrderdDay
-                                                            .orderTimes[i],
+                                                                .orderTimes[i]
+                                                            as String,
                                                     onTap: () {
                                                       setState(() {
                                                         _selectedtime = i;
                                                         _selecteOrderTime =
                                                             _selecteOrderdDay
-                                                                .orderTimes[i];
+                                                                    .orderTimes[
+                                                                i] as String;
                                                       });
                                                     },
                                                   )),
@@ -202,7 +198,7 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
                                 BrancheemployeesState>(
                               builder: (context, state) {
                                 if (state is BrancheemployeesSuccess) {
-                                  if (state.employees.length > 0) {
+                                  if (state.employees.isNotEmpty) {
                                     return buildEmployeesData(_translator,
                                         _size, _theme, state.employees);
                                   } else {
@@ -220,7 +216,7 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
         persistentFooterButtons: [
           BottomBookingButton(
             onPressed: () {
-              bool isValid = _validateBooking();
+              final bool isValid = _validateBooking();
               // Navigator.pushNamed(context, TableReservation.routeName);
               print("Booking $isValid ");
             },
@@ -228,11 +224,11 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
         ]);
   }
 
-  _validateBooking() {
-    return (_selecteOrderTime != null &&
+  bool _validateBooking() {
+    return _selecteOrderTime != null &&
         _selecteOrderdDay != null &&
         _selectedEmployee != null &&
-        _selectedBranch != null);
+        _selectedBranch != null;
   }
 
   ShimmerEffect buildWorkingHoursLoading(AppLocalizations _translator) {
@@ -246,8 +242,8 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
                 itemCount: 10,
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                physics: BouncingScrollPhysics(),
-                separatorBuilder: (_, i) => HorizontalGap(),
+                physics: const BouncingScrollPhysics(),
+                separatorBuilder: (_, i) => const HorizontalGap(),
                 itemBuilder: (ctx, i) => TimeSelectableCard(
                       isSelected: i == _selectedtime,
                       onTap: () {
@@ -270,29 +266,29 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
         TableCalendar(
           locale: locale?.languageCode ?? 'en',
           onCalendarCreated: (pageController) {
-            List<String> tempDays = [];
-            workDays.forEach((day) {
+            final List<String> tempDays = [];
+            for (final day in workDays) {
               if (day.open == false) tempDays.add(day.date);
-            });
+            }
             holidays = tempDays;
             print(holidays);
           },
-          weekendDays: [],
+          weekendDays: const [],
           calendarStyle: CalendarStyle(
               disabledTextStyle: TextStyle(color: Colors.grey[700]),
               todayDecoration: BoxDecoration(
                 color: KDarkGreyColor.withOpacity(0.2),
                 shape: BoxShape.circle,
               ),
-              selectedDecoration: BoxDecoration(
+              selectedDecoration: const BoxDecoration(
                 color: KPrimaryColor,
                 shape: BoxShape.circle,
               ),
-              holidayDecoration: BoxDecoration(
+              holidayDecoration: const BoxDecoration(
                 shape: BoxShape.circle,
               ),
               holidayTextStyle: TextStyle(color: Colors.grey[700]),
-              selectedTextStyle: TextStyle(color: Colors.black),
+              selectedTextStyle: const TextStyle(color: Colors.black),
               defaultTextStyle: TextStyle(color: _theme.accentColor),
               outsideTextStyle: TextStyle(color: _theme.accentColor),
               isTodayHighlighted: false),
@@ -316,8 +312,8 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
           selectedDayPredicate: (day) {
             // Use `selectedDayPredicate` to determine which day is currently selected.
             // If this returns true, then `day` will be marked as selected.
-            return (isSameDay(_selectedDay, day) &&
-                !holidays.contains(DateFormat('y-MM-dd').format(day)));
+            return isSameDay(_selectedDay, day) &&
+                !holidays.contains(DateFormat('y-MM-dd').format(day));
             // Using `isSameDay` is recommended to disregard
             // the time-part of compared DateTime objects.
           },
@@ -359,16 +355,16 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
           SubTitle(text: _translator.translate("pick_day")),
           TableCalendar(
             calendarStyle: CalendarStyle(
-                disabledTextStyle: TextStyle(color: Colors.grey),
+                disabledTextStyle: const TextStyle(color: Colors.grey),
                 todayDecoration: BoxDecoration(
                   color: KDarkGreyColor.withOpacity(0.2),
                   shape: BoxShape.circle,
                 ),
-                selectedTextStyle: TextStyle(color: Colors.black),
+                selectedTextStyle: const TextStyle(color: Colors.black),
                 defaultTextStyle: TextStyle(color: _theme.accentColor),
                 isTodayHighlighted: false),
-            headerStyle:
-                HeaderStyle(formatButtonVisible: false, titleCentered: true),
+            headerStyle: const HeaderStyle(
+                formatButtonVisible: false, titleCentered: true),
             firstDay: kFirstDay,
             lastDay: kLastDay,
             daysOfWeekHeight: 50,
@@ -392,12 +388,13 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
               itemCount: 10,
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
-              separatorBuilder: (_, i) => HorizontalGap(
+              physics: const BouncingScrollPhysics(),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+              separatorBuilder: (_, i) => const HorizontalGap(
                     width: KDefaultPadding / 2,
                   ),
-              itemBuilder: (ctx, i) => SpecialistCard()),
+              itemBuilder: (ctx, i) => const SpecialistCard()),
         ),
       ],
     ));
@@ -414,9 +411,10 @@ class _OrderFirstStepState extends State<OrderFirstStep> {
               itemCount: employees.length,
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
-              separatorBuilder: (_, i) => HorizontalGap(
+              physics: const BouncingScrollPhysics(),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+              separatorBuilder: (_, i) => const HorizontalGap(
                     width: KDefaultPadding / 2,
                   ),
               itemBuilder: (ctx, i) => SpecialistCard(
@@ -447,11 +445,11 @@ class BottomBookingButton extends StatelessWidget {
     @required this.onPressed,
   }) : super(key: key);
 
-  final Function onPressed;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Row(
         children: [
@@ -483,12 +481,12 @@ class TimeSelectableCard extends StatelessWidget {
     this.workingHour,
   }) : super(key: key);
 
-  final Function onTap;
+  final VoidCallback onTap;
   final bool isSelected;
   final String workingHour;
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
+    final ThemeData _theme = Theme.of(context);
     return Material(
       color: _theme.scaffoldBackgroundColor,
       child: InkWell(
@@ -500,8 +498,8 @@ class TimeSelectableCard extends StatelessWidget {
               color: isSelected ?? false
                   ? KPrimaryColor
                   : _theme.scaffoldBackgroundColor,
-              border: Border.all(width: 1, color: _theme.accentColor),
-              borderRadius: BorderRadius.all(Radius.circular(10))),
+              border: Border.all(color: _theme.accentColor),
+              borderRadius: const BorderRadius.all(Radius.circular(10))),
           child: Center(
             child: workingHour != null
                 ? RichText(
@@ -515,7 +513,7 @@ class TimeSelectableCard extends StatelessWidget {
                               ? Colors.black
                               : _theme.textTheme.subtitle2.color),
                       children: <TextSpan>[
-                        TextSpan(
+                        const TextSpan(
                             text: '\n',
                             style: TextStyle(fontWeight: FontWeight.bold)),
                         TextSpan(
@@ -532,7 +530,7 @@ class TimeSelectableCard extends StatelessWidget {
   }
 
   TimeOfDay getTimePeriods(String time) {
-    TimeOfDay interval = TimeOfDay(
+    final TimeOfDay interval = TimeOfDay(
         hour: int.parse(time.toString().split(":")[0]),
         minute: int.parse(time.toString().split(":")[1]));
 
@@ -550,12 +548,12 @@ class SubTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
+    final ThemeData _theme = Theme.of(context);
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: KDefaultPadding),
+      padding: const EdgeInsets.symmetric(horizontal: KDefaultPadding),
       child: Column(
         children: [
-          VerticalGap(
+          const VerticalGap(
             height: KdefaultPadding / 2,
           ),
           Row(
@@ -567,7 +565,7 @@ class SubTitle extends StatelessWidget {
               ),
             ],
           ),
-          VerticalGap(
+          const VerticalGap(
             height: KdefaultPadding / 2,
           ),
         ],

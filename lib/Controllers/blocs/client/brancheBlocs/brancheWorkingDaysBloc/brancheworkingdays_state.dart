@@ -14,11 +14,11 @@ class BrancheWorkingDaysLoading extends BrancheWorkingDaysState {}
 class BrancheWorkingDaysSuccess extends BrancheWorkingDaysState {
   final List<BrancheWorkingDay> workingDays;
 
-  BrancheWorkingDaysSuccess(this.workingDays);
+  const BrancheWorkingDaysSuccess(this.workingDays);
 }
 
 class BrancheWorkingDaysFaild extends BrancheWorkingDaysState {
   final String message;
 
-  BrancheWorkingDaysFaild(this.message);
+  const BrancheWorkingDaysFaild(this.message);
 }

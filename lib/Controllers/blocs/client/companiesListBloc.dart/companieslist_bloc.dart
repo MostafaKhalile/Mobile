@@ -16,7 +16,7 @@ class CompanieslistBloc extends Bloc<CompanieslistEvent, CompanieslistState> {
     CompanieslistEvent event,
   ) async* {
     if (event is GetCompaniesList) {
-      yield CompanieslistLoading();
+      yield const CompanieslistLoading();
       final companies = await _companiesRepo.fetchCategoryCompanies(event.id);
       yield CompanieslistFinished(companies);
       try {} catch (e) {

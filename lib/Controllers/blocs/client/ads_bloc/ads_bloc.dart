@@ -19,7 +19,7 @@ class AdsBloc extends Bloc<AdsEvent, AdsState> {
   ) async* {
     if (event is GetAdsAbove) {
       try {
-        yield AdsLoading();
+        yield const AdsLoading();
         final ads = await _clientHomeRepo.fetchAdsAbove;
         yield AdsLoaded(ads);
       } catch (e) {

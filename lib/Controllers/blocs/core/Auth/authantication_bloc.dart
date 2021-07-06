@@ -13,24 +13,27 @@ class AuthanticationBloc
   final AuthRepo authRepo;
   AuthanticationBloc({@required this.authRepo})
       : assert(authRepo != null),
-        super(AuthanticationInitial());
+        super(const AuthanticationInitial());
 
   @override
   Stream<AuthanticationState> mapEventToState(
     AuthanticationEvent event,
   ) async* {
     if (event is StartLogin) {
-      yield LoginInProgress();
+      yield const LoginInProgress();
       try {
         // ignore: unused_local_variable
-        final result = await authRepo.loginUser(event.email, event.password,event.fcmToken);
+        final result = await authRepo.loginUser(
+            event.email, event.password, event.fcmToken);
         if (result.statusCode == 201) {
           yield LoginSuccesseded(result);
         } else {
           yield LoginFailed(message: result.message);
         }
       } catch (e) {
-        yield LoginFailed(message: e.toString(), key: UniqueKey());
+        yield LoginFailed(
+          message: e.toString(),
+        );
       }
     }
     // if (event is StartCheckCode) {

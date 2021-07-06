@@ -32,7 +32,7 @@ class StartLogin extends AuthanticationEvent {
 
 */
 class StartLogOut extends AuthanticationEvent {
-  StartLogOut({Key key}) : super(key);
+  const StartLogOut({Key key}) : super(key);
 }
 
 // class RegisterNewUser extends AuthanticationEvent {

@@ -20,7 +20,7 @@ class LeastcompaniesBloc
   ) async* {
     if (event is GetLeastCompanies) {
       try {
-        yield Leastcompaniesloading();
+        yield const Leastcompaniesloading();
         final leastCompanies = await _clientHomeRepo.fetchLeastCo;
         yield LeastCompaniesLoaded(leastCompanies);
       } catch (e) {

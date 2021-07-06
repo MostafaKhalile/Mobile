@@ -16,5 +16,5 @@ class EditLastNamesuccess extends EditLastnameState {}
 class EditLastNameFaild extends EditLastnameState {
   final String message;
 
-  EditLastNameFaild(this.message);
+  const EditLastNameFaild(this.message);
 }

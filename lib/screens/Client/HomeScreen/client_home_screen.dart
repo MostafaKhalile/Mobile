@@ -45,7 +45,9 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     final leastCompniesBloc = context.read<LeastcompaniesBloc>();
     leastCompniesBloc.add(GetLeastCompanies());
     categoriesBloc.add(GetCatgories());
-    context.read<NotificationsBloc>()..add(GetAllUserNotifications());
+    final notificationsBloc =
+        context.read<NotificationsBloc>(); 
+    notificationsBloc.add(const GetAllUserNotifications());
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<CurrentUserProvider>(context, listen: false)
           .loadCurrentUser();
@@ -57,16 +59,16 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
   Widget build(BuildContext context) {
     _sectionHeight = MediaQuery.of(context).size.height * 0.2;
     final _currentUser = Provider.of<CurrentUserProvider>(context).currentUser;
-    var appTheme = Provider.of<ThemeModel>(context);
-    AppLocalizations _translator = AppLocalizations.of(context);
-    Snackbar _snackBar = Snackbar();
-    Size size = MediaQuery.of(context).size;
+    final appTheme = Provider.of<ThemeModel>(context);
+    final AppLocalizations _translator = AppLocalizations.of(context);
+    final Snackbar _snackBar = Snackbar();
+    final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: buildAppBar(context, appTheme, _translator, _currentUser),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 10),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           child: Column(
             children: [
               buildAdsCarouselContainer(size),
@@ -103,7 +105,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
         }, builder: (context, state) {
           if (state is LeastCompaniesLoaded) {
             if (state.leastCompanies.isNotEmpty) {
-              return Container(
+              return SizedBox(
                   height: _sectionHeight,
                   child: buildLeastCompaniesData(state));
             }
@@ -111,7 +113,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
               return Container();
             }
           }
-          return Container(
+          return SizedBox(
               height: _sectionHeight, child: buildLeastCompaniesLoading(size));
         })
       ],
@@ -121,7 +123,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
   ListView buildLeastCompaniesLoading(Size size) {
     return ListView.separated(
         separatorBuilder: (context, index) {
-          return SizedBox(
+          return const SizedBox(
             width: KDefaultPadding / 2,
           );
         },
@@ -129,7 +131,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
         // shrinkWrap: true,
         itemCount: 5,
         itemBuilder: (context, index) {
-          return ShimmerEffect(
+          return const ShimmerEffect(
             child: LeastCompanyCard(),
           );
         });
@@ -139,11 +141,11 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     return SectionHeader(
       title: Row(
         children: [
-          Icon(
+          const Icon(
             Icons.new_releases_sharp,
             color: KPrimaryColor,
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Text(
@@ -157,7 +159,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
 
   ListView buildLeastCompaniesData(LeastCompaniesLoaded state) {
     return ListView.builder(
-        padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+        padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         itemCount: state.leastCompanies.length,
@@ -168,17 +170,17 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
 
   Padding buildRecommendedCompanesSection(BuildContext context, Size size) {
     return Padding(
-        padding: EdgeInsets.only(bottom: 20),
+        padding: const EdgeInsets.only(bottom: 20),
         child: Column(
           children: [
             SectionHeader(
               title: Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.star_border,
                     color: KPrimaryColor,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Text(
@@ -249,8 +251,8 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
       scrollDirection: Axis.horizontal,
       itemCount: 5,
       itemBuilder: (BuildContext context, int index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        return const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.0),
           child: ShimmerEffect(
             child: CompanyCard(),
           ),
@@ -261,7 +263,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
 
   ListView buildRecommendedCompaniesData(RecommendedcompaniesLoaded state) {
     return ListView.builder(
-      padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+      padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
       scrollDirection: Axis.horizontal,
       shrinkWrap: true,
       itemCount: state.recommendedCompanies.length,
@@ -275,7 +277,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     return Wrap(children: [CarouselWithIndicator()]);
   }
 
-  Widget buildAppBar(BuildContext context, ThemeModel appTheme,
+  AppBar buildAppBar(BuildContext context, ThemeModel appTheme,
       AppLocalizations _translator, UserProfile _currentUser) {
     return AppBar(
       backgroundColor: Theme.of(context).primaryColorDark,
@@ -289,22 +291,23 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
               .headline6
               .copyWith(color: KPrimaryColor)),
       bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(20.0),
           child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        // ignore: avoid_redundant_argument_values
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Row(
                             children: [
                               Row(children: [
-                                Icon(
+                                const Icon(
                                   Icons.location_on_outlined,
                                 ),
                                 Text(_translator.translate('Alex'),
@@ -318,49 +321,51 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
                     ],
                   ),
                 ],
-              )),
-          preferredSize: Size.fromHeight(20.0)),
+              ))),
       actions: [
-        _currentUser != null
-            ? BlocBuilder<NotificationsBloc, NotificationsState>(
-                builder: (context, state) {
-                  if (state is NotificationsSuccess) {
-                    return IconButton(
-                        icon: Badge(
-                            badgeContent: Text(state
-                                .notifications.notReadNotification.length
-                                .toString()),
-                            animationType: BadgeAnimationType.slide,
-                            toAnimate: true,
-                            child: Icon(
-                              Icons.notifications_none_outlined,
-                              // size: 26,
-                              color: Theme.of(context).iconTheme.color,
-                            )),
-                        onPressed: () {
-                          Navigator.pushNamed(context, Notifications.routeName,
-                              arguments: state.notifications);
-                        });
-                  } else {
-                    return Icon(
-                      Icons.notifications_none_outlined,
-                      size: 24,
-                      color: Theme.of(context).iconTheme.color,
-                    );
-                  }
-                },
-              )
-            : IconButton(
-                icon: Icon(
+        if (_currentUser != null)
+          BlocBuilder<NotificationsBloc, NotificationsState>(
+            builder: (context, state) {
+              if (state is NotificationsSuccess) {
+                return IconButton(
+                    icon: Badge(
+                        badgeContent: Text(state
+                            .notifications.notReadNotification.length
+                            .toString()),
+                        // ignore: avoid_redundant_argument_values
+                        animationType: BadgeAnimationType.slide,
+                        // ignore: avoid_redundant_argument_values
+                        toAnimate: true,
+                        child: Icon(
+                          Icons.notifications_none_outlined,
+                          // size: 26,
+                          color: Theme.of(context).iconTheme.color,
+                        )),
+                    onPressed: () {
+                      Navigator.pushNamed(context, Notifications.routeName,
+                          arguments: state.notifications);
+                    });
+              } else {
+                return Icon(
                   Icons.notifications_none_outlined,
-                  // size: 26,
+                  size: 24,
                   color: Theme.of(context).iconTheme.color,
-                ),
-                onPressed: () {
-                  Fluttertoast.showToast(
-                      msg: _translator.translate("please_login_first"));
-                },
-              ),
+                );
+              }
+            },
+          )
+        else
+          IconButton(
+            icon: Icon(
+              Icons.notifications_none_outlined,
+              // size: 26,
+              color: Theme.of(context).iconTheme.color,
+            ),
+            onPressed: () {
+              Fluttertoast.showToast(
+                  msg: _translator.translate("please_login_first"));
+            },
+          ),
         IconButton(
           icon: Icon(
             Icons.search,

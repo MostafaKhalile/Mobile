@@ -10,17 +10,17 @@ abstract class CompanieslistState extends Equatable {
 class CompanieslistInitial extends CompanieslistState {}
 
 class CompanieslistLoading extends CompanieslistState {
-  CompanieslistLoading();
+  const CompanieslistLoading();
 }
 
 class CompanieslistFinished extends CompanieslistState {
   final List<Company> companies;
 
-  CompanieslistFinished(this.companies);
+  const CompanieslistFinished(this.companies);
 }
 
 class CompanieslistError extends CompanieslistState {
   final String message;
 
-  CompanieslistError(this.message);
+  const CompanieslistError(this.message);
 }

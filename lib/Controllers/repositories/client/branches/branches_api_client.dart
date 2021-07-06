@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+import 'package:techtime/Helpers/api_urls.dart';
 import 'package:http/http.dart' as http;
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/companyData/brancheData/brancheOffers/branche_offers.dart';
@@ -22,7 +22,7 @@ class BranchesApiClient {
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
       print("Branche Profile here $decoded");
-      final data = json.decode(decoded);
+      final data = json.decode(decoded) as Map<String, dynamic>;
 
       return BrancheProfile.fromJson(data);
     } else {
@@ -43,7 +43,7 @@ class BranchesApiClient {
       print("Branche Profile here $decoded");
       final data = json.decode(decoded);
 
-      return data['Favorite'];
+      return data['Favorite'] as bool;
     } else {
       return false;
     }
@@ -62,7 +62,7 @@ class BranchesApiClient {
       print("Company services here $decoded");
       final data = json.decode(decoded)['AllBranchServices'] as List;
       return data.map((rawPost) {
-        return CompanyService.fromJson(rawPost);
+        return CompanyService.fromJson(rawPost as Map<String, dynamic>);
       }).toList();
     } else {
       throw Future.error('${json.decode(response.body)}');
@@ -82,10 +82,10 @@ class BranchesApiClient {
       print("Company services here $decoded");
       final data = json.decode(decoded)['AllBranchEmployees'] as List;
       return data.map((rawPost) {
-        return CompanyEmployee.fromJson(rawPost);
+        return CompanyEmployee.fromJson(rawPost as Map<String, dynamic>);
       }).toList();
     } else {
-      throw Future.error('${json.decode(response.body).toString()}');
+      throw Future.error(json.decode(response.body).toString());
     }
   }
 
@@ -103,9 +103,9 @@ class BranchesApiClient {
       final decoded = utf8.decode(response.bodyBytes);
       print("Company Reviews here $decoded");
       final data = json.decode(decoded);
-      return BrancheReviews.fromJson(data);
+      return BrancheReviews.fromJson(data as Map<String, dynamic>);
     } else {
-      throw Future.error('${json.decode(response.body).toString()}');
+      throw Future.error(json.decode(response.body).toString());
     }
   }
 
@@ -122,10 +122,10 @@ class BranchesApiClient {
       print("Company services here $decoded");
       final data = json.decode(decoded)['SendBranchOffers'] as List;
       return data.map((rawPost) {
-        return BrancheOffer.fromJson(rawPost);
+        return BrancheOffer.fromJson(rawPost as Map<String, dynamic>);
       }).toList();
     } else {
-      throw Future.error('${json.decode(response.body).toString()}');
+      throw Future.error(json.decode(response.body).toString());
     }
   }
 
@@ -142,10 +142,10 @@ class BranchesApiClient {
       print("Branche $id Working days  here ====> $decoded");
       final data = json.decode(decoded)['AllBranchWorkDays'] as List;
       return data.map((rawPost) {
-        return BrancheWorkingDay.fromJson(rawPost);
+        return BrancheWorkingDay.fromJson(rawPost as Map<String, dynamic>);
       }).toList();
     } else {
-      throw Future.error('${json.decode(response.body).toString()}');
+      throw Future.error(json.decode(response.body).toString());
     }
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+import 'package:techtime/Helpers/api_urls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
@@ -14,19 +14,20 @@ class CompanyCard extends StatelessWidget {
   const CompanyCard({Key key, this.company}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    ThemeData _theme = Theme.of(context);
+    final Size size = MediaQuery.of(context).size;
+    final ThemeData _theme = Theme.of(context);
     return InkWell(
         onTap: () => Navigator.pushNamed(context, CompanyProfile.routeName,
             arguments: company),
         child: Container(
           width: size.width * 0.7,
-          margin: EdgeInsets.symmetric(horizontal: KdefaultPadding / 4),
+          margin: const EdgeInsets.symmetric(horizontal: KdefaultPadding / 4),
           decoration: BoxDecoration(
               color: _theme.scaffoldBackgroundColor,
               border: Border.all(color: _theme.accentColor, width: 2.0),
-              borderRadius: BorderRadius.all(Radius.circular(KdefaultRadius)),
-              boxShadow: [
+              borderRadius:
+                  const BorderRadius.all(Radius.circular(KdefaultRadius)),
+              boxShadow: const <BoxShadow>[
                 BoxShadow(
                   color: Colors.black26,
                   offset: Offset(0, 5),
@@ -45,10 +46,11 @@ class CompanyCard extends StatelessWidget {
                         image: DecorationImage(
                           image: company?.coverImage != null
                               ? NetworkImage(KAPIURL + company.coverImage)
-                              : AssetImage(KPlaceHolderCover),
+                                  as ImageProvider
+                              : const AssetImage(KPlaceHolderCover),
                           fit: BoxFit.cover,
                         ),
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(KdefaultRadius),
                             topRight: Radius.circular(KdefaultRadius)),
                       ),
@@ -57,39 +59,35 @@ class CompanyCard extends StatelessWidget {
                   Expanded(
                     flex: 2,
                     child: Container(
-                      margin: EdgeInsets.all(5),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: KDefaultPadding),
+                      margin: const EdgeInsets.all(5),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: KDefaultPadding),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            company != null
-                                ? Container(
-                                    width: size.width * 0.4,
-                                    child: RichText(
-                                        overflow: TextOverflow.clip,
-                                        textScaleFactor: 0.9,
-                                        text: TextSpan(
-                                          text: '${company.companyName} \n',
-                                          style: _theme.textTheme.caption
-                                              .copyWith(height: 1.12),
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                                text:
-                                                    '${company.categoryRegionEn} ',
-                                                style:
-                                                    _theme.textTheme.caption),
-                                            TextSpan(
-                                                text:
-                                                    ' ${company.categoryCityEn}, '
-                                                    '${AppLocalizations.of(context).translate('Egypt')}.',
-                                                style:
-                                                    _theme.textTheme.caption),
-                                          ],
-                                        )),
-                                  )
-                                : Container(),
+                            if (company != null)
+                              SizedBox(
+                                width: size.width * 0.4,
+                                child: RichText(
+                                    textScaleFactor: 0.9,
+                                    text: TextSpan(
+                                      text: '${company.companyName} \n',
+                                      style: _theme.textTheme.caption
+                                          .copyWith(height: 1.12),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text:
+                                                '${company.categoryRegionEn} ',
+                                            style: _theme.textTheme.caption),
+                                        TextSpan(
+                                            text: ' ${company.categoryCityEn}, '
+                                                '${AppLocalizations.of(context).translate('Egypt')}.',
+                                            style: _theme.textTheme.caption),
+                                      ],
+                                    )),
+                              )
+                            else
+                              Container(),
                           ]),
                     ),
                   )
@@ -100,9 +98,8 @@ class CompanyCard extends StatelessWidget {
                   right: 10,
                   left: 10,
                   child: Row(
-                    mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
+                    children: const <Widget>[
                       Icon(
                         Icons.favorite_border,
                         size: 25,
@@ -115,15 +112,14 @@ class CompanyCard extends StatelessWidget {
                 right: 10,
                 left: 10,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Hero(
                       tag: company?.companyName ?? "",
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: company != null
                             ? CustomCircleAvatar(image: company.logo)
-                            : CustomCircleAvatar(image: null),
+                            : const CustomCircleAvatar(image: null),
                       ),
                     ),
                   ],

@@ -7,7 +7,7 @@ class BranchCard extends StatelessWidget {
   final String address;
   final String image;
   final double rating;
-  final Function onPressed;
+  final VoidCallback onPressed;
   final bool isSelectable;
   final bool isSelected;
 
@@ -24,7 +24,7 @@ class BranchCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
+    final ThemeData _theme = Theme.of(context);
     // Size _size = MediaQuery.of(context).size;
     // AppLocalizations _translator = AppLocalizations.of(context);
     return Container(
@@ -32,7 +32,7 @@ class BranchCard extends StatelessWidget {
       decoration:
           BoxDecoration(borderRadius: BorderRadius.circular(KDefaultPadding)),
       child: Card(
-        margin: EdgeInsets.only(bottom: KDefaultPadding),
+        margin: const EdgeInsets.only(bottom: KDefaultPadding),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
           side: BorderSide(
@@ -50,14 +50,14 @@ class BranchCard extends StatelessWidget {
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             fit: BoxFit.fill, image: NetworkImage(image)),
-                        borderRadius: BorderRadius.all(
+                        borderRadius: const BorderRadius.all(
                           Radius.circular(10),
                         )),
                   )),
               Expanded(
                   flex: 5,
                   child: Container(
-                    padding: EdgeInsets.all(KDefaultPadding / 2),
+                    padding: const EdgeInsets.all(KDefaultPadding / 2),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,

@@ -7,14 +7,14 @@ class FavoriteButton extends StatelessWidget {
       : super(key: key);
   final double buttonSize;
   final bool isFavorite;
-  final Function onTap;
+  final Future<bool> Function(bool) onTap;
 
   @override
   Widget build(BuildContext context) {
     return LikeButton(
       size: buttonSize,
-      circleColor: CircleColor(start: KPrimaryColor, end: KErrorColor),
-      bubblesColor: BubblesColor(
+      circleColor: const CircleColor(start: KPrimaryColor, end: KErrorColor),
+      bubblesColor: const BubblesColor(
         dotPrimaryColor: KPrimaryColor,
         dotSecondaryColor: KErrorColor,
       ),

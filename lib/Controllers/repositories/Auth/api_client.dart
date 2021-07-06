@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+import 'package:techtime/Helpers/api_urls.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
 
 class AuthApiClient {
@@ -22,12 +22,12 @@ class AuthApiClient {
     final Map<String, dynamic> data = {
       "RequestType": "API",
       "LanguageCode": "EN",
-      "username": "$email",
-      "password": "$password",
-      "RegistrationId":"$fcmToken"
+      "username": email,
+      "password": password,
+      "RegistrationId": fcmToken
     };
     try {
-      var resp = await http.post(
+      final resp = await http.post(
         Uri.parse(_path),
         body: data,
       );

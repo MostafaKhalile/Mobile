@@ -14,11 +14,11 @@ class OrderDateTimeLoading extends OrderDateTimeState {}
 class OrderDateTimeSuccess extends OrderDateTimeState {
   final List<OrderDateTime> orderDateTimes;
 
-  OrderDateTimeSuccess(this.orderDateTimes);
+  const OrderDateTimeSuccess(this.orderDateTimes);
 }
 
 class OrderDateTimeFaild extends OrderDateTimeState {
   final String message;
 
-  OrderDateTimeFaild(this.message);
+  const OrderDateTimeFaild(this.message);
 }

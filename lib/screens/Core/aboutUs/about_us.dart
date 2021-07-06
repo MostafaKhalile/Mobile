@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+import 'package:techtime/Helpers/api_urls.dart';
 import 'package:techtime/Helpers/app_data.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/oval_bottom_clipper.dart';

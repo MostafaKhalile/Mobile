@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/screens/Client/branchProfile/branchProfile.dart';
+import 'package:techtime/Screens/Client/branchProfile/branch_profile.dart';
 
 import 'core/horizontal_gap.dart';
 import 'core/vertical_gab.dart';

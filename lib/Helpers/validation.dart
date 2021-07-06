@@ -5,94 +5,86 @@ class Validator {
   String error;
   // String alert = "\u26A0";
 
-  validateEmail(BuildContext context, data) {
+  String validateEmail(BuildContext context, String data) {
     if (data == null || data == '') {
-      error = AppLocalizations.of(context).translate("please_enter_email");
-      return error;
+      return error =
+          AppLocalizations.of(context).translate("please_enter_email");
     }
     if (!RegExp(
             r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
         .hasMatch(data)) {
-      error =
+      return error =
           AppLocalizations.of(context).translate("please_enter_valid_email");
-      return error;
     }
-    error = null;
-    return error;
+
+    return error = null;
   }
 
-  validateEmailMobile(BuildContext context, data) {
+  String validateEmailMobile(BuildContext context, String data) {
     if (data == null || data == '') {
-      error = AppLocalizations.of(context)
+      return error = AppLocalizations.of(context)
           .translate("please_enter_email_or_mobile");
-      return error;
     }
     if (!RegExp(
             r"([a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)|(^01[0125][0-9]{8}$)")
         .hasMatch(data)) {
-      error = AppLocalizations.of(context)
+      return error = AppLocalizations.of(context)
           .translate("please_enter_valid_email_or_mobile");
-      return error;
     }
-    error = null;
-    return error;
+
+    return error = null;
   }
 
-  String validateUsername(BuildContext context, data) {
+  String validateUsername(BuildContext context, String data) {
     if (data == null || data == '') {
-      error = "لا يمكن ترك هذه الخانة فارغة";
-      return error;
+      return error = "لا يمكن ترك هذه الخانة فارغة";
     }
     if (!RegExp(r"^[a-zA-Z0-9\u0621-\u064A]+$").hasMatch(data)) {
-      error = " برجاء ادخال اسم يحتوي على حروف و ارقام فقط ";
-      return error;
+      return error = " برجاء ادخال اسم يحتوي على حروف و ارقام فقط ";
     }
-    error = null;
-    return error;
+  
+    return   error = null;
   }
 
-  String phoneNumber(BuildContext context, data) {
+  String phoneNumber(BuildContext context, String data) {
     if (data == null || data == '') {
-      error = AppLocalizations.of(context).translate("this_field_is_required");
-      return error;
+      return error =
+          AppLocalizations.of(context).translate("this_field_is_required");
     }
     if (!RegExp(r"^(009665|9665|\+9665|05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$")
-        .hasMatch("966" + data)) {
-      error = " برجاء ادخال رقم سعودي";
-      return error;
+        .hasMatch("966$data")) {
+      return error = " برجاء ادخال رقم سعودي";
     }
-    error = null;
-    return error;
+
+    return error = null;
   }
 
-  String validatePassword(BuildContext context, data) {
+  String validatePassword(BuildContext context, String data) {
     if (data == null || data == '') {
-      error = AppLocalizations.of(context).translate("please_enter_password");
-      return error;
+      return error =
+          AppLocalizations.of(context).translate("please_enter_password");
     }
     if (data.toString().length < 6 || data.toString().length > 12) {
-      error = AppLocalizations.of(context).translate("password_length_error");
-      return error;
+      return error =
+          AppLocalizations.of(context).translate("password_length_error");
     }
-    error = null;
+   
 
-    return error;
+    return error = null;
   }
 
-  String commericalRegister(BuildContext context, data) {
+  String commericalRegister(BuildContext context, String data) {
     if (data == null || data == '') {
-      error = "لا يمكن ترك هذه الخانة فارغة";
-      return error;
+      return error = "لا يمكن ترك هذه الخانة فارغة";
+      
     }
     if (!RegExp(r"^[a-zA-Z0-9\u0621-\u064A]+$").hasMatch(data)) {
-      error = " برجاء ادخال اسم يحتوي على حروف و ارقام فقط ";
-      return error;
+      return error = " برجاء ادخال اسم يحتوي على حروف و ارقام فقط ";
     }
     if (data.toString().length > 10) {
-      error = "برجاء ادخال سجل تجاري صحيح";
-      return error;
+      return error = "برجاء ادخال سجل تجاري صحيح";
     }
-    error = 'noError';
-    return error;
+
+    return error = 'noError';
   }
 }

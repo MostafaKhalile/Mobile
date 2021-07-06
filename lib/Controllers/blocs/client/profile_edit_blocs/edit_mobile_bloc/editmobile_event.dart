@@ -10,5 +10,5 @@ abstract class EditmobileEvent extends Equatable {
 class EditMobile extends EditmobileEvent {
   final String mobile;
 
-  EditMobile(this.mobile);
+  const EditMobile(this.mobile);
 }

@@ -3,17 +3,17 @@ import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 
 class SectionHeaderMore extends StatelessWidget {
-  SectionHeaderMore({
+  const SectionHeaderMore({
     Key key,
     @required this.header,
     this.onPressed,
   }) : super(key: key);
   final String header;
-  final Function onPressed;
+  final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
-    AppLocalizations _translator = AppLocalizations.of(context);
-    ThemeData _theme = Theme.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context);
+    final ThemeData _theme = Theme.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

@@ -8,7 +8,7 @@ class CurrentUserProvider extends ChangeNotifier {
   UserProfile _user;
   UserProfile _userData;
   UserProfile get currentUser => _userData;
-  loadCurrentUser() {
+  UserProfile loadCurrentUser() {
     try {
       _userData = _userRepo.currentUserProfile;
       print('Function inside User Profile Provider $_userData');

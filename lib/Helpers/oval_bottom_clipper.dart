@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class OvalBottomBorderClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    var path = Path();
+    final path = Path();
     path.lineTo(0, 0);
     path.lineTo(0, size.height - 40);
     path.quadraticBezierTo(

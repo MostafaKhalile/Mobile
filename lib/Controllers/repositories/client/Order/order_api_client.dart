@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+import 'package:techtime/Helpers/api_urls.dart';
 import 'package:http/http.dart' as http;
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/orders/order_date_time.dart';
@@ -22,7 +22,7 @@ class OrdersApiClient {
       print("Branche Profile here $decoded");
       final data = json.decode(decoded) as List;
       return data.map((rawPost) {
-        return OrderDateTime.fromJson(rawPost);
+        return OrderDateTime.fromJson(rawPost as Map<String, dynamic>);
       }).toList();
     } else {
       throw Future.error('${json.decode(response.body)}');

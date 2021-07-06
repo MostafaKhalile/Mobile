@@ -9,5 +9,5 @@ abstract class OrderDateTimeEvent extends Equatable {
 
 class GetOrderDateTimes extends OrderDateTimeEvent {
   final int branceId;
-  GetOrderDateTimes(this.branceId);
+  const GetOrderDateTimes(this.branceId);
 }

@@ -6,7 +6,7 @@ import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheReviewsBlo
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheServicesBloc/brancheservices_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheProfileBloc/branche_profile_bloc.dart';
 import 'package:techtime/Controllers/Repositories/client/branches/branches_repository.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+import 'package:techtime/Helpers/api_urls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
@@ -34,13 +34,13 @@ class BranchProfile extends StatelessWidget {
   const BranchProfile({Key key, @required this.branche}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
+    final Size _size = MediaQuery.of(context).size;
     return Scaffold(
       body: SizedBox(
           width: _size.width,
           height: _size.height,
           child: Stack(children: [
-            BranchCoverImage(),
+            const BranchCoverImage(),
             BranchProfileBody(
               branche: branche,
             )
@@ -57,13 +57,13 @@ class BranchCoverImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
+    final Size _size = MediaQuery.of(context).size;
     return Positioned(
       top: -_size.height * .25,
       child: Container(
         width: _size.width,
         height: _size.height * 0.9,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
                 image: AssetImage("assets/images/background.png"))),
@@ -105,9 +105,9 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    AppLocalizations _translator = AppLocalizations.of(context);
-    ThemeData _theme = Theme.of(context);
+    final Size _size = MediaQuery.of(context).size;
+    final AppLocalizations _translator = AppLocalizations.of(context);
+    final ThemeData _theme = Theme.of(context);
     return Positioned(
       bottom: 0,
       child: Stack(
@@ -126,7 +126,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
               width: _size.width,
               decoration: BoxDecoration(
                   color: _theme.scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(15),
                     topRight: Radius.circular(15),
                   )),
@@ -136,13 +136,13 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                   child: Column(
                     children: [
                       Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: KDefaultPadding),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: KDefaultPadding),
                         child: Column(
                           children: [
                             //Row of Branch Name and Rating
                             Padding(
-                                padding: EdgeInsets.only(top: 40),
+                                padding: const EdgeInsets.only(top: 40),
                                 child: Row(children: [
                                   SizedBox(
                                     width:
@@ -153,46 +153,41 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                                       overflow: TextOverflow.clip,
                                     ),
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
                                   Container(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 10),
-                                    decoration: BoxDecoration(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    decoration: const BoxDecoration(
                                         borderRadius: BorderRadius.all(
                                       Radius.circular(KDefaultPadding),
                                     )),
-                                    child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          (state is BrancheProfileSuccess)
-                                              ? Text(
-                                                  state.brancheProfile
-                                                      .brancheData.raty
-                                                      .round()
-                                                      .toStringAsFixed(1),
-                                                  style: _theme
-                                                      .textTheme.subtitle2,
-                                                  overflow: TextOverflow.clip,
-                                                )
-                                              : ShimmerEffect(
-                                                  child: Container(
-                                                    height: 10,
-                                                    width: 20,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                          HorizontalGap(
-                                            width: 5.0,
+                                    child: Row(children: [
+                                      if (state is BrancheProfileSuccess)
+                                        Text(
+                                          state.brancheProfile.brancheData.raty
+                                              .round()
+                                              .toStringAsFixed(1)
+                                              .toString(),
+                                          style: _theme.textTheme.subtitle2,
+                                          overflow: TextOverflow.clip,
+                                        )
+                                      else
+                                        ShimmerEffect(
+                                          child: Container(
+                                            height: 10,
+                                            width: 20,
+                                            color: Colors.white,
                                           ),
-                                          Icon(Icons.star_purple500_sharp,
-                                              color: KPrimaryColor),
-                                        ]),
+                                        ),
+                                      const HorizontalGap(
+                                        width: 5.0,
+                                      ),
+                                      const Icon(Icons.star_purple500_sharp,
+                                          color: KPrimaryColor),
+                                    ]),
                                   )
                                 ])),
-                            VerticalGap(
+                            const VerticalGap(
                               height: KDefaultPadding / 2,
                             ),
                             Column(
@@ -203,52 +198,55 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                                 ),
                               ],
                             ),
-                            VerticalGap(
+                            const VerticalGap(
                               height: KDefaultPadding / 2,
                             ),
                           ],
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         // color: KDarkGreyColor,
                         height: 50,
                         width: MediaQuery.of(context).size.width,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            (state is BrancheProfileSuccess)
-                                ? FavoriteButton(
-                                    buttonSize: 30,
-                                    isFavorite: isFavorite ?? false,
-                                    onTap: onLikeButtonTapped,
-                                  )
-                                : ShimmerEffect(
-                                    child: FavoriteButton(
-                                      buttonSize: 30,
-                                    ),
-                                  ),
-                            IconButton(icon: Icon(Icons.sms), onPressed: () {}),
+                            if (state is BrancheProfileSuccess)
+                              FavoriteButton(
+                                buttonSize: 30,
+                                isFavorite: isFavorite ?? false,
+                                onTap: onLikeButtonTapped,
+                              )
+                            else
+                              const ShimmerEffect(
+                                child: FavoriteButton(
+                                  buttonSize: 30,
+                                ),
+                              ),
+                            IconButton(
+                                icon: const Icon(Icons.sms), onPressed: () {}),
                           ],
                         ),
                       ),
                       //build Branch Previous work data
                       Builder(builder: (context) {
                         if (state is BrancheProfileSuccess) {
-                          if (state.brancheProfile.brancheImages.length > 0) {
+                          if (state.brancheProfile.brancheImages.isNotEmpty) {
                             return buildPreviousWorkData(_size, _theme,
                                 state.brancheProfile.brancheImages);
                           } else {
                             return Container();
                           }
-                        } else
+                        } else {
                           return buildPreviousWorkLoading();
+                        }
                       }),
 
                       //build Branch Previous work data
                       BlocBuilder<BrancheservicesBloc, BrancheservicesState>(
                         builder: (context, state) {
                           if (state is BrancheservicesSuccess) {
-                            if (state.services.length > 0) {
+                            if (state.services.isNotEmpty) {
                               return buildServicesData(
                                   _translator, _theme, state.services);
                             } else {
@@ -263,7 +261,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                       BlocBuilder<BrancheemployeesBloc, BrancheemployeesState>(
                         builder: (context, state) {
                           if (state is BrancheemployeesSuccess) {
-                            if (state.employees.length > 0) {
+                            if (state.employees.isNotEmpty) {
                               return buildEmployeesData(
                                   _translator, _size, _theme, state.employees);
                             } else {
@@ -278,7 +276,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                       BlocBuilder<BrancheOffersBloc, BrancheOffersState>(
                         builder: (context, state) {
                           if (state is BrancheOffersSuccess) {
-                            if (state.offers.length > 0) {
+                            if (state.offers.isNotEmpty) {
                               return buildOffersData(
                                   _translator, _size, _theme, state.offers);
                             } else {
@@ -292,7 +290,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                       BlocBuilder<BranchereviewsBloc, BranchereviewsState>(
                         builder: (context, state) {
                           if (state is BrancheReviewsSuccess) {
-                            if (state.reviews.reviews.length > 0) {
+                            if (state.reviews.reviews.isNotEmpty) {
                               return buildReviewsData(
                                   _translator, _size, _theme, state.reviews);
                             } else {
@@ -325,12 +323,13 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
         SizedBox(
           height: 150,
           child: ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
               itemCount: offers.length,
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
-              separatorBuilder: (_, i) => HorizontalGap(
+              physics: const BouncingScrollPhysics(),
+              separatorBuilder: (_, i) => const HorizontalGap(
                     width: KDefaultPadding / 2,
                   ),
               itemBuilder: (ctx, i) {
@@ -342,8 +341,8 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                     theme: _theme,
                     image: offer.offerImage,
                     title: offer.offerName,
-                    subtitle: offer.price.toString() +
-                        " ${_translator.translate("EGP")}",
+                    subtitle:
+                        "${offer.price}${" ${_translator.translate("EGP")}"}",
                   ),
                 );
               }),
@@ -361,12 +360,13 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
           SizedBox(
             height: 150,
             child: ListView.separated(
-                padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
                 itemCount: 10,
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                physics: BouncingScrollPhysics(),
-                separatorBuilder: (_, i) => HorizontalGap(
+                physics: const BouncingScrollPhysics(),
+                separatorBuilder: (_, i) => const HorizontalGap(
                       width: KDefaultPadding / 2,
                     ),
                 itemBuilder: (ctx, i) => GradientCard(
@@ -396,15 +396,16 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
           SizedBox(
             height: 150,
             child: ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
               itemCount: 10,
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
-              separatorBuilder: (_, i) => HorizontalGap(
+              physics: const BouncingScrollPhysics(),
+              separatorBuilder: (_, i) => const HorizontalGap(
                 width: KDefaultPadding / 2,
               ),
-              itemBuilder: (ctx, i) => ReviewCard(),
+              itemBuilder: (ctx, i) => const ReviewCard(),
             ),
           ),
         ],
@@ -422,12 +423,13 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
         SizedBox(
           height: 150,
           child: ListView.separated(
-            padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+            padding:
+                const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
             itemCount: reviews.reviews.length,
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            physics: BouncingScrollPhysics(),
-            separatorBuilder: (_, i) => HorizontalGap(
+            physics: const BouncingScrollPhysics(),
+            separatorBuilder: (_, i) => const HorizontalGap(
               width: KDefaultPadding / 2,
             ),
             itemBuilder: (ctx, i) => ReviewCard(
@@ -451,12 +453,13 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
               itemCount: 10,
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
-              separatorBuilder: (_, i) => HorizontalGap(
+              physics: const BouncingScrollPhysics(),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+              separatorBuilder: (_, i) => const HorizontalGap(
                     width: KDefaultPadding / 2,
                   ),
-              itemBuilder: (ctx, i) => SpecialistCard()),
+              itemBuilder: (ctx, i) => const SpecialistCard()),
         ),
       ],
     ));
@@ -473,9 +476,10 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
               itemCount: employees.length,
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
-              separatorBuilder: (_, i) => HorizontalGap(
+              physics: const BouncingScrollPhysics(),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+              separatorBuilder: (_, i) => const HorizontalGap(
                     width: KDefaultPadding / 2,
                   ),
               itemBuilder: (ctx, i) => SpecialistCard(
@@ -497,10 +501,11 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                 itemCount: 5,
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                physics: BouncingScrollPhysics(),
-                padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
-                separatorBuilder: (_, i) => HorizontalGap(),
-                itemBuilder: (ctx, i) => ServiceRRect(theme: _theme)),
+                physics: const BouncingScrollPhysics(),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+                separatorBuilder: (_, i) => const HorizontalGap(),
+                itemBuilder: (ctx, i) => const ServiceRRect()),
           ),
         ],
       ),
@@ -518,11 +523,11 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
               itemCount: services.length,
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
-              separatorBuilder: (_, i) => HorizontalGap(),
+              physics: const BouncingScrollPhysics(),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+              separatorBuilder: (_, i) => const HorizontalGap(),
               itemBuilder: (ctx, i) => ServiceRRect(
-                    theme: _theme,
                     companyService: services[i],
                   )),
         ),
@@ -540,11 +545,12 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
             child: ListView.separated(
                 itemCount: 5,
                 shrinkWrap: true,
-                padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
                 scrollDirection: Axis.horizontal,
-                physics: BouncingScrollPhysics(),
-                separatorBuilder: (_, i) => HorizontalGap(),
-                itemBuilder: (ctx, i) => PreviousWorkCard()),
+                physics: const BouncingScrollPhysics(),
+                separatorBuilder: (_, i) => const HorizontalGap(),
+                itemBuilder: (ctx, i) => const PreviousWorkCard()),
           ),
         ],
       ),
@@ -560,11 +566,12 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
           height: 150,
           child: ListView.separated(
               itemCount: images.length,
-              padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
-              separatorBuilder: (_, i) => HorizontalGap(),
+              physics: const BouncingScrollPhysics(),
+              separatorBuilder: (_, i) => const HorizontalGap(),
               itemBuilder: (ctx, i) => PreviousWorkCard(
                     image: images[i],
                     onTap: () => Navigator.pushNamed(
@@ -579,7 +586,9 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
     );
   }
 
+  // ignore: avoid_positional_boolean_parameters
   Future<bool> onLikeButtonTapped(bool isFav) async {
+    assert(isFav != null);
     // / send your request here
     final bool isFavorite = await BranchesRepository()
         .brancheAddRemoveFavorite(widget.branche.brancheID);
@@ -589,73 +598,18 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
   }
 }
 
-// class SpecialistCard extends StatelessWidget {
-//   const SpecialistCard({
-//     Key key,
-//     @required Size size,
-//     @required ThemeData theme,
-//     this.companyEmployee,
-//   }) : super(key: key);
-//   final CompanyEmployee companyEmployee;
-//   @override
-//   Widget build(BuildContext context) {
-//     final Size _size = MediaQuery.of(context).size;
-//     final ThemeData _theme = Theme.of(context);
-//     return Container(
-//       height: 85,
-//       width: _size.width * 0.2,
-//       child: Column(
-//         children: [
-//           Container(
-//             height: 50,
-//             width: 50,
-//             decoration: BoxDecoration(
-//                 image: DecorationImage(
-//                     fit: BoxFit.cover,
-//                     image: companyEmployee?.image != null
-//                         ? NetworkImage(KAPIURL + companyEmployee.image)
-//                         : AssetImage("assets/images/profile_photo.png")),
-//                 borderRadius:
-//                     BorderRadius.all(Radius.circular(KDefaultPadding))),
-//           ),
-//           Padding(
-//             padding: EdgeInsets.symmetric(
-//               vertical: KdefaultPadding / 2,
-//             ),
-//             child: companyEmployee != null
-//                 ? SizedBox(
-//                     width: _size.width * 0.3,
-//                     child: Text(companyEmployee.employeeName,
-//                         textAlign: TextAlign.center,
-//                         overflow: TextOverflow.ellipsis,
-//                         style: _theme.textTheme.caption
-//                             .copyWith(fontWeight: FontWeight.bold)),
-//                   )
-//                 : Container(
-//                     color: Colors.white,
-//                     height: KdefaultPadding / 2,
-//                     width: KdefaultPadding * 2,
-//                   ),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
-
 class ServiceRRect extends StatelessWidget {
   const ServiceRRect({
     Key key,
-    @required ThemeData theme,
     this.companyService,
   }) : super(key: key);
   final CompanyService companyService;
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
-    Size _size = MediaQuery.of(context).size;
-    return Container(
+    final ThemeData _theme = Theme.of(context);
+    final Size _size = MediaQuery.of(context).size;
+    return SizedBox(
       height: 100,
       child: Column(
         children: [
@@ -670,12 +624,13 @@ class ServiceRRect extends StatelessWidget {
                   image: companyService?.image != null
                       ? NetworkImage(
                           KAPIURL + companyService.image,
-                        )
-                      : AssetImage(KPlaceHolderImage),
+                        ) as ImageProvider
+                      : const AssetImage(KPlaceHolderImage),
                 ))),
           ),
           Padding(
-              padding: EdgeInsets.symmetric(vertical: KdefaultPadding / 2),
+              padding:
+                  const EdgeInsets.symmetric(vertical: KdefaultPadding / 2),
               child: (companyService != null)
                   ? SizedBox(
                       width: _size.width * 0.3,
@@ -705,10 +660,10 @@ class PreviousWorkCard extends StatelessWidget {
     this.onTap,
   }) : super(key: key);
   final BrancheImage image;
-  final Function onTap;
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
+    final Size _size = MediaQuery.of(context).size;
     // ThemeData _theme = Theme.of(context);
     return InkWell(
       onTap: onTap,
@@ -720,10 +675,10 @@ class PreviousWorkCard extends StatelessWidget {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: (image != null)
-                      ? NetworkImage(KAPIURL + image.image)
-                      : AssetImage(KPlaceHolderImage)),
+                      ? NetworkImage(KAPIURL + image.image) as ImageProvider
+                      : const AssetImage(KPlaceHolderImage)),
               borderRadius:
-                  BorderRadius.all(Radius.circular(KDefaultPadding / 4))),
+                  const BorderRadius.all(Radius.circular(KDefaultPadding / 4))),
         ),
       ),
     );
@@ -740,12 +695,12 @@ class SubTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
+    final ThemeData _theme = Theme.of(context);
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: KDefaultPadding),
+      padding: const EdgeInsets.symmetric(horizontal: KDefaultPadding),
       child: Column(
         children: [
-          VerticalGap(),
+          const VerticalGap(),
           Row(
             children: [
               Text(
@@ -755,7 +710,7 @@ class SubTitle extends StatelessWidget {
               ),
             ],
           ),
-          VerticalGap(),
+          const VerticalGap(),
         ],
       ),
     );
@@ -778,7 +733,7 @@ class InfoTile extends StatelessWidget {
         CircleIcon(
           icon: icon,
         ),
-        SizedBox(width: 5),
+        const SizedBox(width: 5),
         Text(
           description,
           style: Theme.of(context).textTheme.caption,
@@ -797,22 +752,22 @@ class BranchProfilePicture extends StatelessWidget {
   final CompanyBranche branche;
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
+    final ThemeData _theme = Theme.of(context);
     return Positioned(
       top: -70,
       right: 10,
       child: Container(
         width: 100.0,
         height: 100.0,
-        margin: EdgeInsets.all(KDefaultPadding / 4),
-        decoration: new BoxDecoration(
+        margin: const EdgeInsets.all(KDefaultPadding / 4),
+        decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Theme.of(context).scaffoldBackgroundColor,
           border: Border.all(width: 2, color: KPrimaryColor),
           image: DecorationImage(
               image: (branche.image != null)
-                  ? NetworkImage(KAPIURL + branche.image)
-                  : AssetImage(KPlaceHolderImage),
+                  ? NetworkImage(KAPIURL + branche.image) as ImageProvider
+                  : const AssetImage(KPlaceHolderImage),
               fit: BoxFit.fill),
           boxShadow: [
             BoxShadow(

@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:techtime/Helpers/APIUrls.dart';
+import 'package:techtime/Helpers/api_urls.dart';
 import 'package:http/http.dart' as http;
 import 'package:techtime/Models/client/advertise.dart';
 import 'package:techtime/Models/client/category.dart';
@@ -27,7 +27,7 @@ class APIClientHomeRepository implements ClientHomeRepository {
 
       final data = json.decode(decoded) as List;
       return data.map((rawPost) {
-        return Category.fromJson(rawPost);
+        return Category.fromJson(rawPost as Map<String, dynamic>);
       }).toList();
     } else {
       throw Exception('${json.decode(response.body)}');
@@ -43,7 +43,7 @@ class APIClientHomeRepository implements ClientHomeRepository {
       final decoded = utf8.decode(response.bodyBytes);
       final data = json.decode(decoded) as List;
       return data.map((rawPost) {
-        return Company.fromJson(rawPost);
+        return Company.fromJson(rawPost as Map<String, dynamic>);
       }).toList();
     } else {
       throw Exception('${json.decode(response.body)}');
@@ -59,7 +59,7 @@ class APIClientHomeRepository implements ClientHomeRepository {
       final decoded = utf8.decode(response.bodyBytes);
       final data = json.decode(decoded) as List;
       return data.map((rawPost) {
-        return Advertise.fromJson(rawPost);
+        return Advertise.fromJson(rawPost as Map<String, dynamic>);
       }).toList();
     } else {
       throw Exception('${json.decode(response.body)['message']}');
@@ -75,7 +75,7 @@ class APIClientHomeRepository implements ClientHomeRepository {
       final decoded = utf8.decode(response.bodyBytes);
       final data = json.decode(decoded) as List;
       return data.map((rawPost) {
-        return Company.fromJson(rawPost);
+        return Company.fromJson(rawPost as Map<String, dynamic>);
       }).toList();
     } else {
       throw Exception('${json.decode(response.body)}');

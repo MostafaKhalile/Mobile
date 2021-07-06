@@ -10,5 +10,6 @@ abstract class WallettransformpromocodeEvent extends Equatable {
 class WalletTranseferePromocode extends WallettransformpromocodeEvent {
   final String promocode;
 
+  // ignore: prefer_const_constructors_in_immutables
   WalletTranseferePromocode(this.promocode);
 }

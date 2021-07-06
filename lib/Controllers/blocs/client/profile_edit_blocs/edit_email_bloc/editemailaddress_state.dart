@@ -18,5 +18,5 @@ class EditEmailAddresssuccess extends EditemailaddressState {}
 class EditEmailAddressFaild extends EditemailaddressState {
   final String message;
 
-  EditEmailAddressFaild(this.message);
+  const EditEmailAddressFaild(this.message);
 }

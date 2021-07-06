@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+import 'package:techtime/Helpers/api_urls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Models/client/company.dart';
 import 'package:techtime/screens/Client/companyProfile/company_profile.dart';
@@ -13,8 +13,8 @@ class LeastCompanyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
-    Size size = MediaQuery.of(context).size;
+    final ThemeData _theme = Theme.of(context);
+    final Size size = MediaQuery.of(context).size;
 
     return InkWell(
       onTap: () => Navigator.pushNamed(context, CompanyProfile.routeName,
@@ -22,13 +22,13 @@ class LeastCompanyCard extends StatelessWidget {
       child: Container(
         width: size.width * 0.85,
         height: size.height * 0.35,
-        margin: EdgeInsets.symmetric(horizontal: KdefaultPadding / 4),
+        margin: const EdgeInsets.symmetric(horizontal: KdefaultPadding / 4),
         decoration: BoxDecoration(
             image: buildCompanyCover(),
-            borderRadius: BorderRadius.all(
+            borderRadius: const BorderRadius.all(
               Radius.circular(KdefaultRadius),
             ),
-            boxShadow: [
+            boxShadow: const <BoxShadow>[
               BoxShadow(
                 color: Colors.black38,
                 offset: Offset(0, 5),
@@ -40,7 +40,7 @@ class LeastCompanyCard extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.white, width: 2.0),
-                borderRadius: BorderRadius.all(
+                borderRadius: const BorderRadius.all(
                   Radius.circular(KdefaultRadius),
                 ),
               ),
@@ -51,12 +51,12 @@ class LeastCompanyCard extends StatelessWidget {
                   height: 110,
                   width: size.width * 0.85,
                   padding:
-                      EdgeInsets.symmetric(horizontal: KdefaultPadding / 4),
+                      const EdgeInsets.symmetric(horizontal: KdefaultPadding / 4),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: _theme.accentColor, width: 0.2),
                       borderRadius:
-                          BorderRadius.all(Radius.circular(KdefaultRadius))),
+                          const BorderRadius.all(Radius.circular(KdefaultRadius))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -73,29 +73,23 @@ class LeastCompanyCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            company != null
-                                ? Text(
+                            if (company != null) Text(
                                     company.categoryEn,
                                     style: _theme.textTheme.caption
                                         .copyWith(color: Colors.black),
-                                  )
-                                : Container(),
-                            company != null
-                                ? Text(
-                                    company.totalServices.toString() +
-                                        " " +
-                                        "Service",
+                                  ) else Container(),
+                            if (company != null) Text(
+                                    "${company.totalServices} Service",
                                     style: _theme.textTheme.caption
                                         .copyWith(color: Colors.black),
-                                  )
-                                : Container()
+                                  ) else Container()
                           ],
                         ),
                       )
@@ -112,9 +106,9 @@ class LeastCompanyCard extends StatelessWidget {
     return DecorationImage(
       image: company?.coverImage != null
           ? NetworkImage(
-              "${KAPIURL + company?.coverImage}",
-            )
-          : AssetImage(KPlaceHolderCover),
+              KAPIURL + company?.coverImage,
+            ) as ImageProvider
+          : const AssetImage(KPlaceHolderCover),
       fit: BoxFit.fill,
     );
   }
@@ -126,7 +120,7 @@ class LeastCompanyCard extends StatelessWidget {
             height: 80,
             image: company.logo,
           )
-        : CustomCircleAvatar(
+        : const CustomCircleAvatar(
             image: null,
             width: 80,
             height: 80,
@@ -145,13 +139,8 @@ class LeastCompanyCard extends StatelessWidget {
 
   SmoothStarRating buildSmoothStarRating() {
     return SmoothStarRating(
-      rating: 0.0,
       isReadOnly: true,
       size: 14,
-      filledIconData: Icons.star,
-      halfFilledIconData: Icons.star_half,
-      defaultIconData: Icons.star_border,
-      starCount: 5,
       allowHalfRating: false,
       spacing: 2.0,
     );

@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/Providers/current_user_provider.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+import 'package:techtime/Helpers/api_urls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
@@ -31,25 +31,24 @@ class CompanyServicesState extends State<CompanyServices> {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
-    Size _size = MediaQuery.of(context).size;
+    final ThemeData _theme = Theme.of(context);
+    final Size _size = MediaQuery.of(context).size;
     final _currentUser = Provider.of<CurrentUserProvider>(context).currentUser;
 
-    AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context);
     return Scaffold(
-      body: Container(
+      body: SizedBox(
           width: _size.width,
           child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical: KdefaultPadding),
+                padding: const EdgeInsets.symmetric(vertical: KdefaultPadding),
                 child: Column(children: <Widget>[
                   CheckboxGroup(
                     activeColor: KPrimaryColor,
                     checkColor: _theme.primaryColorDark,
-                    orientation: GroupedButtonsOrientation.VERTICAL,
                     onSelected: (List selected) => setState(() {
-                      _checked = selected;
+                      _checked = selected as List<String>;
                       print(_checked);
                     }),
                     labels:
@@ -68,14 +67,14 @@ class CompanyServicesState extends State<CompanyServices> {
                 ]),
               ))),
       persistentFooterButtons: [
-        Container(
+        SizedBox(
           width: _size.width,
           child: Row(
             children: [
               Expanded(
                   // ignore: deprecated_member_use
                   child: RaisedButton(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 onPressed: () => _bookHandler(_currentUser),
                 disabledColor: Colors.black38,
                 child: Text(
@@ -90,9 +89,9 @@ class CompanyServicesState extends State<CompanyServices> {
     );
   }
 
-  _bookHandler(UserProfile _currentUser) {
+  void _bookHandler(UserProfile _currentUser) {
     if (_currentUser != null) {
-      _checked.length != 0
+      _checked.isNotEmpty
           ? Navigator.pushNamed(context, OrderFirstStep.routeName,
               arguments: widget.companyProfile.companyBranches)
           : Fluttertoast.showToast(
@@ -123,7 +122,7 @@ class ServiceCard extends StatelessWidget {
     return Stack(
       children: [
         Card(
-          child: Container(
+          child: SizedBox(
             width: _size.width * .9,
             child: Wrap(
               children: <Widget>[
@@ -131,16 +130,16 @@ class ServiceCard extends StatelessWidget {
                   leading: Container(
                     height: 50,
                     width: 50,
-                    margin: EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             image: (companyService?.image != null)
                                 ? NetworkImage(KAPIURL + companyService.image)
-                                : AssetImage(KPlaceHolderImage)),
+                                    as ImageProvider
+                                : const AssetImage(KPlaceHolderImage)),
                         borderRadius: BorderRadius.circular(KdefaultRadius)),
                   ),
                   title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,9 +147,8 @@ class ServiceCard extends StatelessWidget {
                           Expanded(
                             flex: 2,
                             child: RichText(
-                              overflow: TextOverflow.clip,
                               text: TextSpan(
-                                text: companyService.nameServicesAr + "\n",
+                                text: "${companyService.nameServicesAr}\n",
                                 style: _theme.textTheme.subtitle2,
                               ),
                             ),
@@ -180,7 +178,7 @@ class ServiceCard extends StatelessWidget {
                       maxLines: 4,
                       style: _theme.textTheme.caption),
                   isThreeLine: true,
-                  contentPadding: EdgeInsets.all(0),
+                  contentPadding: const EdgeInsets.all(0),
                   horizontalTitleGap: 5.0,
                   trailing: cb ?? Container(),
                 ),

@@ -16,5 +16,5 @@ class EditMobilesuccess extends EditmobileState {}
 class EditMobileFaild extends EditmobileState {
   final String message;
 
-  EditMobileFaild(this.message);
+  const EditMobileFaild(this.message);
 }

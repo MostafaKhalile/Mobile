@@ -15,9 +15,10 @@ class AllNotifications extends Equatable {
   factory AllNotifications.fromJson(Map<String, dynamic> json) =>
       AllNotifications(
         status: json['status'] as int,
-        readNotification: json['ReadNotification'] as List<UserNotification>,
-        notReadNotification: (json['NotReadNotification']
-                as List<UserNotification>)
+        readNotification: (json['ReadNotification'] as List)
+            .map((e) => UserNotification.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        notReadNotification: (json['NotReadNotification'] as List)
             .map((e) => UserNotification.fromJson(e as Map<String, dynamic>))
             .toList(),
       );

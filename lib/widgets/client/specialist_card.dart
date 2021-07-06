@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+import 'package:techtime/Helpers/api_urls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Models/client/companyData/brancheData/company_employee.dart';
@@ -17,17 +17,17 @@ class SpecialistCard extends StatelessWidget {
 
   final bool isSelected;
   final bool selectable;
-  final Function onPressed;
+  final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    ThemeData _theme = Theme.of(context);
+    final Size _size = MediaQuery.of(context).size;
+    final ThemeData _theme = Theme.of(context);
     return InkWell(
       onTap: selectable ?? false ? onPressed : () => null,
       splashColor: Colors.transparent,
       hoverColor: Colors.transparent,
       highlightColor: Colors.transparent,
-      child: Container(
+      child: SizedBox(
         height: 95,
         width: _size.width * 0.2,
         child: Column(
@@ -40,7 +40,8 @@ class SpecialistCard extends StatelessWidget {
                       fit: BoxFit.cover,
                       image: companyEmployee?.image != null
                           ? NetworkImage(KAPIURL + companyEmployee.image)
-                          : AssetImage("assets/images/profile_photo.png")),
+                              as ImageProvider
+                          : const AssetImage("assets/images/profile_photo.png")),
                   border: selectable ?? false
                       ? Border.all(
                           color: isSelected ?? false
@@ -48,13 +49,12 @@ class SpecialistCard extends StatelessWidget {
                               : Colors.transparent,
                           width: 3)
                       : Border.all(),
-                  borderRadius: BorderRadius.all(Radius.circular(50))),
+                  borderRadius: const BorderRadius.all(Radius.circular(50))),
             ),
-            VerticalGap(
+            const VerticalGap(
               height: KdefaultPadding / 2,
             ),
-            companyEmployee != null
-                ? SizedBox(
+            if (companyEmployee != null) SizedBox(
                     width: _size.width * 0.3,
                     child: Text(companyEmployee.employeeName,
                         textAlign: TextAlign.center,
@@ -65,8 +65,7 @@ class SpecialistCard extends StatelessWidget {
                                 : FontWeight.normal,
                             color: isSelected ?? false
                                 ? KPrimaryColor
-                                : _theme.accentColor)))
-                : Container(
+                                : _theme.accentColor))) else Container(
                     color: Colors.white,
                     height: KdefaultPadding / 2,
                     width: KdefaultPadding * 2,

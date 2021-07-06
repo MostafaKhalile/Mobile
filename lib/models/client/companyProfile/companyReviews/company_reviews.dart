@@ -35,7 +35,7 @@ class CompanyReviews extends Equatable {
     return CompanyReviews(
       totalReviews: totalReviews ?? this.totalReviews,
       publicRaty: publicRaty ?? this.publicRaty,
-      companyReviews: companyReviews ?? this.companyReviews,
+      companyReviews: companyReviews as List<Review> ?? this.companyReviews,
     );
   }
 

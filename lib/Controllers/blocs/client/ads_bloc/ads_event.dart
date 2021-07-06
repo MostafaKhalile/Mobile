@@ -8,5 +8,5 @@ abstract class AdsEvent extends Equatable {
 }
 
 class GetAdsAbove extends AdsEvent {
-  GetAdsAbove();
+  const GetAdsAbove();
 }

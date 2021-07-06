@@ -8,7 +8,7 @@ import 'package:techtime/Models/client/companyProfile/company_service.dart';
 import 'branches_api_client.dart';
 
 class BranchesRepository {
-  BranchesApiClient _branchesApiClient = BranchesApiClient();
+  final BranchesApiClient _branchesApiClient = BranchesApiClient();
   Future<BrancheProfile> getBrancheProfileData(int brancheId) async {
     try {
       final dataResp = await _branchesApiClient.getBrancheProfile(brancheId);

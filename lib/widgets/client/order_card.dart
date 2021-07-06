@@ -9,9 +9,9 @@ class OrderCard extends StatefulWidget {
   // final Order order;
   final double duration;
   final int index;
-  final statusCode;
+  final int statusCode;
 
-  OrderCard(
+  const OrderCard(
       {Key key,
       // this.order,
       this.duration,
@@ -25,11 +25,10 @@ class OrderCard extends StatefulWidget {
 
 class _OrderCardState extends State<OrderCard> {
   Color themeColor;
-  Animation _animation;
   double start;
   double end;
   Locale locale;
-  Color getThemeColor(status) {
+  Color getThemeColor(int status) {
     switch (status) {
       case 19: //مؤكد من الأدمن
         {
@@ -78,32 +77,32 @@ class _OrderCardState extends State<OrderCard> {
   @override
   Widget build(BuildContext context) {
     locale = BlocProvider.of<LocaleCubit>(context).state.locale;
-    ThemeData _theme = Theme.of(context);
+    final ThemeData _theme = Theme.of(context);
     themeColor = getThemeColor(widget.statusCode);
-    double width = MediaQuery.of(context).size.width;
+    final double width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {},
       child: Card(
         elevation: 1.0,
-        margin: EdgeInsets.symmetric(horizontal: KdefaultPadding / 2),
+        margin: const EdgeInsets.symmetric(horizontal: KdefaultPadding / 2),
         shape: RoundedRectangleBorder(
-          side: BorderSide(color: Colors.white70, width: 1),
+          side: const BorderSide(color: Colors.white70),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Container(
             width: double.infinity,
-            decoration: new BoxDecoration(
-                gradient: new LinearGradient(
-                    stops: [0.03, 0.03], colors: [themeColor, Colors.black]),
-                borderRadius: new BorderRadius.all(Radius.circular(10.0))),
-            child: Wrap(direction: Axis.horizontal, spacing: 10, children: <
-                Widget>[
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    stops: const <double>[0.03, 0.03],
+                    colors: [themeColor, Colors.black]),
+                borderRadius: const BorderRadius.all(Radius.circular(10.0))),
+            child: Wrap(spacing: 10, children: <Widget>[
               Stack(
                 children: <Widget>[
                   Align(
                     alignment: Alignment.topLeft,
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         borderRadius:
                             BorderRadius.only(topLeft: Radius.circular(10)),
                         color: Colors.black,
@@ -113,9 +112,9 @@ class _OrderCardState extends State<OrderCard> {
                           child: Container(
                             width: width * 0.35,
                             height: 30,
-                            decoration: new BoxDecoration(
+                            decoration: BoxDecoration(
                                 color: themeColor,
-                                borderRadius: new BorderRadius.only(
+                                borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(10.0))),
                             child: Text(
                               'تم بنجاح',
@@ -130,7 +129,8 @@ class _OrderCardState extends State<OrderCard> {
               ),
               Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: KdefaultPadding),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: KdefaultPadding),
                 child: Row(
                   children: [
                     Expanded(
@@ -142,19 +142,18 @@ class _OrderCardState extends State<OrderCard> {
                           ListTile(
                             title: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
                                   height: 60,
                                   width: 60,
                                   // margin: EdgeInsets.all(5),
                                   decoration: BoxDecoration(
-                                      image: DecorationImage(
+                                      image: const DecorationImage(
                                           image: AssetImage(KPlaceHolderImage)),
                                       borderRadius: BorderRadius.circular(
                                           KdefaultRadius)),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Column(
@@ -174,15 +173,15 @@ class _OrderCardState extends State<OrderCard> {
                                 ),
                               ],
                             ),
-                            contentPadding: EdgeInsets.all(0),
+                            contentPadding: const EdgeInsets.all(0),
                             horizontalTitleGap: 5.0,
                             dense: true,
                           ),
                         ],
                       ),
                     ),
-                    Spacer(),
-                    SizedBox(
+                    const Spacer(),
+                    const SizedBox(
                       height: 80,
                       child: VerticalDivider(
                         thickness: 2,
@@ -196,13 +195,13 @@ class _OrderCardState extends State<OrderCard> {
                         flex: 3,
                         child: Container(
                           height: 100,
-                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Spacer(),
-                              Expanded(
+                              const Spacer(),
+                              const Expanded(
                                 child: Text(
                                   "#1234",
                                 ),
@@ -219,7 +218,7 @@ class _OrderCardState extends State<OrderCard> {
                                   style: _theme.textTheme.caption,
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                             ],
                           ),
                         )),

@@ -6,7 +6,7 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
     brightness: Brightness.dark,
     accentColor: Colors.white,
     primaryColor: KPrimaryColor,
-    shadowColor: Color(0xFF303030),
+    shadowColor: const Color(0xFF303030),
     primaryColorDark: Colors.black,
     bottomAppBarColor: Colors.white,
     iconTheme: iconThemeData(),
@@ -29,12 +29,12 @@ ButtonThemeData buttonThemeData() {
     height: 50,
     buttonColor: Colors.black,
     shape:
-        RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+        RoundedRectangleBorder(borderRadius:  BorderRadius.circular(30.0)),
   );
 }
 
 AppBarTheme appBarTheme() {
-  return AppBarTheme(
+  return const AppBarTheme(
       brightness: Brightness.dark,
       // shadowColor: Colors.white,
       centerTitle: true,
@@ -44,7 +44,7 @@ AppBarTheme appBarTheme() {
 }
 
 TextTheme textTheme() {
-  return TextTheme(
+  return const TextTheme(
     headline1: TextStyle(color: Colors.white),
     headline3: TextStyle(color: Colors.white),
     headline4: TextStyle(color: Colors.white),
@@ -64,7 +64,7 @@ TextTheme textTheme() {
 }
 
 InputDecorationTheme inputDecorationTheme() {
-  return InputDecorationTheme(
+  return const InputDecorationTheme(
       contentPadding: EdgeInsets.only(bottom: 20.0, left: 20.0, right: 20.0),
       border: OutlineInputBorder(
           borderSide: BorderSide(width: 3),
@@ -81,4 +81,4 @@ InputDecorationTheme inputDecorationTheme() {
       hintStyle: TextStyle(color: Colors.black));
 }
 
-IconThemeData iconThemeData() => IconThemeData(color: KPrimaryColor, size: 18);
+IconThemeData iconThemeData() => const IconThemeData(color: KPrimaryColor, size: 18);

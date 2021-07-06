@@ -10,5 +10,5 @@ abstract class EditpasswordEvent extends Equatable {
 class EditPassword extends EditpasswordEvent {
   final Map<String, String> body;
 
-  EditPassword(this.body);
+  const EditPassword(this.body);
 }

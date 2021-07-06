@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Screens/Client/branchProfile/branchProfile.dart';
+import 'package:techtime/Screens/Client/branchProfile/branch_profile.dart';
 import 'package:techtime/widgets/client/branch_card.dart';
 
 class ChooseBranch extends StatelessWidget {

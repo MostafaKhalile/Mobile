@@ -13,10 +13,10 @@ class CompanyProfileLoading extends CompanyProfileState {}
 
 class CompanyProfileFinished extends CompanyProfileState {
   final CompanyProfile companyProfile;
-  CompanyProfileFinished(this.companyProfile);
+  const CompanyProfileFinished(this.companyProfile);
 }
 
 class CompanyProfileError extends CompanyProfileState {
   final String message;
-  CompanyProfileError(this.message);
+  const CompanyProfileError(this.message);
 }

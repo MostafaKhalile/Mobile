@@ -12,7 +12,7 @@ class CustomToast {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.check_circle_outline,
               color: Colors.greenAccent,
               size: 30,
@@ -29,15 +29,15 @@ class CustomToast {
         isHideKeyboard: true,
         animation: StyledToastAnimation.scale,
         reverseAnimation: StyledToastAnimation.fade,
-        duration: Duration(seconds: 4),
-        animDuration: Duration(seconds: 1),
+        duration: const Duration(seconds: 4),
+        animDuration: const Duration(seconds: 1),
         curve: Curves.elasticOut,
         reverseCurve: Curves.linear);
   }
 
   void buildErrorMessage(BuildContext context, String message) {
     showToastWidget(
-        Container(
+        SizedBox(
             width: MediaQuery.of(context).size.width * 0.8,
             child: Card(
                 elevation: 10,

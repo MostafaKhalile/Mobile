@@ -9,5 +9,5 @@ abstract class EditprofilepictureEvent extends Equatable {
 
 class ChangeProfilePicture extends EditprofilepictureEvent {
   final File image;
-  ChangeProfilePicture(this.image);
+  const ChangeProfilePicture(this.image);
 }

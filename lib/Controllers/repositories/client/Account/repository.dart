@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -26,20 +27,22 @@ class USerRepo {
     if (userResp == null) {
       return null;
     }
-    print(UserProfile.fromJson(jsonDecode(userResp)).toString());
-    return UserProfile.fromJson(jsonDecode(userResp));
+    print(UserProfile.fromJson(
+            jsonDecode(userResp.toString()) as Map<String, dynamic>)
+        .toString());
+    return UserProfile.fromJson(
+        jsonDecode(userResp.toString()) as Map<String, dynamic>);
   }
 
-  Future getProfileData() async {
+  FutureOr<UserProfile> getProfileData() async {
     try {
-      final dataResp = (await _apiClient.getProfileData());
-      final data = json.decode(dataResp)['Data'] as Map;
+      final dataResp = await _apiClient.getProfileData();
+      final data =
+          json.decode(dataResp.toString())['Data'] as Map<String, dynamic>;
       final UserProfile profileData = UserProfile.fromJson(data);
-      if (json.decode(dataResp)['status'] == 201) {
+      if (json.decode(dataResp.toString())['status'] == 201) {
         _saveCurrentUserProfile(profileData.toJson());
         return profileData;
-      } else {
-        return Future.error(json.decode(dataResp));
       }
     } catch (e) {
       final message = e;
@@ -79,7 +82,7 @@ class USerRepo {
 
   Future<bool> uploadProfilePicture(File imageFile) async {
     final bool hasBeenUploaded =
-        await _apiClient.uploadProfilePicture(imageFile);
+        await _apiClient.uploadProfilePicture(imageFile) as bool;
     if (hasBeenUploaded) {
       await getProfileData();
     }
@@ -88,7 +91,8 @@ class USerRepo {
   }
 
   Future<bool> uploadCover(File imageFile) async {
-    final bool hasBeenUploaded = await _apiClient.uploadCover(imageFile);
+    final bool hasBeenUploaded =
+        await _apiClient.uploadCover(imageFile) as bool;
     if (hasBeenUploaded) {
       await getProfileData();
     }
@@ -107,7 +111,8 @@ class USerRepo {
   }
 
   Future<Map<String, dynamic>> walletTransformPoints(String points) async {
-    final walletTotalData = await _apiClient.walletTransformPoints(points);
+    final Map<String, dynamic> walletTotalData =
+        await _apiClient.walletTransformPoints(points) as Map<String, dynamic>;
     return walletTotalData;
   }
 

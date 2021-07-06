@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+import 'package:techtime/Helpers/api_urls.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Screens/Core/startupViews/client_signup_page.dart';
 import 'package:techtime/screens/Core/ConnectivityView/network_sensitive.dart';
@@ -10,7 +10,7 @@ class LoginModeratorPage extends StatelessWidget {
     return NetworkSensitive(
       child: Scaffold(
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/background.png"),
               fit: BoxFit.fill,
@@ -37,7 +37,7 @@ class LoginModeratorPage extends StatelessWidget {
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
                               ),
-                              Icon(
+                              const Icon(
                                 Icons.arrow_forward_ios_rounded,
                                 color: Colors.black,
                               )
@@ -46,35 +46,31 @@ class LoginModeratorPage extends StatelessWidget {
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Spacer(
-                      flex: 1,
-                    ),
+                    const Spacer(),
                     Expanded(
-                      child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset("assets/images/logo.png"),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(KAppName,
-                                style: TextStyle(
-                                    fontSize: 30,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold))
-                          ],
-                        ),
-                      ),
                       flex: 2,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset("assets/images/logo.png"),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          const Text(KAppName,
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold))
+                        ],
+                      ),
                     ),
                     Expanded(
+                      flex: 2,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Container(
+                          SizedBox(
                               width: MediaQuery.of(context).size.width * 0.8,
                               // ignore: deprecated_member_use
                               child: RaisedButton(
@@ -86,8 +82,8 @@ class LoginModeratorPage extends StatelessWidget {
                                   style: Theme.of(context).textTheme.button,
                                 ),
                               )),
-                          SizedBox(height: 20),
-                          Container(
+                          const SizedBox(height: 20),
+                          SizedBox(
                             width: MediaQuery.of(context).size.width * 0.8,
                             // ignore: deprecated_member_use
                             child: RaisedButton(
@@ -100,8 +96,8 @@ class LoginModeratorPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(height: 20),
-                          Container(
+                          const SizedBox(height: 20),
+                          SizedBox(
                             width: MediaQuery.of(context).size.width * 0.7,
                             // ignore: deprecated_member_use
                             child: RaisedButton(
@@ -118,7 +114,6 @@ class LoginModeratorPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      flex: 2,
                     ),
                   ],
                 ),

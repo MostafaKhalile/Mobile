@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class Review extends Equatable {
-  final String image;
+  final dynamic image;
   final String name;
   final bool orderService;
   final int totalServices;
@@ -33,8 +33,8 @@ class Review extends Equatable {
       );
 
   Map<String, dynamic> toJson() => {
-        'Image': image,
-        'Name': name,
+        'Image': image as String,
+        'Name': name ,
         'OrderService': orderService,
         'TotalServices': totalServices,
         'TotalOffers': totalOffers,

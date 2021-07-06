@@ -3,7 +3,7 @@ import 'package:platform/platform.dart';
 import 'package:android_intent/android_intent.dart';
 
 class VisitApp {
-  launchURL(String url) async {
+  Future<void> launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -11,9 +11,9 @@ class VisitApp {
     }
   }
 
-  callApp(String url, String package) {
+  void callApp(String url, String package) {
     print(url);
-    if (LocalPlatform().isAndroid) {
+    if (const LocalPlatform().isAndroid) {
       final AndroidIntent intent = AndroidIntent(
           action: 'action_view', data: Uri.encodeFull(url), package: package);
       intent.launch();

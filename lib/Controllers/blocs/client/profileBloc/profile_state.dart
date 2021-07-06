@@ -14,11 +14,11 @@ class ProfileDataLoading extends ProfileState {}
 class ProfileDataLoaded extends ProfileState {
   final UserProfile profile;
 
-  ProfileDataLoaded(this.profile);
+  const ProfileDataLoaded(this.profile);
 }
 
 class ProfileDataError extends ProfileState {
   final String message;
 
-  ProfileDataError({this.message});
+  const ProfileDataError({this.message});
 }

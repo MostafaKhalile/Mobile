@@ -51,7 +51,7 @@ import 'Controllers/blocs/client/profile_edit_blocs/edit_email_bloc/editemailadd
 import 'Controllers/blocs/client/profile_edit_blocs/edit_first_name_bloc/editfirstname_bloc.dart';
 import 'Controllers/blocs/client/profile_edit_blocs/edit_second_name_bloc/editsecondname_bloc.dart';
 import 'Controllers/blocs/core/Auth/authantication_bloc.dart';
-import 'Helpers/APIUrls.dart';
+import 'Helpers/api_urls.dart';
 import 'Helpers/app_data.dart';
 import 'Helpers/localization/app_localizations_delegates.dart';
 import 'Helpers/shared_perfs_provider.dart';
@@ -75,7 +75,7 @@ AndroidNotificationChannel channel;
 /// Initialize the [FlutterLocalNotificationsPlugin] package.
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await PreferenceUtils.init();
@@ -142,14 +142,16 @@ class MyApp extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    precacheImage(AssetImage("assets/images/background.png"), context);
-    precacheImage(AssetImage("assets/images/splashscreen.png"), context);
-    APIClientHomeRepository apiClientHomeRepository = APIClientHomeRepository();
-    APICompaniesRepository apiCompaniesRepository = APICompaniesRepository();
-    BranchesRepository apiBranchesRepository = BranchesRepository();
-    OrdersRepository orderRepository = OrdersRepository();
-    USerRepo userRepo = USerRepo();
-    NotificationsRepo _notificationsRepo = NotificationsRepo();
+    precacheImage(const AssetImage("assets/images/background.png"), context);
+    precacheImage(const AssetImage("assets/images/splashscreen.png"), context);
+    final APIClientHomeRepository apiClientHomeRepository =
+        APIClientHomeRepository();
+    final APICompaniesRepository apiCompaniesRepository =
+        APICompaniesRepository();
+    final BranchesRepository apiBranchesRepository = BranchesRepository();
+    final OrdersRepository orderRepository = OrdersRepository();
+    final USerRepo userRepo = USerRepo();
+    final NotificationsRepo _notificationsRepo = NotificationsRepo();
     return MultiProvider(
         providers: [
           ChangeNotifierProvider<CurrentUserProvider>(

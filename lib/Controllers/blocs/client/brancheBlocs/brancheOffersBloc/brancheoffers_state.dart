@@ -14,11 +14,11 @@ class BrancheOffersLoading extends BrancheOffersState {}
 class BrancheOffersSuccess extends BrancheOffersState {
   final List<BrancheOffer> offers;
 
-  BrancheOffersSuccess(this.offers);
+  const BrancheOffersSuccess(this.offers);
 }
 
 class BrancheOffersFaild extends BrancheOffersState {
   final String message;
 
-  BrancheOffersFaild(this.message);
+  const BrancheOffersFaild(this.message);
 }

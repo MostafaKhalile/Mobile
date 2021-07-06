@@ -27,34 +27,34 @@ class User {
       this.goUrl});
 
   User.fromJson(Map<String, dynamic> json) {
-    statusCode = json['status'];
-    status = json['Status'];
-    message = json['message'];
-    token = json['token'];
-    userID = json['UserID'];
-    accountTypeUser = json['AccountTypeUser'];
-    name = json['Name'];
-    image = json['Image'];
-    coverImage = json['CoverImage'];
-    locations = json['Locations'];
-    confirmedCompany = json['ConfirmedCompany'];
-    goUrl = json['Go_url'];
+    statusCode = json['status'] as int;
+    status = json['Status'] as String;
+    message = json['message'] as String;
+    token = json['token'] as String;
+    userID = json['UserID'] as int;
+    accountTypeUser = json['AccountTypeUser'] as int;
+    name = json['Name'] as String;
+    image = json['Image'] as String;
+    coverImage = json['CoverImage'] as String;
+    locations = json['Locations'] as bool;
+    confirmedCompany = json['ConfirmedCompany'] as bool;
+    goUrl = json['Go_url'] as String;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.statusCode;
-    data['Status'] = this.status;
-    data['message'] = this.message;
-    data['token'] = this.token;
-    data['UserID'] = this.userID;
-    data['AccountTypeUser'] = this.accountTypeUser;
-    data['Name'] = this.name;
-    data['Image'] = this.image;
-    data['CoverImage'] = this.coverImage;
-    data['Locations'] = this.locations;
-    data['ConfirmedCompany'] = this.confirmedCompany;
-    data['Go_url'] = this.goUrl;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = statusCode;
+    data['Status'] = status;
+    data['message'] = message;
+    data['token'] = token;
+    data['UserID'] = userID;
+    data['AccountTypeUser'] = accountTypeUser;
+    data['Name'] = name;
+    data['Image'] = image;
+    data['CoverImage'] = coverImage;
+    data['Locations'] = locations;
+    data['ConfirmedCompany'] = confirmedCompany;
+    data['Go_url'] = goUrl;
     return data;
   }
 }

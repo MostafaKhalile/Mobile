@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+import 'package:techtime/Helpers/api_urls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 
 class OfferCardBody extends StatelessWidget {
@@ -22,12 +22,10 @@ class OfferCardBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         RichText(
-          textAlign: TextAlign.start,
           text: TextSpan(
-            text: title + "\n",
+            text: "$title\n",
             style: _theme.textTheme.subtitle1
                 .copyWith(fontSize: 18, fontWeight: FontWeight.bold),
             children: <TextSpan>[
@@ -42,10 +40,8 @@ class OfferCardBody extends StatelessWidget {
             ],
           ),
         ),
-        Spacer(),
-        (image != null)
-            ? Image.network(KAPIURL + image)
-            : Image.asset(
+        const Spacer(),
+        if (image != null) Image.network(KAPIURL + image) else Image.asset(
                 KPlaceHolderImage,
               )
       ],

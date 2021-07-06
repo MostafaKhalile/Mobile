@@ -4,14 +4,14 @@ import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 
 class SectionHeader extends StatelessWidget {
   final Widget title;
-  final Function pressed;
+  final VoidCallback pressed;
 
   const SectionHeader({Key key, this.title, this.pressed}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 16),
-      child: Container(
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
+      child: SizedBox(
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           title ?? Container(),
@@ -25,10 +25,10 @@ class SectionHeader extends StatelessWidget {
                           color: KPrimaryColor,
                         ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
-                  Icon(
+                  const Icon(
                     Icons.arrow_forward,
                     color: KPrimaryColor,
                   )

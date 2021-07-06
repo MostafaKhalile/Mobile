@@ -10,15 +10,15 @@ abstract class RecommendedcompaniesState extends Equatable {
 class RecommendedcompaniesInitial extends RecommendedcompaniesState {}
 
 class RecommendedcompaniesLoading extends RecommendedcompaniesState {
-  RecommendedcompaniesLoading();
+  const RecommendedcompaniesLoading();
 }
 
 class RecommendedcompaniesLoaded extends RecommendedcompaniesState {
   final List<Company> recommendedCompanies;
-  RecommendedcompaniesLoaded(this.recommendedCompanies);
+  const RecommendedcompaniesLoaded(this.recommendedCompanies);
 }
 
 class RecommendedcompaniesError extends RecommendedcompaniesState {
   final String message;
-  RecommendedcompaniesError(this.message);
+  const RecommendedcompaniesError(this.message);
 }

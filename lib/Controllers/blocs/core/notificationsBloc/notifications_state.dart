@@ -14,11 +14,11 @@ class NotificationsLoading extends NotificationsState {}
 class NotificationsSuccess extends NotificationsState {
   final AllNotifications notifications;
 
-  NotificationsSuccess(this.notifications);
+  const NotificationsSuccess(this.notifications);
 }
 
 class NotificationsFaild extends NotificationsState {
   final String message;
 
-  NotificationsFaild(this.message);
+  const NotificationsFaild(this.message);
 }

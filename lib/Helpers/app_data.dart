@@ -1,16 +1,12 @@
 import 'package:package_info_plus/package_info_plus.dart';
 
+//TODO : check validity of this
+// ignore: avoid_classes_with_only_static_members
 class AppInfo {
   static PackageInfo _packageInfo;
 
   static Future<void> init() async {
-    if (_packageInfo == null) {
-      _packageInfo = await PackageInfo.fromPlatform();
-    }
-
-    // print(
-    //     "Application Info Here ==> $packageName $appName $version $buildNumber");
-    return _packageInfo;
+    return _packageInfo ??= await PackageInfo.fromPlatform();
   }
 
   static String get appName => _packageInfo.appName;
