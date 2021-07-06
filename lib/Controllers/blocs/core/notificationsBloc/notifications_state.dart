@@ -12,7 +12,7 @@ class NotificationsInitial extends NotificationsState {}
 class NotificationsLoading extends NotificationsState {}
 
 class NotificationsSuccess extends NotificationsState {
-  final List<UserNotification> notifications;
+  final AllNotifications notifications;
 
   NotificationsSuccess(this.notifications);
 }

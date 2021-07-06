@@ -12,7 +12,6 @@ import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
 import 'package:techtime/Models/client/wallet/wallet_points_to_price.dart';
 import 'package:techtime/Models/client/wallet/wallet_total_data.dart';
-import 'package:techtime/Models/user_notification.dart';
 
 class AccountApiClient {
   final PreferenceUtils prefs;
@@ -309,26 +308,6 @@ class AccountApiClient {
       return respData;
     } catch (e) {
       return Future.error(e);
-    }
-  }
-
-  Future<List<UserNotification>> getUserNotifications() async {
-    final String path = KAPIURL + NetworkConstants.allUserNotification;
-    final response = await http.post(Uri.parse(path), headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Accept": "application/json",
-      "Authorization": "Token ${_authRepo.currentUserToken}"
-    });
-
-    if (response.statusCode == 200) {
-      final decoded = utf8.decode(response.bodyBytes);
-      print("Company services here $decoded");
-      final data = json.decode(decoded)['AllNotification'] as List;
-      return data.map((rawPost) {
-        return UserNotification.fromJson(rawPost);
-      }).toList();
-    } else {
-      throw Future.error('${json.decode(response.body)}');
     }
   }
 

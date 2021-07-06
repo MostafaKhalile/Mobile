@@ -16,7 +16,6 @@ import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheServicesBl
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheWorkingDaysBloc/brancheworkingdays_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/companyDataBlocs/companyServicesBloc/companyservices_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/companyProfileBloc/company_profile_bloc.dart';
-import 'package:techtime/Controllers/BLoCs/client/notificationsBloc/notifications_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/orderBlocs/orderDateTimeBloc/orderdatetime_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/orderBlocs/orderTimesBloc/ordertimes_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_passwod_bloc/editpassword_bloc.dart';
@@ -25,11 +24,13 @@ import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_points_to_
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_total_data_bloc/wallet_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_transform_points_blob/wallettransformpoints_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_transform_promocode_bloc/wallettransformpromocode_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/core/notificationsBloc/notifications_bloc.dart';
 import 'package:techtime/Controllers/Providers/current_user_provider.dart';
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/Controllers/Repositories/client/Order/order_repository.dart';
 import 'package:techtime/Controllers/Repositories/client/branches/branches_repository.dart';
 import 'package:techtime/Controllers/Repositories/client/companies/companies_repository.dart';
+import 'package:techtime/Controllers/Repositories/notifications/repository.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/profileBloc/profile_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
@@ -148,6 +149,7 @@ class MyApp extends StatelessWidget {
     BranchesRepository apiBranchesRepository = BranchesRepository();
     OrdersRepository orderRepository = OrdersRepository();
     USerRepo userRepo = USerRepo();
+    NotificationsRepo _notificationsRepo = NotificationsRepo();
     return MultiProvider(
         providers: [
           ChangeNotifierProvider<CurrentUserProvider>(
@@ -164,7 +166,8 @@ class MyApp extends StatelessWidget {
                     create: (_) => AuthanticationBloc(
                           authRepo: AuthRepo(),
                         )),
-                BlocProvider(create: (context) => NotificationsBloc(userRepo)),
+                BlocProvider(
+                    create: (context) => NotificationsBloc(_notificationsRepo)),
                 BlocProvider(create: (context) => ProfileBloc(userRepo)),
                 BlocProvider(create: (context) => EditfirstnameBloc(userRepo)),
                 BlocProvider(create: (context) => EditLastnameBloc(userRepo)),

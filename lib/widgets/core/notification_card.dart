@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/colors.dart';
-import 'package:techtime/Models/user_notification.dart';
+import 'package:techtime/Models/notifications/user_notification.dart';
 
 class NotificationCard extends StatelessWidget {
   const NotificationCard({

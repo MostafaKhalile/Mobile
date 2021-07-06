@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:techtime/Controllers/BLoCs/client/notificationsBloc/notifications_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/core/notificationsBloc/notifications_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/categorisBloc/categories_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
@@ -327,8 +327,9 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
                   if (state is NotificationsSuccess) {
                     return IconButton(
                         icon: Badge(
-                            badgeContent:
-                                Text(state.notifications.length.toString()),
+                            badgeContent: Text(state
+                                .notifications.notReadNotification.length
+                                .toString()),
                             animationType: BadgeAnimationType.slide,
                             toAnimate: true,
                             child: Icon(
