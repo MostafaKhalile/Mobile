@@ -11,7 +11,7 @@ import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/companyProfile/company_profile.dart';
 import 'package:techtime/Models/client/companyProfile/company_service.dart';
 import 'package:techtime/Models/client_profile.dart';
-import 'package:techtime/Screens/Client/booking/orderFirstStep/order_first_step.dart';
+import 'package:techtime/Screens/Client/reservations/reservationFirstStep/reservation_first_step.dart';
 
 class CompanyServices extends StatefulWidget {
   final CompanyProfile companyProfile;
@@ -93,7 +93,7 @@ class CompanyServicesState extends State<CompanyServices> {
   void _bookHandler(UserProfile _currentUser) {
     if (_currentUser != null) {
       _checked.isNotEmpty
-          ? Navigator.pushNamed(context, OrderFirstStep.routeName,
+          ? Navigator.pushNamed(context, ReservationFirstStep.routeName,
               arguments: widget.companyProfile.companyBranches)
           : Fluttertoast.showToast(
               msg: AppLocalizations.of(context)

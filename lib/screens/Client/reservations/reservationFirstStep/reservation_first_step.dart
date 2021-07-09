@@ -20,17 +20,17 @@ import 'package:intl/intl.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
 
-class OrderFirstStep extends StatefulWidget {
+class ReservationFirstStep extends StatefulWidget {
   static const String routeName = "/order_first_step";
   final List<CompanyBranche> companyBranches;
 
-  const OrderFirstStep({Key key, this.companyBranches}) : super(key: key);
+  const ReservationFirstStep({Key key, this.companyBranches}) : super(key: key);
 
   @override
-  _OrderFirstStepState createState() => _OrderFirstStepState();
+  ReservationFirstStepState createState() => ReservationFirstStepState();
 }
 
-class _OrderFirstStepState extends State<OrderFirstStep> {
+class ReservationFirstStepState extends State<ReservationFirstStep> {
   final CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay;

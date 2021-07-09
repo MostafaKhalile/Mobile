@@ -5,13 +5,13 @@ import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 
-class OrderCard extends StatefulWidget {
+class ObservationCard extends StatefulWidget {
   // final Order order;
   final double duration;
   final int index;
   final int statusCode;
 
-  const OrderCard(
+  const ObservationCard(
       {Key key,
       // this.order,
       this.duration,
@@ -20,10 +20,10 @@ class OrderCard extends StatefulWidget {
       : super(key: key);
 
   @override
-  _OrderCardState createState() => _OrderCardState();
+  _ObservationCardState createState() => _ObservationCardState();
 }
 
-class _OrderCardState extends State<OrderCard> {
+class _ObservationCardState extends State<ObservationCard> {
   Color themeColor;
   double start;
   double end;

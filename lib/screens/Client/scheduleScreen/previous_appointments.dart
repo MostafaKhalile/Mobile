@@ -4,12 +4,12 @@ import 'package:techtime/widgets/core/vertical_gab.dart';
 
 final items = List<String>.generate(3, (i) => "Item ${i + 1}");
 
-class PreviousAppointments extends StatefulWidget {
+class PreviousReservations extends StatefulWidget {
   @override
-  _PreviousAppointmentsState createState() => _PreviousAppointmentsState();
+  _PreviousReservationsState createState() => _PreviousReservationsState();
 }
 
-class _PreviousAppointmentsState extends State<PreviousAppointments> {
+class _PreviousReservationsState extends State<PreviousReservations> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +34,7 @@ class PreviousAppointmentCard extends StatelessWidget {
       children: const <Widget>[
         Padding(
           padding: EdgeInsets.all(10),
-          child: OrderCard(
+          child: ObservationCard(
             statusCode: 22,
           ),
         ),

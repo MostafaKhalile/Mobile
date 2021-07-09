@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:techtime/Controllers/BLoCs/core/notificationsBloc/notifications_bloc.dart';
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 
 import 'package:techtime/Helpers/enums.dart';
@@ -26,9 +28,11 @@ class _SplashScreenState extends State<SplashScreen> {
   bool _isSignedIn;
   UserRole _userRole;
   AuthRepo _authRepo;
+  NotificationsBloc notificationsBloc;
 
   @override
   void initState() {
+    notificationsBloc = context.read<NotificationsBloc>();
     _authRepo = AuthRepo();
     _isSignedIn = _authRepo.currentUserToken != null;
     _userRole = _authRepo.userType;
@@ -64,6 +68,8 @@ class _SplashScreenState extends State<SplashScreen> {
       final RemoteNotification notification = message.notification;
       final AndroidNotification android = message.notification?.android;
       if (notification != null && android != null) {
+        notificationsBloc.add(const GetAllUserNotifications());
+        Navigator.pushNamed(context, Notifications.routeName);
         flutterLocalNotificationsPlugin.show(
             notification.hashCode,
             notification.title,
@@ -77,6 +83,8 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ));
       }
+    }).onDone(() {
+      Navigator.pushNamed(context, Notifications.routeName);
     });
 
     super.initState();

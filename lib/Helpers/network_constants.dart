@@ -11,7 +11,8 @@ class NetworkConstants {
   static const String homeRecommendedCo = "/api/home/favorite-companies";
   static const String homeLeastCo = "/api/home/Lest-companies";
   static const String homeAdsAbove = "/api/home/ads-above-home";
-  static const String homeCompaniesList = "/api/home/filter-category-companies/";
+  static const String homeCompaniesList =
+      "/api/home/filter-category-companies/";
   static const String companyView = "/api/companies/company/view/";
   // User and Profile Routes
   static const String currentUserToken = "currentUserToken";
@@ -26,8 +27,18 @@ class NetworkConstants {
   static const String uploadProfilePicture = "/api/settings/profile/edit-image";
   static const String uploadCoverPicture =
       "/api/settings/profile/edit-cover-image";
+
+  // Notifications Routes
   static const String allUserNotification =
       "/api/companies/notification/all-user-notification";
+  static const String readUserNotification =
+      "/api/companies/notification/read-user-notification/";
+  static const String deleteUserNotification =
+      "/api/companies/notification/clear-user-notification/";
+  static const String readAllUserNotifications =
+      "/api/companies/notification/read-all-user-notification";
+  static const String clearAllUserNotifications =
+      "/api/companies/notification/clear-all-user-notification";
 
   // User Wallet Routes
   static const String walletTotal = "/api/my-wallet/total-data";

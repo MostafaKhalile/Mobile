@@ -6,12 +6,12 @@ import 'package:techtime/Widgets/core/vertical_gab.dart';
 
 final items = List<String>.generate(6, (i) => "Item ${i + 1}");
 
-class NextAppointments extends StatefulWidget {
+class UpcomingReservations extends StatefulWidget {
   @override
-  NextAppointmentsState createState() => NextAppointmentsState();
+  UpcomingReservationsState createState() => UpcomingReservationsState();
 }
 
-class NextAppointmentsState extends State<NextAppointments> {
+class UpcomingReservationsState extends State<UpcomingReservations> {
   @override
   Widget build(BuildContext context) {
     final AppLocalizations _translator = AppLocalizations.of(context);
@@ -54,7 +54,7 @@ class NextAppointmentsState extends State<NextAppointments> {
                   ],
                 ),
               ),
-              child: const OrderCard(
+              child: const ObservationCard(
                 statusCode: 40,
               ));
         },

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Screens/Client/scheduleScreen/previous_appointments.dart';
 
-import 'next_appointments.dart';
-import 'previous_appointments.dart';
+import 'upcoming_appointments.dart';
 
 class ScheduleScreen extends StatefulWidget {
   static const String routeName = "/schedule_screen";
@@ -37,7 +37,8 @@ class _ScheduleScreenState extends State<ScheduleScreen>
         centerTitle: true,
         title: Material(
             elevation: 5,
-            borderRadius: const BorderRadius.all(Radius.circular(defaultRadius)),
+            borderRadius:
+                const BorderRadius.all(Radius.circular(defaultRadius)),
             child: TextField(
               decoration: InputDecoration(
                   prefixIcon: Icon(
@@ -67,7 +68,7 @@ class _ScheduleScreenState extends State<ScheduleScreen>
         width: double.infinity,
         child: TabBarView(
           controller: _controller,
-          children: <Widget>[NextAppointments(), PreviousAppointments()],
+          children: <Widget>[UpcomingReservations(), PreviousReservations()],
         ),
       ),
     );

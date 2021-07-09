@@ -5,8 +5,7 @@ import 'package:techtime/Models/client/category.dart';
 import 'package:techtime/Models/client/company.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
 import 'package:techtime/Models/notifications/all_notifications.dart';
-import 'package:techtime/Screens/Client/booking/bookingTable/table_reservation.dart';
-import 'package:techtime/Screens/Client/booking/orderFirstStep/order_first_step.dart';
+
 import 'package:techtime/Screens/Core/aboutUs/about_us.dart';
 import 'package:techtime/Screens/Core/aboutUs/follow_us.dart';
 
@@ -22,6 +21,8 @@ import 'package:techtime/screens/company/company_placeholder.dart';
 import 'package:techtime/widgets/core/gallery_view.dart';
 
 import 'Screens/Client/branchProfile/branch_profile.dart';
+import 'Screens/Client/reservations/TableReservation/table_reservation.dart';
+import 'Screens/Client/reservations/reservationFirstStep/reservation_first_step.dart';
 import 'Screens/Core/startupViews/splash_screen_page.dart';
 import 'screens/Client/Categories/client_categories_screen.dart';
 import 'screens/Client/CategoryCompanies/category_companies.dart';
@@ -114,10 +115,10 @@ class RouteGenerator {
                   branche: args as CompanyBranche,
                 ));
         break;
-      case OrderFirstStep.routeName:
+      case ReservationFirstStep.routeName:
         return CupertinoPageRoute(
           fullscreenDialog: true,
-          builder: (_) => OrderFirstStep(
+          builder: (_) => ReservationFirstStep(
             companyBranches: args as List<CompanyBranche>,
           ),
         );
