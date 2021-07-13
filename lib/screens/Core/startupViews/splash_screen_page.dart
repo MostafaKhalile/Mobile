@@ -83,8 +83,6 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ));
       }
-    }).onDone(() {
-      Navigator.pushNamed(context, Notifications.routeName);
     });
 
     super.initState();

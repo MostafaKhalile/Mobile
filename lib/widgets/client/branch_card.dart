@@ -49,12 +49,14 @@ class BranchCard extends StatelessWidget {
                   flex: 3,
                   child: Container(
                     height: 120,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            fit: BoxFit.fill, image: NetworkImage(image)),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
-                        )),
+                    decoration: image != null
+                        ? BoxDecoration(
+                            image: DecorationImage(
+                                fit: BoxFit.fill, image: NetworkImage(image)),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10),
+                            ))
+                        : const BoxDecoration(),
                   )),
               Expanded(
                   flex: 5,

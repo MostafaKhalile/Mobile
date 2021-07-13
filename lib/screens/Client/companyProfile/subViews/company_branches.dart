@@ -29,7 +29,9 @@ class CompanyBranchesScreen extends StatelessWidget {
               title: brancheData.brancheName,
               address: brancheData.branchAddressAR,
               rating: 4.8,
-              image: NetworkConstants.baseUrl + brancheData.image,
+              image: (brancheData.image != null)
+                  ? NetworkConstants.baseUrl + brancheData.image
+                  : null,
               onPressed: () => Navigator.pushNamed(
                   context, BranchProfile.routeName,
                   arguments: companyBranches[i]),

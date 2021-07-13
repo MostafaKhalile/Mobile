@@ -4,26 +4,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Helpers/network_constants.dart';
+import 'package:techtime/Models/reservations/reservation.dart';
+import 'package:techtime/Screens/Core/reservation_details.dart';
 
-class ObservationCard extends StatefulWidget {
+class ReservationCard extends StatefulWidget {
   // final Order order;
   final double duration;
   final int index;
   final int statusCode;
+  final Reservation reservation;
 
-  const ObservationCard(
+  const ReservationCard(
       {Key key,
       // this.order,
       this.duration,
       this.index,
-      this.statusCode})
+      this.statusCode,
+      this.reservation})
       : super(key: key);
 
   @override
-  _ObservationCardState createState() => _ObservationCardState();
+  _ReservationCardState createState() => _ReservationCardState();
 }
 
-class _ObservationCardState extends State<ObservationCard> {
+class _ReservationCardState extends State<ReservationCard> {
   Color themeColor;
   double start;
   double end;
@@ -78,10 +83,14 @@ class _ObservationCardState extends State<ObservationCard> {
   Widget build(BuildContext context) {
     locale = BlocProvider.of<LocaleCubit>(context).state.locale;
     final ThemeData _theme = Theme.of(context);
-    themeColor = getThemeColor(widget.statusCode);
     final double width = MediaQuery.of(context).size.width;
+    themeColor = getThemeColor(widget.statusCode);
+    final Reservation reservation = (widget.reservation != null)
+        ? widget.reservation
+        : const Reservation(orderCode: "1234");
     return GestureDetector(
-      onTap: () {},
+      onTap: () => Navigator.push(context,
+          CupertinoPageRoute(builder: (ctx) => const ReservationDetails())),
       child: Card(
         elevation: 1.0,
         margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
@@ -147,8 +156,16 @@ class _ObservationCardState extends State<ObservationCard> {
                                   width: 60,
                                   // margin: EdgeInsets.all(5),
                                   decoration: BoxDecoration(
-                                      image: const DecorationImage(
-                                          image: AssetImage(placeHolderImage)),
+                                      image: DecorationImage(
+                                          image: (reservation?.orderImageFrom !=
+                                                  null)
+                                              ? NetworkImage(
+                                                      NetworkConstants.baseUrl +
+                                                          reservation
+                                                              .orderImageFrom)
+                                                  as ImageProvider
+                                              : const AssetImage(
+                                                  placeHolderCover)),
                                       borderRadius:
                                           BorderRadius.circular(defaultRadius)),
                                 ),
@@ -160,10 +177,11 @@ class _ObservationCardState extends State<ObservationCard> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      " Steam Jet ",
+                                      reservation?.orderFrom ?? "",
                                       style: _theme.textTheme.subtitle2,
                                     ),
-                                    Text("7/5/2021    11:31 PM",
+                                    Text(
+                                        "${reservation?.orderOrderDate ?? ''}\t\t\t\t${reservation?.orderOrderTime ?? ''}",
                                         overflow: TextOverflow.visible,
                                         textAlign: TextAlign.justify,
                                         maxLines: 4,
@@ -200,20 +218,20 @@ class _ObservationCardState extends State<ObservationCard> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               const Spacer(),
-                              const Expanded(
+                              Expanded(
                                 child: Text(
-                                  "#1234",
+                                  "# ${reservation?.orderCode ?? ''}",
                                 ),
                               ),
                               Expanded(
                                 child: Text(
-                                  '50 - 75 ${AppLocalizations.of(context).translate('EGP')}',
+                                  '${reservation?.orderTotalOrder ?? ''}  ${AppLocalizations.of(context).translate('EGP')}',
                                   style: _theme.textTheme.caption,
                                 ),
                               ),
                               Expanded(
                                 child: Text(
-                                  '5 Services',
+                                  '${reservation?.orderTotalService ?? ''} Services',
                                   style: _theme.textTheme.caption,
                                 ),
                               ),

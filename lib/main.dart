@@ -31,6 +31,7 @@ import 'package:techtime/Controllers/Repositories/client/Order/order_repository.
 import 'package:techtime/Controllers/Repositories/client/branches/branches_repository.dart';
 import 'package:techtime/Controllers/Repositories/client/companies/companies_repository.dart';
 import 'package:techtime/Controllers/Repositories/notifications/repository.dart';
+import 'package:techtime/Controllers/Repositories/reservations/reservations_repository.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/profileBloc/profile_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
@@ -40,6 +41,7 @@ import 'package:techtime/route_generator.dart';
 
 import 'Controllers/BLoCs/client/profile_edit_blocs/edit_cover_bloc/editcover_bloc.dart';
 import 'Controllers/BLoCs/client/profile_edit_blocs/edit_mobile_bloc/editmobile_bloc.dart';
+import 'Controllers/BLoCs/core/reservations/reservations_bloc.dart';
 import 'Controllers/Cubits/LocaleCubit/locale_cubit.dart';
 import 'Controllers/Cubits/NetworkCubit/internet_cubit.dart';
 import 'Controllers/Repositories/client/Account/repository.dart';
@@ -150,6 +152,7 @@ class MyApp extends StatelessWidget {
     final OrdersRepository orderRepository = OrdersRepository();
     final USerRepo userRepo = USerRepo();
     final NotificationsRepo _notificationsRepo = NotificationsRepo();
+    final ReservationsRepo _reservationsRepo = ReservationsRepo();
     return MultiProvider(
         providers: [
           ChangeNotifierProvider<CurrentUserProvider>(
@@ -212,6 +215,8 @@ class MyApp extends StatelessWidget {
                 BlocProvider(
                     create: (context) =>
                         BrancheOffersBloc(apiBranchesRepository)),
+                BlocProvider(
+                    create: (context) => ReservationsBloc(_reservationsRepo)),
                 BlocProvider(
                     create: (context) =>
                         LeastcompaniesBloc(apiClientHomeRepository)),

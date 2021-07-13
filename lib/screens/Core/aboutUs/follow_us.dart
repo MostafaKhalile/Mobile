@@ -85,6 +85,7 @@ class FollowUsBody extends StatelessWidget {
                 width: double.infinity,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 30),
@@ -103,7 +104,7 @@ class FollowUsBody extends StatelessWidget {
                             width: _size.width * 0.8,
                             child: Text(
                               '''
-                              • Tech Time covers a wide range of businesses.
+• Tech Time covers a wide range of businesses.
 • Book an appointment nearby.
 • Explore all the year offers nearby.
 • Get reminded of your upcoming bookings.
@@ -128,7 +129,7 @@ class FollowUsBody extends StatelessWidget {
                               'assets/svg/facebook.svg',
                               color: AppColors.primaryColor,
                             ),
-                            onPressed: () => VisitApp().callApp(
+                            onPressed: () => VisitApp.callApp(
                                 "https://www.facebook.com/TechTimeEgypt",
                                 "com.facebook.katana")),
                         IconButton(
@@ -137,7 +138,7 @@ class FollowUsBody extends StatelessWidget {
                               'assets/svg/twitter.svg',
                               color: AppColors.primaryColor,
                             ),
-                            onPressed: () => VisitApp().callApp(
+                            onPressed: () => VisitApp.callApp(
                                 "https://twitter.com/TechTimeApp1?s=09",
                                 "com.twitter.android")),
                         IconButton(
@@ -146,16 +147,15 @@ class FollowUsBody extends StatelessWidget {
                               'assets/svg/Google+.svg',
                               color: AppColors.primaryColor,
                             ),
-                            onPressed: () => VisitApp().callApp(
-                                "google.navigation:q=31.2600466,29.9867037",
-                                "com.google.android.apps.maps")),
+                            onPressed: () => VisitApp.callApp(
+                                "https://g.page/tech-time-app", "")),
                         IconButton(
                             color: AppColors.errorColor,
                             icon: SvgPicture.asset(
                               'assets/svg/linkedin.svg',
                               color: AppColors.primaryColor,
                             ),
-                            onPressed: () => VisitApp().callApp(
+                            onPressed: () => VisitApp.callApp(
                                 "https://www.linkedin.com/in/tech-time-2141701ba/",
                                 "com.linkedin.android.home.UpdateStatusActivity")),
                         IconButton(
@@ -164,7 +164,7 @@ class FollowUsBody extends StatelessWidget {
                               'assets/svg/instagram.svg',
                               color: AppColors.primaryColor,
                             ),
-                            onPressed: () => VisitApp().callApp(
+                            onPressed: () => VisitApp.callApp(
                                 "https://www.instagram.com/techtimeegypt/?igshid=8t5hzl043ae3",
                                 "com.instagram.android")),
                         IconButton(
@@ -173,7 +173,7 @@ class FollowUsBody extends StatelessWidget {
                               'assets/svg/telegram.svg',
                               color: AppColors.primaryColor,
                             ),
-                            onPressed: () => VisitApp().callApp(
+                            onPressed: () => VisitApp.callApp(
                                 "https://t.me/joinchat/UqIHHe4u80GKwZXc",
                                 "org.telegram.messenger")),
                         IconButton(
@@ -182,7 +182,7 @@ class FollowUsBody extends StatelessWidget {
                               'assets/svg/youtube.svg',
                               color: AppColors.primaryColor,
                             ),
-                            onPressed: () => VisitApp().callApp(
+                            onPressed: () => VisitApp.callApp(
                                 "https://www.youtube.com/channel/UCSRZSdPqE8kBIp7As9dlLtg",
                                 "com.google.android.youtube")),
                       ],

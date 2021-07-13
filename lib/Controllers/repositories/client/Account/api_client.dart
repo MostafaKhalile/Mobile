@@ -42,7 +42,7 @@ class AccountApiClient {
   }
 
   Future<bool> editFirstName(String name) async {
-    final String _path =
+    const String _path =
         NetworkConstants.baseUrl + NetworkConstants.editFirstName;
 
     try {

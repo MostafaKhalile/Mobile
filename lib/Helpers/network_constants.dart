@@ -1,8 +1,8 @@
 class NetworkConstants {
-  // #############Strings################
+  // #############app Contstants################
   static const String appName = "Tech Time";
-// static const String NetworkConstants.baseUrl = "https://www.techtime.app";
-  static const String baseUrl = "https://www.test.techtime.app";
+  static const String baseUrl =
+      "https://www.test.techtime.app"; //"https://www.techtime.app";
   static const String placeHolder = "https://via.placeholder.com/150";
 
 // #############Routes##################
@@ -65,4 +65,10 @@ class NetworkConstants {
 
   //Order Routes
   static const String orderDateTime = "/api/companies/order/date-time-order/";
+
+  //Reservations Routes
+  static const String previousReservations =
+      "/api/companies/order/notification/history/";
+  static const String upcomingReservations =
+      "/api/companies/order/notification/upcoming/";
 }

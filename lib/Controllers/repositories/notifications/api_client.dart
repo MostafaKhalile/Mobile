@@ -15,7 +15,7 @@ class NotificatiosApiClient {
   };
 
   Future<AllNotifications> getUserNotifications() async {
-    final String path =
+    const String path =
         NetworkConstants.baseUrl + NetworkConstants.allUserNotification;
     final response = await http.post(Uri.parse(path), headers: headers);
 

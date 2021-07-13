@@ -2,11 +2,11 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/Screens/Core/prevent_close_btn.dart';
+import 'package:techtime/Screens/Core/scheduleScreen/schedule_screen.dart';
 
 import 'Categories/client_categories_screen.dart';
 import 'HomeScreen/client_home_screen.dart';
 import 'profile/profile.dart';
-import 'scheduleScreen/schedule_screen.dart';
 import 'walletScreen/wallet_screen.dart';
 
 class ClientHomePage extends StatefulWidget {
