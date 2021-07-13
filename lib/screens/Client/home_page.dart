@@ -54,7 +54,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
               Padding(
                   padding: const EdgeInsets.all(5),
                   child: SvgPicture.asset(
-                    "assets/svg/schedule.svg",
+                    "assets/svg/calendar.svg",
                     height: 20,
                     color: appTheme.primaryColorDark,
                   )),

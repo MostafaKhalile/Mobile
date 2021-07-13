@@ -180,12 +180,42 @@ class _ReservationCardState extends State<ReservationCard> {
                                       reservation?.orderFrom ?? "",
                                       style: _theme.textTheme.subtitle2,
                                     ),
-                                    Text(
-                                        "${reservation?.orderOrderDate ?? ''}\t\t\t\t${reservation?.orderOrderTime ?? ''}",
-                                        overflow: TextOverflow.visible,
-                                        textAlign: TextAlign.justify,
-                                        maxLines: 4,
-                                        style: _theme.textTheme.caption)
+                                    Row(
+                                      children: [
+                                        Text(reservation?.orderOrderDate ?? '',
+                                            overflow: TextOverflow.visible,
+                                            textAlign: TextAlign.justify,
+                                            maxLines: 4,
+                                            style: _theme.textTheme.caption),
+                                        RichText(
+                                            textAlign: TextAlign.center,
+                                            text: TextSpan(
+                                              text: reservation
+                                                          ?.orderOrderTime !=
+                                                      null
+                                                  ? "\t\t\t${getTimePeriods(reservation?.orderOrderTime).format(context).split(' ')[0]}"
+                                                  : "",
+                                              style: _theme.textTheme.caption,
+                                              children: <TextSpan>[
+                                                const TextSpan(
+                                                    text: '\t',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                                TextSpan(
+                                                  text: reservation
+                                                              ?.orderOrderTime !=
+                                                          null
+                                                      ? getTimePeriods(reservation
+                                                              ?.orderOrderTime)
+                                                          .format(context)
+                                                          .split(' ')[1]
+                                                      : "",
+                                                )
+                                              ],
+                                            ))
+                                      ],
+                                    )
                                   ],
                                 ),
                               ],
@@ -245,6 +275,14 @@ class _ReservationCardState extends State<ReservationCard> {
             ])),
       ),
     );
+  }
+
+  TimeOfDay getTimePeriods(String time) {
+    final TimeOfDay interval = TimeOfDay(
+        hour: int.parse(time.toString().split(":")[0]),
+        minute: int.parse(time.toString().split(":")[1]));
+
+    return interval;
   }
 }
 
