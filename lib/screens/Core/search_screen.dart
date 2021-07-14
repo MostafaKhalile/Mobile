@@ -13,7 +13,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   static const historyLength = 5;
 
-  List<String> _searchHistory = [
+  final List<String> _searchHistory = [
     'CarCare',
     'Beauty Salon',
     'Gym',
@@ -86,7 +86,7 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         ),
         transition: CircularFloatingSearchBarTransition(),
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         title: Text(
           selectedTerm ??
               AppLocalizations.of(context).translate("search_place_holder"),
@@ -97,7 +97,7 @@ class _SearchScreenState extends State<SearchScreen> {
         actions: [
           IconButton(
             onPressed: () => _bottomSheet(context),
-            icon: Icon(
+            icon: const Icon(
               Icons.filter_alt_outlined,
               size: 30,
             ),
@@ -196,15 +196,15 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  _bottomSheet(context) {
+  Future _bottomSheet(BuildContext context) async {
     showModalBottomSheet(
         context: context,
         elevation: 16.0,
         isScrollControlled: true,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(KdefaultRadius),
-              topRight: Radius.circular(KdefaultRadius)),
+              topLeft: Radius.circular(defaultRadius),
+              topRight: Radius.circular(defaultRadius)),
         ),
         builder: (context) {
           return Wrap(children: <Widget>[FilterationBody()]);
@@ -227,7 +227,7 @@ class SearchResultsListView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
+            const Icon(
               Icons.search,
               size: 64,
             ),

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/companyData/brancheData/brancheReviews/reviews.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
@@ -17,10 +18,10 @@ class ReviewCard extends StatelessWidget {
   final Review review;
   @override
   Widget build(BuildContext context) {
-    Locale locale = BlocProvider.of<LocaleCubit>(context).state.locale;
-    Size _size = MediaQuery.of(context).size;
-    ThemeData _theme = Theme.of(context);
-    return Container(
+    final Locale locale = BlocProvider.of<LocaleCubit>(context).state.locale;
+    final Size _size = MediaQuery.of(context).size;
+    final ThemeData _theme = Theme.of(context);
+    return SizedBox(
       width: _size.width * 0.7,
       child: Card(
         elevation: 10,
@@ -29,7 +30,7 @@ class ReviewCard extends StatelessWidget {
           child: Stack(
             children: [
               Align(
-                  alignment: locale == Locale('ar')
+                  alignment: locale == const Locale('ar')
                       ? Alignment.topLeft
                       : Alignment.topRight,
                   child: (review != null)
@@ -56,47 +57,45 @@ class ReviewCard extends StatelessWidget {
                           child: (review != null)
                               ? (review.image != null)
                                   ? Image.network(
-                                      KAPIURL + review.image,
+                                      NetworkConstants.baseUrl +
+                                          (review.image as String),
                                       fit: BoxFit.cover,
                                     )
-                                  : Image.asset(KPlaceHolderImage)
+                                  : Image.asset(placeHolderImage)
                               : Container(),
                         ),
                       ),
-                      HorizontalGap(width: KDefaultPadding / 2),
+                      const HorizontalGap(width: defaultPadding / 2),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              (review != null)
-                                  ? Text(
-                                      review.name,
-                                      style: _theme.textTheme.subtitle2,
-                                    )
-                                  : Container(),
+                              if (review != null)
+                                Text(
+                                  review.name,
+                                  style: _theme.textTheme.subtitle2,
+                                )
+                              else
+                                Container(),
                             ],
                           ),
-                          (review != null)
-                              ? RatingBarIndicator(
+                          if (review != null) RatingBarIndicator(
                                   rating: 5.00,
-                                  itemBuilder: (context, index) => Icon(
+                                  itemBuilder: (context, index) => const Icon(
                                     Icons.star,
                                     color: Colors.amber,
                                   ),
-                                  itemCount: 5,
                                   itemSize: 14.0,
-                                  direction: Axis.horizontal,
-                                )
-                              : Container(),
-                          VerticalGap(
-                            height: KDefaultPadding,
+                                ) else Container(),
+                          const VerticalGap(
+                            height: defaultPadding,
                           ),
                           SizedBox(
                             width: _size.width * 0.4,
                             child: (review != null)
-                                ? Text('''${review.comment}''',
+                                ? Text(review.comment,
                                     textAlign: TextAlign.start,
                                     overflow: TextOverflow.fade,
                                     maxLines: 2,
@@ -105,7 +104,7 @@ class ReviewCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Spacer(),
+                      const Spacer(),
                     ],
                   )
                 ],

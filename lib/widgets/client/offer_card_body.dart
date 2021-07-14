@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 
 class OfferCardBody extends StatelessWidget {
   final String image;
@@ -22,12 +23,10 @@ class OfferCardBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         RichText(
-          textAlign: TextAlign.start,
           text: TextSpan(
-            text: title + "\n",
+            text: "$title\n",
             style: _theme.textTheme.subtitle1
                 .copyWith(fontSize: 18, fontWeight: FontWeight.bold),
             children: <TextSpan>[
@@ -42,12 +41,13 @@ class OfferCardBody extends StatelessWidget {
             ],
           ),
         ),
-        Spacer(),
-        (image != null)
-            ? Image.network(KAPIURL + image)
-            : Image.asset(
-                KPlaceHolderImage,
-              )
+        const Spacer(),
+        if (image != null)
+          Image.network(NetworkConstants.baseUrl + image)
+        else
+          Image.asset(
+            placeHolderImage,
+          )
       ],
     );
   }

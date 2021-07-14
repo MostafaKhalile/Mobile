@@ -14,11 +14,11 @@ class WallettransformpromocodeLoading extends WallettransformpromocodeState {}
 class WallettransformpromocodeSucceded extends WallettransformpromocodeState {
   final String message;
 
-  WallettransformpromocodeSucceded(this.message);
+  const WallettransformpromocodeSucceded(this.message);
 }
 
 class WallettransformpromocodeFailed extends WallettransformpromocodeState {
   final String message;
 
-  WallettransformpromocodeFailed(this.message);
+  const WallettransformpromocodeFailed(this.message);
 }

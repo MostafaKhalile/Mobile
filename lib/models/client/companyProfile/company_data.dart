@@ -17,24 +17,24 @@ class CompanyData {
       this.categoryEN});
 
   CompanyData.fromJson(Map<String, dynamic> json) {
-    raty = json['raty'];
-    companyID = json['CompanyID'];
-    companyName = json['CompanyName'];
-    companyImage = json['CompanyImage'];
-    companyCoverImage = json['CompanyCoverImage'];
-    categoryAR = json['CategoryAR'];
-    categoryEN = json['CategoryEN'];
+    raty = json['raty'] as double;
+    companyID = json['CompanyID'] as int;
+    companyName = json['CompanyName'] as String;
+    companyImage = json['CompanyImage'] as String;
+    companyCoverImage = json['CompanyCoverImage'] as String;
+    categoryAR = json['CategoryAR'] as String;
+    categoryEN = json['CategoryEN'] as String;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['raty'] = this.raty;
-    data['CompanyID'] = this.companyID;
-    data['CompanyName'] = this.companyName;
-    data['CompanyImage'] = this.companyImage;
-    data['CompanyCoverImage'] = this.companyCoverImage;
-    data['CategoryAR'] = this.categoryAR;
-    data['CategoryEN'] = this.categoryEN;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['raty'] = raty;
+    data['CompanyID'] = companyID;
+    data['CompanyName'] = companyName;
+    data['CompanyImage'] = companyImage;
+    data['CompanyCoverImage'] = companyCoverImage;
+    data['CategoryAR'] = categoryAR;
+    data['CategoryEN'] = categoryEN;
     return data;
   }
 }

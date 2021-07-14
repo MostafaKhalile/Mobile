@@ -9,5 +9,5 @@ abstract class CompanieslistEvent extends Equatable {
 
 class GetCompaniesList extends CompanieslistEvent {
   final int id;
-  GetCompaniesList(this.id);
+  const GetCompaniesList(this.id);
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/companyData/brancheData/company_employee.dart';
 import 'package:techtime/Widgets/core/vertical_gab.dart';
 
@@ -17,17 +18,17 @@ class SpecialistCard extends StatelessWidget {
 
   final bool isSelected;
   final bool selectable;
-  final Function onPressed;
+  final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    ThemeData _theme = Theme.of(context);
+    final Size _size = MediaQuery.of(context).size;
+    final ThemeData _theme = Theme.of(context);
     return InkWell(
       onTap: selectable ?? false ? onPressed : () => null,
       splashColor: Colors.transparent,
       hoverColor: Colors.transparent,
       highlightColor: Colors.transparent,
-      child: Container(
+      child: SizedBox(
         height: 95,
         width: _size.width * 0.2,
         child: Column(
@@ -39,38 +40,41 @@ class SpecialistCard extends StatelessWidget {
                   image: DecorationImage(
                       fit: BoxFit.cover,
                       image: companyEmployee?.image != null
-                          ? NetworkImage(KAPIURL + companyEmployee.image)
-                          : AssetImage("assets/images/profile_photo.png")),
+                          ? NetworkImage(NetworkConstants.baseUrl +
+                              companyEmployee.image) as ImageProvider
+                          : const AssetImage(
+                              "assets/images/profile_photo.png")),
                   border: selectable ?? false
                       ? Border.all(
                           color: isSelected ?? false
-                              ? KPrimaryColor
+                              ? AppColors.primaryColor
                               : Colors.transparent,
                           width: 3)
                       : Border.all(),
-                  borderRadius: BorderRadius.all(Radius.circular(50))),
+                  borderRadius: const BorderRadius.all(Radius.circular(50))),
             ),
-            VerticalGap(
-              height: KdefaultPadding / 2,
+            const VerticalGap(
+              height: defaultPadding / 2,
             ),
-            companyEmployee != null
-                ? SizedBox(
-                    width: _size.width * 0.3,
-                    child: Text(companyEmployee.employeeName,
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        style: _theme.textTheme.caption.copyWith(
-                            fontWeight: isSelected ?? false
-                                ? FontWeight.bold
-                                : FontWeight.normal,
-                            color: isSelected ?? false
-                                ? KPrimaryColor
-                                : _theme.accentColor)))
-                : Container(
-                    color: Colors.white,
-                    height: KdefaultPadding / 2,
-                    width: KdefaultPadding * 2,
-                  )
+            if (companyEmployee != null)
+              SizedBox(
+                  width: _size.width * 0.3,
+                  child: Text(companyEmployee.employeeName,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: _theme.textTheme.caption.copyWith(
+                          fontWeight: isSelected ?? false
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                          color: isSelected ?? false
+                              ? AppColors.primaryColor
+                              : _theme.accentColor)))
+            else
+              Container(
+                color: Colors.white,
+                height: defaultPadding / 2,
+                width: defaultPadding * 2,
+              )
           ],
         ),
       ),

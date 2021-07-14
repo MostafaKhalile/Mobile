@@ -10,5 +10,5 @@ abstract class EditemailaddressEvent extends Equatable {
 class EditEmailAddress extends EditemailaddressEvent {
   final String emailAddress;
 
-  EditEmailAddress(this.emailAddress);
+  const EditEmailAddress(this.emailAddress);
 }

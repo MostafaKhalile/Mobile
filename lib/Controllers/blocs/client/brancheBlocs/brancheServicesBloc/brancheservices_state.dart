@@ -14,11 +14,11 @@ class BrancheservicesLoading extends BrancheservicesState {}
 class BrancheservicesSuccess extends BrancheservicesState {
   final List<CompanyService> services;
 
-  BrancheservicesSuccess(this.services);
+  const BrancheservicesSuccess(this.services);
 }
 
 class BrancheservicesFaild extends BrancheservicesState {
   final String message;
 
-  BrancheservicesFaild(this.message);
+  const BrancheservicesFaild(this.message);
 }

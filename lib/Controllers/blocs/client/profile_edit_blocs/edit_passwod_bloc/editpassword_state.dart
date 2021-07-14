@@ -16,5 +16,5 @@ class Editpasswordsuccess extends EditpasswordState {}
 class EditpasswordFaild extends EditpasswordState {
   final String message;
 
-  EditpasswordFaild(this.message);
+  const EditpasswordFaild(this.message);
 }

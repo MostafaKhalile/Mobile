@@ -14,11 +14,11 @@ class WalletTotalDataLoading extends WalletState {}
 class WalletTotalDataSucceded extends WalletState {
   final WalletTotalData walletTotal;
 
-  WalletTotalDataSucceded(this.walletTotal);
+  const WalletTotalDataSucceded(this.walletTotal);
 }
 
 class WalletTotalDataFailed extends WalletState {
   final String message;
 
-  WalletTotalDataFailed(this.message);
+  const WalletTotalDataFailed(this.message);
 }

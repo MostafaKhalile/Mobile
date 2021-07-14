@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 
 class FooterCard extends StatelessWidget {
   const FooterCard({
@@ -18,24 +19,24 @@ class FooterCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
+    final ThemeData _theme = Theme.of(context);
     return Container(
       width: width * 0.90,
       height: height,
-      margin: EdgeInsets.symmetric(horizontal: KdefaultPadding / 2),
+      margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
       decoration: BoxDecoration(
           image: DecorationImage(
             image: bgImage != null
                 ? NetworkImage(
-                    KAPIURL + bgImage,
-                  )
-                : AssetImage(KPlaceHolderCover),
+                    NetworkConstants.baseUrl + bgImage,
+                  ) as ImageProvider
+                : const AssetImage(placeHolderCover),
             fit: BoxFit.fill,
           ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(KdefaultRadius),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(defaultRadius),
           ),
-          boxShadow: [
+          boxShadow: const <BoxShadow>[
             BoxShadow(
               color: Colors.black38,
               offset: Offset(0, 5),
@@ -47,21 +48,21 @@ class FooterCard extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               border: Border.all(color: Colors.white, width: 2.0),
-              borderRadius: BorderRadius.all(
-                Radius.circular(KdefaultRadius),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(defaultRadius),
               ),
             ),
           ),
           Positioned(
               bottom: 0,
               child: Container(
-                height: 110,
+                height: 90,
                 width: width,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(color: _theme.accentColor, width: 0.2),
                     borderRadius:
-                        BorderRadius.all(Radius.circular(KdefaultRadius))),
+                        const BorderRadius.all(Radius.circular(defaultRadius))),
                 child: child ?? Container(),
               ))
         ],

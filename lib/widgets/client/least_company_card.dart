@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/app_consts.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/company.dart';
 import 'package:techtime/screens/Client/companyProfile/company_profile.dart';
 import 'package:techtime/widgets/client/custom_circle_avatar.dart';
@@ -13,22 +13,22 @@ class LeastCompanyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
-    Size size = MediaQuery.of(context).size;
+    final ThemeData _theme = Theme.of(context);
+    final Size size = MediaQuery.of(context).size;
 
     return InkWell(
       onTap: () => Navigator.pushNamed(context, CompanyProfile.routeName,
           arguments: company),
       child: Container(
         width: size.width * 0.85,
-        height: size.height * 0.35,
-        margin: EdgeInsets.symmetric(horizontal: KdefaultPadding / 4),
+        height: size.height * 0.45,
+        margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 4),
         decoration: BoxDecoration(
             image: buildCompanyCover(),
-            borderRadius: BorderRadius.all(
-              Radius.circular(KdefaultRadius),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(defaultRadius),
             ),
-            boxShadow: [
+            boxShadow: const <BoxShadow>[
               BoxShadow(
                 color: Colors.black38,
                 offset: Offset(0, 5),
@@ -40,8 +40,8 @@ class LeastCompanyCard extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.white, width: 2.0),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(KdefaultRadius),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(defaultRadius),
                 ),
               ),
             ),
@@ -50,18 +50,18 @@ class LeastCompanyCard extends StatelessWidget {
                 child: Container(
                   height: 110,
                   width: size.width * 0.85,
-                  padding:
-                      EdgeInsets.symmetric(horizontal: KdefaultPadding / 4),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: defaultPadding / 4),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: _theme.accentColor, width: 0.2),
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(KdefaultRadius))),
+                      borderRadius: const BorderRadius.all(
+                          Radius.circular(defaultRadius))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Hero(
-                          tag: company?.companyName ?? "",
+                          tag: company?.companyName ?? UniqueKey(),
                           child: buildCompanyLogo()),
                       Expanded(
                         child: Column(
@@ -73,29 +73,29 @@ class LeastCompanyCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            company != null
-                                ? Text(
-                                    company.categoryEn,
-                                    style: _theme.textTheme.caption
-                                        .copyWith(color: Colors.black),
-                                  )
-                                : Container(),
-                            company != null
-                                ? Text(
-                                    company.totalServices.toString() +
-                                        " " +
-                                        "Service",
-                                    style: _theme.textTheme.caption
-                                        .copyWith(color: Colors.black),
-                                  )
-                                : Container()
+                            if (company != null)
+                              Text(
+                                company.categoryEn,
+                                style: _theme.textTheme.caption
+                                    .copyWith(color: Colors.black),
+                              )
+                            else
+                              Container(),
+                            if (company != null)
+                              Text(
+                                "${company.totalServices} Service",
+                                style: _theme.textTheme.caption
+                                    .copyWith(color: Colors.black),
+                              )
+                            else
+                              Container()
                           ],
                         ),
                       )
@@ -112,9 +112,9 @@ class LeastCompanyCard extends StatelessWidget {
     return DecorationImage(
       image: company?.coverImage != null
           ? NetworkImage(
-              "${KAPIURL + company?.coverImage}",
-            )
-          : AssetImage(KPlaceHolderCover),
+              NetworkConstants.baseUrl + company?.coverImage,
+            ) as ImageProvider
+          : const AssetImage(placeHolderCover),
       fit: BoxFit.fill,
     );
   }
@@ -126,7 +126,7 @@ class LeastCompanyCard extends StatelessWidget {
             height: 80,
             image: company.logo,
           )
-        : CustomCircleAvatar(
+        : const CustomCircleAvatar(
             image: null,
             width: 80,
             height: 80,
@@ -146,13 +146,11 @@ class LeastCompanyCard extends StatelessWidget {
   RatingBarIndicator buildSmoothStarRating() {
     return RatingBarIndicator(
       rating: 5.00,
-      itemBuilder: (context, index) => Icon(
+      itemBuilder: (context, index) => const Icon(
         Icons.star,
         color: Colors.amber,
       ),
-      itemCount: 5,
       itemSize: 14.0,
-                                  direction: Axis.horizontal,
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/validation.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
@@ -17,19 +17,20 @@ class EmailConfirmCode extends StatefulWidget {
 }
 
 class _EmailConfirmCodeState extends State<EmailConfirmCode> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final _confirmationCodeController = TextEditingController();
   final Validator _validator = Validator();
 
+  @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    AppLocalizations _translator = AppLocalizations.of(context);
+    final Size _size = MediaQuery.of(context).size;
+    final AppLocalizations _translator = AppLocalizations.of(context);
 
-    ThemeData _theme = Theme.of(context);
+    final ThemeData _theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         title: Text(
           _translator.translate("forgotPassword"),
           style: Theme.of(context)
@@ -49,14 +50,14 @@ class _EmailConfirmCodeState extends State<EmailConfirmCode> {
                 child: Column(
                   children: [
                     Padding(
-                        padding: EdgeInsets.only(top: KdefaultPadding * 2),
+                        padding: const EdgeInsets.only(top: defaultPadding * 2),
                         child: Text(
                           _translator.translate("confirm"),
                           style: _theme.textTheme.headline5
                               .copyWith(fontWeight: FontWeight.bold),
                         )),
-                    VerticalGap(),
-                    SvgPicture.asset(KEmailIcon),
+                    const VerticalGap(),
+                    SvgPicture.asset(emailIcon),
                     // VerticalGap(),
                     Text(
                       _translator
@@ -65,13 +66,13 @@ class _EmailConfirmCodeState extends State<EmailConfirmCode> {
                     ),
 
                     Padding(
-                        padding: EdgeInsets.all(KdefaultPadding / 2),
+                        padding: const EdgeInsets.all(defaultPadding / 2),
                         child: Text(
                           widget.emailAddress,
                           style: _theme.textTheme.subtitle1
                               .copyWith(fontWeight: FontWeight.bold),
                         )),
-                    Container(
+                    SizedBox(
                         width: _size.width * .7,
                         child: TextFormField(
                           controller: _confirmationCodeController,
@@ -79,20 +80,20 @@ class _EmailConfirmCodeState extends State<EmailConfirmCode> {
                           onSaved: (newValue) =>
                               _confirmationCodeController.text = newValue,
                           validator: (data) {
-                            String error =
+                            final String error =
                                 _validator.validateEmail(context, data);
                             return error;
                           },
                           style: _theme.textTheme.bodyText1
-                              .copyWith(color: KDarkGreyColor),
+                              .copyWith(color: AppColors.darkGreyColor),
                           decoration: InputDecoration(
                               fillColor: Colors.white,
                               filled: true,
                               hintText: _translator.translate("Enter_the_code"),
                               hintStyle: _theme.textTheme.caption
-                                  .copyWith(color: KDarkGreyColor),
+                                  .copyWith(color: AppColors.darkGreyColor),
                               contentPadding:
-                                  EdgeInsets.only(bottom: 5, right: 8, left: 8),
+                                  const EdgeInsets.only(bottom: 5, right: 8, left: 8),
                               border: InputBorder.none,
                               errorBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,
@@ -100,18 +101,17 @@ class _EmailConfirmCodeState extends State<EmailConfirmCode> {
                         )),
 
                     Padding(
-                      padding: EdgeInsets.only(top: KdefaultPadding),
-                      child: Container(
+                      padding: const EdgeInsets.only(top: defaultPadding),
+                      child: SizedBox(
                         width: 170,
                         // ignore: deprecated_member_use
                         child: RaisedButton(
                             onPressed: () {
                               if (_formKey.currentState.validate()) {
                                 _formKey.currentState.save();
-                                print(_formKey.currentState.toString());
                               }
                             },
-                            color: KPrimaryColor,
+                            color: AppColors.primaryColor,
                             child: Text(
                               _translator.translate("confirm"),
                               style: _theme.textTheme.button.copyWith(
@@ -120,8 +120,8 @@ class _EmailConfirmCodeState extends State<EmailConfirmCode> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: KdefaultPadding),
-                      child: Container(
+                      padding: const EdgeInsets.only(top: defaultPadding),
+                      child: SizedBox(
                         width: 170,
                         // ignore: deprecated_member_use
                         child: RaisedButton(

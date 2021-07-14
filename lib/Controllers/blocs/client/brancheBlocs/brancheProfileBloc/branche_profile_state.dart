@@ -14,11 +14,11 @@ class BrancheProfileLoading extends BrancheProfileState {}
 class BrancheProfileSuccess extends BrancheProfileState {
   final BrancheProfile brancheProfile;
 
-  BrancheProfileSuccess(this.brancheProfile);
+  const BrancheProfileSuccess(this.brancheProfile);
 }
 
 class BrancheProfileFailed extends BrancheProfileState {
   final String message;
 
-  BrancheProfileFailed(this.message);
+  const BrancheProfileFailed(this.message);
 }

@@ -20,7 +20,7 @@ class BrancheProfileBloc
     if (event is GetBrancheProfile) {
       try {
         yield BrancheProfileLoading();
-        BrancheProfile brancheProfile =
+        final BrancheProfile brancheProfile =
             await _branchesRepo.getBrancheProfileData(event.id);
         yield BrancheProfileSuccess(brancheProfile);
       } catch (e) {

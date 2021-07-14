@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
 
 class AuthApiClient {
@@ -16,16 +16,18 @@ class AuthApiClient {
   Future loginUser({
     String email,
     String password,
+    String fcmToken,
   }) async {
-    final String _path = KAPIURL + KLoginPAth;
+    const String _path = NetworkConstants.baseUrl + NetworkConstants.login;
     final Map<String, dynamic> data = {
       "RequestType": "API",
       "LanguageCode": "EN",
-      "username": "$email",
-      "password": "$password"
+      "username": email,
+      "password": password,
+      "RegistrationId": fcmToken
     };
     try {
-      var resp = await http.post(
+      final resp = await http.post(
         Uri.parse(_path),
         body: data,
       );
@@ -34,8 +36,6 @@ class AuthApiClient {
       if (resp.statusCode == 200) {
         return decoded;
       } else {
-        print(
-            "[Login User] status message: #${resp.statusCode}, status code: #${resp.statusCode}");
         final data = resp.body;
         return Future.error(data);
       }

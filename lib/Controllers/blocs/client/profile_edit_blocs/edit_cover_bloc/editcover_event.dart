@@ -9,5 +9,5 @@ abstract class EditcoverEvent extends Equatable {
 
 class ChangeCover extends EditcoverEvent {
   final File image;
-  ChangeCover(this.image);
+  const ChangeCover(this.image);
 }

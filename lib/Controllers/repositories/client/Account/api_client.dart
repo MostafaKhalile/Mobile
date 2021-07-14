@@ -1,18 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:path/path.dart';
 import 'package:async/async.dart';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
 import 'package:techtime/Models/client/wallet/wallet_points_to_price.dart';
 import 'package:techtime/Models/client/wallet/wallet_total_data.dart';
-import 'package:techtime/Models/user_notification.dart';
 
 class AccountApiClient {
   final PreferenceUtils prefs;
@@ -22,19 +20,17 @@ class AccountApiClient {
     @required this.prefs,
   }) : assert(prefs != null);
   Future getProfileData() async {
-    final String _path = KAPIURL + NetworkConstants.userProfileAPI;
+    const String _path =
+        NetworkConstants.baseUrl + NetworkConstants.userProfileAPI;
 
     try {
-      var resp = await http.post(Uri.parse(_path),
+      final resp = await http.post(Uri.parse(_path),
           headers: {"Authorization": "Token $currentToken"});
       final decoded = utf8.decode(resp.bodyBytes);
-      print(
-          "[Login User] status message: #${resp.statusCode}, status code: #${resp.statusCode}");
+
       if (resp.statusCode == 200) {
         return decoded;
       } else {
-        print(
-            "[Login User] status message: #${resp.statusCode}, status code: #${resp.statusCode}");
         final data = resp.body;
         return Future.error(data);
       }
@@ -46,10 +42,11 @@ class AccountApiClient {
   }
 
   Future<bool> editFirstName(String name) async {
-    final String _path = KAPIURL + NetworkConstants.editFirstName;
+    const String _path =
+        NetworkConstants.baseUrl + NetworkConstants.editFirstName;
 
     try {
-      var resp = await http.post(Uri.parse(_path), body: {
+      final resp = await http.post(Uri.parse(_path), body: {
         "first_name": name,
         "LanguageCode": _authRepo.currentLanguageCode
       }, headers: {
@@ -59,21 +56,20 @@ class AccountApiClient {
       if (respData["status"] == 201) {
         return true;
       } else {
-        print(
-            "[Edit User FirstName] status message: #${respData["status"]}, status code: #${respData["message"]}");
         return Future.error(
             json.decode(utf8.decode(resp.bodyBytes))['message']);
       }
     } catch (e) {
-      return Future.error(json.decode(utf8.decode(e.bodyBytes))['message']);
+      return Future.error(json.decode(utf8.decode(e as List<int>))['message']);
     }
   }
 
   Future<bool> editSecondName(String name) async {
-    final String _path = KAPIURL + NetworkConstants.editLastName;
+    const String _path =
+        NetworkConstants.baseUrl + NetworkConstants.editLastName;
 
     try {
-      var resp = await http.post(Uri.parse(_path), body: {
+      final resp = await http.post(Uri.parse(_path), body: {
         "last_name": name,
         "LanguageCode": _authRepo.currentLanguageCode
       }, headers: {
@@ -81,46 +77,41 @@ class AccountApiClient {
       });
       final respData = json.decode(utf8.decode(resp.bodyBytes));
       if (respData["status"] == 201) {
-        print("First Name has been edited $respData");
         return true;
       } else {
-        print(
-            "[Edit User FirstName] status message: #${respData["status"]}, status code: #${respData["message"]}");
         return Future.error(
             json.decode(utf8.decode(resp.bodyBytes))['message']);
       }
     } catch (e) {
-      return Future.error(json.decode(utf8.decode(e.bodyBytes))['message']);
+      return Future.error(json.decode(utf8.decode(e as List<int>))['message']);
     }
   }
 
   Future<bool> editEmailAddress(String email) async {
-    final String _path = KAPIURL + NetworkConstants.editEmailAddress;
+    final String _path =
+        NetworkConstants.baseUrl + NetworkConstants.editEmailAddress;
 
     try {
-      var resp = await http.post(Uri.parse(_path),
+      final resp = await http.post(Uri.parse(_path),
           body: {"email": email, "LanguageCode": _authRepo.currentLanguageCode},
           headers: {"Authorization": "Token $currentToken"});
       final respData = json.decode(utf8.decode(resp.bodyBytes));
       if (respData["status"] == 201) {
-        print("First Name has been edited $respData");
         return true;
       } else {
-        print(
-            "[Edit User FirstName] status message: #${respData["status"]}, status code: #${respData["message"]}");
         return Future.error(
             json.decode(utf8.decode(resp.bodyBytes))['message']);
       }
     } catch (e) {
-      return Future.error(json.decode(utf8.decode(e.bodyBytes))['message']);
+      return Future.error(json.decode(utf8.decode(e as List<int>))['message']);
     }
   }
 
   Future<bool> editMobile(String mobile) async {
-    final String _path = KAPIURL + NetworkConstants.editMobile;
+    final String _path = NetworkConstants.baseUrl + NetworkConstants.editMobile;
 
     try {
-      var resp = await http.post(Uri.parse(_path), body: {
+      final resp = await http.post(Uri.parse(_path), body: {
         "mobile": mobile,
         "LanguageCode": _authRepo.currentLanguageCode
       }, headers: {
@@ -128,24 +119,22 @@ class AccountApiClient {
       });
       final respData = json.decode(utf8.decode(resp.bodyBytes));
       if (respData["status"] == 201) {
-        print("First Name has been edited $respData");
         return true;
       } else {
-        print(
-            "[Edit User FirstName] status message: #${respData["status"]}, status code: #${respData["message"]}");
         return Future.error(
             json.decode(utf8.decode(resp.bodyBytes))['message']);
       }
     } catch (e) {
-      return Future.error(json.decode(utf8.decode(e.bodyBytes))['message']);
+      return Future.error(json.decode(utf8.decode(e as List<int>))['message']);
     }
   }
 
   Future<bool> editPassword(Map<String, String> body) async {
-    final String _path = KAPIURL + NetworkConstants.editPassword;
+    final String _path =
+        NetworkConstants.baseUrl + NetworkConstants.editPassword;
 
     try {
-      var resp = await http.post(Uri.parse(_path), body: {
+      final resp = await http.post(Uri.parse(_path), body: {
         "old_password": body["old_password"],
         "password1": body["password1"],
         "password2": body["password2"],
@@ -155,46 +144,46 @@ class AccountApiClient {
       });
       final respData = json.decode(utf8.decode(resp.bodyBytes));
       if (respData["status"] == 200) {
-        print("Password has been edited $respData");
         return true;
       } else {
-        print(
-            "[Edit User FirstName] status message: #${respData["status"]}, status code: #${respData["message"]}");
         return Future.error(
             json.decode(utf8.decode(resp.bodyBytes))['message']);
       }
     } catch (e) {
-      return Future.error(json.decode(utf8.decode(e.bodyBytes))['message']);
+      return Future.error(json.decode(utf8.decode(e as List<int>))['message']);
     }
   }
 
   Future uploadProfilePicture(File imageFile) async {
     bool hasBeenUploaded;
     // open a bytestream
-    var stream =
-        new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
+    final stream =
+        // ignore: deprecated_member_use
+        http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
     // get file length
-    var length = await imageFile.length();
-    final String _path = KAPIURL + NetworkConstants.uploadProfilePicture;
+    final length = await imageFile.length();
+    final String _path =
+        NetworkConstants.baseUrl + NetworkConstants.uploadProfilePicture;
 
     // string to uri
-    var uri = Uri.parse(_path);
+    final uri = Uri.parse(_path);
 
     // create multipart request
-    var request = new http.MultipartRequest("POST", uri);
+    final request = http.MultipartRequest("POST", uri);
     request.headers.addAll({"Authorization": "Token $currentToken"});
 
     // multipart that takes file
-    var multipartFile = new http.MultipartFile('image', stream, length,
+    final multipartFile = http.MultipartFile('image', stream, length,
         filename: basename(imageFile.path));
 
     // add file to multipart
     request.files.add(multipartFile);
 
     // send
-    var response = await request.send();
+    final response = await request.send();
 
     // listen for response
+    // ignore: void_checks
     response.stream.transform(utf8.decoder).listen((value) {
       if (json.decode(value)['status'] == 201) {
         hasBeenUploaded = true;
@@ -206,50 +195,51 @@ class AccountApiClient {
     return true;
   }
 
-  uploadCover(File imageFile) async {
+  Future<bool> uploadCover(File imageFile) async {
     print("Start Uploading Image File");
     // open a bytestream
-    var stream =
-        new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
+    final stream =
+        // ignore: deprecated_member_use
+        http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
     // get file length
-    var length = await imageFile.length();
-    final String _path = KAPIURL + NetworkConstants.uploadCoverPicture;
+    final length = await imageFile.length();
+    final String _path =
+        NetworkConstants.baseUrl + NetworkConstants.uploadCoverPicture;
 
     // string to uri
-    var uri = Uri.parse(_path);
+    final uri = Uri.parse(_path);
 
     // create multipart request
-    var request = new http.MultipartRequest("POST", uri);
+    final request = http.MultipartRequest("POST", uri);
     request.headers.addAll({"Authorization": "Token $currentToken"});
 
     // multipart that takes file
-    var multipartFile = new http.MultipartFile('CoverImage', stream, length,
+    final multipartFile = http.MultipartFile('CoverImage', stream, length,
         filename: basename(imageFile.path));
 
     // add file to multipart
     request.files.add(multipartFile);
 
     // send
-    var response = await request.send();
-    print(response.toString());
+    final response = await request.send();
 
     // listen for response
-    response.stream.transform(utf8.decoder).listen((value) {
-      print(value);
-    });
+    response.stream.transform(utf8.decoder).listen((value) {});
     return true;
   }
 
   Future<WalletTotalData> getWalletTotalData() async {
-    final String _path = KAPIURL + NetworkConstants.walletTotal;
+    final String _path =
+        NetworkConstants.baseUrl + NetworkConstants.walletTotal;
     try {
-      var resp = await http.post(Uri.parse(_path),
+      final resp = await http.post(Uri.parse(_path),
           headers: {"Authorization": "Token $currentToken"},
           body: {"LanguageCode": _authRepo.currentLanguageCode});
-      final respData = json.decode(utf8.decode(resp.bodyBytes));
+      final respData =
+          json.decode(utf8.decode(resp.bodyBytes)) as Map<String, dynamic>;
       final WalletTotalData walletTotalData =
           WalletTotalData.fromJson(respData);
-      print(walletTotalData.toString());
+
       return walletTotalData;
     } catch (e) {
       return Future.error(e);
@@ -257,29 +247,31 @@ class AccountApiClient {
   }
 
   Future<WalletPointsToPrice> walletPointsToPrice(String points) async {
-    final String _path = KAPIURL + NetworkConstants.walletPointsToPrice;
+    final String _path =
+        NetworkConstants.baseUrl + NetworkConstants.walletPointsToPrice;
     try {
-      var resp = await http.post(Uri.parse(_path), headers: {
+      final resp = await http.post(Uri.parse(_path), headers: {
         "Authorization": "Token $currentToken"
       }, body: {
         "LanguageCode": _authRepo.currentLanguageCode,
         "points": points
       });
-      final respData = json.decode(utf8.decode(resp.bodyBytes));
+      final respData =
+          json.decode(utf8.decode(resp.bodyBytes)) as Map<String, dynamic>;
       final WalletPointsToPrice pointsToPrice =
           WalletPointsToPrice.fromJson(respData);
-      print(pointsToPrice.toString());
+
       return pointsToPrice;
     } catch (e) {
       return Future.error(e);
     }
   }
 
-  walletTransformPoints(String points) async {
-    final String _path =
-        KAPIURL + NetworkConstants.walletTransformPointsToPrice;
+  Future walletTransformPoints(String points) async {
+    final String _path = NetworkConstants.baseUrl +
+        NetworkConstants.walletTransformPointsToPrice;
     try {
-      var resp = await http.post(Uri.parse(_path), headers: {
+      final resp = await http.post(Uri.parse(_path), headers: {
         "Authorization": "Token $currentToken"
       }, body: {
         "RequestType": "API",
@@ -287,7 +279,7 @@ class AccountApiClient {
         "points": points
       });
       final respData = json.decode(utf8.decode(resp.bodyBytes));
-      print(respData);
+
       return respData;
     } catch (e) {
       return Future.error(e.toString());
@@ -296,39 +288,21 @@ class AccountApiClient {
 
   Future<Map<String, dynamic>> walletTransformPromocode(
       String promocode) async {
-    final String _path = KAPIURL + NetworkConstants.walletTransformPromocode;
+    final String _path =
+        NetworkConstants.baseUrl + NetworkConstants.walletTransformPromocode;
     try {
-      var resp = await http.post(Uri.parse(_path), headers: {
+      final resp = await http.post(Uri.parse(_path), headers: {
         "Authorization": "Token $currentToken"
       }, body: {
         "LanguageCode": _authRepo.currentLanguageCode,
         "PromoCode": promocode
       });
-      final respData = json.decode(utf8.decode(resp.bodyBytes));
-      print(respData);
+      final respData =
+          json.decode(utf8.decode(resp.bodyBytes)) as Map<String, dynamic>;
+
       return respData;
     } catch (e) {
       return Future.error(e);
-    }
-  }
-
-  Future<List<UserNotification>> getUserNotifications() async {
-    final String path = KAPIURL + NetworkConstants.allUserNotification;
-    final response = await http.post(Uri.parse(path), headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Accept": "application/json",
-      "Authorization": "Token ${_authRepo.currentUserToken}"
-    });
-
-    if (response.statusCode == 200) {
-      final decoded = utf8.decode(response.bodyBytes);
-      print("Company services here $decoded");
-      final data = json.decode(decoded)['AllNotification'] as List;
-      return data.map((rawPost) {
-        return UserNotification.fromJson(rawPost);
-      }).toList();
-    } else {
-      throw Future.error('${json.decode(response.body)}');
     }
   }
 

@@ -22,7 +22,7 @@ class WallettransformpromocodeBloc
         final result =
             await _userRepo.walletTransformPromocode(event.promocode);
         if (result['status'] == 201) {
-          yield WallettransformpromocodeSucceded(result['message']);
+          yield WallettransformpromocodeSucceded(result['message'].toString());
         } else {
           yield WallettransformpromocodeFailed(result['message'].toString());
         }

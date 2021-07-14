@@ -20,7 +20,7 @@ class RecommendedcompaniesBloc
   ) async* {
     if (event is GetRecommendedCompnies) {
       try {
-        yield RecommendedcompaniesLoading();
+        yield const RecommendedcompaniesLoading();
         final recommendedCo = await _apiClientRepository.fetchRecommendedCo;
         yield RecommendedcompaniesLoaded(recommendedCo);
       } catch (e) {

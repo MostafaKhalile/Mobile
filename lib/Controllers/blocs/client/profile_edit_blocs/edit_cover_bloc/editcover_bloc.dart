@@ -25,6 +25,7 @@ class EditcoverBloc extends Bloc<EditcoverEvent, EditcoverState> {
         } else {
           yield EditCoverFailure();
         }
+      // ignore: empty_catches
       } catch (e) {}
     }
   }

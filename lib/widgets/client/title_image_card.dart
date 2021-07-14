@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/category.dart';
 
 class TitleImageCard extends StatelessWidget {
   final Category category;
+  final double height;
   const TitleImageCard({
     Key key,
     this.category,
+    @required this.height,
   }) : super(key: key);
 
   @override
@@ -17,35 +20,36 @@ class TitleImageCard extends StatelessWidget {
         onTap: () => Navigator.pushNamed(context, "/CompaniesListPage",
             arguments: category),
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: KdefaultPadding),
-          height: 200,
+          margin: const EdgeInsets.symmetric(vertical: defaultPadding / 2),
+          height: height,
           decoration: BoxDecoration(
-              border: Border.all(color: KPrimaryColor, width: 1),
+              border: Border.all(color: AppColors.primaryColor),
               boxShadow: [
                 BoxShadow(
                   color: Theme.of(context).shadowColor.withOpacity(0.1),
                   spreadRadius: 4,
                   blurRadius: 4,
-                  offset: Offset(0, 3), // changes position of shadow
+                  offset: const Offset(0, 3), // changes position of shadow
                 ),
               ],
-              borderRadius: BorderRadius.all(Radius.circular(KdefaultRadius)),
+              borderRadius:
+                  const BorderRadius.all(Radius.circular(defaultRadius)),
               image: DecorationImage(
                   image: category?.image != null
-                      ? NetworkImage(KAPIURL + category.image)
-                      : AssetImage(KPlaceHolderImage),
-                  colorFilter: new ColorFilter.mode(
+                      ? NetworkImage(NetworkConstants.baseUrl + category.image)
+                          as ImageProvider
+                      : const AssetImage(placeHolderImage),
+                  colorFilter: ColorFilter.mode(
                       Colors.black.withOpacity(0.5), BlendMode.darken),
-                  repeat: ImageRepeat.noRepeat,
                   // alignment: Alignment.center,
                   fit: BoxFit.fill)),
           child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: KdefaultPadding),
+                padding: const EdgeInsets.symmetric(vertical: defaultPadding),
                 child: Text(
                   category?.categoryEn ?? '',
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 24,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),

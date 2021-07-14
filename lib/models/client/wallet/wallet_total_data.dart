@@ -38,9 +38,9 @@ class WalletTotalData extends Equatable {
   WalletTotalData copyWith({
     int status,
     dynamic message,
-    int money,
+    double money,
     int points,
-    int creditor,
+    double creditor,
   }) {
     return WalletTotalData(
       status: status ?? this.status,

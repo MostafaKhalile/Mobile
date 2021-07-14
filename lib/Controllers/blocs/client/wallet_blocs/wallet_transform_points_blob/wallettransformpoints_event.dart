@@ -10,5 +10,6 @@ abstract class WallettransformpointsEvent extends Equatable {
 class WalletTranseferePoints extends WallettransformpointsEvent {
   final String points;
 
+  // ignore: prefer_const_constructors_in_immutables
   WalletTranseferePoints(this.points);
 }

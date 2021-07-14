@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 
 class HorizontalGap extends StatelessWidget {
-  final width;
+  final double width;
   const HorizontalGap({
     Key key,
     this.width,
@@ -11,7 +11,7 @@ class HorizontalGap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width ?? KDefaultPadding,
+      width: width ?? defaultPadding,
     );
   }
 }

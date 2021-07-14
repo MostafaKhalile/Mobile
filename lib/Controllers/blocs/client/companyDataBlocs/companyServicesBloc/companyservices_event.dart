@@ -10,5 +10,5 @@ abstract class CompanyservicesEvent extends Equatable {
 class GetCompanyServices extends CompanyservicesEvent {
   final int branchId;
 
-  GetCompanyServices(this.branchId);
+  const GetCompanyServices(this.branchId);
 }

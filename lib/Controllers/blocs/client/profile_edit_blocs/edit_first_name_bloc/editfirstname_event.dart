@@ -10,5 +10,5 @@ abstract class EditfirstnameEvent extends Equatable {
 class EditFirstName extends EditfirstnameEvent {
   final String firstName;
 
-  EditFirstName(this.firstName);
+  const EditFirstName(this.firstName);
 }

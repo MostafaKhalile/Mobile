@@ -17,14 +17,15 @@ class OrderTimesBloc extends Bloc<OrderTimesEvent, OrderTimesState> {
     if (event is GetDayAvailableTimes) {
       yield OrderTimesLoading();
       try {
-        List<TimeOfDay> timeIntervals = getTimePeriods(event.orderTimes);
+        final List<TimeOfDay> timeIntervals = getTimePeriods(event.orderTimes);
         yield OrderTimesSuccess(timeIntervals);
+      // ignore: empty_catches
       } catch (e) {}
     }
   }
 
   List<TimeOfDay> getTimePeriods(List<dynamic> times) {
-    List<TimeOfDay> intervals = times
+    final List<TimeOfDay> intervals = times
         .map((e) => TimeOfDay(
             hour: int.parse(e.toString().split(":")[0]),
             minute: int.parse(e.toString().split(":")[1])))

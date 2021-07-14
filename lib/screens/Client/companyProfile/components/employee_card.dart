@@ -13,23 +13,21 @@ class EmployeeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomCircleAvatar(
+        const CustomCircleAvatar(
           height: 60,
           width: 60,
           image: null,
         ),
-        VerticalGap(height: KDefaultPadding / 2),
-        Text("name"),
-        VerticalGap(height: KDefaultPadding / 2),
+        const VerticalGap(height: defaultPadding / 2),
+        const Text("name"),
+        const VerticalGap(height: defaultPadding / 2),
         RatingBarIndicator(
           rating: 5.00,
-          itemBuilder: (context, index) => Icon(
+          itemBuilder: (context, index) => const Icon(
             Icons.star,
             color: Colors.amber,
           ),
-          itemCount: 5,
           itemSize: 50.0,
-                                  direction: Axis.horizontal,
         ),
       ],
     );

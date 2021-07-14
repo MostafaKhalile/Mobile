@@ -8,11 +8,12 @@ import 'package:techtime/widgets/client/title_image_card.dart';
 class CategoriesBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.all(KdefaultPadding / 2),
+          padding: const EdgeInsets.all(defaultPadding / 4),
           child: BlocBuilder<CategoriesBloc, CategoriesState>(
             builder: (context, state) {
               if (state is CategoriesLoaded) {
@@ -22,6 +23,7 @@ class CategoriesBody extends StatelessWidget {
                       itemCount: state.categories.length,
                       itemBuilder: (_, index) {
                         return TitleImageCard(
+                            height: size.height * .22,
                             category: state.categories[index]);
                       }),
                 );
@@ -30,7 +32,9 @@ class CategoriesBody extends StatelessWidget {
                   itemCount: 5,
                   itemBuilder: (ctx, i) {
                     return ShimmerEffect(
-                      child: TitleImageCard(),
+                      child: TitleImageCard(
+                        height: size.height * .25,
+                      ),
                     );
                   });
             },

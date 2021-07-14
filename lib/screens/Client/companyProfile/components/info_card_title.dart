@@ -13,15 +13,15 @@ class InfoCardHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: KDefaultPadding / 2),
+      padding: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
       child: Row(
         children: [
           Icon(
             icon,
             size: 25,
           ),
-          HorizontalGap(
-            width: KDefaultPadding / 4,
+          const HorizontalGap(
+            width: defaultPadding / 4,
           ),
           Text(
             title,

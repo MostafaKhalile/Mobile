@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
 import 'package:techtime/Controllers/Providers/current_user_provider.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
 
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 
 class LanguageSelectionPage extends StatefulWidget {
   static const String routeName = '/languageSelection';
@@ -25,7 +25,7 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/images/background.png"),
           fit: BoxFit.fill,
@@ -34,19 +34,17 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Expanded(
               child: Container(height: 80),
-              flex: 1,
             ),
             Expanded(
-              child: Container(
+              child: SizedBox(
                 height: 80,
                 child: Column(
                   children: [
                     SvgPicture.asset("assets/svg/logo.svg"),
-                    Text(KAppName,
+                    const Text(NetworkConstants.appName,
                         style: TextStyle(
                             fontSize: 37,
                             color: Colors.black,
@@ -54,13 +52,12 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
                   ],
                 ),
               ),
-              flex: 1,
             ),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Container(
+                  SizedBox(
                       width: MediaQuery.of(context).size.width * 0.8,
                       // ignore: deprecated_member_use
                       child: RaisedButton(
@@ -75,8 +72,8 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
                           style: Theme.of(context).textTheme.button,
                         ),
                       )),
-                  SizedBox(height: 20),
-                  Container(
+                  const SizedBox(height: 20),
+                  SizedBox(
                     width: MediaQuery.of(context).size.width * 0.8,
                     // ignore: deprecated_member_use
                     child: RaisedButton(
@@ -94,7 +91,6 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
                   ),
                 ],
               ),
-              flex: 1,
             ),
           ],
         ),

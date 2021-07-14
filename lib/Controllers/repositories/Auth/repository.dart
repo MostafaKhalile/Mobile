@@ -16,11 +16,11 @@ class AuthRepo {
     _apiClient = AuthApiClient(prefs: _prefs);
   }
 
-  Future<User> loginUser(String email, String password) async {
+  Future<User> loginUser(String email, String password, String fcmToken) async {
     try {
-      final dataResp =
-          (await _apiClient.loginUser(email: email, password: password));
-      final data = json.decode(dataResp) as Map;
+      final dataResp = await _apiClient.loginUser(
+          email: email, password: password, fcmToken: fcmToken);
+      final data = json.decode(dataResp.toString()) as Map<String, dynamic>;
       final User user = User.fromJson(data);
       if (data["status"] == 201) {
         _saveUserToken(user.token);
@@ -50,8 +50,10 @@ class AuthRepo {
   }
 
   String get currentUserToken {
-    final userResp = _prefs.getValueWithKey(NetworkConstants.currentUserToken,
-        hideDebugPrint: true);
+    final String userResp = _prefs
+        .getValueWithKey(NetworkConstants.currentUserToken,
+            hideDebugPrint: true)
+        .toString();
     if (userResp == null) {
       return null;
     }
@@ -59,9 +61,11 @@ class AuthRepo {
   }
 
   String get currentLanguageCode {
-    final userLanguage = _prefs.getValueWithKey(
-      'language_code',
-    );
+    final userLanguage = _prefs
+        .getValueWithKey(
+          'language_code',
+        )
+        .toString();
 
     return userLanguage.toUpperCase();
   }
@@ -72,8 +76,9 @@ class AuthRepo {
     if (userResp == null) {
       return null;
     }
-    print(User.fromJson(jsonDecode(userResp)).toString());
-    return User.fromJson(jsonDecode(userResp));
+
+    return User.fromJson(
+        json.decode(userResp.toString()) as Map<String, dynamic>);
   }
 
   Future<void> _removeUserLocalData() async {

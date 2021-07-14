@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/companyProfile/companyOffer/company_offer.dart';
 import 'package:techtime/Models/client/companyProfile/company_profile.dart';
-import 'package:techtime/Screens/Client/booking/orderFirstStep/order_first_step.dart';
+import 'package:techtime/Screens/Client/reservations/reservationFirstStep/reservation_first_step.dart';
 
 class CompanyOffers extends StatefulWidget {
   final CompanyProfile companyProfile;
@@ -28,75 +29,77 @@ class CompanyOffersState extends State<CompanyOffers> {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
-    Size _size = MediaQuery.of(context).size;
-    AppLocalizations _translator = AppLocalizations.of(context);
-    return (widget.companyProfile.companyOffers.length > 0)
-        ? Scaffold(
-            body: Container(
-                width: _size.width,
-                child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: KdefaultPadding),
-                        child: Column(children: <Widget>[
-                          CheckboxGroup(
-                            activeColor: KPrimaryColor,
-                            checkColor: _theme.primaryColorDark,
-                            orientation: GroupedButtonsOrientation.VERTICAL,
-                            onSelected: (List selected) => setState(() {
-                              _checked = selected;
-                              print(_checked);
-                            }),
-                            labels: widget.companyProfile.companyOffers
-                                .map((element) {
-                              return element.toJson().toString();
-                            }).toList(),
-                            checked: _checked,
-                            itemBuilder: (Checkbox cb, Text txt, int i) {
-                              return OfferCard(
-                                cb: cb,
-                                companyOffer:
-                                    widget.companyProfile.companyOffers[i],
-                              );
-                            },
-                          ),
-                        ])))),
-            persistentFooterButtons: [
-              Container(
-                width: _size.width,
-                child: Row(
-                  children: [
-                    Expanded(
-                        // ignore: deprecated_member_use
-                        child: RaisedButton(
-                      padding: EdgeInsets.all(10),
-                      onPressed: () => _bookHandler(),
-                      disabledColor: Colors.black38,
-                      child: Text(
-                        _translator.translate("book_now"),
-                        style: Theme.of(context).textTheme.button,
-                      ),
-                    ))
-                  ],
-                ),
-              )
-            ],
-          )
-        : Container(
+    final ThemeData _theme = Theme.of(context);
+    final Size _size = MediaQuery.of(context).size;
+    final AppLocalizations _translator = AppLocalizations.of(context);
+    if (widget.companyProfile.companyOffers.isNotEmpty) {
+      return Scaffold(
+        body: SizedBox(
             width: _size.width,
-            height: _size.height,
-            child: Center(
-                child: Text(
-              _translator.translate("no_offers"),
-              style: _theme.textTheme.subtitle2,
-            )));
+            child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: defaultPadding),
+                    child: Column(children: <Widget>[
+                      CheckboxGroup(
+                        activeColor: AppColors.primaryColor,
+                        checkColor: _theme.primaryColorDark,
+                        // ignore: avoid_redundant_argument_values
+                        orientation: GroupedButtonsOrientation.VERTICAL,
+                        onSelected: (List selected) => setState(() {
+                          _checked = selected as List<String>;
+                        }),
+                        labels:
+                            widget.companyProfile.companyOffers.map((element) {
+                          return element.toJson().toString();
+                        }).toList(),
+                        checked: _checked,
+                        itemBuilder: (Checkbox cb, Text txt, int i) {
+                          return OfferCard(
+                            cb: cb,
+                            companyOffer:
+                                widget.companyProfile.companyOffers[i],
+                          );
+                        },
+                      ),
+                    ])))),
+        persistentFooterButtons: [
+          SizedBox(
+            width: _size.width,
+            child: Row(
+              children: [
+                Expanded(
+                    // ignore: deprecated_member_use
+                    child: RaisedButton(
+                  padding: const EdgeInsets.all(10),
+                  onPressed: () => _bookHandler(),
+                  disabledColor: Colors.black38,
+                  child: Text(
+                    _translator.translate("book_now"),
+                    style: Theme.of(context).textTheme.button,
+                  ),
+                ))
+              ],
+            ),
+          )
+        ],
+      );
+    } else {
+      return SizedBox(
+          width: _size.width,
+          height: _size.height,
+          child: Center(
+              child: Text(
+            _translator.translate("no_offers"),
+            style: _theme.textTheme.subtitle2,
+          )));
+    }
   }
 
-  _bookHandler() {
-    _checked.length != 0
-        ? Navigator.pushNamed(context, OrderFirstStep.routeName,
+  void _bookHandler() {
+    _checked.isNotEmpty
+        ? Navigator.pushNamed(context, ReservationFirstStep.routeName,
             arguments: widget.companyProfile.companyBranches)
         : Fluttertoast.showToast(
             msg: AppLocalizations.of(context)
@@ -122,7 +125,7 @@ class OfferCard extends StatelessWidget {
     return Stack(
       children: [
         Card(
-          child: Container(
+          child: SizedBox(
             width: _size.width * .9,
             child: Wrap(
               children: <Widget>[
@@ -130,17 +133,16 @@ class OfferCard extends StatelessWidget {
                   leading: Container(
                     height: 50,
                     width: 50,
-                    margin: EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             image: (companyOffer?.offerImage != null)
-                                ? NetworkImage(
-                                    KAPIURL + companyOffer.offerImage)
-                                : AssetImage(KPlaceHolderImage)),
-                        borderRadius: BorderRadius.circular(KdefaultRadius)),
+                                ? NetworkImage(NetworkConstants.baseUrl +
+                                    companyOffer.offerImage) as ImageProvider
+                                : const AssetImage(placeHolderImage)),
+                        borderRadius: BorderRadius.circular(defaultRadius)),
                   ),
                   title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,9 +150,8 @@ class OfferCard extends StatelessWidget {
                           Expanded(
                             flex: 2,
                             child: RichText(
-                              overflow: TextOverflow.clip,
                               text: TextSpan(
-                                text: companyOffer.offerName + "\n",
+                                text: "${companyOffer.offerName}\n",
                                 style: _theme.textTheme.subtitle2,
                               ),
                             ),
@@ -180,7 +181,7 @@ class OfferCard extends StatelessWidget {
                       maxLines: 4,
                       style: _theme.textTheme.caption),
                   isThreeLine: true,
-                  contentPadding: EdgeInsets.all(0),
+                  contentPadding: const EdgeInsets.all(0),
                   horizontalTitleGap: 5.0,
                   trailing: cb ?? Container(),
                 ),

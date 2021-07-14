@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_cover_bloc/editcover_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_profile_picture_Bloc/editprofilepicture_bloc.dart';
 import 'package:techtime/Controllers/Providers/current_user_provider.dart';
@@ -24,16 +23,18 @@ class ProfileCoverAndImage extends StatefulWidget {
 
 class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
   final ImagePickerService _picker = ImagePickerService();
-  File _profilePicture;
+  // File _profilePicture;
+  // ignore: unused_field
   bool _uploadingProfilePicture = false;
-  File _cover;
-  bool _uploadingCover = false;
-  CustomToast _customToast = CustomToast();
+  // File _cover;
+  // final bool _uploadingCover = false;
+  final CustomToast _customToast = CustomToast();
 
   @override
   Widget build(BuildContext context) {
-    UserProfile userData = context.watch<CurrentUserProvider>().currentUser;
-    ThemeData _theme = Theme.of(context);
+    final UserProfile userData =
+        context.watch<CurrentUserProvider>().currentUser;
+    final ThemeData _theme = Theme.of(context);
 
     return Stack(
       clipBehavior: Clip.none,
@@ -49,7 +50,7 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
           }
         }, builder: (context, state) {
           state = state;
-          return Container(
+          return SizedBox(
             width: double.infinity,
             // decoration: BoxDecoration(
             //     image: DecorationImage(
@@ -57,9 +58,9 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
             //       ? FileImage(_cover)
             //       : userData?.coverImage != null
             //           ? NetworkImage(
-            //               KAPIURL + userData.coverImage,
+            //               NetworkConstants.baseUrl + userData.coverImage,
             //             )
-            //           : AssetImage(KPlaceHolderCover),
+            //           : AssetImage(placeHolderCover),
             //   fit: BoxFit.cover,
             // )),
             child: Stack(
@@ -98,7 +99,7 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
                               clipBehavior: Clip.none,
                               children: [
                                 CustomCircleAvatar(
-                                  image: userData?.image ?? null,
+                                  image: userData?.image,
                                   height: 120,
                                   width: 120,
                                 ),
@@ -108,6 +109,7 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
                                   child: InkWell(
                                     highlightColor: Colors.transparent,
                                     splashColor: Colors.transparent,
+                                    onTap: () => changeProfilePicture(),
                                     child: Container(
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
@@ -122,23 +124,23 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
                                         color: _theme.scaffoldBackgroundColor,
                                       ),
                                     ),
-                                    onTap: () => changeProfilePicture(),
                                   ),
                                 ),
                               ],
                             ),
-                            state is EditprofilepictureUploading
-                                ? Center(
-                                    child: Container(
-                                      width: 120,
-                                      height: 120,
-                                      color: Colors.black26,
-                                      child: Center(
-                                        child: CircularProgressIndicator(),
-                                      ),
-                                    ),
-                                  )
-                                : Container(),
+                            if (state is EditprofilepictureUploading)
+                              Center(
+                                child: Container(
+                                  width: 120,
+                                  height: 120,
+                                  color: Colors.black26,
+                                  child: const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                ),
+                              )
+                            else
+                              Container(),
                           ]);
                         },
                       ),
@@ -174,7 +176,7 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
     );
   }
 
-  changeProfilePicture() {
+  void changeProfilePicture() {
     _showPicker(context).then((image) async {
       if (image != null) {
         setState(() {
@@ -190,54 +192,54 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
     });
   }
 
-  changeCoverPicture() {
-    _showPicker(context).then((image) async {
-      if (image != null) {
-        setState(() {
-          _uploadingCover = true;
-        });
-        context.read<EditcoverBloc>().add(ChangeCover(image));
-      } else {
-        _customToast.buildErrorMessage(context, "لم تقم بإختار صورة");
-        setState(() {
-          _uploadingCover = false;
-        });
-      }
-    });
-  }
+  // changeCoverPicture() {
+  //   _showPicker(context).then((image) async {
+  //     if (image != null) {
+  //       setState(() {
+  //         _uploadingCover = true;
+  //       });
+  //       context.read<EditcoverBloc>().add(ChangeCover(image));
+  //     } else {
+  //       _customToast.buildErrorMessage(context, "لم تقم بإختار صورة");
+  //       setState(() {
+  //         _uploadingCover = false;
+  //       });
+  //     }
+  //   });
+  // }
 
-  _imgFromCamera() async {
-    File image = await _picker.imgFromCamera();
+  Future<File> _imgFromCamera() async {
+    final File image = await _picker.imgFromCamera();
     return image;
   }
 
-  _imgFromGallery() async {
-    File image = await _picker.imgFromGallery();
+  Future<File> _imgFromGallery() async {
+    final File image = await _picker.imgFromGallery();
     return image;
   }
 
-  Future<File> _showPicker(context) {
+  Future<File> _showPicker(BuildContext context) {
     return showModalBottomSheet<File>(
         context: context,
         builder: (BuildContext bc) {
           return SafeArea(
-            child: Container(
-              child: new Wrap(
+            child: SizedBox(
+              child: Wrap(
                 children: <Widget>[
-                  new ListTile(
-                      leading: new Icon(Icons.photo_library),
-                      title: new Text(AppLocalizations.of(context)
+                  ListTile(
+                      leading: const Icon(Icons.photo_library),
+                      title: Text(AppLocalizations.of(context)
                           .translate("photo_gallery")),
                       onTap: () async {
-                        File image = await _imgFromGallery();
+                        final File image = await _imgFromGallery();
                         Navigator.pop(context, image);
                       }),
-                  new ListTile(
-                    leading: new Icon(Icons.photo_camera),
-                    title: new Text(
-                        AppLocalizations.of(context).translate("camera")),
+                  ListTile(
+                    leading: const Icon(Icons.photo_camera),
+                    title:
+                        Text(AppLocalizations.of(context).translate("camera")),
                     onTap: () async {
-                      File image = await _imgFromCamera();
+                      final File image = await _imgFromCamera();
                       Navigator.pop(context, image);
                     },
                   ),

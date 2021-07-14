@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 
 class Snackbar {
   void showSnackBar(BuildContext context, String message) {
@@ -16,13 +16,13 @@ class Snackbar {
             Wrap(
               children: <Widget>[
                 ClipRRect(
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.7,
                     child: Text(
                       message,
                       overflow: TextOverflow.clip,
                       textAlign: TextAlign.start,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
@@ -33,10 +33,8 @@ class Snackbar {
               ],
             ),
           ],
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
         ),
-        duration: Duration(seconds: 5),
-        backgroundColor: KErrorColor));
+        duration: const Duration(seconds: 5),
+        backgroundColor: AppColors.errorColor));
   }
 }

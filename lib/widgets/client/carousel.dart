@@ -2,9 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/ads_bloc/ads_bloc.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Widgets/core/shimmer_effect.dart';
 
 final List<dynamic> imgList = [
@@ -14,9 +15,9 @@ final List<dynamic> imgList = [
   {"image": 'assets/images/default_cover.png'},
 ];
 List<T> map<T>(List list, Function handler) {
-  List<T> result = [];
+  final List<T> result = [];
   for (var i = 0; i < list.length; i++) {
-    result.add(handler(i, list[i]));
+    result.add(handler(i, list[i]) as T);
   }
 
   return result;
@@ -31,16 +32,16 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
   int _current = 0;
   @override
   void initState() {
-    BlocProvider.of<AdsBloc>(context).add(GetAdsAbove());
+    BlocProvider.of<AdsBloc>(context).add(const GetAdsAbove());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     return BlocBuilder<AdsBloc, AdsState>(builder: (context, state) {
       if (state is AdsLoaded) {
-        if (state.ads.length > 0) {
+        if (state.ads.isNotEmpty) {
           return Stack(children: <Widget>[
             CarouselSlider(
                 items: buildCarouselItems(size, state.ads),
@@ -50,7 +51,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
                       _current = index;
                     });
                   },
-                  height: size.height * 0.33,
+                  height: size.height * 0.25,
                   autoPlay: true,
                   viewportFraction: 1.0,
                   aspectRatio: MediaQuery.of(context).size.aspectRatio,
@@ -67,12 +68,12 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
                         return Container(
                           width: 12.0,
                           height: 12.0,
-                          margin: EdgeInsets.symmetric(
+                          margin: const EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 2.0),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: _current == index
-                                  ? KPrimaryColor
+                                  ? AppColors.primaryColor
                                   : Colors.grey[600]),
                         );
                       },
@@ -84,30 +85,31 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
       }
       return ShimmerEffect(
           child: Container(
-        height: size.height * 0.33,
+        height: size.height * 0.25,
         width: double.infinity,
         color: Colors.white,
       ));
     });
   }
 
-  List<Widget> buildCarouselItems(size, items) {
+  List<Widget> buildCarouselItems(Size size, List items) {
     return map<Widget>(
       items,
       (index, ad) {
-        return Container(
-          height: size.height * 0.33,
+        return SizedBox(
+          height: size.height * 0.25,
           child: Stack(children: <Widget>[
-            (ad.image != null)
-                ? Image.network(
-                    "${KAPIURL + ad.image}",
-                    fit: BoxFit.fill,
-                    width: double.infinity,
-                    height: size.height * 0.33,
-                  )
-                : Image.asset(
-                    KPlaceHolderCover,
-                  ),
+            if (ad.image != null)
+              Image.network(
+                NetworkConstants.baseUrl + (ad.image as String),
+                fit: BoxFit.fill,
+                width: double.infinity,
+                height: size.height * 0.25,
+              )
+            else
+              Image.asset(
+                placeHolderCover,
+              ),
             // Positioned(
             //   bottom: 0.0,
             //   left: 0.0,

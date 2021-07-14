@@ -21,7 +21,7 @@ class WallettransformpointsBloc
       try {
         final result = await _userRepo.walletTransformPoints(event.points);
         if (result['status'] == 201) {
-          yield WallettransformpointsSucceded(result['message']);
+          yield WallettransformpointsSucceded(result['message'].toString());
         } else {
           yield WallettransformpointsFailed(result['message'].toString());
         }

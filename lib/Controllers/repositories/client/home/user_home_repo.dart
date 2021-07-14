@@ -1,6 +1,7 @@
 import 'dart:convert';
-import 'package:techtime/Helpers/APIUrls.dart';
+
 import 'package:http/http.dart' as http;
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/advertise.dart';
 import 'package:techtime/Models/client/category.dart';
 import 'package:techtime/Models/client/company.dart';
@@ -19,7 +20,9 @@ class APIClientHomeRepository implements ClientHomeRepository {
   };
   @override
   Future<List<Category>> get fetchCategories async {
-    final response = await http.post(Uri.parse(KAPIURL + KHomeAllCategories),
+    final response = await http.post(
+        Uri.parse(
+            NetworkConstants.baseUrl + NetworkConstants.homeAllCategories),
         headers: headers);
 
     if (response.statusCode == 200) {
@@ -27,7 +30,7 @@ class APIClientHomeRepository implements ClientHomeRepository {
 
       final data = json.decode(decoded) as List;
       return data.map((rawPost) {
-        return Category.fromJson(rawPost);
+        return Category.fromJson(rawPost as Map<String, dynamic>);
       }).toList();
     } else {
       throw Exception('${json.decode(response.body)}');
@@ -36,14 +39,16 @@ class APIClientHomeRepository implements ClientHomeRepository {
 
   @override
   Future<List<Company>> get fetchRecommendedCo async {
-    final response = await http.post(Uri.parse(KAPIURL + KHomeRecommendedCo),
+    final response = await http.post(
+        Uri.parse(
+            NetworkConstants.baseUrl + NetworkConstants.homeRecommendedCo),
         headers: headers);
 
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
       final data = json.decode(decoded) as List;
       return data.map((rawPost) {
-        return Company.fromJson(rawPost);
+        return Company.fromJson(rawPost as Map<String, dynamic>);
       }).toList();
     } else {
       throw Exception('${json.decode(response.body)}');
@@ -52,14 +57,15 @@ class APIClientHomeRepository implements ClientHomeRepository {
 
   @override
   Future<List<Advertise>> get fetchAdsAbove async {
-    final response = await http.post(Uri.parse(KAPIURL + KHomeAdsAbove),
+    final response = await http.post(
+        Uri.parse(NetworkConstants.baseUrl + NetworkConstants.homeAdsAbove),
         body: {"RequestType": "API", "LanguageCode": "EN"});
 
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
       final data = json.decode(decoded) as List;
       return data.map((rawPost) {
-        return Advertise.fromJson(rawPost);
+        return Advertise.fromJson(rawPost as Map<String, dynamic>);
       }).toList();
     } else {
       throw Exception('${json.decode(response.body)['message']}');
@@ -68,14 +74,15 @@ class APIClientHomeRepository implements ClientHomeRepository {
 
   @override
   Future<List<Company>> get fetchLeastCo async {
-    final response =
-        await http.post(Uri.parse(KAPIURL + KHomeLeastCo), headers: headers);
+    final response = await http.post(
+        Uri.parse(NetworkConstants.baseUrl + NetworkConstants.homeLeastCo),
+        headers: headers);
 
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
       final data = json.decode(decoded) as List;
       return data.map((rawPost) {
-        return Company.fromJson(rawPost);
+        return Company.fromJson(rawPost as Map<String, dynamic>);
       }).toList();
     } else {
       throw Exception('${json.decode(response.body)}');

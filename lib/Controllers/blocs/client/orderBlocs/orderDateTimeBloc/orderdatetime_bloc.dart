@@ -19,7 +19,7 @@ class OrderDateTimeBloc extends Bloc<OrderDateTimeEvent, OrderDateTimeState> {
     if (event is GetOrderDateTimes) {
       yield OrderDateTimeLoading();
       try {
-        List<OrderDateTime> orderDateTimes =
+        final List<OrderDateTime> orderDateTimes =
             await _orderRepository.getOrderDateTime(event.branceId);
         yield OrderDateTimeSuccess(orderDateTimes);
       } catch (e) {

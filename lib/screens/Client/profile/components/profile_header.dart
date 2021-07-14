@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/Providers/current_user_provider.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client_profile.dart';
 import 'package:techtime/widgets/client/custom_circle_avatar.dart';
 
@@ -24,15 +25,15 @@ class HeaderProfileAvatar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomCircleAvatar(
-              image: _currentUser?.image ?? null,
+              image: _currentUser?.image,
               height: 100,
               width: 100,
             ),
-            SizedBox(
-              height: KdefaultPadding,
+            const SizedBox(
+              height: defaultPadding,
             ),
             Text(
-              _currentUser?.firstName ?? KAppName,
+              _currentUser?.firstName ?? NetworkConstants.appName,
               style: Theme.of(context).textTheme.headline6,
             )
           ],

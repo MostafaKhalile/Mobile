@@ -8,5 +8,5 @@ abstract class LeastcompaniesEvent extends Equatable {
 }
 
 class GetLeastCompanies extends LeastcompaniesEvent {
-  GetLeastCompanies();
+  const GetLeastCompanies();
 }

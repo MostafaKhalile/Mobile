@@ -13,20 +13,20 @@ class CompanyBranche {
       this.image});
 
   CompanyBranche.fromJson(Map<String, dynamic> json) {
-    brancheID = json['BrancheID'];
-    brancheName = json['BrancheName'];
-    branchAddressAR = json['BranchAddressAR'];
-    branchAddressEN = json['BranchAddressEN'];
-    image = json['Image'];
+    brancheID = json['BrancheID'] as int;
+    brancheName = json['BrancheName'] as String;
+    branchAddressAR = json['BranchAddressAR'] as String;
+    branchAddressEN = json['BranchAddressEN'] as String;
+    image = json['Image'] as String;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['BrancheID'] = this.brancheID;
-    data['BrancheName'] = this.brancheName;
-    data['BranchAddressAR'] = this.branchAddressAR;
-    data['BranchAddressEN'] = this.branchAddressEN;
-    data['Image'] = this.image;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['BrancheID'] = brancheID;
+    data['BrancheName'] = brancheName;
+    data['BranchAddressAR'] = branchAddressAR;
+    data['BranchAddressEN'] = branchAddressEN;
+    data['Image'] = image;
     return data;
   }
 }

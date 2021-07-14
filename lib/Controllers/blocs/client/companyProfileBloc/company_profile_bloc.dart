@@ -21,7 +21,7 @@ class CompanyProfileBloc
     if (event is GetCompanyProfile) {
       try {
         yield CompanyProfileLoading();
-        CompanyProfile coProfile = await _companiesRepo.companyView(event.id);
+        final CompanyProfile coProfile = await _companiesRepo.companyView(event.id);
         yield CompanyProfileFinished(coProfile);
       } catch (e) {
         print("Error Message here $e");

@@ -20,53 +20,51 @@ class CompanyProfile {
       this.companyServices});
 
   CompanyProfile.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
+    status = json['status'] as int;
     companyData = json['CompanyData'] != null
-        ? new CompanyData.fromJson(json['CompanyData'])
+        ? CompanyData.fromJson(json['CompanyData'] as Map<String, dynamic>)
         : null;
     if (json['CompanyBranches'] != null) {
       companyBranches = [];
       json['CompanyBranches'].forEach((v) {
-        companyBranches.add(new CompanyBranche.fromJson(v));
+        companyBranches.add(CompanyBranche.fromJson(v as Map<String, dynamic>));
       });
     }
     if (json['CompanyServices'] != null) {
       companyServices = [];
       json['CompanyServices'].forEach((v) {
-        companyServices.add(new CompanyService.fromJson(v));
+        companyServices.add(CompanyService.fromJson(v as Map<String, dynamic>));
       });
     }
     if (json['CompanyOffers'] != null) {
       companyOffers = [];
       json['CompanyOffers'].forEach((v) {
-        companyOffers.add(new CompanyOffer.fromJson(v));
+        companyOffers.add(CompanyOffer.fromJson(v as Map<String, dynamic>));
       });
     }
     companyReviews = json['CompanyReviews'] != null
-        ? new CompanyReviews.fromJson(json['CompanyReviews'])
+        ? CompanyReviews.fromJson(
+            json['CompanyReviews'] as Map<String, dynamic>)
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.companyData != null) {
-      data['CompanyData'] = this.companyData.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (companyData != null) {
+      data['CompanyData'] = companyData.toJson();
     }
-    if (this.companyBranches != null) {
-      data['CompanyBranches'] =
-          this.companyBranches.map((v) => v.toJson()).toList();
+    if (companyBranches != null) {
+      data['CompanyBranches'] = companyBranches.map((v) => v.toJson()).toList();
     }
-    if (this.companyServices != null) {
-      data['CompanyServices'] =
-          this.companyServices.map((v) => v.toJson()).toList();
+    if (companyServices != null) {
+      data['CompanyServices'] = companyServices.map((v) => v.toJson()).toList();
     }
-    if (this.companyOffers != null) {
-      data['CompanyOffers'] =
-          this.companyOffers.map((v) => v.toJson()).toList();
+    if (companyOffers != null) {
+      data['CompanyOffers'] = companyOffers.map((v) => v.toJson()).toList();
     }
-    if (this.companyReviews != null) {
-      data['CompanyReviews'] = this.companyReviews.toJson();
+    if (companyReviews != null) {
+      data['CompanyReviews'] = companyReviews.toJson();
     }
     return data;
   }

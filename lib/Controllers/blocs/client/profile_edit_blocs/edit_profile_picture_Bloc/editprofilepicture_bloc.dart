@@ -26,6 +26,7 @@ class EditprofilepictureBloc
         } else {
           yield EditprofilepictureFailure();
         }
+      // ignore: empty_catches
       } catch (e) {}
     }
   }

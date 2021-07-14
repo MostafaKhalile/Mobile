@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_total_data_bloc/wallet_bloc.dart';
+import 'package:techtime/Controllers/Providers/current_user_provider.dart';
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Widgets/core/horizontal_gap.dart';
 import 'package:techtime/Widgets/core/shimmer_effect.dart';
 import '../subScreens/recharge_wallet.dart';
 import '../subScreens/redeeme_points.dart';
-import 'package:techtime/widgets/core/horizontal_gap.dart';
 
 class WalletBody extends StatefulWidget {
-  WalletBody({
+  const WalletBody({
     Key key,
   }) : super(key: key);
 
@@ -22,85 +23,95 @@ class WalletBody extends StatefulWidget {
 
 class _WalletBodyState extends State<WalletBody> {
   PageController pageController = PageController(
-    initialPage: 0,
-    keepPage: true,
+    
   );
   int selectedPageIndex = 0;
   @override
   void initState() {
-    BlocProvider.of<WalletBloc>(context)..add(GetWalletTotalDate());
+    BlocProvider.of<WalletBloc>(context).add(GetWalletTotalDate());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    AppLocalizations _translator = AppLocalizations.of(context);
-    ThemeData _theme = Theme.of(context);
+    final Size _size = MediaQuery.of(context).size;
+    final AppLocalizations _translator = AppLocalizations.of(context);
+    // ThemeData _theme = Theme.of(context);
+    final _currentUser = Provider.of<CurrentUserProvider>(context).currentUser;
 
     return Column(children: [
-      Container(
+      SizedBox(
         width: _size.width,
         height: _size.height * 0.45,
         child: Column(
           children: [
-            BlocConsumer<WalletBloc, WalletState>(
-              listener: (context, state) {},
-              builder: (context, state) {
-                if (state is WalletTotalDataSucceded) {
-                  return PointsCount(
-                    points: state.walletTotal.points.toString(),
+            if (_currentUser != null)
+              BlocConsumer<WalletBloc, WalletState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  if (state is WalletTotalDataSucceded) {
+                    return PointsCount(
+                      points: state.walletTotal.points.toString(),
+                    );
+                  }
+                  return const ShimmerEffect(
+                    child: PointsCount(),
                   );
-                }
-                return ShimmerEffect(
-                  child: PointsCount(),
-                );
-              },
-            ),
-            BlocConsumer<WalletBloc, WalletState>(
-              listener: (context, state) {
-                if (state is WalletTotalDataFailed) {
-                  print(state.message);
-                }
-              },
-              builder: (context, state) {
-                if (state is WalletTotalDataSucceded) {
-                  return MoneyCount(
-                    money: state.walletTotal.money.toString(),
-                  );
-                }
-                return ShimmerEffect(child: MoneyCount());
-              },
-            ),
-            Spacer(),
+                },
+              )
+            else
+              PointsCount(
+                points: 0.0.toString(),
+              ),
+            if (_currentUser != null)
+              BlocConsumer<WalletBloc, WalletState>(
+                listener: (context, state) {
+                  if (state is WalletTotalDataFailed) {
+                    print(state.message);
+                  }
+                },
+                builder: (context, state) {
+                  if (state is WalletTotalDataSucceded) {
+                    return MoneyCount(
+                      money: state.walletTotal.money.toString(),
+                    );
+                  }
+                  return const ShimmerEffect(child: MoneyCount());
+                },
+              )
+            else
+              MoneyCount(
+                money: 0.0.toString(),
+              ),
+            const Spacer(),
             Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   PageSelectionCard(
                     isSelected: selectedPageIndex == 0,
-                    icon: KRechargeWalletIcon,
+                    icon: rechargeWalletIcon,
                     title: _translator.translate("recharge_wallet"),
                     onTap: () => onAddButtonTapped(0),
                   ),
-                  HorizontalGap(),
+                  const HorizontalGap(),
                   PageSelectionCard(
-                      icon: KCoinsIcon,
+                      icon: coinsIcon,
                       isSelected: selectedPageIndex == 1,
                       title: _translator.translate("redeem_your_points"),
                       onTap: () => onAddButtonTapped(1)),
                 ],
               ),
             ),
-            Spacer()
+            const Spacer()
           ],
         ),
       ),
       Card(
           elevation: 15,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(KdefaultRadius))),
-          child: Container(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(defaultRadius))),
+          child: SizedBox(
             height: _size.height * 0.6,
             width: _size.width,
             child: buildPageView(),
@@ -117,7 +128,7 @@ class _WalletBodyState extends State<WalletBody> {
   void onAddButtonTapped(int index) {
     // use this to animate to the page
     pageController.animateToPage(index,
-        duration: Duration(seconds: 5), curve: Curves.ease);
+        duration: const Duration(seconds: 5), curve: Curves.ease);
 
     // or this to jump to it without animating
     pageController.jumpToPage(index);
@@ -147,41 +158,40 @@ class PageSelectionCard extends StatelessWidget {
     this.title,
     this.isSelected,
   }) : super(key: key);
-  final Function onTap;
+  final VoidCallback onTap;
   final String icon;
   final String title;
   final bool isSelected;
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
+    final ThemeData _theme = Theme.of(context);
     return InkWell(
       onTap: onTap,
       child: Card(
         elevation: 5,
         shape: isSelected ?? false
             ? RoundedRectangleBorder(
-                side: BorderSide(color: KPrimaryColor, width: 1),
-                borderRadius: BorderRadius.circular(KdefaultRadius))
-            : RoundedRectangleBorder(
+                side: const BorderSide(color: AppColors.primaryColor),
+                borderRadius: BorderRadius.circular(defaultRadius))
+            : const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
-                Radius.circular(KdefaultRadius),
+                Radius.circular(defaultRadius),
               )),
-        child: Container(
+        child: SizedBox(
           height: 110,
           width: 110,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SvgPicture.asset(
                 icon,
                 height: 30,
                 color: _theme.accentColor,
               ),
-              SizedBox(
-                height: KdefaultPadding / 2,
+              const SizedBox(
+                height: defaultPadding / 2,
               ),
-              Container(
+              SizedBox(
                 width: 80,
                 child: Text(
                   title,
@@ -214,12 +224,10 @@ class MoneyCount extends StatelessWidget {
           children: [
             Text(
               AppLocalizations.of(context).translate("EGP"),
-              style: Theme.of(context)
-                  .textTheme
-                  .caption
-                  .copyWith(fontWeight: FontWeight.bold, color: KDarkGreyColor),
+              style: Theme.of(context).textTheme.caption.copyWith(
+                  fontWeight: FontWeight.bold, color: AppColors.darkGreyColor),
             ),
-            Container(
+            SizedBox(
               width: 80,
               child: Text(
                 "${money ?? 0}",
@@ -229,10 +237,8 @@ class MoneyCount extends StatelessWidget {
             ),
             Text(
               AppLocalizations.of(context).translate("available_credit"),
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle2
-                  .copyWith(fontWeight: FontWeight.bold, color: KDarkGreyColor),
+              style: Theme.of(context).textTheme.subtitle2.copyWith(
+                  fontWeight: FontWeight.bold, color: AppColors.darkGreyColor),
             ),
           ],
         )
@@ -251,7 +257,7 @@ class PointsCount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10.0),
       child: Row(
         children: [
           RichText(
@@ -262,7 +268,8 @@ class PointsCount extends StatelessWidget {
                 TextSpan(
                   text: AppLocalizations.of(context).translate("point"),
                   style: Theme.of(context).textTheme.subtitle1.copyWith(
-                      color: KDarkGreyColor, fontWeight: FontWeight.bold),
+                      color: AppColors.darkGreyColor,
+                      fontWeight: FontWeight.bold),
                 ),
               ],
             ),

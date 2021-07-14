@@ -6,21 +6,17 @@ import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
 import 'package:techtime/Controllers/Providers/current_user_provider.dart';
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/Helpers/themes/dark_theme.dart';
-import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/Models/client_profile.dart';
 import 'package:techtime/Screens/Client/contact/contact_us.dart';
 import 'package:techtime/Screens/Client/profileEdit/profile_edit.dart';
-import 'package:techtime/Screens/Client/walletScreen/wallet_screen.dart';
 import 'package:techtime/Screens/Core/aboutUs/about_us.dart';
 import 'package:techtime/Screens/Core/aboutUs/follow_us.dart';
 import 'package:techtime/Screens/Core/startupViews/language_selection_page.dart';
 import 'package:techtime/Screens/Core/startupViews/loginScreen/login_page.dart';
 
 class ProfileControls extends StatefulWidget {
-  ProfileControls({
+  const ProfileControls({
     Key key,
   }) : super(key: key);
 
@@ -31,14 +27,14 @@ class ProfileControls extends StatefulWidget {
 class _ProfileControlsState extends State<ProfileControls> {
   @override
   Widget build(BuildContext context) {
-    UserProfile _currentUser =
+    final UserProfile _currentUser =
         Provider.of<CurrentUserProvider>(context, listen: false).currentUser;
-    var appTheme = Provider.of<ThemeModel>(context);
-    ThemeData _theme = Theme.of(context);
+    // var appTheme = Provider.of<ThemeModel>(context);
+    final ThemeData _theme = Theme.of(context);
     return Expanded(
       flex: 4,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: KDefaultPadding),
+        padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
         width: double.infinity,
         child: SingleChildScrollView(
           child: Column(
@@ -58,18 +54,18 @@ class _ProfileControlsState extends State<ProfileControls> {
                   _showToast(context);
                 }
               }),
-              //Wallet
-              buildProfileListTile(context, _theme,
-                  leading: Icons.account_balance_wallet, onTap: () {
-                if (_currentUser != null) {
-                  Navigator.pushNamed(context, WalletScreen.routeName);
-                } else {
-                  _showToast(context);
-                }
-              },
-                  title: AppLocalizations.of(context)
-                      .translate("myWallet")
-                      .toUpperCase()),
+              // //Wallet
+              // buildProfileListTile(context, _theme,
+              //     leading: Icons.account_balance_wallet, onTap: () {
+              //   if (_currentUser != null) {
+              //     Navigator.pushNamed(context, WalletScreen.routeName);
+              //   } else {
+              //     _showToast(context);
+              //   }
+              // },
+              //     title: AppLocalizations.of(context)
+              //         .translate("myWallet")
+              //         .toUpperCase()),
               //language
               buildProfileListTile(
                 context,
@@ -81,22 +77,22 @@ class _ProfileControlsState extends State<ProfileControls> {
                     .toUpperCase(),
               ),
               // darkMode
-              buildProfileListTile(
-                context,
-                _theme,
-                leading: Icons.brightness_3_sharp,
-                title: AppLocalizations.of(context)
-                    .translate("darkMode")
-                    .toUpperCase(),
-                trailing: Switch(
-                  activeColor: KPrimaryColor,
-                  // trackColor: KPrimaryColor,
-                  value: appTheme.currentTheme == darkTheme ? true : false,
-                  onChanged: (value) =>
-                      Provider.of<ThemeModel>(context, listen: false)
-                          .toggleTheme(),
-                ),
-              ),
+              // buildProfileListTile(
+              //   context,
+              //   _theme,
+              //   leading: Icons.brightness_3_sharp,
+              //   title: AppLocalizations.of(context)
+              //       .translate("darkMode")
+              //       .toUpperCase(),
+              //   trailing: Switch(
+              //     activeColor: AppColors.primaryColor,
+              //     // trackColor: AppColors.primaryColor,
+              //     value: appTheme.currentTheme == darkTheme ? true : false,
+              //     onChanged: (value) =>
+              //         Provider.of<ThemeModel>(context, listen: false)
+              //             .toggleTheme(),
+              //   ),
+              // ),
               // Contact us
               buildProfileListTile(context, _theme,
                   leading: Icons.mail,
@@ -126,7 +122,7 @@ class _ProfileControlsState extends State<ProfileControls> {
               ProfileListTile(
                   onTap: () async {
                     if (_currentUser != null) {
-                      bool logOut = await buildShowDialog(
+                      final bool logOut = await buildShowDialog(
                           context, AppLocalizations.of(context));
                       if (logOut) _logout(context);
                     } else {
@@ -134,7 +130,7 @@ class _ProfileControlsState extends State<ProfileControls> {
                           context, LoginPage.routeName, (route) => false);
                     }
                   },
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.exit_to_app_outlined,
                     size: 20,
                   ),
@@ -157,15 +153,15 @@ class _ProfileControlsState extends State<ProfileControls> {
     );
   }
 
-  _logout(context) async {
+  Future<void> _logout(BuildContext context) async {
     await AuthRepo().logout();
-    await Provider.of<CurrentUserProvider>(context, listen: false)
-        .loadCurrentUser();
+    Provider.of<CurrentUserProvider>(context, listen: false)
+        .loadCurrentUser(); //TODO : add await here if lohin/Logout crashes
     Navigator.pushNamedAndRemoveUntil(
         context, LanguageSelectionPage.routeName, (route) => false);
   }
 
-  _showToast(context) {
+  void _showToast(BuildContext context) {
     Fluttertoast.showToast(
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.black,
@@ -174,7 +170,7 @@ class _ProfileControlsState extends State<ProfileControls> {
         msg: AppLocalizations.of(context).translate("please_login_first"));
   }
 
-  Future<void> _chooseLanguage(context) async {
+  Future<void> _chooseLanguage(BuildContext context) async {
     switch (await showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -187,6 +183,7 @@ class _ProfileControlsState extends State<ProfileControls> {
               SimpleDialogOption(
                 onPressed: () {
                   BlocProvider.of<LocaleCubit>(context).toArabic();
+                  Navigator.pop(context);
                 },
                 child: Text(
                   AppLocalizations.of(context).translate("arabic"),
@@ -196,6 +193,7 @@ class _ProfileControlsState extends State<ProfileControls> {
               SimpleDialogOption(
                 onPressed: () {
                   BlocProvider.of<LocaleCubit>(context).toEnglish();
+                  Navigator.pop(context);
                 },
                 child: Text(
                   AppLocalizations.of(context).translate("english"),
@@ -209,7 +207,7 @@ class _ProfileControlsState extends State<ProfileControls> {
   }
 
   ProfileListTile buildProfileListTile(BuildContext context, ThemeData _theme,
-      {IconData leading, String title, Widget trailing, Function onTap}) {
+      {IconData leading, String title, Widget trailing, VoidCallback onTap}) {
     return ProfileListTile(
         onTap: onTap,
         leading: Icon(
@@ -233,11 +231,11 @@ class _ProfileControlsState extends State<ProfileControls> {
           title: Text(_translator.translate("confirm_signout")),
           actions: <Widget>[
             TextButton(
+              onPressed: () => Navigator.pop(context, true),
               child: Text(
                 _translator.translate("confirm"),
                 style: Theme.of(context).textTheme.button,
               ),
-              onPressed: () => Navigator.pop(context, true),
             ),
             TextButton(
                 onPressed: () => Navigator.pop(context, false),
@@ -256,7 +254,7 @@ class ProfileListTile extends StatelessWidget {
   final Widget title;
   final Widget leading;
   final Widget trailing;
-  final Function onTap;
+  final VoidCallback onTap;
 
   const ProfileListTile({
     Key key,
@@ -287,8 +285,8 @@ class ProfileListTile extends StatelessWidget {
                 width: 0,
               ),
         ),
-        Divider(
-          height: KDefaultPadding / 2,
+        const Divider(
+          height: defaultPadding / 2,
           thickness: 3,
           indent: 10,
           endIndent: 10,

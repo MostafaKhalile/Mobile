@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 
 class ProfileTextField extends StatelessWidget {
   const ProfileTextField({
@@ -27,12 +27,11 @@ class ProfileTextField extends StatelessWidget {
               child: TextField(
                 controller: controller,
                 enabled: enabled,
-                cursorColor: KPrimaryColor,
+                cursorColor: AppColors.primaryColor,
                 style: _theme.textTheme.caption.copyWith(
                     fontWeight: FontWeight.bold, color: _theme.accentColor),
                 decoration: InputDecoration(
-                    contentPadding:
-                        EdgeInsets.only(bottom: 0, left: 30, right: 30),
+                    contentPadding: const EdgeInsets.only(left: 30, right: 30),
                     hintStyle: _theme.textTheme.caption.copyWith(
                         fontWeight: FontWeight.bold, color: _theme.accentColor),
                     enabledBorder: InputBorder.none,
@@ -43,8 +42,8 @@ class ProfileTextField extends StatelessWidget {
               )),
           suffixWidget
         ]),
-        Divider(
-          height: KDefaultPadding / 2,
+        const Divider(
+          height: defaultPadding / 2,
           thickness: 3,
           indent: 10,
           endIndent: 10,

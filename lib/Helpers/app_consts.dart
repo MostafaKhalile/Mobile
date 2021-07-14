@@ -1,26 +1,25 @@
 // #############Styles#################
 
-const double KDefaultPadding = 20.0;
+const double defaultPadding = 20.0;
 
 // #################Styling############
 
-const double KdefaultPadding = 20.0;
-const double KdefaultRadius = 15.0;
+const double defaultRadius = 15.0;
 
 // #################Assets#############
 //##### png #####
-const String KPlaceHolderCover = "assets/images/default_cover.png";
-const String KPlaceHolderImage = "assets/images/default_logo.png";
+const String placeHolderCover = "assets/images/default_cover.png";
+const String placeHolderImage = "assets/images/default_logo.png";
 
 //##### svg #####
 
-const String KRechargeWalletIcon = "assets/svg/digital-wallet.svg";
-const String KCoinsIcon = "assets/svg/coins.svg";
-const String KWhatsAppAIcon = "assets/svg/whatsapp.svg";
-const String KContactUsIcon = "assets/svg/contact_us.svg";
-const String KEmailIcon = "assets/svg/email.svg";
-const String KShieldIcon = "assets/svg/security_shield.svg";
-const String KComingSoonIcon = "assets/svg/coming-soon.svg";
+const String rechargeWalletIcon = "assets/svg/digital-wallet.svg";
+const String coinsIcon = "assets/svg/coins.svg";
+const String whatsAppIcon = "assets/svg/whatsapp.svg";
+const String contactUsIcon = "assets/svg/contact_us.svg";
+const String emailIcon = "assets/svg/email.svg";
+const String shieldIcon = "assets/svg/security_shield.svg";
+const String comingSoonIcon = "assets/svg/coming-soon.svg";
 
 final kNow = DateTime.now();
 final kFirstDay = DateTime(kNow.year, kNow.month, kNow.day);

@@ -14,11 +14,11 @@ class BrancheemployeesLoading extends BrancheemployeesState {}
 class BrancheemployeesSuccess extends BrancheemployeesState {
   final List<CompanyEmployee> employees;
 
-  BrancheemployeesSuccess(this.employees);
+  const BrancheemployeesSuccess(this.employees);
 }
 
 class BrancheemployeesFaild extends BrancheemployeesState {
   final String message;
 
-  BrancheemployeesFaild(this.message);
+  const BrancheemployeesFaild(this.message);
 }

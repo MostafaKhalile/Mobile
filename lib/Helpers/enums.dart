@@ -1,8 +1,9 @@
 // ###############Enums###############
-enum ThemeType { Light, Dark }
+enum ThemeType { light, dark }
 enum ConnectionType {
-  Wifi,
-  Mobile,
+  wifi,
+  mobile,
 }
 enum AuthenticationStatus { unknown, authenticated, unauthenticated }
 enum UserRole { guest, client, company }
+enum NotificationsActions { readAll, clearAll, read, delete }

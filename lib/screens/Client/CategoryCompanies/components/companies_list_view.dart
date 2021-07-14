@@ -11,11 +11,12 @@ class CompaniesListView extends StatelessWidget {
   const CompaniesListView({Key key, this.companies}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    ThemeData _theme = Theme.of(context);
+    final Size size = MediaQuery.of(context).size;
+    final ThemeData _theme = Theme.of(context);
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(0.0, KDefaultPadding, 0.0, KDefaultPadding),
+      padding:
+          const EdgeInsets.fromLTRB(0.0, defaultPadding, 0.0, defaultPadding),
       child: ListView.builder(
           itemCount: companies.length,
           itemBuilder: (_, i) {
@@ -27,13 +28,13 @@ class CompaniesListView extends StatelessWidget {
                       arguments: companies[i]),
                   child: FooterCard(
                     width: size.width * 0.95,
-                    height: 300,
+                    height: size.height * .25,
                     bgImage: companies[i]?.coverImage,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(KdefaultPadding / 2),
+                          padding: const EdgeInsets.all(defaultPadding / 2),
                           child: Hero(
                               tag: companies[i].companyName,
                               child: CustomCircleAvatar(
@@ -54,7 +55,6 @@ class CompaniesListView extends StatelessWidget {
                                     .copyWith(color: Colors.black),
                               ),
                               RichText(
-                                  overflow: TextOverflow.clip,
                                   textScaleFactor: 0.9,
                                   text: TextSpan(
                                     text: '${companies[i].categoryRegionEn}   ',

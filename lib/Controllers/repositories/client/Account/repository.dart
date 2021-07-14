@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -6,7 +7,6 @@ import 'package:techtime/Helpers/shared_perfs_provider.dart';
 import 'package:techtime/Models/client/wallet/wallet_points_to_price.dart';
 import 'package:techtime/Models/client/wallet/wallet_total_data.dart';
 import 'package:techtime/Models/client_profile.dart';
-import 'package:techtime/Models/user_notification.dart';
 
 import 'api_client.dart';
 
@@ -27,20 +27,22 @@ class USerRepo {
     if (userResp == null) {
       return null;
     }
-    print(UserProfile.fromJson(jsonDecode(userResp)).toString());
-    return UserProfile.fromJson(jsonDecode(userResp));
+
+    return UserProfile.fromJson(
+        jsonDecode(userResp.toString()) as Map<String, dynamic>);
   }
 
-  Future getProfileData() async {
+  FutureOr<UserProfile> getProfileData() async {
     try {
-      final dataResp = (await _apiClient.getProfileData());
-      final data = json.decode(dataResp)['Data'] as Map;
+      final dataResp = await _apiClient.getProfileData();
+      final data =
+          json.decode(dataResp.toString())['Data'] as Map<String, dynamic>;
       final UserProfile profileData = UserProfile.fromJson(data);
-      if (json.decode(dataResp)['status'] == 201) {
+      if (json.decode(dataResp.toString())['status'] == 201) {
         _saveCurrentUserProfile(profileData.toJson());
         return profileData;
       } else {
-        return Future.error(json.decode(dataResp));
+        return Future.error(dataResp.toString());
       }
     } catch (e) {
       final message = e;
@@ -80,11 +82,10 @@ class USerRepo {
 
   Future<bool> uploadProfilePicture(File imageFile) async {
     final bool hasBeenUploaded =
-        await _apiClient.uploadProfilePicture(imageFile);
+        await _apiClient.uploadProfilePicture(imageFile) as bool;
     if (hasBeenUploaded) {
       await getProfileData();
     }
-    print("[Upload Profile Picture Repository] $hasBeenUploaded");
     return hasBeenUploaded;
   }
 
@@ -93,7 +94,7 @@ class USerRepo {
     if (hasBeenUploaded) {
       await getProfileData();
     }
-    print("[Upload Cover Picture Repository] $hasBeenUploaded");
+
     return hasBeenUploaded;
   }
 
@@ -108,7 +109,8 @@ class USerRepo {
   }
 
   Future<Map<String, dynamic>> walletTransformPoints(String points) async {
-    final walletTotalData = await _apiClient.walletTransformPoints(points);
+    final Map<String, dynamic> walletTotalData =
+        await _apiClient.walletTransformPoints(points) as Map<String, dynamic>;
     return walletTotalData;
   }
 
@@ -122,11 +124,5 @@ class USerRepo {
   Future<bool> _saveCurrentUserProfile(Map<String, dynamic> userData) async {
     return _prefs.saveValueWithKey<String>(
         NetworkConstants.currentUserProfile, jsonEncode(userData));
-  }
-
-  Future<List<UserNotification>> getUserNotifications() async {
-    final userNotifications = await _apiClient.getUserNotifications();
-
-    return userNotifications;
   }
 }

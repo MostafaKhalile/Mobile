@@ -10,10 +10,10 @@ class CompaniesApiClient {
   Future<List<CompanyService>> getCompanyServices(int branchId) async {
     try {
       final dataResp = await companiesRepo.getCompanyServices(branchId);
-      print(dataResp.toString());
       return dataResp;
     } catch (e) {
-      return Future.error(json.decode(utf8.decode(e.bodyBytes))['message']);
+      return Future.error(
+          json.decode(utf8.decode(e.bodyBytes as List<int>))['message']);
     }
   }
 }

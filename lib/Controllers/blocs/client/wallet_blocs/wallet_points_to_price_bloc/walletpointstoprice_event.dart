@@ -10,5 +10,5 @@ abstract class WalletpointstopriceEvent extends Equatable {
 class GetWalletPointsToPrice extends WalletpointstopriceEvent {
   final String points;
 
-  GetWalletPointsToPrice(this.points);
+  const GetWalletPointsToPrice(this.points);
 }

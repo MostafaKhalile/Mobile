@@ -15,10 +15,12 @@ abstract class AuthanticationEvent extends Equatable {
 class StartLogin extends AuthanticationEvent {
   final String email;
   final String password;
+  final String fcmToken;
 
   const StartLogin(
     this.email,
-    this.password, {
+    this.password,
+    this.fcmToken, {
     Key key,
   }) : super(key);
 
@@ -30,7 +32,7 @@ class StartLogin extends AuthanticationEvent {
 
 */
 class StartLogOut extends AuthanticationEvent {
-  StartLogOut({Key key}) : super(key);
+  const StartLogOut({Key key}) : super(key);
 }
 
 // class RegisterNewUser extends AuthanticationEvent {

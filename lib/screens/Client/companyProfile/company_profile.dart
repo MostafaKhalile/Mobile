@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:techtime/Controllers/BLoCs/client/companyProfileBloc/company_profile_bloc.dart';
-import 'package:techtime/Helpers/APIUrls.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/company.dart';
 import 'package:techtime/screens/Client/companyProfile/subViews/company_branches.dart';
 import 'package:techtime/widgets/client/custom_circle_avatar.dart';
@@ -36,14 +37,14 @@ class _CompanyProfileState extends State<CompanyProfile>
   void initState() {
     _controller = TabController(length: 4, vsync: this);
     BlocProvider.of<CompanyProfileBloc>(context)
-      ..add(GetCompanyProfile(widget.company.companyId));
+        .add(GetCompanyProfile(widget.company.companyId));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations _translator = AppLocalizations.of(context);
-    Size _size = MediaQuery.of(context).size;
+    final AppLocalizations _translator = AppLocalizations.of(context);
+    final Size _size = MediaQuery.of(context).size;
     return Scaffold(
         body: Column(children: <Widget>[
       SafeArea(
@@ -55,7 +56,7 @@ class _CompanyProfileState extends State<CompanyProfile>
               BlocListener<CompanyProfileBloc, CompanyProfileState>(
                 listener: (context, state) {
                   if (state is CompanyProfileFinished &&
-                      state.companyProfile.companyBranches.length > 0 &&
+                      state.companyProfile.companyBranches.isNotEmpty &&
                       state.companyProfile.companyData.companyCoverImage !=
                           null) {
                     setState(() {
@@ -69,8 +70,7 @@ class _CompanyProfileState extends State<CompanyProfile>
                   options: CarouselOptions(
                       autoPlay: true,
                       aspectRatio: 1.9,
-                      enlargeCenterPage: true,
-                      pauseAutoPlayOnTouch: true),
+                      enlargeCenterPage: true),
                   items: imgList
                       .map((item) => InkWell(
                           onTap: () => Navigator.pushNamed(
@@ -78,7 +78,8 @@ class _CompanyProfileState extends State<CompanyProfile>
                                 'imgList': imgList,
                                 'companyName': widget.company.companyName
                               }),
-                          child: Image.network(KAPIURL + item)))
+                          child:
+                              Image.network(NetworkConstants.baseUrl + item)))
                       .toList(),
                 ),
               ),
@@ -86,9 +87,8 @@ class _CompanyProfileState extends State<CompanyProfile>
               //Image Carousle for Branch View End
               //Branch logo, name and Rating Start.
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   Hero(
                       tag: widget.company.companyName,
                       child: CustomCircleAvatar(
@@ -96,13 +96,13 @@ class _CompanyProfileState extends State<CompanyProfile>
                         width: 80,
                         image: widget.company.logo,
                       )),
-                  HorizontalGap(
-                    width: KdefaultPadding / 4,
+                  const HorizontalGap(
+                    width: defaultPadding / 4,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
+                      SizedBox(
                         width: _size.width * 0.6,
                         child: Text(
                           widget.company.companyName,
@@ -110,37 +110,36 @@ class _CompanyProfileState extends State<CompanyProfile>
                               fontWeight: FontWeight.bold, wordSpacing: 3.5),
                         ),
                       ),
-                      VerticalGap(
-                        height: KdefaultPadding / 2,
+                      const VerticalGap(
+                        height: defaultPadding / 2,
                       ),
                       RatingBarIndicator(
                         rating: 5.00,
-                        itemBuilder: (context, index) => Icon(
+                        itemBuilder: (context, index) => const Icon(
                           Icons.star,
                           color: Colors.amber,
                         ),
-                        itemCount: 5,
                         itemSize: 14.0,
-                                  direction: Axis.horizontal,
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                          icon: Icon(Icons.favorite_border), onPressed: () {}),
+                          icon: const Icon(Icons.favorite_border),
+                          onPressed: () {}),
                     ],
                   ),
-                  Spacer()
+                  const Spacer()
                 ],
               ),
-              VerticalGap(),
+              const VerticalGap(),
               //Branch logo, name and Rating End.
               TabBar(
                 controller: _controller,
-                indicatorColor: KPrimaryColor,
+                indicatorColor: AppColors.primaryColor,
                 isScrollable: true,
                 tabs: [
                   Tab(
@@ -166,10 +165,10 @@ class _CompanyProfileState extends State<CompanyProfile>
         if (state is CompanyProfileFinished) {
           return Expanded(
             flex: 3,
-            child: Container(
+            child: SizedBox(
               width: double.infinity,
               child: TabBarView(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 controller: _controller,
                 children: <Widget>[
                   CompanyServices(
@@ -189,9 +188,9 @@ class _CompanyProfileState extends State<CompanyProfile>
             ),
           );
         }
-        return Container(
+        return SizedBox(
           height: _size.height * 0.3,
-          child: Center(
+          child: const Center(
             child: SizedBox(
                 height: 20, width: 20, child: CircularProgressIndicator()),
           ),

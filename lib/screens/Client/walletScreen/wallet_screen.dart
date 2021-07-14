@@ -12,12 +12,13 @@ class WalletScreen extends StatefulWidget {
 class _WalletScreenState extends State<WalletScreen> {
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    AppLocalizations _translator = AppLocalizations.of(context);
+    final Size _size = MediaQuery.of(context).size;
+    final AppLocalizations _translator = AppLocalizations.of(context);
     // ThemeData _theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
+        automaticallyImplyLeading: false,
         title: Text(
           _translator.translate("myWallet"),
           style: Theme.of(context)
@@ -29,7 +30,7 @@ class _WalletScreenState extends State<WalletScreen> {
       body: SizedBox(
           width: _size.width,
           height: _size.height,
-          child: SingleChildScrollView(
+          child: const SingleChildScrollView(
             child: WalletBody(),
           )),
     );

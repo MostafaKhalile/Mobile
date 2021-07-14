@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'profile/profile.dart';
-import 'package:techtime/screens/Core/Prevent_close_button.dart';
+import 'package:techtime/Screens/Core/prevent_close_btn.dart';
+import 'package:techtime/Screens/Core/scheduleScreen/schedule_screen.dart';
+
 import 'Categories/client_categories_screen.dart';
 import 'HomeScreen/client_home_screen.dart';
-import 'Offres/client_offers_screen.dart';
-import 'scheduleScreen/schedule_screen.dart';
+import 'profile/profile.dart';
+import 'walletScreen/wallet_screen.dart';
 
 class ClientHomePage extends StatefulWidget {
   static const String routeName = "/clientHome";
@@ -16,52 +17,51 @@ class ClientHomePage extends StatefulWidget {
 
 class _ClientHomePageState extends State<ClientHomePage> {
   int _page = 0;
-  GlobalKey _bottomNavigationKey = GlobalKey();
+  final GlobalKey _bottomNavigationKey = GlobalKey();
   final _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
-    var appTheme = Theme.of(context);
+    final appTheme = Theme.of(context);
     return PreventCloseButton(
       child: Scaffold(
           bottomNavigationBar: CurvedNavigationBar(
             key: _bottomNavigationKey,
-            index: 0,
             height: 60.0,
             items: <Widget>[
               Padding(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   child: SvgPicture.asset(
                     "assets/svg/home.svg",
                     height: 20,
                     color: appTheme.primaryColorDark,
                   )),
               Padding(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   child: SvgPicture.asset(
                     "assets/svg/categories.svg",
                     height: 20,
                     color: appTheme.primaryColorDark,
                   )),
               Padding(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 child: SvgPicture.asset(
-                  "assets/svg/offers.svg",
+                  "assets/svg/wallet.svg",
                   height: 20,
                   color: appTheme.primaryColorDark,
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   child: SvgPicture.asset(
-                    "assets/svg/account.svg",
+                    "assets/svg/calendar.svg",
                     height: 20,
                     color: appTheme.primaryColorDark,
                   )),
               Padding(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   child: SvgPicture.asset(
-                    "assets/svg/schedule.svg",
+                    "assets/svg/account.svg",
                     height: 20,
                     color: appTheme.primaryColorDark,
                   )),
@@ -71,7 +71,8 @@ class _ClientHomePageState extends State<ClientHomePage> {
             backgroundColor: appTheme.scaffoldBackgroundColor,
             color: appTheme.bottomAppBarColor,
             animationCurve: Curves.easeInOut,
-            animationDuration: Duration(milliseconds: 600),
+            // ignore: avoid_redundant_argument_values
+            animationDuration: const Duration(milliseconds: 600),
             onTap: (index) {
               setState(() {});
               _pageController.jumpToPage(index);
@@ -79,24 +80,24 @@ class _ClientHomePageState extends State<ClientHomePage> {
             // letIndexChange: (index) => true,
           ),
           body: PageView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             controller: _pageController,
             onPageChanged: (index) {
               setState(() {
                 _page = index;
               });
-              CurvedNavigationBarState navBarState =
-                  _bottomNavigationKey.currentState;
+              final CurvedNavigationBarState navBarState =
+                  _bottomNavigationKey.currentState as CurvedNavigationBarState;
               navBarState.setPage(_page);
             },
             children: [
               ClientHomeScreen(),
-              ClientCategoriesScreen(
+              const ClientCategoriesScreen(
                 isCloseable: false,
               ),
-              ClientOffersScreen(),
-              ProfileScreen(),
+              WalletScreen(),
               ScheduleScreen(),
+              ProfileScreen(),
             ],
           )),
     );

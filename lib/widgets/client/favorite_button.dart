@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 
 class FavoriteButton extends StatelessWidget {
   const FavoriteButton({Key key, this.buttonSize, this.isFavorite, this.onTap})
       : super(key: key);
   final double buttonSize;
   final bool isFavorite;
-  final Function onTap;
+  final Future<bool> Function(bool) onTap;
 
   @override
   Widget build(BuildContext context) {
     return LikeButton(
       size: buttonSize,
-      circleColor: CircleColor(start: KPrimaryColor, end: KErrorColor),
-      bubblesColor: BubblesColor(
-        dotPrimaryColor: KPrimaryColor,
-        dotSecondaryColor: KErrorColor,
+      circleColor: const CircleColor(
+          start: AppColors.primaryColor, end: AppColors.errorColor),
+      bubblesColor: const BubblesColor(
+        dotPrimaryColor: AppColors.primaryColor,
+        dotSecondaryColor: AppColors.errorColor,
       ),
       likeBuilder: (isFavorite) {
         return Icon(
           isFavorite ? Icons.favorite : Icons.favorite_border,
-          color: isFavorite ? KPrimaryColor : Colors.grey,
+          color: isFavorite ? AppColors.primaryColor : Colors.grey,
           size: buttonSize,
         );
       },

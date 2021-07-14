@@ -10,5 +10,5 @@ abstract class OrderTimesEvent extends Equatable {
 class GetDayAvailableTimes extends OrderTimesEvent {
   final List<dynamic> orderTimes;
 
-  GetDayAvailableTimes(this.orderTimes);
+  const GetDayAvailableTimes(this.orderTimes);
 }

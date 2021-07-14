@@ -6,27 +6,26 @@ class Branche {
   Branche({this.status, this.brancheData, this.brancheImages});
 
   Branche.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
+    status = json['status'] as int;
     brancheData = json['BrancheData'] != null
-        ? BrancheData.fromJson(json['BrancheData'])
+        ? BrancheData.fromJson(json['BrancheData'] as Map<String, dynamic>)
         : null;
     if (json['BrancheImages'] != null) {
       brancheImages = <BrancheImages>[];
       json['BrancheImages'].forEach((v) {
-        brancheImages.add(BrancheImages.fromJson(v));
+        brancheImages.add(BrancheImages.fromJson(v as Map<String, dynamic>));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.brancheData != null) {
-      data['BrancheData'] = this.brancheData.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (brancheData != null) {
+      data['BrancheData'] = brancheData.toJson();
     }
-    if (this.brancheImages != null) {
-      data['BrancheImages'] =
-          this.brancheImages.map((v) => v.toJson()).toList();
+    if (brancheImages != null) {
+      data['BrancheImages'] = brancheImages.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -34,7 +33,7 @@ class Branche {
 
 class BrancheData {
   int companyID;
-  int raty;
+  double raty;
   int brancheID;
   String brancheName;
   String companyImage;
@@ -42,7 +41,7 @@ class BrancheData {
   String branchAddressEN;
   String longitude;
   String latitude;
-  Null favorite;
+  bool favorite;
   int totalBranches;
 
   BrancheData(
@@ -59,32 +58,32 @@ class BrancheData {
       this.totalBranches});
 
   BrancheData.fromJson(Map<String, dynamic> json) {
-    companyID = json['CompanyID'];
-    raty = json['raty'];
-    brancheID = json['BrancheID'];
-    brancheName = json['BrancheName'];
-    companyImage = json['CompanyImage'];
-    branchAddressAR = json['BranchAddressAR'];
-    branchAddressEN = json['BranchAddressEN'];
-    longitude = json['Longitude'];
-    latitude = json['Latitude'];
-    favorite = json['Favorite'];
-    totalBranches = json['TotalBranches'];
+    companyID = json['CompanyID'] as int;
+    raty = json['raty'] as double;
+    brancheID = json['BrancheID'] as int;
+    brancheName = json['BrancheName'] as String;
+    companyImage = json['CompanyImage'] as String;
+    branchAddressAR = json['BranchAddressAR'] as String;
+    branchAddressEN = json['BranchAddressEN'] as String;
+    longitude = json['Longitude'] as String;
+    latitude = json['Latitude'] as String;
+    favorite = json['Favorite'] as bool;
+    totalBranches = json['TotalBranches'] as int;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['CompanyID'] = this.companyID;
-    data['raty'] = this.raty;
-    data['BrancheID'] = this.brancheID;
-    data['BrancheName'] = this.brancheName;
-    data['CompanyImage'] = this.companyImage;
-    data['BranchAddressAR'] = this.branchAddressAR;
-    data['BranchAddressEN'] = this.branchAddressEN;
-    data['Longitude'] = this.longitude;
-    data['Latitude'] = this.latitude;
-    data['Favorite'] = this.favorite;
-    data['TotalBranches'] = this.totalBranches;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['CompanyID'] = companyID;
+    data['raty'] = raty;
+    data['BrancheID'] = brancheID;
+    data['BrancheName'] = brancheName;
+    data['CompanyImage'] = companyImage;
+    data['BranchAddressAR'] = branchAddressAR;
+    data['BranchAddressEN'] = branchAddressEN;
+    data['Longitude'] = longitude;
+    data['Latitude'] = latitude;
+    data['Favorite'] = favorite;
+    data['TotalBranches'] = totalBranches;
     return data;
   }
 }
@@ -95,12 +94,12 @@ class BrancheImages {
   BrancheImages({this.image});
 
   BrancheImages.fromJson(Map<String, dynamic> json) {
-    image = json['Image'];
+    image = json['Image'] as String;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['Image'] = this.image;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['Image'] = image;
     return data;
   }
 }

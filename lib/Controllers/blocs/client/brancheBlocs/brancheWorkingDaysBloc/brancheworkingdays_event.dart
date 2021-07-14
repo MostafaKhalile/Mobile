@@ -10,5 +10,5 @@ abstract class BrancheWorkingDaysEvent extends Equatable {
 class GetBrancheWorkingDays extends BrancheWorkingDaysEvent {
   final int branchId;
 
-  GetBrancheWorkingDays(this.branchId);
+  const GetBrancheWorkingDays(this.branchId);
 }

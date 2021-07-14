@@ -4,7 +4,7 @@ import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 class ClientOffersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(

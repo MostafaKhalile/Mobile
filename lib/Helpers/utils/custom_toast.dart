@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-
-import '../colors.dart';
 
 class CustomToast {
   void buildSuccessMessage(BuildContext context) {
@@ -12,7 +11,7 @@ class CustomToast {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.check_circle_outline,
               color: Colors.greenAccent,
               size: 30,
@@ -29,30 +28,30 @@ class CustomToast {
         isHideKeyboard: true,
         animation: StyledToastAnimation.scale,
         reverseAnimation: StyledToastAnimation.fade,
-        duration: Duration(seconds: 4),
-        animDuration: Duration(seconds: 1),
+        duration: const Duration(seconds: 4),
+        animDuration: const Duration(seconds: 1),
         curve: Curves.elasticOut,
         reverseCurve: Curves.linear);
   }
 
   void buildErrorMessage(BuildContext context, String message) {
     showToastWidget(
-        Container(
+        SizedBox(
             width: MediaQuery.of(context).size.width * 0.8,
             child: Card(
                 elevation: 10,
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: KDefaultPadding, horizontal: 5),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: defaultPadding, horizontal: 5),
                   child: Wrap(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.error_outline,
-                        color: KErrorColor,
+                        color: AppColors.errorColor,
                         size: 30,
                       ),
-                      SizedBox(
-                        width: KdefaultPadding,
+                      const SizedBox(
+                        width: defaultPadding,
                       ),
                       Text(
                         message,
@@ -67,8 +66,8 @@ class CustomToast {
         isHideKeyboard: true,
         animation: StyledToastAnimation.scale,
         reverseAnimation: StyledToastAnimation.fade,
-        duration: Duration(seconds: 4),
-        animDuration: Duration(seconds: 1),
+        duration: const Duration(seconds: 4),
+        animDuration: const Duration(seconds: 1),
         curve: Curves.elasticOut,
         reverseCurve: Curves.linear);
   }

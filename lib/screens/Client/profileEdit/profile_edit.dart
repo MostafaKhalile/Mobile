@@ -4,13 +4,12 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_mobile_bloc/editmobile_bloc.dart';
 import 'package:techtime/Controllers/Providers/current_user_provider.dart';
-import 'package:techtime/Controllers/Repositories/client/Account/repository.dart';
 import 'package:techtime/Controllers/blocs/client/profile_edit_blocs/edit_email_bloc/editemailaddress_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/profile_edit_blocs/edit_first_name_bloc/editfirstname_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/profile_edit_blocs/edit_second_name_bloc/editsecondname_bloc.dart';
 
 import 'package:techtime/Helpers/app_consts.dart';
-import 'package:techtime/Helpers/colors.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/utils/custom_dialog.dart';
 import 'package:techtime/Helpers/utils/custom_toast.dart';
@@ -29,14 +28,13 @@ class ProfileEdit extends StatefulWidget {
 
 class _ProfileEditState extends State<ProfileEdit> {
   UserProfile _userProfile;
-  USerRepo _userRepo = USerRepo();
-  CustomDialog _dialog = CustomDialog();
-  CustomToast _customToast = CustomToast();
+  final CustomDialog _dialog = CustomDialog();
+  final CustomToast _customToast = CustomToast();
   TextEditingController _firstNameController;
   TextEditingController _lastNameController;
   TextEditingController _emailController;
   TextEditingController _mobileController;
-  TextEditingController _passwordController =
+  final TextEditingController _passwordController =
       TextEditingController(text: "Password");
 
   @override
@@ -56,10 +54,7 @@ class _ProfileEditState extends State<ProfileEdit> {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
-    Size _size = MediaQuery.of(context).size;
-    UserProfile _currentUser =
-        Provider.of<CurrentUserProvider>(context, listen: false).currentUser;
+    final ThemeData _theme = Theme.of(context);
     return Scaffold(
       body: Builder(
         builder: (context) {
@@ -67,14 +62,14 @@ class _ProfileEditState extends State<ProfileEdit> {
               width: double.infinity,
               child: Column(
                 children: [
-                  Expanded(
+                  const Expanded(
                     flex: 3,
                     child: ProfileCoverAndImage(),
                   ),
                   Expanded(
                     flex: 5,
                     child: Padding(
-                      padding: EdgeInsets.only(top: 50),
+                      padding: const EdgeInsets.only(top: 50),
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
@@ -94,9 +89,9 @@ class _ProfileEditState extends State<ProfileEdit> {
                                   },
                                   builder: (context, state) {
                                     if (state is EditFirstNameLoading) {
-                                      return Padding(
+                                      return const Padding(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: KdefaultPadding),
+                                            horizontal: defaultPadding),
                                         child: SizedBox(
                                           height: 10,
                                           width: 10,
@@ -128,9 +123,9 @@ class _ProfileEditState extends State<ProfileEdit> {
                                   },
                                   builder: (context, state) {
                                     if (state is EditLastNameLoading) {
-                                      return Padding(
+                                      return const Padding(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: KdefaultPadding),
+                                            horizontal: defaultPadding),
                                         child: SizedBox(
                                           height: 10,
                                           width: 10,
@@ -161,9 +156,9 @@ class _ProfileEditState extends State<ProfileEdit> {
                                   },
                                   builder: (context, state) {
                                     if (state is EditEmailAddressLoading) {
-                                      return Padding(
+                                      return const Padding(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: KdefaultPadding),
+                                            horizontal: defaultPadding),
                                         child: SizedBox(
                                           height: 10,
                                           width: 10,
@@ -194,9 +189,9 @@ class _ProfileEditState extends State<ProfileEdit> {
                                   },
                                   builder: (context, state) {
                                     if (state is EditMobileLoading) {
-                                      return Padding(
+                                      return const Padding(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: KdefaultPadding),
+                                            horizontal: defaultPadding),
                                         child: SizedBox(
                                           height: 10,
                                           width: 10,
@@ -241,9 +236,9 @@ class _ProfileEditState extends State<ProfileEdit> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.error_outline,
-              color: KErrorColor,
+              color: AppColors.errorColor,
               size: 30,
             ),
             Text(
@@ -258,8 +253,8 @@ class _ProfileEditState extends State<ProfileEdit> {
         isHideKeyboard: true,
         animation: StyledToastAnimation.scale,
         reverseAnimation: StyledToastAnimation.fade,
-        duration: Duration(seconds: 4),
-        animDuration: Duration(seconds: 1),
+        duration: const Duration(seconds: 4),
+        animDuration: const Duration(seconds: 1),
         curve: Curves.elasticOut,
         reverseCurve: Curves.linear);
   }
@@ -277,11 +272,11 @@ class SuffixTextButton extends StatelessWidget {
     Key key,
     @required this.onPressed,
   }) : super(key: key);
-  final Function onPressed;
+  final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
-    AppLocalizations _translator = AppLocalizations.of(context);
-    ThemeData _theme = Theme.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context);
+    final ThemeData _theme = Theme.of(context);
 
     return TextButton(
         onPressed: onPressed,

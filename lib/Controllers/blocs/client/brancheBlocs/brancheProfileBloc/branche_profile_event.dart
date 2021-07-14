@@ -9,5 +9,5 @@ abstract class BrancheProfileEvent extends Equatable {
 
 class GetBrancheProfile extends BrancheProfileEvent {
   final int id;
-  GetBrancheProfile(this.id);
+  const GetBrancheProfile(this.id);
 }
