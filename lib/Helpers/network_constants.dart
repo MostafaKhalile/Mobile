@@ -40,6 +40,10 @@ class NetworkConstants {
   static const String clearAllUserNotifications =
       "/api/companies/notification/clear-all-user-notification";
 
+  // Favorites Routes
+  static const String userFavoriteCompanies = "/api/home/favorite-companies";
+  static const String userFavoriteBranches = "/api/home/favorite-branche";
+
   // User Wallet Routes
   static const String walletTotal = "/api/my-wallet/total-data";
   static const String walletPointsToPrice = "/api/my-wallet/total-point-price";

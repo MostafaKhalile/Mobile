@@ -65,7 +65,7 @@ class AccountApiClient {
   }
 
   Future<bool> editSecondName(String name) async {
-    final String _path =
+    const String _path =
         NetworkConstants.baseUrl + NetworkConstants.editLastName;
 
     try {

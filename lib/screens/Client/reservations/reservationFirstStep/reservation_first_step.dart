@@ -103,8 +103,10 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
                                           title: brancheData.brancheName,
                                           address: brancheData.branchAddressAR,
                                           rating: 4.8,
-                                          image: NetworkConstants.baseUrl +
-                                              brancheData.image,
+                                          image: (brancheData.image != null)
+                                              ? NetworkConstants.baseUrl +
+                                                  brancheData.image
+                                              : null,
                                           onPressed: () {
                                             BlocProvider.of<
                                                         BrancheemployeesBloc>(

@@ -7,9 +7,11 @@ import 'package:techtime/Models/client/category.dart';
 
 class TitleImageCard extends StatelessWidget {
   final Category category;
+  final double height;
   const TitleImageCard({
     Key key,
     this.category,
+    @required this.height,
   }) : super(key: key);
 
   @override
@@ -18,8 +20,8 @@ class TitleImageCard extends StatelessWidget {
         onTap: () => Navigator.pushNamed(context, "/CompaniesListPage",
             arguments: category),
         child: Container(
-          margin: const EdgeInsets.symmetric(vertical: defaultPadding),
-          height: 200,
+          margin: const EdgeInsets.symmetric(vertical: defaultPadding / 2),
+          height: height,
           decoration: BoxDecoration(
               border: Border.all(color: AppColors.primaryColor),
               boxShadow: [

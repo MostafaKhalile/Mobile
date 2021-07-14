@@ -115,7 +115,7 @@ class CompanyCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Hero(
-                      tag: company?.companyName ?? "",
+                      tag: company?.companyName ?? UniqueKey(),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: company != null

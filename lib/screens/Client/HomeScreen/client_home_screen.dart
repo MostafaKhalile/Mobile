@@ -16,6 +16,7 @@ import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/Helpers/utils/custom_snackbar.dart';
 import 'package:techtime/Models/client_profile.dart';
+import 'package:techtime/Screens/Client/favorites/favorites_screen.dart';
 import 'package:techtime/Widgets/core/shimmer_effect.dart';
 import 'package:techtime/screens/Client/Categories/client_categories_screen.dart';
 import 'package:techtime/screens/Core/notifications/notifications.dart';
@@ -105,7 +106,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
           if (state is LeastCompaniesLoaded) {
             if (state.leastCompanies.isNotEmpty) {
               return SizedBox(
-                  height: _sectionHeight,
+                  height: size.height * .28,
                   child: buildLeastCompaniesData(state));
             }
             if (state.leastCompanies.isEmpty) {
@@ -379,7 +380,17 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
             color: Theme.of(context).iconTheme.color,
             height: 15,
           ),
-          onPressed: () {},
+          onPressed: () {
+            if (_currentUser != null) {
+              Navigator.pushNamed(
+                context,
+                FavoritesScreen.routeName,
+              );
+            } else {
+              Fluttertoast.showToast(
+                  msg: _translator.translate("please_login_first"));
+            }
+          },
         ),
       ],
     );

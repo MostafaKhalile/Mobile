@@ -30,7 +30,7 @@ class NotificatiosApiClient {
   }
 
   Future<bool> readAllNotifications() async {
-    final String path =
+    const String path =
         NetworkConstants.baseUrl + NetworkConstants.readAllUserNotifications;
     final response = await http.post(Uri.parse(path), headers: headers);
     final decoded = utf8.decode(response.bodyBytes);

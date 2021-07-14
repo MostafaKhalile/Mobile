@@ -56,7 +56,7 @@ class FooterCard extends StatelessWidget {
           Positioned(
               bottom: 0,
               child: Container(
-                height: 110,
+                height: 90,
                 width: width,
                 decoration: BoxDecoration(
                     color: Colors.white,

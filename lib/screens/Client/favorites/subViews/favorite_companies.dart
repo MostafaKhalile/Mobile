@@ -1,14 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/favoritesBloc/favorites_bloc.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Models/client/company.dart';
-import 'package:techtime/screens/Client/companyProfile/company_profile.dart';
-import 'package:techtime/widgets/client/custom_circle_avatar.dart';
-import 'package:techtime/widgets/client/footer_card.dart';
+import 'package:techtime/Screens/Client/companyProfile/company_profile.dart';
+import 'package:techtime/Widgets/client/custom_circle_avatar.dart';
+import 'package:techtime/Widgets/client/footer_card.dart';
 
-class CompaniesListView extends StatelessWidget {
+class FavoriteCompanies extends StatelessWidget {
+  const FavoriteCompanies({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<FavoritesBloc, FavoritesState>(
+      buildWhen: (previous, current) {
+        return current is FavoritesCompaniessuccess;
+      },
+      builder: (context, state) {
+        Widget widget;
+        if (state is FavoritesCompaniessuccess) {
+          if (state.companies.isNotEmpty) {
+            widget = FavoriteCompaniesWithData(
+              companies: state.companies,
+            );
+          } else {
+            widget = const Center(
+              child: Text("Empty State"),
+            );
+          }
+        } else {
+          widget = const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        return widget;
+      },
+    );
+  }
+}
+
+class FavoriteCompaniesWithData extends StatelessWidget {
+  const FavoriteCompaniesWithData({
+    Key key,
+    @required this.companies,
+  }) : super(key: key);
+
   final List<Company> companies;
 
-  const CompaniesListView({Key key, this.companies}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;

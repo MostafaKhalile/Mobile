@@ -70,15 +70,15 @@ class BranchCard extends StatelessWidget {
                           title,
                           style: _theme.textTheme.subtitle1,
                         ),
-                        Row(
-                          children: [
-                            Text(
-                              address,
-                              style: _theme.textTheme.subtitle2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   children: [
+                        //     Text(
+                        //       address,
+                        //       style: _theme.textTheme.subtitle2,
+                        //       overflow: TextOverflow.ellipsis,
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ))

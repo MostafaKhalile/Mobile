@@ -22,7 +22,7 @@ class LeastCompanyCard extends StatelessWidget {
           arguments: company),
       child: Container(
         width: size.width * 0.85,
-        height: size.height * 0.35,
+        height: size.height * 0.45,
         margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 4),
         decoration: BoxDecoration(
             image: buildCompanyCover(),
@@ -62,7 +62,7 @@ class LeastCompanyCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Hero(
-                          tag: company?.companyName ?? "",
+                          tag: company?.companyName ?? UniqueKey(),
                           child: buildCompanyLogo()),
                       Expanded(
                         child: Column(

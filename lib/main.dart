@@ -16,6 +16,7 @@ import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheServicesBl
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheWorkingDaysBloc/brancheworkingdays_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/companyDataBlocs/companyServicesBloc/companyservices_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/companyProfileBloc/company_profile_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/favoritesBloc/favorites_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/orderBlocs/orderDateTimeBloc/orderdatetime_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/orderBlocs/orderTimesBloc/ordertimes_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_passwod_bloc/editpassword_bloc.dart';
@@ -30,6 +31,7 @@ import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/Controllers/Repositories/client/Order/order_repository.dart';
 import 'package:techtime/Controllers/Repositories/client/branches/branches_repository.dart';
 import 'package:techtime/Controllers/Repositories/client/companies/companies_repository.dart';
+import 'package:techtime/Controllers/Repositories/client/favorites/repository.dart';
 import 'package:techtime/Controllers/Repositories/notifications/repository.dart';
 import 'package:techtime/Controllers/Repositories/reservations/reservations_repository.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
@@ -152,6 +154,7 @@ class MyApp extends StatelessWidget {
     final OrdersRepository orderRepository = OrdersRepository();
     final USerRepo userRepo = USerRepo();
     final NotificationsRepo _notificationsRepo = NotificationsRepo();
+    final FavoritesRepo _favoritesRepo = FavoritesRepo();
     final ReservationsRepo _reservationsRepo = ReservationsRepo();
     return MultiProvider(
         providers: [
@@ -171,6 +174,8 @@ class MyApp extends StatelessWidget {
                         )),
                 BlocProvider(
                     create: (context) => NotificationsBloc(_notificationsRepo)),
+                BlocProvider(
+                    create: (context) => FavoritesBloc(_favoritesRepo)),
                 BlocProvider(create: (context) => ProfileBloc(userRepo)),
                 BlocProvider(create: (context) => EditfirstnameBloc(userRepo)),
                 BlocProvider(create: (context) => EditLastnameBloc(userRepo)),
