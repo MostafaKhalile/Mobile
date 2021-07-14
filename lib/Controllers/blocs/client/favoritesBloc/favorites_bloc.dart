@@ -5,7 +5,6 @@ import 'package:equatable/equatable.dart';
 import 'package:techtime/Controllers/Repositories/client/favorites/repository.dart';
 import 'package:techtime/Models/client/branche.dart';
 import 'package:techtime/Models/client/company.dart';
-import 'package:techtime/Models/client/companyProfile/company_branches.dart';
 
 part 'favorites_event.dart';
 part 'favorites_state.dart';

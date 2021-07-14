@@ -6,7 +6,6 @@ import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/branche.dart';
 import 'package:techtime/Models/client/company.dart';
 import 'package:http/http.dart' as http;
-import 'package:techtime/Models/client/companyProfile/company_branches.dart';
 
 class FavoritesApiClient {
   // final AuthRepo _authRepo = AuthRepo();

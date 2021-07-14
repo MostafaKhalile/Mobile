@@ -1,6 +1,5 @@
 import 'package:techtime/Models/client/branche.dart';
 import 'package:techtime/Models/client/company.dart';
-import 'package:techtime/Models/client/companyProfile/company_branches.dart';
 
 import 'api_client.dart';
 

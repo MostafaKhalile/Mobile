@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/favoritesBloc/favorites_bloc.dart';
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/branche.dart';
-import 'package:techtime/Models/client/companyProfile/company_branches.dart';
 import 'package:techtime/Screens/Client/branchProfile/branch_profile.dart';
 import 'package:techtime/Widgets/client/branch_card.dart';
 
