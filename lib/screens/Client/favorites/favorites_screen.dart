@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:techtime/Controllers/BLoCs/client/favoritesBloc/favorites_bloc.dart';
 import 'package:techtime/Screens/Client/favorites/subViews/favorite_companies.dart';
 
 import 'subViews/favorite_branches.dart';
@@ -16,13 +14,6 @@ class FavoritesScreen extends StatefulWidget {
 class _FavoritesScreenState extends State<FavoritesScreen>
     with SingleTickerProviderStateMixin {
   TabController _controller;
-  @override
-  void initState() {
-    BlocProvider.of<FavoritesBloc>(context)
-      ..add(GetFavoriteCompanies())
-      ..add(GetFavoriteBranches());
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

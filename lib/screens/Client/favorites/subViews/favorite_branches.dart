@@ -5,18 +5,25 @@ import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/branche.dart';
 import 'package:techtime/Screens/Client/branchProfile/branch_profile.dart';
 import 'package:techtime/Widgets/client/branch_card.dart';
+import 'package:techtime/Widgets/core/shimmer_effect.dart';
 
-class FavoriteBranches extends StatelessWidget {
+class FavoriteBranches extends StatefulWidget {
   const FavoriteBranches({Key key}) : super(key: key);
+
+  @override
+  _FavoriteBranchesState createState() => _FavoriteBranchesState();
+}
+
+class _FavoriteBranchesState extends State<FavoriteBranches> {
+  @override
+  void initState() {
+    BlocProvider.of<FavoritesBloc>(context).add(GetFavoriteBranches());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FavoritesBloc, FavoritesState>(
-      buildWhen: (previous, current) {
-        return current is FavoritesBranchesLoading ||
-            current is FavoritesBranchesSuccess ||
-            current is FavoritesBranchesFailed;
-      },
       builder: (context, state) {
         Widget widget;
         if (state is FavoritesBranchesSuccess) {
@@ -29,6 +36,8 @@ class FavoriteBranches extends StatelessWidget {
               child: Text("Empty State"),
             );
           }
+        } else {
+          widget = const BranchesShimmer();
         }
         return widget;
       },
@@ -66,5 +75,36 @@ class BranchesWithData extends StatelessWidget {
                 arguments: branches[i]),
           );
         });
+  }
+}
+
+class BranchesShimmer extends StatelessWidget {
+  const BranchesShimmer({
+    Key key,
+    this.branches,
+  }) : super(key: key);
+  final List<BrancheData> branches;
+  @override
+  Widget build(BuildContext context) {
+    return ShimmerEffect(
+      child: ListView.builder(
+          padding: const EdgeInsets.all(
+            20,
+          ),
+          physics: const BouncingScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: 5,
+          itemBuilder: (_, i) {
+            return BranchCard(
+              isSelectable: false,
+              title: "",
+              address: "",
+              rating: 4.8,
+              onPressed: () => Navigator.pushNamed(
+                  context, BranchProfile.routeName,
+                  arguments: branches[i]),
+            );
+          }),
+    );
   }
 }
