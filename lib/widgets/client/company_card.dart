@@ -21,7 +21,7 @@ class CompanyCard extends StatelessWidget {
         onTap: () => Navigator.pushNamed(context, CompanyProfile.routeName,
             arguments: company),
         child: Container(
-          width: size.width * 0.7,
+          width: size.width * 0.6,
           margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 4),
           decoration: BoxDecoration(
               color: _theme.scaffoldBackgroundColor,
@@ -109,7 +109,7 @@ class CompanyCard extends StatelessWidget {
                     ],
                   )),
               Positioned(
-                bottom: size.width * 0.16,
+                bottom: size.width * 0.12,
                 right: 10,
                 left: 10,
                 child: Row(
@@ -119,8 +119,19 @@ class CompanyCard extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: company != null
-                            ? CustomCircleAvatar(image: company.logo)
-                            : const CustomCircleAvatar(image: null),
+                            ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: CustomCircleAvatar(
+                                  image: company.logo,
+                                  width: 70,
+                                  height: 70,
+                                ),
+                              )
+                            : const CustomCircleAvatar(
+                                image: null,
+                                width: 70,
+                                height: 70,
+                              ),
                       ),
                     ),
                   ],

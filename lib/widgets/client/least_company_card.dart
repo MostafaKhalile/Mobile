@@ -20,8 +20,8 @@ class LeastCompanyCard extends StatelessWidget {
       onTap: () => Navigator.pushNamed(context, CompanyProfile.routeName,
           arguments: company),
       child: Container(
-        width: size.width * 0.85,
-        height: size.height * 0.45,
+        width: size.width * 0.7,
+        height: size.height * 0.35,
         margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 4),
         decoration: BoxDecoration(
             image: buildCompanyCover(),
@@ -48,8 +48,8 @@ class LeastCompanyCard extends StatelessWidget {
             Positioned(
                 bottom: 0,
                 child: Container(
-                  height: 110,
-                  width: size.width * 0.85,
+                  height: 80,
+                  width: size.width * 0.7,
                   padding: const EdgeInsets.symmetric(
                       horizontal: defaultPadding / 4),
                   decoration: BoxDecoration(
@@ -122,14 +122,14 @@ class LeastCompanyCard extends StatelessWidget {
   CustomCircleAvatar buildCompanyLogo() {
     return company != null
         ? CustomCircleAvatar(
-            width: 80,
-            height: 80,
+            width: 70,
+            height: 70,
             image: company.logo,
           )
         : const CustomCircleAvatar(
             image: null,
-            width: 80,
-            height: 80,
+            width: 70,
+            height: 70,
           );
   }
 

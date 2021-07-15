@@ -10,7 +10,7 @@ class SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
       child: SizedBox(
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [

@@ -18,12 +18,15 @@ class GradientCard extends StatelessWidget {
     return Container(
       height: height,
       width: width,
-      padding: const EdgeInsets.all(10),
+      // padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-          gradient: const LinearGradient(
+          border: Border.all(
+            color: Colors.white,
+          ),
+          gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [AppColors.primaryColor, AppColors.secondryColor]),
+              colors: [Colors.black, Colors.black.withOpacity(0.9)]),
           borderRadius: BorderRadius.circular(defaultPadding)),
       child: child,
     );

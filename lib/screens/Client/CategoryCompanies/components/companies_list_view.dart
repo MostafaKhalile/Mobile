@@ -38,8 +38,8 @@ class CompaniesListView extends StatelessWidget {
                           child: Hero(
                               tag: companies[i].companyName,
                               child: CustomCircleAvatar(
-                                width: 80,
-                                height: 80,
+                                width: 70,
+                                height: 70,
                                 image: companies[i].logo,
                               )),
                         ),

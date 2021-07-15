@@ -23,7 +23,7 @@ class CategoriesBody extends StatelessWidget {
                       itemCount: state.categories.length,
                       itemBuilder: (_, index) {
                         return TitleImageCard(
-                            height: size.height * .22,
+                            height: size.height * .2,
                             category: state.categories[index]);
                       }),
                 );

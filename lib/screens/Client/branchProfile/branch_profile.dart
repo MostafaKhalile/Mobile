@@ -339,7 +339,6 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                   width: _size.width * 0.9,
                   height: 120,
                   child: OfferCardBody(
-                    theme: _theme,
                     image: offer.offerImage,
                     title: offer.offerName,
                     subtitle:
@@ -373,8 +372,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                 itemBuilder: (ctx, i) => GradientCard(
                       width: _size.width * 0.9,
                       height: 120,
-                      child: OfferCardBody(
-                        theme: _theme,
+                      child: const OfferCardBody(
                         image: placeHolderImage,
                         title: '',
                         subtitle: '',

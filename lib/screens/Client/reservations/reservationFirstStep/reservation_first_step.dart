@@ -13,6 +13,7 @@ import 'package:techtime/Helpers/utils/custom_toast.dart';
 import 'package:techtime/Models/client/companyData/brancheData/company_employee.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
 import 'package:techtime/Models/client/orders/order_date_time.dart';
+import 'package:techtime/Screens/Client/branchProfile/branch_profile.dart';
 import 'package:techtime/Widgets/client/specialist_card.dart';
 import 'package:techtime/Widgets/core/shimmer_effect.dart';
 import 'package:techtime/widgets/client/branch_card.dart';
@@ -542,38 +543,3 @@ class TimeSelectableCard extends StatelessWidget {
   }
 }
 
-class SubTitle extends StatelessWidget {
-  const SubTitle({
-    Key key,
-    @required this.text,
-  }) : super(key: key);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    final ThemeData _theme = Theme.of(context);
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-      child: Column(
-        children: [
-          const VerticalGap(
-            height: defaultPadding / 2,
-          ),
-          Row(
-            children: [
-              Text(
-                text,
-                style: _theme.textTheme.subtitle1
-                    .copyWith(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const VerticalGap(
-            height: defaultPadding / 2,
-          ),
-        ],
-      ),
-    );
-  }
-}

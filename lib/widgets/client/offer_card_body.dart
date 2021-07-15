@@ -10,44 +10,54 @@ class OfferCardBody extends StatelessWidget {
   final String price;
   const OfferCardBody({
     Key key,
-    @required ThemeData theme,
     this.image,
     this.title,
     this.subtitle,
     this.price,
-  })  : _theme = theme,
-        super(key: key);
-
-  final ThemeData _theme;
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ThemeData _theme = Theme.of(context);
     return Row(
       children: [
-        RichText(
-          text: TextSpan(
-            text: "$title\n",
-            style: _theme.textTheme.subtitle1
-                .copyWith(fontSize: 18, fontWeight: FontWeight.bold),
-            children: <TextSpan>[
-              TextSpan(
-                  text: subtitle,
-                  style:
-                      _theme.textTheme.headline6.copyWith(color: Colors.white)),
-              TextSpan(
-                  text: price,
-                  style:
-                      _theme.textTheme.headline6.copyWith(color: Colors.white)),
-            ],
+        Expanded(
+          flex: 3,
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(defaultPadding),
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: (image != null)
+                        ? NetworkImage(NetworkConstants.baseUrl + image)
+                            as ImageProvider
+                        : const AssetImage(
+                            placeHolderImage,
+                          ))),
           ),
         ),
         const Spacer(),
-        if (image != null)
-          Image.network(NetworkConstants.baseUrl + image)
-        else
-          Image.asset(
-            placeHolderImage,
-          )
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+          child: RichText(
+            textAlign: TextAlign.end,
+            text: TextSpan(
+              text: "$title\n",
+              style: _theme.textTheme.subtitle1
+                  .copyWith(fontSize: 18, fontWeight: FontWeight.bold),
+              children: <TextSpan>[
+                TextSpan(
+                    text: subtitle,
+                    style: _theme.textTheme.headline6
+                        .copyWith(color: Colors.white)),
+                TextSpan(
+                    text: price,
+                    style: _theme.textTheme.headline6
+                        .copyWith(color: Colors.white)),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }

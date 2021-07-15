@@ -17,6 +17,9 @@ import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/Helpers/utils/custom_snackbar.dart';
 import 'package:techtime/Models/client_profile.dart';
 import 'package:techtime/Screens/Client/favorites/favorites_screen.dart';
+import 'package:techtime/Widgets/client/gradient_card.dart';
+import 'package:techtime/Widgets/client/offer_card_body.dart';
+import 'package:techtime/Widgets/core/horizontal_gap.dart';
 import 'package:techtime/Widgets/core/shimmer_effect.dart';
 import 'package:techtime/screens/Client/Categories/client_categories_screen.dart';
 import 'package:techtime/screens/Core/notifications/notifications.dart';
@@ -57,7 +60,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _sectionHeight = MediaQuery.of(context).size.height * 0.2;
+    _sectionHeight = MediaQuery.of(context).size.height * 0.16;
     final _currentUser = Provider.of<CurrentUserProvider>(context).currentUser;
     final appTheme = Provider.of<ThemeModel>(context);
     final AppLocalizations _translator = AppLocalizations.of(context);
@@ -73,6 +76,41 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
             children: [
               buildAdsCarouselContainer(size),
               buildCategoriesSection(context, size, _snackBar),
+              Column(
+                children: [
+                  SectionHeader(
+                    title: Text(
+                      _translator.translate("offers"),
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                    pressed: () => {},
+                  ),
+                  SizedBox(
+                    height: size.height * 0.16,
+                    child: ListView.separated(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: defaultPadding / 2),
+                        itemCount: 3,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        physics: const BouncingScrollPhysics(),
+                        separatorBuilder: (_, i) => const HorizontalGap(
+                              width: defaultPadding / 2,
+                            ),
+                        itemBuilder: (ctx, i) {
+                          return GradientCard(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            height: 120,
+                            child: OfferCardBody(
+                              title: " offer.offerName",
+                              subtitle:
+                                  "500  ${" ${_translator.translate("EGP")}"}",
+                            ),
+                          );
+                        }),
+                  ),
+                ],
+              ),
               buildRecommendedCompanesSection(context, size),
               buildLeastCompaniesSection(context, size, _snackBar)
             ],
@@ -106,7 +144,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
           if (state is LeastCompaniesLoaded) {
             if (state.leastCompanies.isNotEmpty) {
               return SizedBox(
-                  height: size.height * .28,
+                  height: size.height * .23,
                   child: buildLeastCompaniesData(state));
             }
             if (state.leastCompanies.isEmpty) {
@@ -159,7 +197,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
 
   ListView buildLeastCompaniesData(LeastCompaniesLoaded state) {
     return ListView.builder(
-        padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
+        padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         itemCount: state.leastCompanies.length,
@@ -170,7 +208,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
 
   Padding buildRecommendedCompanesSection(BuildContext context, Size size) {
     return Padding(
-        padding: const EdgeInsets.only(bottom: 20),
+        padding: const EdgeInsets.only(bottom: 0),
         child: Column(
           children: [
             SectionHeader(
@@ -191,7 +229,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
               ),
             ),
             SizedBox(
-                height: size.height * .25,
+                height: size.height * .18,
                 child: BlocConsumer<RecommendedcompaniesBloc,
                     RecommendedcompaniesState>(
                   listener: (context, state) {},
@@ -263,7 +301,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
 
   ListView buildRecommendedCompaniesData(RecommendedcompaniesLoaded state) {
     return ListView.builder(
-      padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
+      // padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
       scrollDirection: Axis.horizontal,
       shrinkWrap: true,
       itemCount: state.recommendedCompanies.length,
@@ -300,7 +338,6 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         // ignore: avoid_redundant_argument_values
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -420,6 +457,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     return ListView.builder(
       shrinkWrap: true,
       scrollDirection: Axis.horizontal,
+      physics: const BouncingScrollPhysics(),
       itemCount: state.categories.length,
       itemBuilder: (BuildContext context, int index) {
         return CategoryCard(
