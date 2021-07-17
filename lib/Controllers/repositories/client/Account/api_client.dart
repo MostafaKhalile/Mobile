@@ -88,7 +88,7 @@ class AccountApiClient {
   }
 
   Future<bool> editEmailAddress(String email) async {
-    final String _path =
+    const String _path =
         NetworkConstants.baseUrl + NetworkConstants.editEmailAddress;
 
     try {
@@ -108,7 +108,7 @@ class AccountApiClient {
   }
 
   Future<bool> editMobile(String mobile) async {
-    final String _path = NetworkConstants.baseUrl + NetworkConstants.editMobile;
+    const String _path = NetworkConstants.baseUrl + NetworkConstants.editMobile;
 
     try {
       final resp = await http.post(Uri.parse(_path), body: {
@@ -162,7 +162,7 @@ class AccountApiClient {
         http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
     // get file length
     final length = await imageFile.length();
-    final String _path =
+    const String _path =
         NetworkConstants.baseUrl + NetworkConstants.uploadProfilePicture;
 
     // string to uri

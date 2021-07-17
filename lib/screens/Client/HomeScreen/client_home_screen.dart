@@ -5,19 +5,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:techtime/Controllers/BLoCs/client/offersBlocs/companyOffersBloc/companyoffers_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/core/notificationsBloc/notifications_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/categorisBloc/categories_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
-import 'package:techtime/Controllers/Providers/current_user_provider.dart';
+import 'package:techtime/Controllers/providers/current_user_provider.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/Helpers/utils/custom_snackbar.dart';
+import 'package:techtime/Models/client/offers/company_offer.dart';
 import 'package:techtime/Models/client_profile.dart';
+import 'package:techtime/Screens/Client/Offres/all_companies_offers_screen.dart';
 import 'package:techtime/Screens/Client/favorites/favorites_screen.dart';
-import 'package:techtime/Widgets/client/gradient_card.dart';
+import 'package:techtime/Widgets/client/company_offer_card.dart';
 import 'package:techtime/Widgets/client/offer_card_body.dart';
 import 'package:techtime/Widgets/core/horizontal_gap.dart';
 import 'package:techtime/Widgets/core/shimmer_effect.dart';
@@ -51,6 +55,8 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     categoriesBloc.add(GetCatgories());
     final notificationsBloc = context.read<NotificationsBloc>();
     notificationsBloc.add(const GetAllUserNotifications());
+    final offersBloc = context.read<CompanyoffersBloc>();
+    offersBloc.add(GetCompanyOffers());
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<CurrentUserProvider>(context, listen: false)
           .loadCurrentUser();
@@ -64,8 +70,8 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     final _currentUser = Provider.of<CurrentUserProvider>(context).currentUser;
     final appTheme = Provider.of<ThemeModel>(context);
     final AppLocalizations _translator = AppLocalizations.of(context);
-    final Snackbar _snackBar = Snackbar();
     final Size size = MediaQuery.of(context).size;
+    final Snackbar _snackBar = Snackbar();
 
     return Scaffold(
       appBar: buildAppBar(context, appTheme, _translator, _currentUser),
@@ -76,41 +82,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
             children: [
               buildAdsCarouselContainer(size),
               buildCategoriesSection(context, size, _snackBar),
-              Column(
-                children: [
-                  SectionHeader(
-                    title: Text(
-                      _translator.translate("offers"),
-                      style: Theme.of(context).textTheme.subtitle1,
-                    ),
-                    pressed: () => {},
-                  ),
-                  SizedBox(
-                    height: size.height * 0.16,
-                    child: ListView.separated(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: defaultPadding / 2),
-                        itemCount: 3,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        physics: const BouncingScrollPhysics(),
-                        separatorBuilder: (_, i) => const HorizontalGap(
-                              width: defaultPadding / 2,
-                            ),
-                        itemBuilder: (ctx, i) {
-                          return GradientCard(
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            height: 120,
-                            child: OfferCardBody(
-                              title: " offer.offerName",
-                              subtitle:
-                                  "500  ${" ${_translator.translate("EGP")}"}",
-                            ),
-                          );
-                        }),
-                  ),
-                ],
-              ),
+              if (_currentUser != null) const OffersSection() else Container(),
               buildRecommendedCompanesSection(context, size),
               buildLeastCompaniesSection(context, size, _snackBar)
             ],
@@ -206,42 +178,40 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
         });
   }
 
-  Padding buildRecommendedCompanesSection(BuildContext context, Size size) {
-    return Padding(
-        padding: const EdgeInsets.only(bottom: 0),
-        child: Column(
-          children: [
-            SectionHeader(
-              title: Row(
-                children: [
-                  const Icon(
-                    Icons.star_border,
-                    color: AppColors.primaryColor,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    AppLocalizations.of(context).translate('topRated'),
-                    style: Theme.of(context).textTheme.subtitle1,
-                  )
-                ],
+  Widget buildRecommendedCompanesSection(BuildContext context, Size size) {
+    return Column(
+      children: [
+        SectionHeader(
+          title: Row(
+            children: [
+              const Icon(
+                Icons.star_border,
+                color: AppColors.primaryColor,
               ),
-            ),
-            SizedBox(
-                height: size.height * .18,
-                child: BlocConsumer<RecommendedcompaniesBloc,
-                    RecommendedcompaniesState>(
-                  listener: (context, state) {},
-                  builder: (context, state) {
-                    if (state is RecommendedcompaniesLoaded) {
-                      return buildRecommendedCompaniesData(state);
-                    }
-                    return buildRecommendedCoLoading(size);
-                  },
-                )),
-          ],
-        ));
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                AppLocalizations.of(context).translate('topRated'),
+                style: Theme.of(context).textTheme.subtitle1,
+              )
+            ],
+          ),
+        ),
+        SizedBox(
+            height: size.height * .18,
+            child: BlocConsumer<RecommendedcompaniesBloc,
+                RecommendedcompaniesState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                if (state is RecommendedcompaniesLoaded) {
+                  return buildRecommendedCompaniesData(state);
+                }
+                return buildRecommendedCoLoading(size);
+              },
+            )),
+      ],
+    );
   }
 
   Column buildCategoriesSection(
@@ -465,6 +435,139 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
           category: state.categories[index],
         );
       },
+    );
+  }
+}
+
+class OffersSection extends StatefulWidget {
+  const OffersSection({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _OffersSectionState createState() => _OffersSectionState();
+}
+
+class _OffersSectionState extends State<OffersSection> {
+  @override
+  void initState() {
+    BlocProvider.of<CompanyoffersBloc>(context).add(GetCompanyOffers());
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final AppLocalizations _translator = AppLocalizations.of(context);
+    final Size size = MediaQuery.of(context).size;
+    return BlocBuilder<CompanyoffersBloc, CompanyoffersState>(
+      builder: (context, state) {
+        Widget widget;
+        if (state is CompanyoffersSuccess) {
+          widget = OffersWithData(
+            companiesOffers: state.companyOffers,
+          );
+        } else {
+          widget = ShimmerEffect(
+              child: Column(
+            children: [
+              SectionHeader(
+                title: Text(
+                  _translator.translate("offers"),
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                pressed: () {},
+              ),
+              SizedBox(
+                height: size.height * 0.16,
+                child: ListView.separated(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: defaultPadding / 2),
+                    itemCount: 3,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    separatorBuilder: (_, i) => const HorizontalGap(
+                          width: defaultPadding / 2,
+                        ),
+                    itemBuilder: (ctx, i) {
+                      return CompanyOfferCard(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: 120,
+                        child: const OfferCardBody(
+                          title: "",
+                          subtitle: "",
+                        ),
+                      );
+                    }),
+              ),
+            ],
+          ));
+        }
+        return widget;
+      },
+    );
+  }
+}
+
+class OffersWithData extends StatelessWidget {
+  const OffersWithData({
+    Key key,
+    @required this.companiesOffers,
+  }) : super(key: key);
+
+  final List<CompanyOffer> companiesOffers;
+  @override
+  Widget build(BuildContext context) {
+    final AppLocalizations _translator = AppLocalizations.of(context);
+    final Size size = MediaQuery.of(context).size;
+    return Column(
+      children: [
+        SectionHeader(
+          title: Row(children: [
+            const Icon(
+              Icons.star,
+              color: AppColors.primaryColor,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              _translator.translate("offers"),
+              style: Theme.of(context).textTheme.subtitle1,
+            )
+          ]),
+          pressed: () => Navigator.pushNamed(context, OffersScreen.routeName),
+        ),
+        SizedBox(
+          height: size.height * 0.16,
+          child: ListView.separated(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+              itemCount: 3,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              separatorBuilder: (_, i) => const HorizontalGap(
+                    width: defaultPadding / 2,
+                  ),
+              itemBuilder: (ctx, i) {
+                final offer = companiesOffers[i];
+                return CompanyOfferCard(
+                  onClick: () =>
+                      Navigator.pushNamed(context, OffersScreen.routeName),
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: 120,
+                  child: OfferCardBody(
+                    image: offer.companyImage,
+                    title: offer.companyName,
+                    hint: offer.categoryEn,
+                    subtitle:
+                        "${offer.companyOffers.toString()}   ${" ${_translator.translate("offers")}"}",
+                  ),
+                );
+              }),
+        ),
+      ],
     );
   }
 }

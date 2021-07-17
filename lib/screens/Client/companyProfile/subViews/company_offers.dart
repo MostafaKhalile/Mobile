@@ -115,7 +115,7 @@ class OfferCard extends StatelessWidget {
   }) : super(key: key);
 
   final Checkbox cb;
-  final CompanyOffer companyOffer;
+  final CompanyOfferInfo companyOffer;
 
   @override
   Widget build(BuildContext context) {

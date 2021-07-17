@@ -5,7 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_cover_bloc/editcover_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_profile_picture_Bloc/editprofilepicture_bloc.dart';
-import 'package:techtime/Controllers/Providers/current_user_provider.dart';
+import 'package:techtime/Controllers/providers/current_user_provider.dart';
+
 import 'package:techtime/Controllers/Services/image_picker_service.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/utils/custom_toast.dart';

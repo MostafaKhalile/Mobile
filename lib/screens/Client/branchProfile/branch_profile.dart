@@ -17,11 +17,11 @@ import 'package:techtime/Models/client/companyData/brancheData/brancheReviews/br
 import 'package:techtime/Models/client/companyData/brancheData/company_employee.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
 import 'package:techtime/Models/client/companyProfile/company_service.dart';
+import 'package:techtime/Widgets/client/company_offer_card.dart';
 import 'package:techtime/Widgets/client/favorite_button.dart';
 import 'package:techtime/Widgets/client/specialist_card.dart';
 import 'package:techtime/Widgets/core/gallery_view.dart';
 import 'package:techtime/Widgets/core/shimmer_effect.dart';
-import 'package:techtime/widgets/client/gradient_card.dart';
 import 'package:techtime/widgets/client/offer_card_body.dart';
 import 'package:techtime/widgets/client/review_card.dart';
 import 'package:techtime/widgets/core/circle_icon.dart';
@@ -335,7 +335,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                   ),
               itemBuilder: (ctx, i) {
                 final BrancheOffer offer = offers[i];
-                return GradientCard(
+                return CompanyOfferCard(
                   width: _size.width * 0.9,
                   height: 120,
                   child: OfferCardBody(
@@ -369,7 +369,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                 separatorBuilder: (_, i) => const HorizontalGap(
                       width: defaultPadding / 2,
                     ),
-                itemBuilder: (ctx, i) => GradientCard(
+                itemBuilder: (ctx, i) => CompanyOfferCard(
                       width: _size.width * 0.9,
                       height: 120,
                       child: const OfferCardBody(

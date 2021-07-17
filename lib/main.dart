@@ -17,6 +17,7 @@ import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/brancheWorkingDay
 import 'package:techtime/Controllers/BLoCs/client/companyDataBlocs/companyServicesBloc/companyservices_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/companyProfileBloc/company_profile_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/favoritesBloc/favorites_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/offersBlocs/companyOffersBloc/companyoffers_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/orderBlocs/orderDateTimeBloc/orderdatetime_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/orderBlocs/orderTimesBloc/ordertimes_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_passwod_bloc/editpassword_bloc.dart';
@@ -26,7 +27,8 @@ import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_total_data
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_transform_points_blob/wallettransformpoints_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_transform_promocode_bloc/wallettransformpromocode_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/core/notificationsBloc/notifications_bloc.dart';
-import 'package:techtime/Controllers/Providers/current_user_provider.dart';
+import 'package:techtime/Controllers/providers/current_user_provider.dart';
+
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/Controllers/Repositories/client/Order/order_repository.dart';
 import 'package:techtime/Controllers/Repositories/client/branches/branches_repository.dart';
@@ -48,6 +50,7 @@ import 'Controllers/Cubits/LocaleCubit/locale_cubit.dart';
 import 'Controllers/Cubits/NetworkCubit/internet_cubit.dart';
 import 'Controllers/Repositories/client/Account/repository.dart';
 import 'Controllers/Repositories/client/home/user_home_repo.dart';
+import 'Controllers/Repositories/client/offers/repository.dart';
 import 'Controllers/blocs/client/ads_bloc/ads_bloc.dart';
 import 'Controllers/blocs/client/categorisBloc/categories_bloc.dart';
 import 'Controllers/blocs/client/companiesListBloc.dart/companieslist_bloc.dart';
@@ -125,8 +128,13 @@ Future<void> main() async {
   }
   AppLanguage().fetchLocale;
   Bloc.observer = AppBlocObserver();
-  runApp(ChangeNotifierProvider<ThemeModel>(
-      create: (BuildContext context) => ThemeModel(),
+  runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider<CurrentUserProvider>(
+            create: (context) => CurrentUserProvider()),
+        ChangeNotifierProvider<ThemeModel>(
+            create: (BuildContext context) => ThemeModel()),
+      ],
       child: MyApp(
         appRouter: RouteGenerator(),
         connectivity: Connectivity(),
@@ -155,112 +163,90 @@ class MyApp extends StatelessWidget {
     final USerRepo userRepo = USerRepo();
     final NotificationsRepo _notificationsRepo = NotificationsRepo();
     final FavoritesRepo _favoritesRepo = FavoritesRepo();
+    final OffersRepo _offersRepo = OffersRepo();
     final ReservationsRepo _reservationsRepo = ReservationsRepo();
-    return MultiProvider(
+    return MultiBlocProvider(
         providers: [
-          ChangeNotifierProvider<CurrentUserProvider>(
-              create: (context) => CurrentUserProvider()),
+          BlocProvider<InternetCubit>(
+            create: (internetCubitContext) =>
+                InternetCubit(connectivity: connectivity),
+          ),
+          BlocProvider(
+              create: (_) => AuthanticationBloc(
+                    authRepo: AuthRepo(),
+                  )),
+          BlocProvider(
+              create: (context) => NotificationsBloc(_notificationsRepo)),
+          BlocProvider(create: (context) => FavoritesBloc(_favoritesRepo)),
+          BlocProvider(create: (context) => ProfileBloc(userRepo)),
+          BlocProvider(create: (context) => EditfirstnameBloc(userRepo)),
+          BlocProvider(create: (context) => EditLastnameBloc(userRepo)),
+          BlocProvider(create: (context) => EditmobileBloc(userRepo)),
+          BlocProvider(create: (context) => EditpasswordBloc(userRepo)),
+          BlocProvider(create: (context) => WalletBloc(userRepo)),
+          BlocProvider(
+              create: (context) => WallettransformpointsBloc(userRepo)),
+          BlocProvider(create: (context) => WalletpointstopriceBloc(userRepo)),
+          BlocProvider(
+              create: (context) => WallettransformpromocodeBloc(userRepo)),
+          BlocProvider(create: (context) => EditprofilepictureBloc(userRepo)),
+          BlocProvider(create: (context) => EditcoverBloc(userRepo)),
+          BlocProvider(create: (context) => EditemailaddressBloc(userRepo)),
+          BlocProvider(create: (context) => AdsBloc(apiClientHomeRepository)),
+          BlocProvider(
+              create: (context) => CategoriesBloc(apiClientHomeRepository)),
+          BlocProvider(
+              create: (context) =>
+                  RecommendedcompaniesBloc(apiClientHomeRepository)),
+          BlocProvider(
+              create: (context) => CompanyservicesBloc(apiCompaniesRepository)),
+          BlocProvider(
+              create: (context) => BrancheservicesBloc(apiBranchesRepository)),
+          BlocProvider(
+              create: (context) => BrancheemployeesBloc(apiBranchesRepository)),
+          BlocProvider(
+              create: (context) => BranchereviewsBloc(apiBranchesRepository)),
+          BlocProvider(
+              create: (context) =>
+                  BrancheWorkingDaysBloc(apiBranchesRepository)),
+          BlocProvider(
+              create: (context) => BrancheOffersBloc(apiBranchesRepository)),
+          BlocProvider(create: (context) => CompanyoffersBloc(_offersRepo)),
+          BlocProvider(
+              create: (context) => ReservationsBloc(_reservationsRepo)),
+          BlocProvider(
+              create: (context) => LeastcompaniesBloc(apiClientHomeRepository)),
+          BlocProvider(
+              create: (context) => CompanieslistBloc(apiCompaniesRepository)),
+          BlocProvider(
+              create: (context) => CompanyProfileBloc(apiCompaniesRepository)),
+          BlocProvider(
+              create: (context) => BrancheProfileBloc(apiBranchesRepository)),
+          BlocProvider(create: (context) => OrderDateTimeBloc(orderRepository)),
+          BlocProvider(create: (context) => OrderTimesBloc()),
+          BlocProvider<LocaleCubit>(create: (context) => LocaleCubit()),
         ],
-        child: Builder(builder: (context) {
-          return MultiBlocProvider(
-              providers: [
-                BlocProvider<InternetCubit>(
-                  create: (internetCubitContext) =>
-                      InternetCubit(connectivity: connectivity),
-                ),
-                BlocProvider(
-                    create: (_) => AuthanticationBloc(
-                          authRepo: AuthRepo(),
-                        )),
-                BlocProvider(
-                    create: (context) => NotificationsBloc(_notificationsRepo)),
-                BlocProvider(
-                    create: (context) => FavoritesBloc(_favoritesRepo)),
-                BlocProvider(create: (context) => ProfileBloc(userRepo)),
-                BlocProvider(create: (context) => EditfirstnameBloc(userRepo)),
-                BlocProvider(create: (context) => EditLastnameBloc(userRepo)),
-                BlocProvider(create: (context) => EditmobileBloc(userRepo)),
-                BlocProvider(create: (context) => EditpasswordBloc(userRepo)),
-                BlocProvider(create: (context) => WalletBloc(userRepo)),
-                BlocProvider(
-                    create: (context) => WallettransformpointsBloc(userRepo)),
-                BlocProvider(
-                    create: (context) => WalletpointstopriceBloc(userRepo)),
-                BlocProvider(
-                    create: (context) =>
-                        WallettransformpromocodeBloc(userRepo)),
-                BlocProvider(
-                    create: (context) => EditprofilepictureBloc(userRepo)),
-                BlocProvider(create: (context) => EditcoverBloc(userRepo)),
-                BlocProvider(
-                    create: (context) => EditemailaddressBloc(userRepo)),
-                BlocProvider(
-                    create: (context) => AdsBloc(apiClientHomeRepository)),
-                BlocProvider(
-                    create: (context) =>
-                        CategoriesBloc(apiClientHomeRepository)),
-                BlocProvider(
-                    create: (context) =>
-                        RecommendedcompaniesBloc(apiClientHomeRepository)),
-                BlocProvider(
-                    create: (context) =>
-                        CompanyservicesBloc(apiCompaniesRepository)),
-                BlocProvider(
-                    create: (context) =>
-                        BrancheservicesBloc(apiBranchesRepository)),
-                BlocProvider(
-                    create: (context) =>
-                        BrancheemployeesBloc(apiBranchesRepository)),
-                BlocProvider(
-                    create: (context) =>
-                        BranchereviewsBloc(apiBranchesRepository)),
-                BlocProvider(
-                    create: (context) =>
-                        BrancheWorkingDaysBloc(apiBranchesRepository)),
-                BlocProvider(
-                    create: (context) =>
-                        BrancheOffersBloc(apiBranchesRepository)),
-                BlocProvider(
-                    create: (context) => ReservationsBloc(_reservationsRepo)),
-                BlocProvider(
-                    create: (context) =>
-                        LeastcompaniesBloc(apiClientHomeRepository)),
-                BlocProvider(
-                    create: (context) =>
-                        CompanieslistBloc(apiCompaniesRepository)),
-                BlocProvider(
-                    create: (context) =>
-                        CompanyProfileBloc(apiCompaniesRepository)),
-                BlocProvider(
-                    create: (context) =>
-                        BrancheProfileBloc(apiBranchesRepository)),
-                BlocProvider(
-                    create: (context) => OrderDateTimeBloc(orderRepository)),
-                BlocProvider(create: (context) => OrderTimesBloc()),
-                BlocProvider<LocaleCubit>(create: (context) => LocaleCubit()),
-              ],
-              child: BlocBuilder<LocaleCubit, LocaleState>(
-                buildWhen: (previousState, currentState) =>
-                    previousState != currentState,
-                builder: (_, localeState) {
-                  return MaterialApp(
-                      locale: localeState.locale,
-                      supportedLocales: const <Locale>[
-                        Locale('en', 'US'),
-                        Locale('ar', ''),
-                      ],
-                      localizationsDelegates: const [
-                        AppLocalizations.delegate,
-                        GlobalMaterialLocalizations.delegate,
-                        GlobalWidgetsLocalizations.delegate,
-                      ],
-                      title: NetworkConstants.appName,
-                      theme:
-                          darkTheme, //to use multi theme replace with this code => Provider.of<ThemeModel>(context).currentTheme
-                      initialRoute: '/',
-                      onGenerateRoute: appRouter.generateRoute);
-                },
-              ));
-        }));
+        child: BlocBuilder<LocaleCubit, LocaleState>(
+          buildWhen: (previousState, currentState) =>
+              previousState != currentState,
+          builder: (_, localeState) {
+            return MaterialApp(
+                locale: localeState.locale,
+                supportedLocales: const <Locale>[
+                  Locale('en', 'US'),
+                  Locale('ar', ''),
+                ],
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                title: NetworkConstants.appName,
+                theme:
+                    darkTheme, //to use multi theme replace with this code => Provider.of<ThemeModel>(context).currentTheme
+                initialRoute: '/',
+                onGenerateRoute: appRouter.generateRoute);
+          },
+        ));
   }
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_points_to_price_bloc/walletpointstoprice_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_transform_points_blob/wallettransformpoints_bloc.dart';
+import 'package:techtime/Controllers/providers/current_user_provider.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/utils/custom_toast.dart';
@@ -34,6 +36,7 @@ class _RedeemPointsState extends State<RedeemPoints> {
     final AppLocalizations _translator = AppLocalizations.of(context);
     final ThemeData _theme = Theme.of(context);
     final CustomToast _customToast = CustomToast();
+    final _currentUser = context.watch<CurrentUserProvider>().currentUser;
 
     return BlocConsumer<WalletpointstopriceBloc, WalletpointstopriceState>(
       listener: (context, state) {
@@ -84,10 +87,18 @@ class _RedeemPointsState extends State<RedeemPoints> {
                     RaisedButton(
                       onPressed: (walletState is WalletPointsToPriceLoading)
                           ? null
-                          : () =>
-                              BlocProvider.of<WalletpointstopriceBloc>(context)
-                                  .add(GetWalletPointsToPrice(
-                                      _pointsController.text)),
+                          : () {
+                              if (_currentUser != null) {
+                                BlocProvider.of<WalletpointstopriceBloc>(
+                                        context)
+                                    .add(GetWalletPointsToPrice(
+                                        _pointsController.text));
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg: _translator
+                                        .translate("please_login_first"));
+                              }
+                            },
                       child: (walletState is WalletPointsToPriceLoading)
                           ? const SizedBox(
                               width: 10,

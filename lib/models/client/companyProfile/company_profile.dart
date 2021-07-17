@@ -10,7 +10,7 @@ class CompanyProfile {
   CompanyData companyData;
   List<CompanyBranche> companyBranches;
   List<CompanyService> companyServices;
-  List<CompanyOffer> companyOffers;
+  List<CompanyOfferInfo> companyOffers;
   CompanyReviews companyReviews;
 
   CompanyProfile(
@@ -39,7 +39,7 @@ class CompanyProfile {
     if (json['CompanyOffers'] != null) {
       companyOffers = [];
       json['CompanyOffers'].forEach((v) {
-        companyOffers.add(CompanyOffer.fromJson(v as Map<String, dynamic>));
+        companyOffers.add(CompanyOfferInfo.fromJson(v as Map<String, dynamic>));
       });
     }
     companyReviews = json['CompanyReviews'] != null

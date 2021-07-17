@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     notificationsBloc = context.read<NotificationsBloc>();
     _authRepo = AuthRepo();
-    _isSignedIn = _authRepo.currentUserToken != null;
+    _isSignedIn = _authRepo.currentUserToken != "null";
     _userRole = _authRepo.userType;
     FirebaseMessaging.instance
         .getInitialMessage()
@@ -46,14 +46,19 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     });
     Future.delayed(const Duration(seconds: 1), () async {
-      Navigator.pushReplacementNamed(
-        context,
-        _isSignedIn
-            ? _userRole == UserRole.client
+      print("token $_isSignedIn");
+      if (_isSignedIn) {
+        print("user");
+        Navigator.pushReplacementNamed(
+            context,
+            _userRole == UserRole.client
                 ? ClientHomePage.routeName
-                : CompanyPlaceholder.routeName
-            : LanguageSelectionPage.routeName,
-      );
+                : CompanyPlaceholder.routeName);
+      } else {
+        print("guest");
+        Navigator.pushReplacementNamed(
+            context, LanguageSelectionPage.routeName);
+      }
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('A new onMessageOpenedApp event was published!');

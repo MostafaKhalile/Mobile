@@ -1,7 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-import 'order_status.dart';
-
 class Reservation extends Equatable {
   final bool user;
   final int orderId;
@@ -9,12 +7,14 @@ class Reservation extends Equatable {
   final String orderImageFrom;
   final String orderOrderDate;
   final String orderOrderTime;
+  final int orderFromTotalOrder;
+  final int orderToTotalOrder;
   final dynamic orderTwoOrderDate;
   final dynamic orderTwoOrderTime;
   final int orderTotalOrder;
   final int orderTotalService;
   final String orderCode;
-  final OrderStatus orderStatus;
+  final String orderStatus;
 
   const Reservation({
     this.user,
@@ -25,6 +25,8 @@ class Reservation extends Equatable {
     this.orderOrderTime,
     this.orderTwoOrderDate,
     this.orderTwoOrderTime,
+    this.orderFromTotalOrder,
+    this.orderToTotalOrder,
     this.orderTotalOrder,
     this.orderTotalService,
     this.orderCode,
@@ -38,14 +40,14 @@ class Reservation extends Equatable {
         orderImageFrom: json['OrderImageFrom'] as String,
         orderOrderDate: json['OrderOrderDate'] as String,
         orderOrderTime: json['OrderOrderTime'] as String,
+        orderFromTotalOrder: json['OrderFromTotalOrder'] as int,
+        orderToTotalOrder: json['OrderFromTotalOrder'] as int,
         orderTwoOrderDate: json['OrderTwoOrderDate'],
         orderTwoOrderTime: json['OrderTwoOrderTime'],
         orderTotalOrder: json['OrderTotalOrder'] as int,
         orderTotalService: json['OrderTotalService'] as int,
         orderCode: json['OrderCode'] as String,
-        orderStatus: json['OrderStatus'] == null
-            ? null
-            : OrderStatus.fromJson(json['OrderStatus'] as Map<String, dynamic>),
+        orderStatus: json['OrderStatus'] as String,
       );
 
   Map<String, dynamic> toJson() => {
@@ -57,10 +59,12 @@ class Reservation extends Equatable {
         'OrderOrderTime': orderOrderTime,
         'OrderTwoOrderDate': orderTwoOrderDate,
         'OrderTwoOrderTime': orderTwoOrderTime,
+        'OrderFromTotalOrder': orderFromTotalOrder,
+        'OrderToTotalOrder': orderToTotalOrder,
         'OrderTotalOrder': orderTotalOrder,
         'OrderTotalService': orderTotalService,
         'OrderCode': orderCode,
-        'OrderStatus': orderStatus?.toJson(),
+        'OrderStatus': orderStatus,
       };
 
   Reservation copyWith({
@@ -75,7 +79,7 @@ class Reservation extends Equatable {
     int orderTotalOrder,
     int orderTotalService,
     String orderCode,
-    OrderStatus orderStatus,
+    String orderStatus,
   }) {
     return Reservation(
       user: user ?? this.user,

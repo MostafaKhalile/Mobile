@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
-import 'package:techtime/Controllers/Providers/current_user_provider.dart';
+import 'package:techtime/Controllers/providers/current_user_provider.dart';
+
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';

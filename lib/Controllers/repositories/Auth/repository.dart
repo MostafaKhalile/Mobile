@@ -96,8 +96,13 @@ class AuthRepo {
   UserRole get userType {
     UserRole role;
     if (currentUser != null) {
-      if (currentUser.accountTypeUser == 3) role = UserRole.company;
-      if (currentUser.accountTypeUser == 4) role = UserRole.client;
+      if (currentUser.accountTypeUser == 3) {
+        role = UserRole.company;
+      } else if (currentUser.accountTypeUser == 4) {
+        role = UserRole.client;
+      } else {
+        role = UserRole.guest;
+      }
     }
     return role;
   }

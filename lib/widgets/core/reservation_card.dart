@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/network_constants.dart';
@@ -33,46 +34,16 @@ class _ReservationCardState extends State<ReservationCard> {
   double start;
   double end;
   Locale locale;
-  Color getThemeColor(int status) {
+  Color getThemeColor(String status) {
     switch (status) {
-      case 19: //مؤكد من الأدمن
+      case "Acceptable": //مؤكد من الأدمن
         {
-          return Colors.green;
+          return AppColors.secondryColor;
         }
         break;
-      case 20: //مؤكد من الفنى
+      case "Processing": //مؤكد من الأدمن
         {
-          return Colors.yellow.shade900;
-        }
-        break;
-      case 41: // فى الطريق
-        {
-          return Colors.lightBlue;
-        }
-        break;
-      case 42: // موقوف
-        {
-          return Colors.redAccent;
-        }
-        break;
-      case 35: // تم إصدار الفاتورة
-        {
-          return Colors.green;
-        }
-        break;
-      case 40: // تم اللإلغاء
-        {
-          return Colors.red;
-        }
-        break;
-      case 21: // تم البدء
-        {
-          return Colors.lightGreen;
-        }
-        break;
-      case 22: //  انتهت
-        {
-          return Colors.green;
+          return Colors.green[800];
         }
         break;
     }
@@ -84,7 +55,6 @@ class _ReservationCardState extends State<ReservationCard> {
     locale = BlocProvider.of<LocaleCubit>(context).state.locale;
     final ThemeData _theme = Theme.of(context);
     final double width = MediaQuery.of(context).size.width;
-    themeColor = getThemeColor(widget.statusCode);
     final Reservation reservation = (widget.reservation != null)
         ? widget.reservation
         : const Reservation(orderCode: "1234");
@@ -101,9 +71,13 @@ class _ReservationCardState extends State<ReservationCard> {
         child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    stops: const <double>[0.03, 0.03],
-                    colors: [themeColor, Colors.black]),
+                gradient: LinearGradient(stops: const <double>[
+                  0.03,
+                  0.03
+                ], colors: [
+                  getThemeColor(reservation?.orderStatus ?? ""),
+                  Colors.black
+                ]),
                 borderRadius: const BorderRadius.all(Radius.circular(10.0))),
             child: Wrap(spacing: 10, children: <Widget>[
               Stack(
@@ -122,14 +96,15 @@ class _ReservationCardState extends State<ReservationCard> {
                             width: width * 0.35,
                             height: 30,
                             decoration: BoxDecoration(
-                                color: themeColor,
+                                color: getThemeColor(
+                                    reservation?.orderStatus ?? ""),
                                 borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(10.0))),
                             child: Text(
-                              'تم بنجاح',
+                              reservation?.orderStatus ?? "",
                               textAlign: TextAlign.center,
-                              style: _theme.textTheme.subtitle1
-                                  .copyWith(height: 2),
+                              style: _theme.textTheme.bodyText1
+                                  .copyWith(height: 1.6),
                             ),
                           )),
                     ),
@@ -255,7 +230,7 @@ class _ReservationCardState extends State<ReservationCard> {
                               ),
                               Expanded(
                                 child: Text(
-                                  '${reservation?.orderTotalOrder ?? ''}  ${AppLocalizations.of(context).translate('EGP')}',
+                                  '${reservation?.orderFromTotalOrder ?? ''} - ${reservation?.orderToTotalOrder ?? ''} ${AppLocalizations.of(context).translate('EGP')}',
                                   style: _theme.textTheme.caption,
                                 ),
                               ),

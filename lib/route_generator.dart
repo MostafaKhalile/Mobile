@@ -5,6 +5,7 @@ import 'package:techtime/Models/client/category.dart';
 import 'package:techtime/Models/client/company.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
 import 'package:techtime/Models/notifications/all_notifications.dart';
+import 'package:techtime/Screens/Client/Offres/all_companies_offers_screen.dart';
 import 'package:techtime/Screens/Client/favorites/favorites_screen.dart';
 
 import 'package:techtime/Screens/Core/aboutUs/about_us.dart';
@@ -144,6 +145,10 @@ class RouteGenerator {
       case FavoritesScreen.routeName:
         return CupertinoPageRoute(
             fullscreenDialog: true, builder: (_) => const FavoritesScreen());
+        break;
+      case OffersScreen.routeName:
+        return CupertinoPageRoute(
+            fullscreenDialog: true, builder: (_) => OffersScreen());
         break;
 
       case ContactUS.routeName:

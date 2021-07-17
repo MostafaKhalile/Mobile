@@ -7,22 +7,23 @@ class OfferCardBody extends StatelessWidget {
   final String image;
   final String title;
   final String subtitle;
-  final String price;
+  final String hint;
   const OfferCardBody({
     Key key,
     this.image,
     this.title,
     this.subtitle,
-    this.price,
+    this.hint,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme = Theme.of(context);
+    final ThemeData _theme = Theme.of(context);
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Expanded(
-          flex: 3,
+          flex: 2,
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(defaultPadding),
@@ -36,25 +37,28 @@ class OfferCardBody extends StatelessWidget {
                           ))),
           ),
         ),
-        const Spacer(),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-          child: RichText(
-            textAlign: TextAlign.end,
-            text: TextSpan(
-              text: "$title\n",
-              style: _theme.textTheme.subtitle1
-                  .copyWith(fontSize: 18, fontWeight: FontWeight.bold),
-              children: <TextSpan>[
-                TextSpan(
-                    text: subtitle,
-                    style: _theme.textTheme.headline6
-                        .copyWith(color: Colors.white)),
-                TextSpan(
-                    text: price,
-                    style: _theme.textTheme.headline6
-                        .copyWith(color: Colors.white)),
-              ],
+        // const Spacer(),
+        Expanded(
+          flex: 3,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                text: "$title\n",
+                style: _theme.textTheme.bodyText1
+                    .copyWith(fontWeight: FontWeight.bold),
+                children: <TextSpan>[
+                  TextSpan(
+                      text: "$hint\n",
+                      style: _theme.textTheme.caption
+                          .copyWith(color: Colors.white)),
+                  TextSpan(
+                      text: "$subtitle\n",
+                      style: _theme.textTheme.subtitle1
+                          .copyWith(color: Colors.white)),
+                ],
+              ),
             ),
           ),
         ),

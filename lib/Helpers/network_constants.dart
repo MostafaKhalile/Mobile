@@ -1,3 +1,6 @@
+import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
+
+// ignore: avoid_classes_with_only_static_members
 class NetworkConstants {
   // #############app Contstants################
   static const String appName = "Tech Time";
@@ -44,6 +47,10 @@ class NetworkConstants {
   static const String userFavoriteCompanies = "/api/home/favorite-companies";
   static const String userFavoriteBranches = "/api/home/favorite-branche";
 
+  // Offers Routes
+  static const String allCompaniesOffers = "/api/home/all-campany-offers";
+  static const String filterOffersCompany = "/api/home/filter-offers-company/";
+
   // User Wallet Routes
   static const String walletTotal = "/api/my-wallet/total-data";
   static const String walletPointsToPrice = "/api/my-wallet/total-point-price";
@@ -75,4 +82,10 @@ class NetworkConstants {
       "/api/companies/order/notification/history/";
   static const String upcomingReservations =
       "/api/companies/order/notification/upcoming/";
+
+  static final headers = {
+    "Content-Type": "application/json; charset=utf-8",
+    "Accept": "application/json",
+    "Authorization": "Token ${AuthRepo().currentUserToken}"
+  };
 }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
-import 'package:techtime/Controllers/Providers/current_user_provider.dart';
 
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/network_constants.dart';
@@ -17,7 +16,6 @@ class LanguageSelectionPage extends StatefulWidget {
 class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
   @override
   void initState() {
-    CurrentUserProvider().loadCurrentUser();
     super.initState();
   }
 

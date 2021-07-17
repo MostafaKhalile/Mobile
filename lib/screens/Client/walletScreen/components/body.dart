@@ -3,10 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_total_data_bloc/wallet_bloc.dart';
-import 'package:techtime/Controllers/Providers/current_user_provider.dart';
+import 'package:techtime/Controllers/providers/current_user_provider.dart';
+
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Models/client_profile.dart';
 import 'package:techtime/Widgets/core/horizontal_gap.dart';
 import 'package:techtime/Widgets/core/shimmer_effect.dart';
 import '../subScreens/recharge_wallet.dart';
@@ -22,13 +24,18 @@ class WalletBody extends StatefulWidget {
 }
 
 class _WalletBodyState extends State<WalletBody> {
-  PageController pageController = PageController(
-    
-  );
+  UserProfile currentUser;
+
+  PageController pageController = PageController();
   int selectedPageIndex = 0;
   @override
   void initState() {
-    BlocProvider.of<WalletBloc>(context).add(GetWalletTotalDate());
+    final _walletBloc = BlocProvider.of<WalletBloc>(context);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      currentUser =
+          Provider.of<CurrentUserProvider>(context, listen: false).currentUser;
+      if (currentUser != null) _walletBloc.add(GetWalletTotalDate());
+    });
     super.initState();
   }
 
@@ -36,8 +43,7 @@ class _WalletBodyState extends State<WalletBody> {
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
     final AppLocalizations _translator = AppLocalizations.of(context);
-    // ThemeData _theme = Theme.of(context);
-    final _currentUser = Provider.of<CurrentUserProvider>(context).currentUser;
+    ThemeData _theme = Theme.of(context);
 
     return Column(children: [
       SizedBox(
@@ -45,7 +51,7 @@ class _WalletBodyState extends State<WalletBody> {
         height: _size.height * 0.45,
         child: Column(
           children: [
-            if (_currentUser != null)
+            if (currentUser != null)
               BlocConsumer<WalletBloc, WalletState>(
                 listener: (context, state) {},
                 builder: (context, state) {
@@ -63,7 +69,7 @@ class _WalletBodyState extends State<WalletBody> {
               PointsCount(
                 points: 0.0.toString(),
               ),
-            if (_currentUser != null)
+            if (currentUser != null)
               BlocConsumer<WalletBloc, WalletState>(
                 listener: (context, state) {
                   if (state is WalletTotalDataFailed) {
@@ -109,10 +115,16 @@ class _WalletBodyState extends State<WalletBody> {
       ),
       Card(
           elevation: 15,
+          color: _theme.scaffoldBackgroundColor,
           shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(defaultRadius))),
+            
+              side: BorderSide(color: Colors.white),
+            
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(defaultRadius),
+                  topLeft: Radius.circular(defaultRadius))),
           child: SizedBox(
-            height: _size.height * 0.6,
+            height: _size.height * 0.4,
             width: _size.width,
             child: buildPageView(),
           )),
@@ -169,14 +181,16 @@ class PageSelectionCard extends StatelessWidget {
       onTap: onTap,
       child: Card(
         elevation: 5,
+        color: _theme.scaffoldBackgroundColor,
         shape: isSelected ?? false
             ? RoundedRectangleBorder(
                 side: const BorderSide(color: AppColors.primaryColor),
                 borderRadius: BorderRadius.circular(defaultRadius))
             : const RoundedRectangleBorder(
+                side: BorderSide(color: Colors.white),
                 borderRadius: BorderRadius.all(
-                Radius.circular(defaultRadius),
-              )),
+                  Radius.circular(defaultRadius),
+                )),
         child: SizedBox(
           height: 110,
           width: 110,
