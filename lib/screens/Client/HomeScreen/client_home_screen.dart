@@ -515,7 +515,7 @@ class OffersWithData extends StatelessWidget {
     @required this.companiesOffers,
   }) : super(key: key);
 
-  final List<CompanyOffer> companiesOffers;
+  final List<CompanyDataOffer> companiesOffers;
   @override
   Widget build(BuildContext context) {
     final AppLocalizations _translator = AppLocalizations.of(context);

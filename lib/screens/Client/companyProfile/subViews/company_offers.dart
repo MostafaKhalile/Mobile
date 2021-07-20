@@ -4,6 +4,7 @@ import 'package:grouped_buttons/grouped_buttons.dart';
 
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/app_colors.dart';
+import 'package:techtime/Helpers/enums.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/companyProfile/companyOffer/company_offer.dart';
@@ -100,7 +101,10 @@ class CompanyOffersState extends State<CompanyOffers> {
   void _bookHandler() {
     _checked.isNotEmpty
         ? Navigator.pushNamed(context, ReservationFirstStep.routeName,
-            arguments: widget.companyProfile.companyBranches)
+            arguments: {
+                "CompanyBranches": widget.companyProfile.companyBranches,
+                "ReservationType": ReservationType.offer,
+              })
         : Fluttertoast.showToast(
             msg: AppLocalizations.of(context)
                 .translate("please_select_service_first"));

@@ -6,7 +6,6 @@ import 'package:techtime/Controllers/providers/current_user_provider.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/utils/custom_toast.dart';
-import 'package:techtime/widgets/core/vertical_gab.dart';
 import '../components/wallet_input.dart';
 
 class RechargeWallet extends StatefulWidget {

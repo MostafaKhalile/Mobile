@@ -19,7 +19,7 @@ class CompanyoffersBloc extends Bloc<CompanyoffersEvent, CompanyoffersState> {
     if (event is GetCompanyOffers) {
       yield CompanyoffersLoading();
       try {
-        final List<CompanyOffer> companyOffers =
+        final List<CompanyDataOffer> companyOffers =
             await _offersRepo.getAllCompaniesOffers();
         yield CompanyoffersSuccess(companyOffers);
       } catch (e) {

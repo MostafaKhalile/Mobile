@@ -6,6 +6,7 @@ import 'package:techtime/Controllers/providers/current_user_provider.dart';
 
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/app_colors.dart';
+import 'package:techtime/Helpers/enums.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/companyProfile/company_profile.dart';
@@ -94,7 +95,10 @@ class CompanyServicesState extends State<CompanyServices> {
     if (_currentUser != null) {
       _checked.isNotEmpty
           ? Navigator.pushNamed(context, ReservationFirstStep.routeName,
-              arguments: widget.companyProfile.companyBranches)
+              arguments: {
+                  "CompanyBranches": widget.companyProfile.companyBranches,
+                  "ReservationType": ReservationType.service
+                })
           : Fluttertoast.showToast(
               msg: AppLocalizations.of(context)
                   .translate("please_select_service_first"));
@@ -112,7 +116,7 @@ class ServiceCard extends StatelessWidget {
     this.companyService,
   }) : super(key: key);
 
-  final Checkbox cb;
+  final Widget cb;
   final CompanyService companyService;
 
   @override

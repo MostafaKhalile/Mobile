@@ -1,4 +1,5 @@
 part of 'companyoffers_bloc.dart';
+
 abstract class CompanyoffersState extends Equatable {
   const CompanyoffersState();
 
@@ -11,7 +12,7 @@ class CompanyoffersInitial extends CompanyoffersState {}
 class CompanyoffersLoading extends CompanyoffersState {}
 
 class CompanyoffersSuccess extends CompanyoffersState {
-  final List<CompanyOffer> companyOffers;
+  final List<CompanyDataOffer> companyOffers;
 
   const CompanyoffersSuccess(this.companyOffers);
 }

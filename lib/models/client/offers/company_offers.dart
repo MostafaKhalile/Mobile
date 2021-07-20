@@ -45,8 +45,8 @@ class CompanyOffers extends Equatable {
 
 class CompanyOffer extends Equatable {
   final int offerId;
-  final dynamic offerName;
-  final dynamic offerImage;
+  final String offerName;
+  final String offerImage;
   final int totalServices;
   final bool available;
   final int price;
@@ -68,8 +68,8 @@ class CompanyOffer extends Equatable {
 
   factory CompanyOffer.fromJson(Map<String, dynamic> json) => CompanyOffer(
         offerId: json['OfferId'] as int,
-        offerName: json['OfferName'],
-        offerImage: json['OfferImage'],
+        offerName: json['OfferName'] as String,
+        offerImage: json['OfferImage'] as String,
         totalServices: json['TotalServices'] as int,
         available: json['Available'] as bool,
         price: json['Price'] as int,
@@ -94,8 +94,8 @@ class CompanyOffer extends Equatable {
 
   CompanyOffer copyWith({
     int offerId,
-    dynamic offerName,
-    dynamic offerImage,
+    String offerName,
+    String offerImage,
     int totalServices,
     bool available,
     int price,
@@ -139,7 +139,7 @@ class Service extends Equatable {
   final int servicesId;
   final String servicesNameAr;
   final String servicesNameEn;
-  final dynamic imageService;
+  final String imageService;
   final int servicesPriceFrom;
   final int servicesPriceTo;
   final int servicesFullTime;
@@ -160,7 +160,7 @@ class Service extends Equatable {
         servicesId: json['ServicesID'] as int,
         servicesNameAr: json['ServicesNameAR'] as String,
         servicesNameEn: json['ServicesNameEN'] as String,
-        imageService: json['ImageService'],
+        imageService: json['ImageService'] as String,
         servicesPriceFrom: json['ServicesPriceFrom'] as int,
         servicesPriceTo: json['ServicesPriceTo'] as int,
         servicesFullTime: json['ServicesFullTime'] as int,
@@ -182,7 +182,7 @@ class Service extends Equatable {
     int servicesId,
     String servicesNameAr,
     String servicesNameEn,
-    dynamic imageService,
+    String imageService,
     int servicesPriceFrom,
     int servicesPriceTo,
     int servicesFullTime,

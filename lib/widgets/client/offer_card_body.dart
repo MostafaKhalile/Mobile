@@ -43,10 +43,10 @@ class OfferCardBody extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
             child: RichText(
-              textAlign: TextAlign.center,
+              // textAlign: TextAlign.start,
               text: TextSpan(
                 text: "$title\n",
-                style: _theme.textTheme.bodyText1
+                style: _theme.textTheme.subtitle2
                     .copyWith(fontWeight: FontWeight.bold),
                 children: <TextSpan>[
                   TextSpan(
@@ -55,7 +55,7 @@ class OfferCardBody extends StatelessWidget {
                           .copyWith(color: Colors.white)),
                   TextSpan(
                       text: "$subtitle\n",
-                      style: _theme.textTheme.subtitle1
+                      style: _theme.textTheme.bodyText2
                           .copyWith(color: Colors.white)),
                 ],
               ),

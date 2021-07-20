@@ -43,7 +43,7 @@ class _WalletBodyState extends State<WalletBody> {
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
     final AppLocalizations _translator = AppLocalizations.of(context);
-    ThemeData _theme = Theme.of(context);
+    final ThemeData _theme = Theme.of(context);
 
     return Column(children: [
       SizedBox(
@@ -117,9 +117,7 @@ class _WalletBodyState extends State<WalletBody> {
           elevation: 15,
           color: _theme.scaffoldBackgroundColor,
           shape: const RoundedRectangleBorder(
-            
               side: BorderSide(color: Colors.white),
-            
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(defaultRadius),
                   topLeft: Radius.circular(defaultRadius))),

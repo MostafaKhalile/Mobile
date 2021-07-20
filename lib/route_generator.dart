@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:techtime/Helpers/enums.dart';
 import 'package:techtime/Models/client/category.dart';
 import 'package:techtime/Models/client/company.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
+import 'package:techtime/Models/client/offers/company_offer.dart';
 import 'package:techtime/Models/notifications/all_notifications.dart';
 import 'package:techtime/Screens/Client/Offres/all_companies_offers_screen.dart';
+import 'package:techtime/Screens/Client/Offres/company_offers_screen.dart';
 import 'package:techtime/Screens/Client/favorites/favorites_screen.dart';
 
 import 'package:techtime/Screens/Core/aboutUs/about_us.dart';
@@ -121,8 +124,11 @@ class RouteGenerator {
         return CupertinoPageRoute(
           fullscreenDialog: true,
           builder: (_) => ReservationFirstStep(
-            companyBranches: args as List<CompanyBranche>,
-          ),
+              companyBranches:
+                  (args as Map)["CompanyBranches"] as List<CompanyBranche>,
+              reservationType:
+                  (args as Map)["ReservationType"] as ReservationType,
+              branchID: (args as Map)["branchID"] as int),
         );
         break;
       case TableReservation.routeName:
@@ -151,6 +157,13 @@ class RouteGenerator {
             fullscreenDialog: true, builder: (_) => OffersScreen());
         break;
 
+      case CompanyOffersScreen.routeName:
+        return MaterialPageRoute(
+            fullscreenDialog: true,
+            builder: (_) => CompanyOffersScreen(
+                  companyOffer: args as CompanyDataOffer,
+                ));
+        break;
       case ContactUS.routeName:
         return CupertinoPageRoute(
             fullscreenDialog: true, builder: (_) => ContactUS());

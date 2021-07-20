@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class CompanyOffer extends Equatable {
+class CompanyDataOffer extends Equatable {
   final int companyId;
   final String companyName;
   final String companyImage;
@@ -9,7 +9,7 @@ class CompanyOffer extends Equatable {
   final String categoryEn;
   final int companyOffers;
 
-  const CompanyOffer({
+  const CompanyDataOffer({
     this.companyId,
     this.companyName,
     this.companyImage,
@@ -19,7 +19,8 @@ class CompanyOffer extends Equatable {
     this.companyOffers,
   });
 
-  factory CompanyOffer.fromJson(Map<String, dynamic> json) => CompanyOffer(
+  factory CompanyDataOffer.fromJson(Map<String, dynamic> json) =>
+      CompanyDataOffer(
         companyId: json['CompanyID'] as int,
         companyName: json['CompanyName'] as String,
         companyImage: json['CompanyImage'] as String,
@@ -39,7 +40,7 @@ class CompanyOffer extends Equatable {
         'CompanyOffers': companyOffers,
       };
 
-  CompanyOffer copyWith({
+  CompanyDataOffer copyWith({
     int companyId,
     String companyName,
     String companyImage,
@@ -48,14 +49,14 @@ class CompanyOffer extends Equatable {
     String categoryEn,
     int companyOffers,
   }) {
-    return CompanyOffer(
+    return CompanyDataOffer(
       companyId: companyId ?? this.companyId,
       companyName: companyName ?? this.companyName,
       companyImage: companyImage ?? this.companyImage,
       companyCoverImage: companyCoverImage ?? this.companyCoverImage,
       categoryAr: categoryAr ?? this.categoryAr,
       categoryEn: categoryEn ?? this.categoryEn,
-      companyOffers: companyOffers ?? this.companyOffers,
+      companyOffers: companyOffers ?? companyOffers,
     );
   }
 

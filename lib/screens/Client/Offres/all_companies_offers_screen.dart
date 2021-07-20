@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/offersBlocs/companyOffersBloc/companyoffers_bloc.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
+import 'package:techtime/Screens/Client/Offres/company_offers_screen.dart';
 import 'package:techtime/Widgets/client/company_offer_card.dart';
 import 'package:techtime/Widgets/client/offer_card_body.dart';
 
@@ -38,19 +39,21 @@ class OffersScreenState extends State<OffersScreen> {
                 shrinkWrap: true,
                 itemCount: 3,
                 itemBuilder: (_, i) {
-                  final compantOffer = state.companyOffers[i];
+                  final companyOffer = state.companyOffers[i];
                   return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: InkWell(
-                          onTap: () {},
+                          onTap: () => Navigator.pushNamed(
+                              context, CompanyOffersScreen.routeName,
+                              arguments: state.companyOffers[i]),
                           child: CompanyOfferCard(
                             height: 120,
                             child: OfferCardBody(
-                              image: compantOffer.companyImage,
-                              title: compantOffer.companyName,
+                              image: companyOffer.companyImage,
+                              title: companyOffer.companyName,
                               subtitle:
-                                  "${compantOffer.companyOffers.toString()}   ${" ${_translator.translate("offers")}"}",
-                              hint: compantOffer.categoryEn,
+                                  "${companyOffer.companyOffers.toString()}   ${" ${_translator.translate("offers")}"}",
+                              hint: companyOffer.categoryEn,
                             ),
                           )));
                 });

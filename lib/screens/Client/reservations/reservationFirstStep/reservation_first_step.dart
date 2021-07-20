@@ -7,6 +7,7 @@ import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
 
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/app_colors.dart';
+import 'package:techtime/Helpers/enums.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Helpers/utils/custom_toast.dart';
@@ -24,8 +25,15 @@ import 'package:techtime/widgets/core/vertical_gab.dart';
 class ReservationFirstStep extends StatefulWidget {
   static const String routeName = "/order_first_step";
   final List<CompanyBranche> companyBranches;
+  final int branchID;
+  final ReservationType reservationType;
 
-  const ReservationFirstStep({Key key, this.companyBranches}) : super(key: key);
+  const ReservationFirstStep(
+      {Key key,
+      this.companyBranches,
+      this.branchID,
+      @required this.reservationType})
+      : super(key: key);
 
   @override
   ReservationFirstStepState createState() => ReservationFirstStepState();
@@ -46,10 +54,28 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
   Locale locale;
   @override
   void initState() {
-    BlocProvider.of<BrancheemployeesBloc>(context)
-        .add(GetBrancheEmployees(widget.companyBranches[0].brancheID));
-    BlocProvider.of<OrderDateTimeBloc>(context)
-        .add(GetOrderDateTimes(widget.companyBranches[0].brancheID));
+    if (widget.reservationType == ReservationType.service) {
+      if (widget.companyBranches.length == 1) {
+        chooseBranch(context, widget.companyBranches[0].brancheID);
+      }
+      BlocProvider.of<BrancheemployeesBloc>(context)
+          .add(GetBrancheEmployees(widget.companyBranches[0].brancheID));
+    } else {
+      BlocProvider.of<BrancheemployeesBloc>(context)
+          .add(GetBrancheEmployees(widget.branchID));
+    }
+    if (widget.reservationType == ReservationType.service) {
+      if (widget.companyBranches.length == 1) {
+        chooseBranch(context, widget.companyBranches[0].brancheID);
+      }
+      BlocProvider.of<OrderDateTimeBloc>(context)
+          .add(GetOrderDateTimes(widget.companyBranches[0].brancheID));
+    } else {
+      BlocProvider.of<OrderDateTimeBloc>(context)
+          .add(GetOrderDateTimes(widget.branchID));
+      chooseBranch(context, widget.branchID);
+    }
+
     locale = BlocProvider.of<LocaleCubit>(context).state.locale;
     super.initState();
   }
@@ -80,56 +106,54 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
                           children: [
                             Column(
                               children: [
-                                SubTitle(
-                                    text: _translator
-                                        .translate("choose_branche")),
-                                SizedBox(
-                                  height: 150,
-                                  child: ListView.separated(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: defaultPadding),
-                                      itemCount: widget.companyBranches.length,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
-                                      physics: const BouncingScrollPhysics(),
-                                      separatorBuilder: (_, i) =>
-                                          const HorizontalGap(),
-                                      itemBuilder: (_, i) {
-                                        final brancheData =
-                                            widget.companyBranches[i];
-                                        return BranchCard(
-                                          isSelectable: true,
-                                          isSelected: brancheData.brancheID ==
-                                              _selectedBranch,
-                                          title: brancheData.brancheName,
-                                          address: brancheData.branchAddressAR,
-                                          rating: 4.8,
-                                          image: (brancheData.image != null)
-                                              ? NetworkConstants.baseUrl +
-                                                  brancheData.image
-                                              : null,
-                                          onPressed: () {
-                                            BlocProvider.of<
-                                                        BrancheemployeesBloc>(
-                                                    context)
-                                                .add(GetBrancheEmployees(
-                                                    brancheData.brancheID));
-                                            BlocProvider.of<OrderDateTimeBloc>(
-                                                    context)
-                                                .add(GetOrderDateTimes(
-                                                    brancheData.brancheID));
-                                            setState(() {
-                                              _selectedBranch =
-                                                  brancheData.brancheID;
-                                              _selecteOrderdDay = null;
-                                              _selecteOrderTime = null;
-                                              _selectedDay = null;
-                                              _selectedEmployee = null;
-                                            });
-                                          },
-                                        );
-                                      }),
-                                ),
+                                if (widget.reservationType ==
+                                    ReservationType.service)
+                                  Column(
+                                    children: [
+                                      SubTitle(
+                                          text: _translator
+                                              .translate("choose_branche")),
+                                      SizedBox(
+                                        height: 150,
+                                        child: ListView.separated(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: defaultPadding),
+                                            itemCount:
+                                                widget.companyBranches.length,
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.horizontal,
+                                            physics:
+                                                const BouncingScrollPhysics(),
+                                            separatorBuilder: (_, i) =>
+                                                const HorizontalGap(),
+                                            itemBuilder: (_, i) {
+                                              final brancheData =
+                                                  widget.companyBranches[i];
+                                              return BranchCard(
+                                                isSelectable: true,
+                                                isSelected:
+                                                    brancheData.brancheID ==
+                                                        _selectedBranch,
+                                                title: brancheData.brancheName,
+                                                address:
+                                                    brancheData.branchAddressAR,
+                                                rating: 4.8,
+                                                image: (brancheData.image !=
+                                                        null)
+                                                    ? NetworkConstants.baseUrl +
+                                                        brancheData.image
+                                                    : null,
+                                                onPressed: () {
+                                                  chooseBranch(context,
+                                                      brancheData.brancheID);
+                                                },
+                                              );
+                                            }),
+                                      ),
+                                    ],
+                                  )
+                                else
+                                  Container(),
                                 const VerticalGap(
                                   height: defaultPadding / 2,
                                 ),
@@ -227,6 +251,19 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
             },
           )
         ]);
+  }
+
+  void chooseBranch(BuildContext context, int branch) {
+    BlocProvider.of<BrancheemployeesBloc>(context)
+        .add(GetBrancheEmployees(branch));
+    BlocProvider.of<OrderDateTimeBloc>(context).add(GetOrderDateTimes(branch));
+    setState(() {
+      _selectedBranch = branch;
+      _selecteOrderdDay = null;
+      _selecteOrderTime = null;
+      _selectedDay = null;
+      _selectedEmployee = null;
+    });
   }
 
   bool _validateBooking() {
@@ -542,4 +579,3 @@ class TimeSelectableCard extends StatelessWidget {
     return interval;
   }
 }
-

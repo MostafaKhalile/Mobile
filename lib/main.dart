@@ -18,6 +18,7 @@ import 'package:techtime/Controllers/BLoCs/client/companyDataBlocs/companyServic
 import 'package:techtime/Controllers/BLoCs/client/companyProfileBloc/company_profile_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/favoritesBloc/favorites_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/offersBlocs/companyOffersBloc/companyoffers_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/client/offersBlocs/filterCompanyOffersBloc/filtercompanyoffers_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/orderBlocs/orderDateTimeBloc/orderdatetime_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/orderBlocs/orderTimesBloc/ordertimes_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/profile_edit_blocs/edit_passwod_bloc/editpassword_bloc.dart';
@@ -212,6 +213,8 @@ class MyApp extends StatelessWidget {
           BlocProvider(
               create: (context) => BrancheOffersBloc(apiBranchesRepository)),
           BlocProvider(create: (context) => CompanyoffersBloc(_offersRepo)),
+          BlocProvider(
+              create: (context) => FiltercompanyoffersBloc(_offersRepo)),
           BlocProvider(
               create: (context) => ReservationsBloc(_reservationsRepo)),
           BlocProvider(
