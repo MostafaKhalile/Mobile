@@ -54,30 +54,36 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
   Locale locale;
   @override
   void initState() {
-    if (widget.reservationType == ReservationType.service) {
-      if (widget.companyBranches.length == 1) {
-        chooseBranch(context, widget.companyBranches[0].brancheID);
-      }
-      BlocProvider.of<BrancheemployeesBloc>(context)
-          .add(GetBrancheEmployees(widget.companyBranches[0].brancheID));
-    } else {
-      BlocProvider.of<BrancheemployeesBloc>(context)
-          .add(GetBrancheEmployees(widget.branchID));
-    }
-    if (widget.reservationType == ReservationType.service) {
-      if (widget.companyBranches.length == 1) {
-        chooseBranch(context, widget.companyBranches[0].brancheID);
-      }
-      BlocProvider.of<OrderDateTimeBloc>(context)
-          .add(GetOrderDateTimes(widget.companyBranches[0].brancheID));
-    } else {
-      BlocProvider.of<OrderDateTimeBloc>(context)
-          .add(GetOrderDateTimes(widget.branchID));
-      chooseBranch(context, widget.branchID);
-    }
+    initializeReservationProcess();
 
     locale = BlocProvider.of<LocaleCubit>(context).state.locale;
     super.initState();
+  }
+
+  void initializeReservationProcess() {
+    {
+      if (widget.reservationType == ReservationType.service) {
+        if (widget.companyBranches.length == 1) {
+          chooseBranch(context, widget.companyBranches[0].brancheID);
+        }
+        BlocProvider.of<BrancheemployeesBloc>(context)
+            .add(GetBrancheEmployees(widget.companyBranches[0].brancheID));
+      } else {
+        BlocProvider.of<BrancheemployeesBloc>(context)
+            .add(GetBrancheEmployees(widget.branchID));
+      }
+      if (widget.reservationType == ReservationType.service) {
+        if (widget.companyBranches.length == 1) {
+          chooseBranch(context, widget.companyBranches[0].brancheID);
+        }
+        BlocProvider.of<OrderDateTimeBloc>(context)
+            .add(GetOrderDateTimes(widget.companyBranches[0].brancheID));
+      } else {
+        BlocProvider.of<OrderDateTimeBloc>(context)
+            .add(GetOrderDateTimes(widget.branchID));
+        chooseBranch(context, widget.branchID);
+      }
+    }
   }
 
   @override

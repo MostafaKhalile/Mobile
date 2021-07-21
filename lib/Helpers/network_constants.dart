@@ -82,6 +82,8 @@ class NetworkConstants {
       "/api/companies/order/notification/history/";
   static const String upcomingReservations =
       "/api/companies/order/notification/upcoming/";
+  static const String reservationDetails =
+      "/api/companies/order/notification/details-order/";
 
   static final headers = {
     "Content-Type": "application/json; charset=utf-8",

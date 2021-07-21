@@ -7,7 +7,7 @@ import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/reservations/reservation.dart';
-import 'package:techtime/Screens/Core/reservation_details.dart';
+import 'package:techtime/Screens/Core/scheduleScreen/reservation_details.dart';
 
 class ReservationCard extends StatefulWidget {
   // final Order order;
@@ -46,6 +46,11 @@ class _ReservationCardState extends State<ReservationCard> {
           return Colors.green[800];
         }
         break;
+      case "Pending..": //مؤكد من الأدمن
+        {
+          return Colors.green[800];
+        }
+        break;
     }
     return Colors.grey;
   }
@@ -59,8 +64,12 @@ class _ReservationCardState extends State<ReservationCard> {
         ? widget.reservation
         : const Reservation(orderCode: "1234");
     return GestureDetector(
-      onTap: () => Navigator.push(context,
-          CupertinoPageRoute(builder: (ctx) => const ReservationDetails())),
+      onTap: () => Navigator.push(
+          context,
+          CupertinoPageRoute(
+              builder: (ctx) => ReservationDetailsScreen(
+                    reservation: reservation,
+                  ))),
       child: Card(
         elevation: 1.0,
         margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),

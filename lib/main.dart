@@ -27,6 +27,8 @@ import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_points_to_
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_total_data_bloc/wallet_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_transform_points_blob/wallettransformpoints_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_transform_promocode_bloc/wallettransformpromocode_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/core/ReservationsBlocs/reservationDetailsBloc/reservationdetails_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/core/ReservationsBlocs/reservations/reservations_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/core/notificationsBloc/notifications_bloc.dart';
 import 'package:techtime/Controllers/providers/current_user_provider.dart';
 
@@ -46,7 +48,6 @@ import 'package:techtime/route_generator.dart';
 
 import 'Controllers/BLoCs/client/profile_edit_blocs/edit_cover_bloc/editcover_bloc.dart';
 import 'Controllers/BLoCs/client/profile_edit_blocs/edit_mobile_bloc/editmobile_bloc.dart';
-import 'Controllers/BLoCs/core/reservations/reservations_bloc.dart';
 import 'Controllers/Cubits/LocaleCubit/locale_cubit.dart';
 import 'Controllers/Cubits/NetworkCubit/internet_cubit.dart';
 import 'Controllers/Repositories/client/Account/repository.dart';
@@ -217,6 +218,8 @@ class MyApp extends StatelessWidget {
               create: (context) => FiltercompanyoffersBloc(_offersRepo)),
           BlocProvider(
               create: (context) => ReservationsBloc(_reservationsRepo)),
+          BlocProvider(
+              create: (context) => ReservationdetailsBloc(_reservationsRepo)),
           BlocProvider(
               create: (context) => LeastcompaniesBloc(apiClientHomeRepository)),
           BlocProvider(

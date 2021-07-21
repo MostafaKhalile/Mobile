@@ -1,4 +1,5 @@
 import 'package:techtime/Models/reservations/reservation.dart';
+import 'package:techtime/Models/reservations/reservationDetails/reservation_details.dart';
 
 import 'api_client.dart';
 
@@ -13,5 +14,11 @@ class ReservationsRepo {
   Future<List<Reservation>> getUpcomingReservations() async {
     final upcomingReservations = await _apiClient.getUpcomingReservations();
     return upcomingReservations.listReservations;
+  }
+
+  Future<ReservationDetails> getReservationDetails(int reservationId) async {
+    final reservationDetails =
+        await _apiClient.getReservationDetails(reservationId);
+    return reservationDetails;
   }
 }

@@ -34,7 +34,7 @@ class Review extends Equatable {
 
   Map<String, dynamic> toJson() => {
         'Image': image as String,
-        'Name': name ,
+        'Name': name,
         'OrderService': orderService,
         'TotalServices': totalServices,
         'TotalOffers': totalOffers,

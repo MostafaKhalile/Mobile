@@ -23,7 +23,8 @@ class CompanyOfferInfo extends Equatable {
     this.allServices,
   });
 
-  factory CompanyOfferInfo.fromJson(Map<String, dynamic> json) => CompanyOfferInfo(
+  factory CompanyOfferInfo.fromJson(Map<String, dynamic> json) =>
+      CompanyOfferInfo(
         offerId: json['OfferId'] as int,
         offerName: json['OfferName'] as String,
         offerImage: json['OfferImage'] as String,

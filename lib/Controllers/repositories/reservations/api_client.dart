@@ -4,6 +4,7 @@ import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:techtime/Models/reservations/reservationDetails/reservation_details.dart';
 import 'package:techtime/Models/reservations/reservations_respone.dart';
 
 class ReservationsApiClient {
@@ -39,6 +40,20 @@ class ReservationsApiClient {
       final data = json.decode(decoded) as Map<String, dynamic>;
 
       return ReservationsRespone.fromJson(data);
+    } else {
+      throw Future.error('${json.decode(response.body)['message']}');
+    }
+  }
+
+  Future<ReservationDetails> getReservationDetails(int reservationId) async {
+    final String path =
+        "${NetworkConstants.baseUrl}${NetworkConstants.reservationDetails}$reservationId";
+    final response = await http.post(Uri.parse(path), headers: headers);
+
+    if (response.statusCode == 200) {
+      final decoded = utf8.decode(response.bodyBytes);
+      final data = json.decode(decoded)["DetailsOrder"] as Map<String, dynamic>;
+      return ReservationDetails.fromJson(data);
     } else {
       throw Future.error('${json.decode(response.body)['message']}');
     }

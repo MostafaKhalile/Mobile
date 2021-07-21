@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:techtime/Controllers/BLoCs/core/reservations/reservations_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/core/ReservationsBlocs/reservations/reservations_bloc.dart';
 import 'package:techtime/Controllers/providers/current_user_provider.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
