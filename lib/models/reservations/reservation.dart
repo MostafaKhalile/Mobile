@@ -41,7 +41,7 @@ class Reservation extends Equatable {
         orderOrderDate: json['OrderOrderDate'] as String,
         orderOrderTime: json['OrderOrderTime'] as String,
         orderFromTotalOrder: json['OrderFromTotalOrder'] as int,
-        orderToTotalOrder: json['OrderFromTotalOrder'] as int,
+        orderToTotalOrder: json['OrderToTotalOrder'] as int,
         orderTwoOrderDate: json['OrderTwoOrderDate'],
         orderTwoOrderTime: json['OrderTwoOrderTime'],
         orderTotalOrder: json['OrderTotalOrder'] as int,

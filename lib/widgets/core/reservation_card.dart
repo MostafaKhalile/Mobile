@@ -48,7 +48,12 @@ class _ReservationCardState extends State<ReservationCard> {
         break;
       case "Pending..": //مؤكد من الأدمن
         {
-          return Colors.green[800];
+          return AppColors.pendingColor;
+        }
+        break;
+      case "complete": //مؤكد من الأدمن
+        {
+          return AppColors.doneColor;
         }
         break;
     }
@@ -160,9 +165,13 @@ class _ReservationCardState extends State<ReservationCard> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      reservation?.orderFrom ?? "",
-                                      style: _theme.textTheme.subtitle2,
+                                    SizedBox(
+                                      width: 120,
+                                      child: Text(
+                                        reservation?.orderFrom ?? "",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: _theme.textTheme.subtitle2,
+                                      ),
                                     ),
                                     Row(
                                       children: [

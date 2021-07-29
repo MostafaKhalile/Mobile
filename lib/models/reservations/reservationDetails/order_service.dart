@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class OrderService extends Equatable {
   final String servicesAr;
   final String servicesEn;
-  final dynamic imageService;
+  final String imageService;
   final int priceFrom;
   final int priceTo;
   final int fullTime;
@@ -22,7 +22,7 @@ class OrderService extends Equatable {
   factory OrderService.fromJson(Map<String, dynamic> json) => OrderService(
         servicesAr: json['ServicesAR'] as String,
         servicesEn: json['ServicesEN'] as String,
-        imageService: json['ImageService'],
+        imageService: json['ImageService'] as String,
         priceFrom: json['PriceFrom'] as int,
         priceTo: json['PriceTo'] as int,
         fullTime: json['FullTime'] as int,
@@ -42,7 +42,7 @@ class OrderService extends Equatable {
   OrderService copyWith({
     String servicesAr,
     String servicesEn,
-    dynamic imageService,
+    String imageService,
     int priceFrom,
     int priceTo,
     int fullTime,

@@ -6,4 +6,6 @@ class AppColors {
   static const Color secondryColor = Color(0xFFEE5C11);
   static const Color lightScaffoldColor = Color(0xFFF7F7F7);
   static const Color errorColor = Color(0xFFBF0000);
+  static const Color pendingColor = Color(0xFFF6A811);
+  static const Color doneColor = Color(0xFF023F1B);
 }

@@ -31,11 +31,11 @@ class _WalletBodyState extends State<WalletBody> {
   @override
   void initState() {
     final _walletBloc = BlocProvider.of<WalletBloc>(context);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      currentUser =
-          Provider.of<CurrentUserProvider>(context, listen: false).currentUser;
-      if (currentUser != null) _walletBloc.add(GetWalletTotalDate());
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    currentUser =
+        Provider.of<CurrentUserProvider>(context, listen: false).currentUser;
+    if (currentUser != null) _walletBloc.add(GetWalletTotalDate());
+    // });
     super.initState();
   }
 

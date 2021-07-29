@@ -12,8 +12,8 @@ import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/utils/custom_snackbar.dart';
 import 'package:techtime/Helpers/utils/keyboard_unit.dart';
 import 'package:techtime/Helpers/validation.dart';
+import 'package:techtime/Screens/company/company_main_screen.dart';
 import 'package:techtime/screens/Client/home_page.dart';
-import 'package:techtime/screens/company/company_placeholder.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
 
 class EmailPasswordLoginForm extends StatefulWidget {
@@ -91,7 +91,7 @@ class _EmailPasswordLoginFormState extends State<EmailPasswordLoginForm> {
         }
         if (_userRole == UserRole.company) {
           Navigator.pushNamedAndRemoveUntil(
-              context, CompanyPlaceholder.routeName, (route) => false);
+              context, CompanyMainScreen.routeName, (route) => false);
         }
       }
     }, builder: (context, state) {

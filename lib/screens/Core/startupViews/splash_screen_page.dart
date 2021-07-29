@@ -11,9 +11,9 @@ import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/enums.dart';
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Screens/Core/notifications/notifications.dart';
+import 'package:techtime/Screens/company/company_main_screen.dart';
 import 'package:techtime/screens/Client/home_page.dart';
 import 'package:techtime/screens/Core/startupViews/language_selection_page.dart';
-import 'package:techtime/screens/company/company_placeholder.dart';
 
 import '../../../main.dart';
 
@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
             context,
             _userRole == UserRole.client
                 ? ClientHomePage.routeName
-                : CompanyPlaceholder.routeName);
+                : CompanyMainScreen.routeName);
       } else {
         print("guest");
         Navigator.pushReplacementNamed(

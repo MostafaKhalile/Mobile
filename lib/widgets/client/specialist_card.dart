@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/app_colors.dart';
@@ -74,7 +75,18 @@ class SpecialistCard extends StatelessWidget {
                 color: Colors.white,
                 height: defaultPadding / 2,
                 width: defaultPadding * 2,
+              ),
+            if (companyEmployee.raty != null)
+              RatingBarIndicator(
+                rating: double.parse(companyEmployee.raty.toString()),
+                itemBuilder: (context, index) => const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                itemSize: 14.0,
               )
+            else
+              Container()
           ],
         ),
       ),

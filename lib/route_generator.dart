@@ -22,13 +22,13 @@ import 'package:techtime/screens/Core/search_screen.dart';
 import 'package:techtime/screens/Core/startupViews/emailForgetPassworProcess/email_confirm_code.dart';
 import 'package:techtime/screens/Core/startupViews/emailForgetPassworProcess/email_forget_password.dart';
 import 'package:techtime/screens/Core/startupViews/loginScreen/login_page.dart';
-import 'package:techtime/screens/company/company_placeholder.dart';
 import 'package:techtime/widgets/core/gallery_view.dart';
 
 import 'Screens/Client/branchProfile/branch_profile.dart';
 import 'Screens/Client/reservations/TableReservation/table_reservation.dart';
 import 'Screens/Client/reservations/reservationFirstStep/reservation_first_step.dart';
 import 'Screens/Core/startupViews/splash_screen_page.dart';
+import 'Screens/company/company_main_screen.dart';
 import 'screens/Client/Categories/client_categories_screen.dart';
 import 'screens/Client/CategoryCompanies/category_companies.dart';
 import 'screens/Client/companyProfile/company_profile.dart';
@@ -94,10 +94,10 @@ class RouteGenerator {
           ),
         );
 
-      case CompanyPlaceholder.routeName:
+      case CompanyMainScreen.routeName:
         return CupertinoPageRoute(
           fullscreenDialog: true,
-          builder: (_) => CompanyPlaceholder(),
+          builder: (_) => CompanyMainScreen(),
         );
       case CompanyProfile.routeName:
         return CupertinoPageRoute(

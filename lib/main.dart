@@ -42,6 +42,7 @@ import 'package:techtime/Controllers/Repositories/reservations/reservations_repo
 import 'package:techtime/Controllers/blocs/client/leastCompaniesBloc/leastcompanies_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/profileBloc/profile_bloc.dart';
 import 'package:techtime/Controllers/blocs/client/recommendedCompaniesBloc/recommendedcompanies_bloc.dart';
+import 'package:techtime/Controllers/providers/menu_controller.dart';
 import 'package:techtime/Helpers/localization/app_language_model.dart';
 import 'package:techtime/Helpers/themes/theme_model.dart';
 import 'package:techtime/route_generator.dart';
@@ -132,6 +133,9 @@ Future<void> main() async {
   Bloc.observer = AppBlocObserver();
   runApp(MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (context) => MenuController(),
+        ),
         ChangeNotifierProvider<CurrentUserProvider>(
             create: (context) => CurrentUserProvider()),
         ChangeNotifierProvider<ThemeModel>(
