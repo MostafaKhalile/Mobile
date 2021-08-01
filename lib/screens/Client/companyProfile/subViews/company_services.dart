@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:provider/provider.dart';
+import 'package:techtime/Controllers/Repositories/reservations/reservations_repository.dart';
 import 'package:techtime/Controllers/providers/current_user_provider.dart';
 
 import 'package:techtime/Helpers/app_consts.dart';
@@ -12,6 +15,7 @@ import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/companyProfile/company_profile.dart';
 import 'package:techtime/Models/client/companyProfile/company_service.dart';
 import 'package:techtime/Models/client_profile.dart';
+import 'package:techtime/Models/reservations/find_branch_response.dart';
 import 'package:techtime/Screens/Client/reservations/reservationFirstStep/reservation_first_step.dart';
 
 class CompanyServices extends StatefulWidget {
@@ -55,7 +59,7 @@ class CompanyServicesState extends State<CompanyServices> {
                     }),
                     labels:
                         widget.companyProfile.companyServices.map((element) {
-                      return element.toJson().toString();
+                      return element.servicesId.toString();
                     }).toList(),
                     checked: _checked,
                     itemBuilder: (Checkbox cb, Text txt, int i) {
@@ -94,11 +98,7 @@ class CompanyServicesState extends State<CompanyServices> {
   void _bookHandler(UserProfile _currentUser) {
     if (_currentUser != null) {
       _checked.isNotEmpty
-          ? Navigator.pushNamed(context, ReservationFirstStep.routeName,
-              arguments: {
-                  "CompanyBranches": widget.companyProfile.companyBranches,
-                  "ReservationType": ReservationType.service
-                })
+          ? isValidReservation()
           : Fluttertoast.showToast(
               msg: AppLocalizations.of(context)
                   .translate("please_select_service_first"));
@@ -106,6 +106,39 @@ class CompanyServicesState extends State<CompanyServices> {
       Fluttertoast.showToast(
           msg: AppLocalizations.of(context).translate("please_login_first"));
     }
+  }
+
+  Future<bool> isValidReservation() async {
+    final services = _checked;
+    final params = {
+      "CompanyID": widget.companyProfile.companyData.companyID.toString(),
+    };
+    for (var x = 0; x < _checked.length; x++) {
+      params['ServiceID'] = services[x].toString();
+    }
+
+    final FindBranchResponse validation =
+        await ReservationsRepo().findBranchForReservation(params);
+    if (validation.branchId.isNotEmpty) {
+      print("valid with branches ${validation.branchId}");
+      print(widget.companyProfile.companyBranches
+          .where((element) => validation.branchId
+              .toString()
+              .contains(element.brancheID.toString()))
+          .toList());
+      Navigator.pushNamed(context, ReservationFirstStep.routeName, arguments: {
+        "CompanyBranches": widget.companyProfile.companyBranches
+            .where((element) => validation.branchId
+                .toString()
+                .contains(element.brancheID.toString()))
+            .toList(),
+        "ReservationType": ReservationType.service
+      });
+    } else {
+      print("not Valid");
+    }
+
+    return true;
   }
 }
 

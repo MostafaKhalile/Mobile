@@ -84,6 +84,9 @@ class NetworkConstants {
       "/api/companies/order/notification/upcoming/";
   static const String reservationDetails =
       "/api/companies/order/notification/details-order/";
+  static const String findBranchForOrder =
+      "/api/companies/order/find-branch-create-order";
+
   static const String createNewOrder = "/api/companies/order/create-new-order/";
   static const String createNewOrderSecondStep =
       "/api/companies/order/create-new-order-second-step/";

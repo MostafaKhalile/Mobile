@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:techtime/Models/reservations/create_new_order_response.dart';
+import 'package:techtime/Models/reservations/find_branch_response.dart';
 import 'package:techtime/Models/reservations/reservation.dart';
 import 'package:techtime/Models/reservations/reservationDetails/reservation_details.dart';
 
@@ -21,6 +24,12 @@ class ReservationsRepo {
     final reservationDetails =
         await _apiClient.getReservationDetails(reservationId);
     return reservationDetails;
+  }
+
+  Future<FindBranchResponse> findBranchForReservation(
+      Map<String, String> params) async {
+    final response = await _apiClient.findBranchForReservation(params);
+    return response;
   }
 
   Future<CreateNewOrderResponse> createNewOrder(int branchId) async {
