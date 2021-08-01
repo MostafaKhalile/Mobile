@@ -1,3 +1,4 @@
+import 'package:techtime/Models/reservations/create_new_order_response.dart';
 import 'package:techtime/Models/reservations/reservation.dart';
 import 'package:techtime/Models/reservations/reservationDetails/reservation_details.dart';
 
@@ -20,5 +21,10 @@ class ReservationsRepo {
     final reservationDetails =
         await _apiClient.getReservationDetails(reservationId);
     return reservationDetails;
+  }
+
+  Future<CreateNewOrderResponse> createNewOrder(int branchId) async {
+    final response = await _apiClient.createNewOrder(branchId);
+    return response;
   }
 }

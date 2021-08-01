@@ -1,5 +1,7 @@
 import 'package:enhance_stepper/enhance_stepper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/Controllers/BLoCs/core/ReservationsBlocs/reservationDetailsBloc/reservationdetails_bloc.dart';
@@ -63,6 +65,9 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
   }
 
   Color themeColor;
+  final ScrollController _scrollController =
+      ScrollController(); // set controller on scrolling
+  bool _show = true;
   @override
   void initState() {
     BlocProvider.of<ReservationdetailsBloc>(context)
@@ -71,8 +76,41 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
+    handleScroll();
     super.initState();
   }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(() {});
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void showFloationButton() {
+    setState(() {
+      _show = true;
+    });
+  }
+
+  void hideFloationButton() {
+    setState(() {
+      _show = false;
+    });
+  }
+
+  Future<void> handleScroll() async => _scrollController.addListener(() {
+        if (_scrollController.position.userScrollDirection ==
+                ScrollDirection.reverse &&
+            selected == false) {
+          hideFloationButton();
+        }
+        if (_scrollController.position.userScrollDirection ==
+                ScrollDirection.forward &&
+            selected == false) {
+          showFloationButton();
+        }
+      });
 
   int currentStep = 0;
 
@@ -136,6 +174,10 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
               builder: (context, state) {
                 Widget widget;
                 if (state is ReservationdetailsSuccess) {
+                  if (state.reservationDetails.orderService.length < 3 ||
+                      state.reservationDetails.orderService == null) {
+                    _show = true;
+                  }
                   widget = Expanded(
                     child: Column(
                       children: [
@@ -147,38 +189,18 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
                         Expanded(
                           flex: 2,
                           child: ListView.separated(
-                            physics: const BouncingScrollPhysics(),
-                            padding: const EdgeInsets.only(top: 20),
-                            itemCount:
-                                state.reservationDetails.orderService.length,
-                            separatorBuilder: (_, i) => const VerticalGap(),
-                            itemBuilder: (context, i) => OrderServiceCard(
-                              service: state.reservationDetails.orderService[i],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: SpecialistCard(
-                                    selectable: false,
-                                    companyEmployee: CompanyEmployee(
-                                        employeeName: state.reservationDetails
-                                            .orderData.employeeName,
-                                        employeeId: state.reservationDetails
-                                            .orderData.employeeId,
-                                        image: state.reservationDetails
-                                            .orderData.employeeImage,
-                                        raty: 5),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                              controller: _scrollController,
+                              physics: const BouncingScrollPhysics(),
+                              padding: const EdgeInsets.only(top: 20),
+                              itemCount:
+                                  state.reservationDetails.orderService.length,
+                              separatorBuilder: (_, i) => const VerticalGap(),
+                              itemBuilder: (context, i) {
+                                return OrderServiceCard(
+                                  service:
+                                      state.reservationDetails.orderService[i],
+                                );
+                              }),
                         ),
                       ],
                     ),
@@ -191,75 +213,124 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
             )
           ],
         ),
-        floatingActionButton: Container(
-            height: 100.0,
-            width: 100.0,
-            decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey[400], spreadRadius: 2, blurRadius: 5),
-                ],
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(50.0),
-                ),
-                border: Border.all(width: 8, color: Colors.white)),
-            child: FittedBox(
-                child: FloatingActionButton(
-                    backgroundColor: Colors.black,
-                    onPressed: loading
-                        ? null
-                        : () {
-                            setState(() {
-                              if (!selected) {
-                                _controller.forward();
-                              } else {
-                                _controller.reverse();
-                              }
-                              selected = !selected;
-                            });
-                          },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        RotationTransition(
-                            turns: turnsTween.animate(_controller),
-                            child: SvgPicture.asset(
-                              "assets/svg/double_arrow.svg",
-                              height: 15,
-                            )),
-                        Text(
-                          AppLocalizations.of(context)
-                              .translate("control_order"),
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w200,
-                            color: _theme.accentColor,
+        floatingActionButton: AnimatedOpacity(
+            // If the widget is visible, animate to 0.0 (invisible).
+            // If the widget is hidden, animate to 1.0 (fully visible).
+            opacity: _show ? 1.0 : 0.0,
+            duration: const Duration(milliseconds: 500),
+            // The green box must be a child of the AnimatedOpacity widget.
+            child: Container(
+                height: 100.0,
+                width: 100.0,
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey[400],
+                          spreadRadius: 2,
+                          blurRadius: 5),
+                    ],
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(50.0),
+                    ),
+                    border: Border.all(width: 8, color: Colors.white)),
+                child: FittedBox(
+                    child: FloatingActionButton(
+                        backgroundColor: Colors.black,
+                        onPressed: loading
+                            ? null
+                            : () {
+                                setState(() {
+                                  if (!selected) {
+                                    _controller.forward();
+                                  } else {
+                                    _controller.reverse();
+                                  }
+                                  selected = !selected;
+                                });
+                              },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            RotationTransition(
+                                turns: turnsTween.animate(_controller),
+                                child: SvgPicture.asset(
+                                  "assets/svg/double_arrow.svg",
+                                  height: 15,
+                                )),
+                            Text(
+                              AppLocalizations.of(context)
+                                  .translate("control_order"),
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w200,
+                                color: _theme.accentColor,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ))))),
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.miniCenterFloat,
+        bottomSheet: AnimatedContainer(
+          padding: const EdgeInsets.all(10),
+          duration: const Duration(seconds: 1),
+          curve: Curves.fastOutSlowIn,
+          height: selected ? _size.height * 0.35 : 0.0,
+          width: _size.width,
+          decoration: BoxDecoration(
+              color: _theme.scaffoldBackgroundColor,
+              border:
+                  const Border.fromBorderSide(BorderSide(color: Colors.white)),
+              borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(defaultRadius),
+                  topLeft: Radius.circular(defaultRadius))),
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            alignment: WrapAlignment.spaceAround,
+            runAlignment: WrapAlignment.center,
+            direction: Axis.vertical,
+            children: [
+              AnimatedOpacity(
+                  // If the widget is visible, animate to 0.0 (invisible).
+                  // If the widget is hidden, animate to 1.0 (fully visible).
+                  opacity: selected ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 500),
+                  // The green box must be a child of the AnimatedOpacity widget.
+                  child: SizedBox(
+                    height: double.infinity,
+                    width: _size.width,
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Row(
+                            children: [
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.location_on_rounded,
+                                  size: 30,
+                                  semanticLabel: "Get Directions",
+                                  color: Colors.redAccent,
+                                ),
+                                onPressed: () {},
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.call,
+                                  size: 30,
+                                ),
+                                color: Colors.green,
+                                onPressed: () {},
+                              ),
+                            ],
                           ),
-                          textAlign: TextAlign.center,
                         ),
                       ],
-                    )))),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        bottomSheet: AnimatedContainer(
-            padding: const EdgeInsets.all(10),
-            duration: const Duration(seconds: 1),
-            curve: Curves.fastOutSlowIn,
-            height: selected ? _size.height * 0.35 : 0.0,
-            width: _size.width,
-            decoration: BoxDecoration(
-                color: _theme.scaffoldBackgroundColor,
-                border: const Border.fromBorderSide(
-                    BorderSide(color: Colors.white)),
-                borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(defaultRadius),
-                    topLeft: Radius.circular(defaultRadius))),
-            child: Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
-              alignment: WrapAlignment.spaceAround,
-              runAlignment: WrapAlignment.center,
-              direction: Axis.vertical,
-              // children: controllers(snapshot.data.status["id"]),
-            )),
+                    ),
+                  )),
+            ],
+          ),
+        ),
         persistentFooterButtons: [
           SizedBox(
             width: _size.width,
@@ -487,26 +558,44 @@ class ReservationInfHeaderData extends StatelessWidget {
         Stack(
           children: <Widget>[
             Align(
-              alignment: Alignment.topLeft,
-              child: Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(10)),
-                  color: Colors.black,
-                ),
-                child: ClipPath(
-                    clipper: SkewCut(),
-                    child: Container(
-                      width: _size.width * 0.35,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        color: themeColor,
+              alignment: Alignment.topCenter,
+              child: Directionality(
+                textDirection: TextDirection.ltr,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        borderRadius:
+                            BorderRadius.only(topLeft: Radius.circular(10)),
+                        color: Colors.black,
                       ),
+                      child: ClipPath(
+                          clipper: SkewCut(),
+                          child: Container(
+                            width: _size.width * 0.35,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: themeColor,
+                            ),
+                            child: Text(
+                              currentStatus,
+                              textAlign: TextAlign.center,
+                              style: _theme.textTheme.bodyText1
+                                  .copyWith(height: 1.6),
+                            ),
+                          )),
+                    ),
+                    const Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
-                        currentStatus,
-                        textAlign: TextAlign.center,
-                        style: _theme.textTheme.bodyText1.copyWith(height: 1.6),
+                        "# ${reservation.orderData.orderCode}",
+                        style: _theme.textTheme.headline6,
                       ),
-                    )),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -587,44 +676,67 @@ class ReservationInfHeaderData extends StatelessWidget {
                         width: 2,
                       ),
                     ),
-                    Expanded(
-                        flex: 3,
-                        child: Container(
-                          height: 100,
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Spacer(),
-                              Expanded(
-                                child: Text(
-                                  "# ${reservation.orderData.orderCode}",
-                                ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 10),
+                      child: Row(
+                        children: [
+                          Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: SpecialistCard(
+                                selectable: false,
+                                companyEmployee: CompanyEmployee(
+                                    employeeName:
+                                        reservation.orderData.employeeName,
+                                    employeeId:
+                                        reservation.orderData.employeeId,
+                                    image: reservation.orderData.employeeImage,
+                                    raty: 5),
                               ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: IconButton(
-                                      icon:
-                                          const Icon(Icons.location_on_rounded),
-                                      onPressed: () {},
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: IconButton(
-                                      icon: const Icon(
-                                        Icons.call,
-                                      ),
-                                      onPressed: () {},
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const Spacer(),
-                            ],
+                            ),
                           ),
-                        )),
+                        ],
+                      ),
+                    ),
+                    // Expanded(
+                    //     flex: 3,
+                    //     child: Container(
+                    //       height: 100,
+                    //       padding: const EdgeInsets.symmetric(horizontal: 10),
+                    //       child: Column(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: [
+                    //           const Spacer(),
+                    //           Expanded(
+                    //             child: Text(
+                    //               "# ${reservation.orderData.orderCode}",
+                    //             ),
+                    //           ),
+                    //           Row(
+                    //             children: [
+                    //               Expanded(
+                    //                 child: IconButton(
+                    //                   icon:
+                    //                       const Icon(Icons.location_on_rounded),
+                    //                   onPressed: () {},
+                    //                 ),
+                    //               ),
+                    //               Expanded(
+                    //                 child: IconButton(
+                    //                   icon: const Icon(
+                    //                     Icons.call,
+                    //                   ),
+                    //                   onPressed: () {},
+                    //                 ),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //           const Spacer(),
+                    //         ],
+                    //       ),
+                    //     )),
                   ],
                 ),
               ],
@@ -655,27 +767,44 @@ class ReservationInfoHeaderLoading extends StatelessWidget {
           Stack(
             children: <Widget>[
               Align(
-                alignment: Alignment.topLeft,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    borderRadius:
-                        BorderRadius.only(topLeft: Radius.circular(10)),
-                    color: Colors.black,
-                  ),
-                  child: ClipPath(
-                      clipper: SkewCut(),
-                      child: Container(
-                        width: _size.width * 0.35,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          color: themeColor,
+                alignment: Alignment.topCenter,
+                child: Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        decoration: const BoxDecoration(
+                          borderRadius:
+                              BorderRadius.only(topLeft: Radius.circular(10)),
+                          color: Colors.black,
                         ),
+                        child: ClipPath(
+                            clipper: SkewCut(),
+                            child: Container(
+                              width: _size.width * 0.35,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                color: themeColor,
+                              ),
+                              child: Text(
+                                reservation.orderStatus,
+                                textAlign: TextAlign.center,
+                                style: _theme.textTheme.bodyText1
+                                    .copyWith(height: 1.6),
+                              ),
+                            )),
+                      ),
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
-                          reservation.orderStatus,
-                          textAlign: TextAlign.center,
-                          style: _theme.textTheme.subtitle1.copyWith(height: 2),
+                          "# ${reservation.orderCode}",
+                          style: _theme.textTheme.headline6,
                         ),
-                      )),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -755,44 +884,24 @@ class ReservationInfoHeaderLoading extends StatelessWidget {
                           width: 2,
                         ),
                       ),
-                      Expanded(
-                          flex: 3,
-                          child: Container(
-                            height: 100,
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Spacer(),
-                                Expanded(
-                                  child: Text(
-                                    "# ${reservation.orderCode}",
-                                  ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 10),
+                        child: Row(
+                          children: const <Widget>[
+                            Card(
+                              child: Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: SpecialistCard(
+                                  selectable: false,
+                                  companyEmployee: CompanyEmployee(
+                                      employeeName: "", employeeId: 0, raty: 5),
                                 ),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: IconButton(
-                                        icon: const Icon(
-                                            Icons.location_on_rounded),
-                                        onPressed: () {},
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: IconButton(
-                                        icon: const Icon(
-                                          Icons.call,
-                                        ),
-                                        onPressed: () {},
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const Spacer(),
-                              ],
+                              ),
                             ),
-                          )),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ],

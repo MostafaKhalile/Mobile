@@ -35,8 +35,8 @@ class SpecialistCard extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: 50,
-              width: 50,
+              height: 40,
+              width: 40,
               decoration: BoxDecoration(
                   image: DecorationImage(
                       fit: BoxFit.cover,
@@ -76,7 +76,7 @@ class SpecialistCard extends StatelessWidget {
                 height: defaultPadding / 2,
                 width: defaultPadding * 2,
               ),
-            if (companyEmployee.raty != null)
+            if (companyEmployee?.raty != null)
               RatingBarIndicator(
                 rating: double.parse(companyEmployee.raty.toString()),
                 itemBuilder: (context, index) => const Icon(

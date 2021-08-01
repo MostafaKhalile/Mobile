@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/Screens/Core/scheduleScreen/previous_reservations.dart';
+import 'package:techtime/Screens/Core/ReservationsScreen/previous_reservations.dart';
 
 import 'upcoming_reservations.dart';
 
-class ScheduleScreen extends StatefulWidget {
+class ReservationsScreen extends StatefulWidget {
   static const String routeName = "/schedule_screen";
   @override
-  _ScheduleScreenState createState() => _ScheduleScreenState();
+  ReservationsScreenState createState() => ReservationsScreenState();
 }
 
-class _ScheduleScreenState extends State<ScheduleScreen>
+class ReservationsScreenState extends State<ReservationsScreen>
     with SingleTickerProviderStateMixin {
   TabController _controller;
 
