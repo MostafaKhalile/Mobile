@@ -69,8 +69,8 @@ class ReservationsApiClient {
     request.fields.addAll(params);
     request.headers.addAll(headers);
 
-    http.StreamedResponse streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
+    final http.StreamedResponse streamedResponse = await request.send();
+    final response = await http.Response.fromStream(streamedResponse);
 
     print(response);
 
