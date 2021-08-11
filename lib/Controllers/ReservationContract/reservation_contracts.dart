@@ -1,7 +1,6 @@
 abstract class ReservationController {
   Future<bool> createNewOrder();
   Future<bool> createNewOrderSecondStep(List items);
-  bool isCustomized;
 }
 
 class ServicesReservation extends ReservationController {
