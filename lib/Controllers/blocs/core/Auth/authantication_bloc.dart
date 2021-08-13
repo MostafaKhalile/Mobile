@@ -11,9 +11,8 @@ part 'authantication_state.dart';
 class AuthanticationBloc
     extends Bloc<AuthanticationEvent, AuthanticationState> {
   final AuthRepo authRepo;
-  AuthanticationBloc({@required this.authRepo})
-      : assert(authRepo != null),
-        super(const AuthanticationInitial());
+  AuthanticationBloc({required this.authRepo})
+      : super(const AuthanticationInitial());
 
   @override
   Stream<AuthanticationState> mapEventToState(
@@ -28,7 +27,7 @@ class AuthanticationBloc
         if (result.statusCode == 201) {
           yield LoginSuccesseded(result);
         } else {
-          yield LoginFailed(message: result.message);
+          yield LoginFailed(message: result.message!);
         }
       } catch (e) {
         yield LoginFailed(
@@ -91,10 +90,10 @@ class AuthanticationBloc
 }
 
 class PhoneNumberProvider extends ChangeNotifier {
-  String _phoneNumber;
-  String get phoneNumber => _phoneNumber;
+  String? _phoneNumber;
+  String? get phoneNumber => _phoneNumber;
 
-  set phoneNumber(String phoneNum) {
+  set phoneNumber(String? phoneNum) {
     _phoneNumber = phoneNum;
     notifyListeners();
   }

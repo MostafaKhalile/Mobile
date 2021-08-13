@@ -4,10 +4,10 @@ import 'package:techtime/Helpers/network_constants.dart';
 
 class GalleryView extends StatelessWidget {
   static const String routeName = "/gallery_view";
-  final String companyName;
-  final List<String> imgList;
+  final String? companyName;
+  final List<String>? imgList;
 
-  const GalleryView({Key key, this.imgList, this.companyName})
+  const GalleryView({Key? key, this.imgList, this.companyName})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class GalleryView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: _theme.scaffoldBackgroundColor,
         title: Text(
-          companyName,
+          companyName!,
           style: _theme.textTheme.headline6,
         ),
       ),
@@ -29,7 +29,7 @@ class GalleryView extends StatelessWidget {
               viewportFraction: 1.0,
               autoPlay: true,
             ),
-            items: imgList
+            items: imgList!
                 .map((item) => Center(
                           child: Image.network(
                         NetworkConstants.baseUrl + item,

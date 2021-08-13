@@ -7,9 +7,9 @@ import 'package:techtime/screens/Client/companyProfile/company_profile.dart';
 import 'package:techtime/widgets/client/custom_circle_avatar.dart';
 
 class LeastCompanyCard extends StatelessWidget {
-  final Company company;
+  final Company? company;
 
-  const LeastCompanyCard({Key key, this.company}) : super(key: key);
+  const LeastCompanyCard({Key? key, this.company}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -82,16 +82,16 @@ class LeastCompanyCard extends StatelessWidget {
                           children: [
                             if (company != null)
                               Text(
-                                company.categoryEn,
-                                style: _theme.textTheme.caption
+                                company!.categoryEn!,
+                                style: _theme.textTheme.caption!
                                     .copyWith(color: Colors.black),
                               )
                             else
                               Container(),
                             if (company != null)
                               Text(
-                                "${company.totalServices} Service",
-                                style: _theme.textTheme.caption
+                                "${company!.totalServices} Service",
+                                style: _theme.textTheme.caption!
                                     .copyWith(color: Colors.black),
                               )
                             else
@@ -112,7 +112,7 @@ class LeastCompanyCard extends StatelessWidget {
     return DecorationImage(
       image: company?.coverImage != null
           ? NetworkImage(
-              NetworkConstants.baseUrl + company?.coverImage,
+              NetworkConstants.baseUrl + company!.coverImage!,
             ) as ImageProvider
           : const AssetImage(placeHolderCover),
       fit: BoxFit.fill,
@@ -124,7 +124,7 @@ class LeastCompanyCard extends StatelessWidget {
         ? CustomCircleAvatar(
             width: 70,
             height: 70,
-            image: company.logo,
+            image: company!.logo,
           )
         : const CustomCircleAvatar(
             image: null,
@@ -136,9 +136,9 @@ class LeastCompanyCard extends StatelessWidget {
   Widget buildCompanyName(ThemeData _theme) {
     return company != null
         ? Text(
-            company?.companyName,
+            company!.companyName!,
             overflow: TextOverflow.ellipsis,
-            style: _theme.textTheme.subtitle2.copyWith(color: Colors.black),
+            style: _theme.textTheme.subtitle2!.copyWith(color: Colors.black),
           )
         : Container();
   }

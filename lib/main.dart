@@ -79,10 +79,10 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 /// Create a [AndroidNotificationChannel] for heads up notifications
-AndroidNotificationChannel channel;
+late AndroidNotificationChannel channel;
 
 /// Initialize the [FlutterLocalNotificationsPlugin] package.
-FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -148,11 +148,11 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final RouteGenerator appRouter;
-  final Connectivity connectivity;
+  final RouteGenerator? appRouter;
+  final Connectivity? connectivity;
 
   const MyApp({
-    Key key,
+    Key? key,
     this.appRouter,
     this.connectivity,
   }) : super(key: key);
@@ -255,7 +255,7 @@ class MyApp extends StatelessWidget {
                 theme:
                     darkTheme, //to use multi theme replace with this code => Provider.of<ThemeModel>(context).currentTheme
                 initialRoute: '/',
-                onGenerateRoute: appRouter.generateRoute);
+                onGenerateRoute: appRouter!.generateRoute);
           },
         ));
   }

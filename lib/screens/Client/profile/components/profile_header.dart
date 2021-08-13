@@ -8,9 +8,9 @@ import 'package:techtime/Models/client_profile.dart';
 import 'package:techtime/widgets/client/custom_circle_avatar.dart';
 
 class HeaderProfileAvatar extends StatelessWidget {
-  final UserProfile userProfile;
+  final UserProfile? userProfile;
   const HeaderProfileAvatar({
-    Key key,
+    Key? key,
     this.userProfile,
   }) : super(key: key);
 

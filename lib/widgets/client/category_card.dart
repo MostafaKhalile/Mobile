@@ -6,10 +6,10 @@ import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/category.dart';
 
 class CategoryCard extends StatelessWidget {
-  final Category category;
-  final double width;
+  final Category? category;
+  final double? width;
 
-  const CategoryCard({Key key, this.category, this.width}) : super(key: key);
+  const CategoryCard({Key? key, this.category, this.width}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -44,7 +44,7 @@ class CategoryCard extends StatelessWidget {
                       image: DecorationImage(
                           image: (category?.image != null)
                               ? NetworkImage(
-                                      NetworkConstants.baseUrl + category.image)
+                                      NetworkConstants.baseUrl + category!.image!)
                                   as ImageProvider
                               : const AssetImage(placeHolderCover),
                           // alignment: Alignment.center,
@@ -55,7 +55,7 @@ class CategoryCard extends StatelessWidget {
             ),
             if (category?.categoryEn != null)
               Text(
-                category.categoryEn,
+                category!.categoryEn!,
                 style: Theme.of(context).textTheme.subtitle1,
               )
             else

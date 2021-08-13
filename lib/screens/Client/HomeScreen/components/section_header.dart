@@ -3,10 +3,10 @@ import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 
 class SectionHeader extends StatelessWidget {
-  final Widget title;
-  final VoidCallback pressed;
+  final Widget? title;
+  final VoidCallback? pressed;
 
-  const SectionHeader({Key key, this.title, this.pressed}) : super(key: key);
+  const SectionHeader({Key? key, this.title, this.pressed}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,8 +20,8 @@ class SectionHeader extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    AppLocalizations.of(context).translate('viewAll'),
-                    style: Theme.of(context).textTheme.subtitle1.copyWith(
+                    AppLocalizations.of(context)!.translate('viewAll')!,
+                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
                           color: AppColors.primaryColor,
                         ),
                   ),

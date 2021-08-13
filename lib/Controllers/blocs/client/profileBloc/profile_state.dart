@@ -18,7 +18,7 @@ class ProfileDataLoaded extends ProfileState {
 }
 
 class ProfileDataError extends ProfileState {
-  final String message;
+  final String? message;
 
   const ProfileDataError({this.message});
 }

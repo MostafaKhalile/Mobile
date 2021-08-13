@@ -2,32 +2,32 @@ import 'package:equatable/equatable.dart';
 import 'package:techtime/Models/client/companyProfile/company_data.dart';
 
 class CompanyOffers extends Equatable {
-  final int status;
-  final CompanyData companyData;
-  final List<CompanyOffer> companyOffers;
+  final int? status;
+  final CompanyData? companyData;
+  final List<CompanyOffer>? companyOffers;
 
   const CompanyOffers({this.status, this.companyData, this.companyOffers});
 
   factory CompanyOffers.fromJson(Map<String, dynamic> json) => CompanyOffers(
-        status: json['status'] as int,
+        status: json['status'] as int?,
         companyData: json['CompanyData'] == null
             ? null
             : CompanyData.fromJson(json['CompanyData'] as Map<String, dynamic>),
-        companyOffers: (json['CompanyOffers'] as List<dynamic>)
+        companyOffers: (json['CompanyOffers'] as List<dynamic>?)
             ?.map((e) => CompanyOffer.fromJson(e as Map<String, dynamic>))
-            ?.toList(),
+            .toList(),
       );
 
   Map<String, dynamic> toJson() => {
         'status': status,
         'CompanyData': companyData?.toJson(),
-        'CompanyOffers': companyOffers?.map((e) => e.toJson())?.toList(),
+        'CompanyOffers': companyOffers?.map((e) => e.toJson()).toList(),
       };
 
   CompanyOffers copyWith({
-    int status,
-    CompanyData companyData,
-    List<CompanyOffer> companyOffers,
+    int? status,
+    CompanyData? companyData,
+    List<CompanyOffer>? companyOffers,
   }) {
     return CompanyOffers(
       status: status ?? this.status,
@@ -40,19 +40,19 @@ class CompanyOffers extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [status, companyData, companyOffers];
+  List<Object?> get props => [status, companyData, companyOffers];
 }
 
 class CompanyOffer extends Equatable {
-  final int offerId;
-  final String offerName;
-  final String offerImage;
-  final int totalServices;
-  final bool available;
-  final int price;
-  final int fullTime;
-  final int branchId;
-  final List<Service> allServices;
+  final int? offerId;
+  final String? offerName;
+  final String? offerImage;
+  final int? totalServices;
+  final bool? available;
+  final int? price;
+  final int? fullTime;
+  final int? branchId;
+  final List<Service>? allServices;
 
   const CompanyOffer({
     this.offerId,
@@ -67,17 +67,17 @@ class CompanyOffer extends Equatable {
   });
 
   factory CompanyOffer.fromJson(Map<String, dynamic> json) => CompanyOffer(
-        offerId: json['OfferId'] as int,
-        offerName: json['OfferName'] as String,
-        offerImage: json['OfferImage'] as String,
-        totalServices: json['TotalServices'] as int,
-        available: json['Available'] as bool,
-        price: json['Price'] as int,
-        fullTime: json['FullTime'] as int,
-        branchId: json['BranchID'] as int,
-        allServices: (json['AllServices'] as List<dynamic>)
+        offerId: json['OfferId'] as int?,
+        offerName: json['OfferName'] as String?,
+        offerImage: json['OfferImage'] as String?,
+        totalServices: json['TotalServices'] as int?,
+        available: json['Available'] as bool?,
+        price: json['Price'] as int?,
+        fullTime: json['FullTime'] as int?,
+        branchId: json['BranchID'] as int?,
+        allServices: (json['AllServices'] as List<dynamic>?)
             ?.map((e) => Service.fromJson(e as Map<String, dynamic>))
-            ?.toList(),
+            .toList(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -89,19 +89,19 @@ class CompanyOffer extends Equatable {
         'Price': price,
         'FullTime': fullTime,
         'BranchID': branchId,
-        'AllServices': allServices?.map((e) => e.toJson())?.toList(),
+        'AllServices': allServices?.map((e) => e.toJson()).toList(),
       };
 
   CompanyOffer copyWith({
-    int offerId,
-    String offerName,
-    String offerImage,
-    int totalServices,
-    bool available,
-    int price,
-    int fullTime,
-    int branchId,
-    List<Service> allServices,
+    int? offerId,
+    String? offerName,
+    String? offerImage,
+    int? totalServices,
+    bool? available,
+    int? price,
+    int? fullTime,
+    int? branchId,
+    List<Service>? allServices,
   }) {
     return CompanyOffer(
       offerId: offerId ?? this.offerId,
@@ -120,7 +120,7 @@ class CompanyOffer extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       offerId,
       offerName,
@@ -136,14 +136,14 @@ class CompanyOffer extends Equatable {
 }
 
 class Service extends Equatable {
-  final int servicesId;
-  final String servicesNameAr;
-  final String servicesNameEn;
-  final String imageService;
-  final int servicesPriceFrom;
-  final int servicesPriceTo;
-  final int servicesFullTime;
-  final String servicesDescription;
+  final int? servicesId;
+  final String? servicesNameAr;
+  final String? servicesNameEn;
+  final String? imageService;
+  final int? servicesPriceFrom;
+  final int? servicesPriceTo;
+  final int? servicesFullTime;
+  final String? servicesDescription;
 
   const Service({
     this.servicesId,
@@ -157,14 +157,14 @@ class Service extends Equatable {
   });
 
   factory Service.fromJson(Map<String, dynamic> json) => Service(
-        servicesId: json['ServicesID'] as int,
-        servicesNameAr: json['ServicesNameAR'] as String,
-        servicesNameEn: json['ServicesNameEN'] as String,
-        imageService: json['ImageService'] as String,
-        servicesPriceFrom: json['ServicesPriceFrom'] as int,
-        servicesPriceTo: json['ServicesPriceTo'] as int,
-        servicesFullTime: json['ServicesFullTime'] as int,
-        servicesDescription: json['ServicesDescription'] as String,
+        servicesId: json['ServicesID'] as int?,
+        servicesNameAr: json['ServicesNameAR'] as String?,
+        servicesNameEn: json['ServicesNameEN'] as String?,
+        imageService: json['ImageService'] as String?,
+        servicesPriceFrom: json['ServicesPriceFrom'] as int?,
+        servicesPriceTo: json['ServicesPriceTo'] as int?,
+        servicesFullTime: json['ServicesFullTime'] as int?,
+        servicesDescription: json['ServicesDescription'] as String?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -179,14 +179,14 @@ class Service extends Equatable {
       };
 
   Service copyWith({
-    int servicesId,
-    String servicesNameAr,
-    String servicesNameEn,
-    String imageService,
-    int servicesPriceFrom,
-    int servicesPriceTo,
-    int servicesFullTime,
-    String servicesDescription,
+    int? servicesId,
+    String? servicesNameAr,
+    String? servicesNameEn,
+    String? imageService,
+    int? servicesPriceFrom,
+    int? servicesPriceTo,
+    int? servicesFullTime,
+    String? servicesDescription,
   }) {
     return Service(
       servicesId: servicesId ?? this.servicesId,
@@ -204,7 +204,7 @@ class Service extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       servicesId,
       servicesNameAr,

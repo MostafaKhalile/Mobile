@@ -1,19 +1,19 @@
 class Branche {
-  int status;
-  BrancheData brancheData;
-  List<BrancheImages> brancheImages;
+  int? status;
+  BrancheData? brancheData;
+  List<BrancheImages>? brancheImages;
 
   Branche({this.status, this.brancheData, this.brancheImages});
 
   Branche.fromJson(Map<String, dynamic> json) {
-    status = json['status'] as int;
+    status = json['status'] as int?;
     brancheData = json['BrancheData'] != null
         ? BrancheData.fromJson(json['BrancheData'] as Map<String, dynamic>)
         : null;
     if (json['BrancheImages'] != null) {
       brancheImages = <BrancheImages>[];
       json['BrancheImages'].forEach((v) {
-        brancheImages.add(BrancheImages.fromJson(v as Map<String, dynamic>));
+        brancheImages!.add(BrancheImages.fromJson(v as Map<String, dynamic>));
       });
     }
   }
@@ -22,27 +22,27 @@ class Branche {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     if (brancheData != null) {
-      data['BrancheData'] = brancheData.toJson();
+      data['BrancheData'] = brancheData!.toJson();
     }
     if (brancheImages != null) {
-      data['BrancheImages'] = brancheImages.map((v) => v.toJson()).toList();
+      data['BrancheImages'] = brancheImages!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class BrancheData {
-  int companyID;
-  double raty;
-  int brancheID;
-  String brancheName;
-  String companyImage;
-  String branchAddressAR;
-  String branchAddressEN;
-  String longitude;
-  String latitude;
-  bool favorite;
-  int totalBranches;
+  int? companyID;
+  double? raty;
+  int? brancheID;
+  String? brancheName;
+  String? companyImage;
+  String? branchAddressAR;
+  String? branchAddressEN;
+  String? longitude;
+  String? latitude;
+  bool? favorite;
+  int? totalBranches;
 
   BrancheData(
       {this.companyID,
@@ -58,17 +58,17 @@ class BrancheData {
       this.totalBranches});
 
   BrancheData.fromJson(Map<String, dynamic> json) {
-    companyID = json['CompanyID'] as int;
-    raty = json['raty'] as double;
-    brancheID = json['BrancheID'] as int;
-    brancheName = json['BrancheName'] as String;
-    companyImage = json['CompanyImage'] as String;
-    branchAddressAR = json['BranchAddressAR'] as String;
-    branchAddressEN = json['BranchAddressEN'] as String;
-    longitude = json['Longitude'] as String;
-    latitude = json['Latitude'] as String;
-    favorite = json['Favorite'] as bool;
-    totalBranches = json['TotalBranches'] as int;
+    companyID = json['CompanyID'] as int?;
+    raty = json['raty'] as double?;
+    brancheID = json['BrancheID'] as int?;
+    brancheName = json['BrancheName'] as String?;
+    companyImage = json['CompanyImage'] as String?;
+    branchAddressAR = json['BranchAddressAR'] as String?;
+    branchAddressEN = json['BranchAddressEN'] as String?;
+    longitude = json['Longitude'] as String?;
+    latitude = json['Latitude'] as String?;
+    favorite = json['Favorite'] as bool?;
+    totalBranches = json['TotalBranches'] as int?;
   }
 
   Map<String, dynamic> toJson() {
@@ -89,12 +89,12 @@ class BrancheData {
 }
 
 class BrancheImages {
-  String image;
+  String? image;
 
   BrancheImages({this.image});
 
   BrancheImages.fromJson(Map<String, dynamic> json) {
-    image = json['Image'] as String;
+    image = json['Image'] as String?;
   }
 
   Map<String, dynamic> toJson() {

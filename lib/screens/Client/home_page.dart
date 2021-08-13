@@ -17,7 +17,7 @@ class ClientHomePage extends StatefulWidget {
 
 class _ClientHomePageState extends State<ClientHomePage> {
   int _page = 0;
-  final GlobalKey _bottomNavigationKey = GlobalKey();
+  final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
   final _pageController = PageController();
 
   @override
@@ -86,9 +86,9 @@ class _ClientHomePageState extends State<ClientHomePage> {
               setState(() {
                 _page = index;
               });
-              final CurvedNavigationBarState navBarState =
-                  _bottomNavigationKey.currentState as CurvedNavigationBarState;
-              navBarState.setPage(_page);
+              final CurvedNavigationBarState? navBarState =
+                  _bottomNavigationKey.currentState;
+              navBarState?.setPage(_page);
             },
             children: [
               ClientHomeScreen(),

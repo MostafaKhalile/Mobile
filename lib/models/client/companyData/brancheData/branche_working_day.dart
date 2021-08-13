@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 
 class BrancheWorkingDay extends Equatable {
-  final bool open;
-  final String dayAr;
-  final String dayEn;
-  final String startTime;
-  final String endTime;
+  final bool? open;
+  final String? dayAr;
+  final String? dayEn;
+  final String? startTime;
+  final String? endTime;
 
   const BrancheWorkingDay({
     this.open,
@@ -17,11 +17,11 @@ class BrancheWorkingDay extends Equatable {
 
   factory BrancheWorkingDay.fromJson(Map<String, dynamic> json) =>
       BrancheWorkingDay(
-        open: json['Open'] as bool,
-        dayAr: json['DayAR'] as String,
-        dayEn: json['DayEN'] as String,
-        startTime: json['StartTime'] as String,
-        endTime: json['EndTime'] as String,
+        open: json['Open'] as bool?,
+        dayAr: json['DayAR'] as String?,
+        dayEn: json['DayEN'] as String?,
+        startTime: json['StartTime'] as String?,
+        endTime: json['EndTime'] as String?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -33,11 +33,11 @@ class BrancheWorkingDay extends Equatable {
       };
 
   BrancheWorkingDay copyWith({
-    bool open,
-    String dayAr,
-    String dayEn,
-    String startTime,
-    String endTime,
+    bool? open,
+    String? dayAr,
+    String? dayEn,
+    String? startTime,
+    String? endTime,
   }) {
     return BrancheWorkingDay(
       open: open ?? this.open,
@@ -52,5 +52,5 @@ class BrancheWorkingDay extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [open, dayAr, dayEn, startTime, endTime];
+  List<Object?> get props => [open, dayAr, dayEn, startTime, endTime];
 }

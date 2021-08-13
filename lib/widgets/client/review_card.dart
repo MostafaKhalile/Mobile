@@ -11,14 +11,14 @@ import 'package:techtime/widgets/core/vertical_gab.dart';
 
 class ReviewCard extends StatelessWidget {
   const ReviewCard({
-    Key key,
+    Key? key,
     this.review,
   }) : super(key: key);
 
-  final Review review;
+  final Review? review;
   @override
   Widget build(BuildContext context) {
-    final Locale locale = BlocProvider.of<LocaleCubit>(context).state.locale;
+    final Locale? locale = BlocProvider.of<LocaleCubit>(context).state.locale;
     final Size _size = MediaQuery.of(context).size;
     final ThemeData _theme = Theme.of(context);
     return SizedBox(
@@ -35,7 +35,7 @@ class ReviewCard extends StatelessWidget {
                       : Alignment.topRight,
                   child: (review != null)
                       ? Text(
-                          review.date,
+                          review!.date!,
                           style: _theme.textTheme.subtitle1,
                         )
                       : Container(
@@ -55,10 +55,10 @@ class ReviewCard extends StatelessWidget {
                           width: 50,
                           height: 50,
                           child: (review != null)
-                              ? (review.image != null)
+                              ? (review!.image != null)
                                   ? Image.network(
                                       NetworkConstants.baseUrl +
-                                          (review.image as String),
+                                          (review!.image as String),
                                       fit: BoxFit.cover,
                                     )
                                   : Image.asset(placeHolderImage)
@@ -74,7 +74,7 @@ class ReviewCard extends StatelessWidget {
                             children: [
                               if (review != null)
                                 Text(
-                                  review.name,
+                                  review!.name!,
                                   style: _theme.textTheme.subtitle2,
                                 )
                               else
@@ -95,7 +95,7 @@ class ReviewCard extends StatelessWidget {
                           SizedBox(
                             width: _size.width * 0.4,
                             child: (review != null)
-                                ? Text(review.comment,
+                                ? Text(review!.comment!,
                                     textAlign: TextAlign.start,
                                     overflow: TextOverflow.fade,
                                     maxLines: 2,

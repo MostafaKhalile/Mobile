@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
 
@@ -11,12 +10,12 @@ class AuthApiClient {
   final PreferenceUtils prefs;
 
   AuthApiClient({
-    @required this.prefs,
-  }) : assert(prefs != null);
+    required this.prefs,
+  });
   Future loginUser({
-    String email,
-    String password,
-    String fcmToken,
+    String? email,
+    String? password,
+    String? fcmToken,
   }) async {
     const String _path = NetworkConstants.baseUrl + NetworkConstants.login;
     final Map<String, dynamic> data = {
@@ -40,8 +39,6 @@ class AuthApiClient {
         return Future.error(data);
       }
     } catch (e) {
-      if (e.response != null) {
-      } else {}
       return Future.error("error");
     }
   }

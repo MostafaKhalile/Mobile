@@ -9,8 +9,8 @@ import '../../branchProfile/branch_profile.dart';
 class CompanyBranchesScreen extends StatelessWidget {
   final List<CompanyBranche> companyBranches;
   const CompanyBranchesScreen({
-    Key key,
-    @required this.companyBranches,
+    Key? key,
+    required this.companyBranches,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class CompanyBranchesScreen extends StatelessWidget {
               address: brancheData.branchAddressAR,
               rating: 4.8,
               image: (brancheData.image != null)
-                  ? NetworkConstants.baseUrl + brancheData.image
+                  ? NetworkConstants.baseUrl + brancheData.image!
                   : null,
               onPressed: () => Navigator.pushNamed(
                   context, BranchProfile.routeName,

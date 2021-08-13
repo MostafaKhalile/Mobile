@@ -8,7 +8,7 @@ abstract class BranchereviewsEvent extends Equatable {
 }
 
 class GetBrancheReviews extends BranchereviewsEvent {
-  final int branchId;
+  final int? branchId;
 
   const GetBrancheReviews(this.branchId);
 }

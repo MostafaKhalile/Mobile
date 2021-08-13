@@ -18,7 +18,7 @@ import 'package:techtime/widgets/core/vertical_gab.dart';
 
 class EmailPasswordLoginForm extends StatefulWidget {
   const EmailPasswordLoginForm({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -28,14 +28,14 @@ class EmailPasswordLoginForm extends StatefulWidget {
 class _EmailPasswordLoginFormState extends State<EmailPasswordLoginForm> {
   final Validator _validator = Validator();
   final Snackbar _snackbar = Snackbar();
-  UserRole _userRole;
+  UserRole? _userRole;
   final AuthRepo _authRepo = AuthRepo();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  String _token;
-  Stream<String> _tokenStream;
+  String? _token;
+  late Stream<String> _tokenStream;
 
   @override
   void dispose() {
@@ -55,7 +55,7 @@ class _EmailPasswordLoginFormState extends State<EmailPasswordLoginForm> {
     });
   }
 
-  void setToken(String token) {
+  void setToken(String? token) {
     print('FCM Token: $token');
     setState(() {
       _token = token;
@@ -104,38 +104,38 @@ class _EmailPasswordLoginFormState extends State<EmailPasswordLoginForm> {
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
-                onSaved: (newValue) => _emailController.text = newValue,
+                onSaved: (newValue) => _emailController.text = newValue!,
                 validator: (data) {
-                  final String error =
+                  final String? error =
                       _validator.validateEmailMobile(context, data);
                   return error;
                 },
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle1
+                    .subtitle1!
                     .copyWith(color: Colors.black),
                 decoration: InputDecoration(
                     labelText:
-                        AppLocalizations.of(context).translate('mobile/email'),
+                        AppLocalizations.of(context)!.translate('mobile/email'),
                     labelStyle: const TextStyle(color: Colors.black)),
               ),
               const VerticalGap(),
               TextFormField(
                 controller: _passwordController,
                 keyboardType: TextInputType.emailAddress,
-                onSaved: (newValue) => _passwordController.text = newValue,
+                onSaved: (newValue) => _passwordController.text = newValue!,
                 validator: (data) {
-                  final String error =
+                  final String? error =
                       _validator.validatePassword(context, data);
                   return error;
                 },
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle1
+                    .subtitle1!
                     .copyWith(color: Colors.black),
                 obscureText: _obscureText,
                 decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context).translate('password'),
+                  labelText: AppLocalizations.of(context)!.translate('password'),
                   labelStyle: const TextStyle(color: Colors.black),
                   suffixIcon: IconButton(
                     onPressed: () => _toggle(),
@@ -159,12 +159,12 @@ class _EmailPasswordLoginFormState extends State<EmailPasswordLoginForm> {
                         onPressed: state is LoginInProgress
                             ? null
                             : () async {
-                                if (_formKey.currentState.validate()) {
-                                  _formKey.currentState.save();
+                                if (_formKey.currentState!.validate()) {
+                                  _formKey.currentState!.save();
                                   KeyboardUtil.hideKeyboard(context);
                                   BlocProvider.of<AuthanticationBloc>(context)
                                       .add(StartLogin(_emailController.text,
-                                          _passwordController.text, _token));
+                                          _passwordController.text, _token!));
                                 }
                               },
                         disabledColor: AppColors.darkGreyColor,
@@ -181,7 +181,7 @@ class _EmailPasswordLoginFormState extends State<EmailPasswordLoginForm> {
                               );
                             }
                             return Text(
-                              AppLocalizations.of(context).translate('login'),
+                              AppLocalizations.of(context)!.translate('login')!,
                               style: Theme.of(context).textTheme.button,
                             );
                           },

@@ -25,10 +25,10 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  bool _isSignedIn;
-  UserRole _userRole;
-  AuthRepo _authRepo;
-  NotificationsBloc notificationsBloc;
+  late bool _isSignedIn;
+  UserRole? _userRole;
+  late AuthRepo _authRepo;
+  late NotificationsBloc notificationsBloc;
 
   @override
   void initState() {
@@ -38,13 +38,15 @@ class _SplashScreenState extends State<SplashScreen> {
     _userRole = _authRepo.userType;
     FirebaseMessaging.instance
         .getInitialMessage()
-        .then((RemoteMessage message) {
+        .then((RemoteMessage? message) {
       if (message != null) {
-        print(message);
-        //new line for routing on message ;
-
+        Navigator.pushNamed(
+          context,
+          Notifications.routeName,
+        );
       }
     });
+
     Future.delayed(const Duration(seconds: 1), () async {
       print("token $_isSignedIn");
       if (_isSignedIn) {
@@ -62,16 +64,13 @@ class _SplashScreenState extends State<SplashScreen> {
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('A new onMessageOpenedApp event was published!');
-      Navigator.pushNamed(
-        context,
-        Notifications.routeName,
-      );
+
       print(message);
     });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      final RemoteNotification notification = message.notification;
-      final AndroidNotification android = message.notification?.android;
+      final RemoteNotification? notification = message.notification;
+      final AndroidNotification? android = message.notification?.android;
       if (notification != null && android != null) {
         notificationsBloc.add(const GetAllUserNotifications());
         Navigator.pushNamed(context, Notifications.routeName);

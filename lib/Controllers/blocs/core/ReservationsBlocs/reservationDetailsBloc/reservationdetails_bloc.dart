@@ -23,9 +23,7 @@ class ReservationdetailsBloc
       try {
         final ReservationDetails reservationDetails =
             await _reservationsRepo.getReservationDetails(event.reservationId);
-        if (reservationDetails != null) {
-          yield ReservationdetailsSuccess(reservationDetails);
-        }
+        yield ReservationdetailsSuccess(reservationDetails);
       } catch (e) {
         print(e.toString());
         yield ReservationdetailsFaild(e.toString());

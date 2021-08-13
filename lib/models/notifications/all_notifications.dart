@@ -2,9 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:techtime/Models/notifications/user_notification.dart';
 
 class AllNotifications extends Equatable {
-  final int status;
-  final List<UserNotification> readNotification;
-  final List<UserNotification> notReadNotification;
+  final int? status;
+  final List<UserNotification>? readNotification;
+  final List<UserNotification>? notReadNotification;
 
   const AllNotifications({
     this.status,
@@ -14,7 +14,7 @@ class AllNotifications extends Equatable {
 
   factory AllNotifications.fromJson(Map<String, dynamic> json) =>
       AllNotifications(
-        status: json['status'] as int,
+        status: json['status'] as int?,
         readNotification: (json['ReadNotification'] as List)
             .map((e) => UserNotification.fromJson(e as Map<String, dynamic>))
             .toList(),
@@ -27,13 +27,13 @@ class AllNotifications extends Equatable {
         'status': status,
         'ReadNotification': readNotification,
         'NotReadNotification':
-            notReadNotification.map((e) => e.toJson()).toList(),
+            notReadNotification!.map((e) => e.toJson()).toList(),
       };
 
   AllNotifications copyWith({
-    int status,
-    List<UserNotification> readNotification,
-    List<UserNotification> notReadNotification,
+    int? status,
+    List<UserNotification>? readNotification,
+    List<UserNotification>? notReadNotification,
   }) {
     return AllNotifications(
       status: status ?? this.status,
@@ -46,7 +46,7 @@ class AllNotifications extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       status,
       readNotification,

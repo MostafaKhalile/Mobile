@@ -30,9 +30,9 @@ import 'package:techtime/widgets/core/vertical_gab.dart';
 
 class BranchProfile extends StatelessWidget {
   static const String routeName = '/Branch_profile';
-  final CompanyBranche branche;
+  final CompanyBranche? branche;
 
-  const BranchProfile({Key key, @required this.branche}) : super(key: key);
+  const BranchProfile({Key? key, required this.branche}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
@@ -53,7 +53,7 @@ class BranchProfile extends StatelessWidget {
 //Branch Cover Image in the background
 class BranchCoverImage extends StatelessWidget {
   const BranchCoverImage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -76,10 +76,10 @@ class BranchCoverImage extends StatelessWidget {
 //Branch Profile Body White Section Below
 class BranchProfileBody extends StatefulWidget {
   const BranchProfileBody({
-    Key key,
-    @required this.branche,
+    Key? key,
+    required this.branche,
   }) : super(key: key);
-  final CompanyBranche branche;
+  final CompanyBranche? branche;
 
   @override
   _BranchProfileBodyState createState() => _BranchProfileBodyState();
@@ -89,15 +89,15 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
   @override
   void initState() {
     BlocProvider.of<BrancheProfileBloc>(context)
-        .add(GetBrancheProfile(widget.branche.brancheID));
+        .add(GetBrancheProfile(widget.branche!.brancheID));
     BlocProvider.of<BrancheservicesBloc>(context)
-        .add(GetBrancheservices(widget.branche.brancheID));
+        .add(GetBrancheservices(widget.branche!.brancheID));
     BlocProvider.of<BrancheemployeesBloc>(context)
-        .add(GetBrancheEmployees(widget.branche.brancheID));
+        .add(GetBrancheEmployees(widget.branche!.brancheID));
     BlocProvider.of<BranchereviewsBloc>(context)
-        .add(GetBrancheReviews(widget.branche.brancheID));
+        .add(GetBrancheReviews(widget.branche!.brancheID));
     BlocProvider.of<BrancheOffersBloc>(context)
-        .add(GetBrancheOffers(widget.branche.brancheID));
+        .add(GetBrancheOffers(widget.branche!.brancheID));
 
     super.initState();
   }
@@ -107,7 +107,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations? _translator = AppLocalizations.of(context);
     final ThemeData _theme = Theme.of(context);
     return Positioned(
       bottom: 0,
@@ -118,7 +118,8 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
               listener: (context, state) {
             if (state is BrancheProfileSuccess) {
               setState(() {
-                isFavorite = state.brancheProfile.brancheData.favorite;
+                isFavorite =
+                    state.brancheProfile.brancheData!.favorite ?? false;
               });
             }
           }, builder: (context, state) {
@@ -149,7 +150,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                                     width:
                                         MediaQuery.of(context).size.width * 0.7,
                                     child: Text(
-                                      widget.branche.brancheName,
+                                      widget.branche!.brancheName!,
                                       style: _theme.textTheme.headline6,
                                       overflow: TextOverflow.clip,
                                     ),
@@ -165,7 +166,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                                     child: Row(children: [
                                       if (state is BrancheProfileSuccess)
                                         Text(
-                                          state.brancheProfile.brancheData.raty
+                                          state.brancheProfile.brancheData!.raty
                                               .round()
                                               .toStringAsFixed(1)
                                               .toString(),
@@ -195,7 +196,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                               children: [
                                 InfoTile(
                                   icon: "assets/svg/home.svg",
-                                  description: widget.branche.branchAddressEN,
+                                  description: widget.branche!.branchAddressEN,
                                 ),
                               ],
                             ),
@@ -215,12 +216,13 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                             if (state is BrancheProfileSuccess)
                               FavoriteButton(
                                 buttonSize: 30,
-                                isFavorite: isFavorite ?? false,
+                                isFavorite: isFavorite,
                                 onTap: onLikeButtonTapped,
                               )
                             else
-                              const ShimmerEffect(
+                              ShimmerEffect(
                                 child: FavoriteButton(
+                                  isFavorite: isFavorite,
                                   buttonSize: 30,
                                 ),
                               ),
@@ -232,9 +234,9 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                       //build Branch Previous work data
                       Builder(builder: (context) {
                         if (state is BrancheProfileSuccess) {
-                          if (state.brancheProfile.brancheImages.isNotEmpty) {
+                          if (state.brancheProfile.brancheImages!.isNotEmpty) {
                             return buildPreviousWorkData(_size, _theme,
-                                state.brancheProfile.brancheImages);
+                                state.brancheProfile.brancheImages!);
                           } else {
                             return Container();
                           }
@@ -249,12 +251,12 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                           if (state is BrancheservicesSuccess) {
                             if (state.services.isNotEmpty) {
                               return buildServicesData(
-                                  _translator, _theme, state.services);
+                                  _translator!, _theme, state.services);
                             } else {
                               return Container();
                             }
                           }
-                          return buildServicesLoading(_translator, _theme);
+                          return buildServicesLoading(_translator!, _theme);
                         },
                       ),
 
@@ -264,13 +266,13 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                           if (state is BrancheemployeesSuccess) {
                             if (state.employees.isNotEmpty) {
                               return buildEmployeesData(
-                                  _translator, _size, _theme, state.employees);
+                                  _translator!, _size, _theme, state.employees);
                             } else {
                               return Container();
                             }
                           }
                           return buildEmployeesLoading(
-                              _translator, _size, _theme);
+                              _translator!, _size, _theme);
                         },
                       ),
                       //build our Offers section
@@ -279,27 +281,28 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                           if (state is BrancheOffersSuccess) {
                             if (state.offers.isNotEmpty) {
                               return buildOffersData(
-                                  _translator, _size, _theme, state.offers);
+                                  _translator!, _size, _theme, state.offers);
                             } else {
                               return Container();
                             }
                           }
-                          return buildOffersLoading(_translator, _size, _theme);
+                          return buildOffersLoading(
+                              _translator!, _size, _theme);
                         },
                       ),
 
                       BlocBuilder<BranchereviewsBloc, BranchereviewsState>(
                         builder: (context, state) {
                           if (state is BrancheReviewsSuccess) {
-                            if (state.reviews.reviews.isNotEmpty) {
+                            if (state.reviews.reviews!.isNotEmpty) {
                               return buildReviewsData(
-                                  _translator, _size, _theme, state.reviews);
+                                  _translator!, _size, _theme, state.reviews);
                             } else {
                               return Container();
                             }
                           }
                           return buildReviewsLoading(
-                              _translator, _size, _theme);
+                              _translator!, _size, _theme);
                         },
                       ),
                     ],
@@ -423,7 +426,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
           height: 150,
           child: ListView.separated(
             padding: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-            itemCount: reviews.reviews.length,
+            itemCount: reviews.reviews!.length,
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
@@ -431,7 +434,7 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
               width: defaultPadding / 2,
             ),
             itemBuilder: (ctx, i) => ReviewCard(
-              review: reviews.reviews[i],
+              review: reviews.reviews![i],
             ),
           ),
         ),
@@ -537,7 +540,8 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
     return ShimmerEffect(
       child: Column(
         children: [
-          SubTitle(text: AppLocalizations.of(context).translate("our_gallery")),
+          SubTitle(
+              text: AppLocalizations.of(context)!.translate("our_gallery")),
           SizedBox(
             height: 150,
             child: ListView.separated(
@@ -556,10 +560,10 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
   }
 
   Column buildPreviousWorkData(
-      Size _size, ThemeData _theme, List<BrancheImage> images) {
+      Size _size, ThemeData _theme, List<BrancheImage?> images) {
     return Column(
       children: [
-        SubTitle(text: AppLocalizations.of(context).translate("our_gallery")),
+        SubTitle(text: AppLocalizations.of(context)!.translate("our_gallery")),
         SizedBox(
           height: 150,
           child: ListView.separated(
@@ -575,8 +579,8 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
                     onTap: () => Navigator.pushNamed(
                         context, GalleryView.routeName,
                         arguments: {
-                          'imgList': images.map((e) => e.image).toList(),
-                          'companyName': widget.branche.brancheName
+                          'imgList': images.map((e) => e?.image).toList(),
+                          'companyName': widget.branche!.brancheName
                         }),
                   )),
         ),
@@ -586,22 +590,21 @@ class _BranchProfileBodyState extends State<BranchProfileBody> {
 
   // ignore: avoid_positional_boolean_parameters
   Future<bool> onLikeButtonTapped(bool isFav) async {
-    assert(isFav != null);
     // / send your request here
     final bool isFavorite = await BranchesRepository()
-        .brancheAddRemoveFavorite(widget.branche.brancheID);
+            .brancheAddRemoveFavorite(widget.branche!.brancheID) ??
+        false;
 
-    // / if failed, you can do nothing
     return isFavorite;
   }
 }
 
 class ServiceRRect extends StatelessWidget {
   const ServiceRRect({
-    Key key,
+    Key? key,
     this.companyService,
   }) : super(key: key);
-  final CompanyService companyService;
+  final CompanyService? companyService;
 
   @override
   Widget build(BuildContext context) {
@@ -621,7 +624,7 @@ class ServiceRRect extends StatelessWidget {
                   fit: BoxFit.fill,
                   image: companyService?.image != null
                       ? NetworkImage(
-                          NetworkConstants.baseUrl + companyService.image,
+                          NetworkConstants.baseUrl + companyService!.image!,
                         ) as ImageProvider
                       : const AssetImage(placeHolderImage),
                 ))),
@@ -632,7 +635,7 @@ class ServiceRRect extends StatelessWidget {
                   ? SizedBox(
                       width: _size.width * 0.3,
                       child: Text(
-                        companyService.nameServicesAr,
+                        companyService!.nameServicesAr!,
                         style: _theme.textTheme.subtitle2,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
@@ -652,12 +655,12 @@ class ServiceRRect extends StatelessWidget {
 // a Column for Previous Work.
 class PreviousWorkCard extends StatelessWidget {
   const PreviousWorkCard({
-    Key key,
+    Key? key,
     this.image,
     this.onTap,
   }) : super(key: key);
-  final BrancheImage image;
-  final VoidCallback onTap;
+  final BrancheImage? image;
+  final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
@@ -672,7 +675,7 @@ class PreviousWorkCard extends StatelessWidget {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: (image != null)
-                      ? NetworkImage(NetworkConstants.baseUrl + image.image)
+                      ? NetworkImage(NetworkConstants.baseUrl + image!.image!)
                           as ImageProvider
                       : const AssetImage(placeHolderImage)),
               borderRadius:
@@ -685,11 +688,11 @@ class PreviousWorkCard extends StatelessWidget {
 
 class SubTitle extends StatelessWidget {
   const SubTitle({
-    Key key,
-    @required this.text,
+    Key? key,
+    required this.text,
   }) : super(key: key);
 
-  final String text;
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -702,8 +705,8 @@ class SubTitle extends StatelessWidget {
           Row(
             children: [
               Text(
-                text,
-                style: _theme.textTheme.subtitle1
+                text!,
+                style: _theme.textTheme.subtitle1!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
             ],
@@ -717,12 +720,12 @@ class SubTitle extends StatelessWidget {
 
 class InfoTile extends StatelessWidget {
   const InfoTile({
-    Key key,
-    @required this.icon,
-    @required this.description,
+    Key? key,
+    required this.icon,
+    required this.description,
   }) : super(key: key);
   final String icon;
-  final String description;
+  final String? description;
 
   @override
   Widget build(BuildContext context) {
@@ -733,7 +736,7 @@ class InfoTile extends StatelessWidget {
         ),
         const SizedBox(width: 5),
         Text(
-          description,
+          description!,
           style: Theme.of(context).textTheme.caption,
         )
       ],
@@ -744,10 +747,10 @@ class InfoTile extends StatelessWidget {
 // Branch Profile Picture at the top of the white slider
 class BranchProfilePicture extends StatelessWidget {
   const BranchProfilePicture({
-    Key key,
+    Key? key,
     this.branche,
   }) : super(key: key);
-  final CompanyBranche branche;
+  final CompanyBranche? branche;
   @override
   Widget build(BuildContext context) {
     final ThemeData _theme = Theme.of(context);
@@ -763,8 +766,8 @@ class BranchProfilePicture extends StatelessWidget {
           color: Theme.of(context).scaffoldBackgroundColor,
           border: Border.all(width: 2, color: AppColors.primaryColor),
           image: DecorationImage(
-              image: (branche.image != null)
-                  ? NetworkImage(NetworkConstants.baseUrl + branche.image)
+              image: (branche!.image != null)
+                  ? NetworkImage(NetworkConstants.baseUrl + branche!.image!)
                       as ImageProvider
                   : const AssetImage(placeHolderImage),
               fit: BoxFit.fill),

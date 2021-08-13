@@ -16,7 +16,7 @@ import '../subScreens/redeeme_points.dart';
 
 class WalletBody extends StatefulWidget {
   const WalletBody({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class WalletBody extends StatefulWidget {
 }
 
 class _WalletBodyState extends State<WalletBody> {
-  UserProfile currentUser;
+  UserProfile? currentUser;
 
   PageController pageController = PageController();
   int selectedPageIndex = 0;
@@ -42,7 +42,7 @@ class _WalletBodyState extends State<WalletBody> {
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context)!;
     final ThemeData _theme = Theme.of(context);
 
     return Column(children: [
@@ -162,16 +162,16 @@ class _WalletBodyState extends State<WalletBody> {
 
 class PageSelectionCard extends StatelessWidget {
   const PageSelectionCard({
-    Key key,
+    Key? key,
     this.onTap,
     this.icon,
     this.title,
     this.isSelected,
   }) : super(key: key);
-  final VoidCallback onTap;
-  final String icon;
-  final String title;
-  final bool isSelected;
+  final VoidCallback? onTap;
+  final String? icon;
+  final String? title;
+  final bool? isSelected;
   @override
   Widget build(BuildContext context) {
     final ThemeData _theme = Theme.of(context);
@@ -196,7 +196,7 @@ class PageSelectionCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                icon,
+                icon!,
                 height: 30,
                 color: _theme.accentColor,
               ),
@@ -206,7 +206,7 @@ class PageSelectionCard extends StatelessWidget {
               SizedBox(
                 width: 80,
                 child: Text(
-                  title,
+                  title!,
                   textAlign: TextAlign.center,
                   style: _theme.textTheme.caption,
                 ),
@@ -221,10 +221,10 @@ class PageSelectionCard extends StatelessWidget {
 
 class MoneyCount extends StatelessWidget {
   const MoneyCount({
-    Key key,
+    Key? key,
     this.money,
   }) : super(key: key);
-  final String money;
+  final String? money;
 
   @override
   Widget build(BuildContext context) {
@@ -235,8 +235,8 @@ class MoneyCount extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.of(context).translate("EGP"),
-              style: Theme.of(context).textTheme.caption.copyWith(
+              AppLocalizations.of(context)!.translate("EGP")!,
+              style: Theme.of(context).textTheme.caption!.copyWith(
                   fontWeight: FontWeight.bold, color: AppColors.darkGreyColor),
             ),
             SizedBox(
@@ -248,8 +248,8 @@ class MoneyCount extends StatelessWidget {
               ),
             ),
             Text(
-              AppLocalizations.of(context).translate("available_credit"),
-              style: Theme.of(context).textTheme.subtitle2.copyWith(
+              AppLocalizations.of(context)!.translate("available_credit")!,
+              style: Theme.of(context).textTheme.subtitle2!.copyWith(
                   fontWeight: FontWeight.bold, color: AppColors.darkGreyColor),
             ),
           ],
@@ -261,10 +261,10 @@ class MoneyCount extends StatelessWidget {
 
 class PointsCount extends StatelessWidget {
   const PointsCount({
-    Key key,
+    Key? key,
     this.points,
   }) : super(key: key);
-  final String points;
+  final String? points;
 
   @override
   Widget build(BuildContext context) {
@@ -278,8 +278,8 @@ class PointsCount extends StatelessWidget {
               style: Theme.of(context).textTheme.subtitle2,
               children: <TextSpan>[
                 TextSpan(
-                  text: AppLocalizations.of(context).translate("point"),
-                  style: Theme.of(context).textTheme.subtitle1.copyWith(
+                  text: AppLocalizations.of(context)!.translate("point"),
+                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
                       color: AppColors.darkGreyColor,
                       fontWeight: FontWeight.bold),
                 ),

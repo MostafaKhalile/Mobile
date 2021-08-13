@@ -55,7 +55,7 @@ class NotificatiosApiClient {
     }
   }
 
-  Future<bool> deleteNotification(int id) async {
+  Future<bool> deleteNotification(int? id) async {
     final String path = NetworkConstants.baseUrl +
         NetworkConstants.deleteUserNotification +
         id.toString();
@@ -69,7 +69,7 @@ class NotificatiosApiClient {
     }
   }
 
-  Future<bool> readNotification(int id) async {
+  Future<bool> readNotification(int? id) async {
     final String path = NetworkConstants.baseUrl +
         NetworkConstants.readUserNotification +
         id.toString();

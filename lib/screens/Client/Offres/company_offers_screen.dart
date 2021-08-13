@@ -18,10 +18,10 @@ import 'package:techtime/Widgets/core/vertical_gab.dart';
 
 class CompanyOffersScreen extends StatefulWidget {
   static const String routeName = "/CompanyOffers";
-  final CompanyDataOffer companyOffer;
+  final CompanyDataOffer? companyOffer;
   const CompanyOffersScreen({
-    Key key,
-    @required this.companyOffer,
+    Key? key,
+    required this.companyOffer,
   }) : super(key: key);
 
   @override
@@ -32,21 +32,21 @@ class _CompanyOffersScreenState extends State<CompanyOffersScreen> {
   @override
   void initState() {
     BlocProvider.of<FiltercompanyoffersBloc>(context)
-        .add(FilterCompanyOffers(widget.companyOffer.companyId));
+        .add(FilterCompanyOffers(widget.companyOffer!.companyId));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.black),
         title: Text(
-          _translator.translate("offers"),
+          _translator.translate("offers")!,
           style: Theme.of(context)
               .textTheme
-              .headline6
+              .headline6!
               .copyWith(color: Colors.black),
         ),
       ),
@@ -58,11 +58,11 @@ class _CompanyOffersScreenState extends State<CompanyOffersScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 itemBuilder: (cntx, i) => OfferCard(
                       onPress: () => _bottomSheet(
-                          context, state.companyOffers.companyOffers[i]),
-                      companyOffer: state.companyOffers.companyOffers[i],
+                          context, state.companyOffers.companyOffers![i]),
+                      companyOffer: state.companyOffers.companyOffers![i],
                     ),
                 separatorBuilder: (cntx, i) => const VerticalGap(),
-                itemCount: state.companyOffers.companyOffers.length);
+                itemCount: state.companyOffers.companyOffers!.length);
           } else {
             widget = const CompanyOffersLoading();
           }
@@ -104,15 +104,15 @@ class _CompanyOffersScreenState extends State<CompanyOffersScreen> {
               Column(
                 children: [
                   Text(
-                    companyOffer?.offerName ?? "",
+                    companyOffer.offerName ?? "",
                     style: Theme.of(context)
                         .textTheme
-                        .headline6
+                        .headline6!
                         .copyWith(color: AppColors.primaryColor),
                   ),
                   Text(
-                      AppLocalizations.of(context)
-                          .translate("offer_services_details"),
+                      AppLocalizations.of(context)!
+                          .translate("offer_services_details")!,
                       style: Theme.of(context).textTheme.subtitle2)
                 ],
               ),
@@ -120,10 +120,10 @@ class _CompanyOffersScreenState extends State<CompanyOffersScreen> {
                 child: ListView.separated(
                   physics: const BouncingScrollPhysics(),
                   padding: const EdgeInsets.only(top: 20),
-                  itemCount: companyOffer.allServices.length,
+                  itemCount: companyOffer.allServices!.length,
                   separatorBuilder: (_, i) => const VerticalGap(),
                   itemBuilder: (context, i) => ServiceInfoCard(
-                    service: companyOffer.allServices[i],
+                    service: companyOffer.allServices![i],
                   ),
                 ),
               ),
@@ -135,7 +135,7 @@ class _CompanyOffersScreenState extends State<CompanyOffersScreen> {
 
 class CompanyOffersLoading extends StatelessWidget {
   const CompanyOffersLoading({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -152,18 +152,18 @@ class CompanyOffersLoading extends StatelessWidget {
 
 class OfferCard extends StatelessWidget {
   const OfferCard({
-    Key key,
+    Key? key,
     this.companyOffer,
     this.onPress,
   }) : super(key: key);
-  final CompanyOffer companyOffer;
-  final VoidCallback onPress;
+  final CompanyOffer? companyOffer;
+  final VoidCallback? onPress;
 
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
     final ThemeData _theme = Theme.of(context);
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context)!;
 
     return InkWell(
       onTap: onPress,
@@ -190,7 +190,7 @@ class OfferCard extends StatelessWidget {
                   image: DecorationImage(
                       image: (companyOffer?.offerImage != null)
                           ? NetworkImage(NetworkConstants.baseUrl +
-                              companyOffer?.offerImage) as ImageProvider
+                              companyOffer!.offerImage!) as ImageProvider
                           : const AssetImage(placeHolderImage)),
                   borderRadius: BorderRadius.circular(defaultRadius)),
             ),
@@ -223,16 +223,14 @@ class OfferCard extends StatelessWidget {
                 // ignore: deprecated_member_use
                 RaisedButton(
                   onPressed: () => Navigator.pushNamed(
-                      context, ReservationFirstStep.routeName,
-                      arguments: {
-                        "CompanyBranches": null,
-                        "ReservationType": ReservationType.offer,
-                        "branchID": companyOffer.branchId
-                      }),
+                      context, ReservationFirstStep.routeName, arguments: {
+                    "ReservationType": ReservationType.offer,
+                    "branchID": companyOffer!.branchId
+                  }),
                   disabledColor: Colors.black38,
                   child: Text(
-                    _translator.translate("book_now"),
-                    style: Theme.of(context).textTheme.subtitle2.copyWith(
+                    _translator.translate("book_now")!,
+                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
                         color: AppColors.primaryColor,
                         fontWeight: FontWeight.bold),
                   ),

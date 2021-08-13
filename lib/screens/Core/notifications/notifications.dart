@@ -12,17 +12,17 @@ import 'package:techtime/Models/notifications/user_notification.dart';
 
 class Notifications extends StatefulWidget {
   static const String routeName = "/notifications";
-  final AllNotifications notifications;
+  final AllNotifications? notifications;
 
-  const Notifications({Key key, this.notifications}) : super(key: key);
+  const Notifications({Key? key, this.notifications}) : super(key: key);
   @override
   _NotificationsState createState() => _NotificationsState();
 }
 
 class _NotificationsState extends State<Notifications> {
   final NotificatiosApiClient _notificatiosApiClient = NotificatiosApiClient();
-  NotificationsBloc notificationsBloc;
-  AllNotifications allNotifications;
+  late NotificationsBloc notificationsBloc;
+  AllNotifications? allNotifications;
   @override
   void initState() {
     allNotifications = widget.notifications;
@@ -34,13 +34,13 @@ class _NotificationsState extends State<Notifications> {
   Widget build(BuildContext context) {
     final ThemeData _theme = Theme.of(context);
     // Size _size = MediaQuery.of(context).size;
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context)!;
     return Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(color: Colors.black),
           title: Text(
-            _translator.translate("notifications"),
-            style: _theme.textTheme.headline6.copyWith(color: Colors.black),
+            _translator.translate("notifications")!,
+            style: _theme.textTheme.headline6!.copyWith(color: Colors.black),
           ),
           actionsIconTheme: const IconThemeData(color: Colors.black),
           actions: [
@@ -75,7 +75,7 @@ class _NotificationsState extends State<Notifications> {
                           color: _theme.accentColor,
                         ),
                       ),
-                      Text(_translator.translate('mark_all_as_read')),
+                      Text(_translator.translate('mark_all_as_read')!),
                     ],
                   ),
                 ),
@@ -90,7 +90,7 @@ class _NotificationsState extends State<Notifications> {
                           color: _theme.accentColor,
                         ),
                       ),
-                      Text(_translator.translate('clear_all')),
+                      Text(_translator.translate('clear_all')!),
                     ])),
               ],
             )
@@ -113,8 +113,8 @@ class _NotificationsState extends State<Notifications> {
                   },
                   builder: (context, state) {
                     Widget view;
-                    if (allNotifications.notReadNotification.isEmpty &&
-                        allNotifications.readNotification.isEmpty) {
+                    if (allNotifications!.notReadNotification!.isEmpty &&
+                        allNotifications!.readNotification!.isEmpty) {
                       view = Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -142,13 +142,13 @@ class _NotificationsState extends State<Notifications> {
 
   ListView buildNotificationsData(AppLocalizations _translator) {
     return ListView.builder(
-        itemCount: allNotifications.notReadNotification.length +
-            allNotifications.readNotification.length,
+        itemCount: allNotifications!.notReadNotification!.length +
+            allNotifications!.readNotification!.length,
         padding: const EdgeInsets.all(defaultPadding / 2),
         itemBuilder: (context, index) {
           final List<UserNotification> notifications = [
-            ...allNotifications.notReadNotification,
-            ...allNotifications.readNotification
+            ...allNotifications!.notReadNotification!,
+            ...allNotifications!.readNotification!
           ];
           final item = notifications[index];
 
@@ -184,7 +184,7 @@ class _NotificationsState extends State<Notifications> {
               ),
               child: NotificationCard(
                 hasBeenRead:
-                    widget.notifications.readNotification.contains(item),
+                    widget.notifications!.readNotification!.contains(item),
                 notification: notifications[index],
               ));
         });
@@ -202,26 +202,26 @@ class _NotificationsState extends State<Notifications> {
     //     .showSnackBar(SnackBar(content: Text("$item dismissed")));
   }
 
-  Future<bool> buildShowDialog(
+  Future<bool?> buildShowDialog(
       BuildContext context, AppLocalizations _translator) {
     return showDialog<bool>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(_translator.translate("are_sure_to_delete_object")),
+          title: Text(_translator.translate("are_sure_to_delete_object")!),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.pop(context, true),
               child: Text(
-                _translator.translate("confirm"),
+                _translator.translate("confirm")!,
                 style: Theme.of(context).textTheme.button,
               ),
             ),
             TextButton(
                 onPressed: () => Navigator.pop(context, false),
                 child: Text(
-                  _translator.translate("cancel"),
+                  _translator.translate("cancel")!,
                   style: Theme.of(context).textTheme.button,
                 )),
           ],
@@ -233,12 +233,12 @@ class _NotificationsState extends State<Notifications> {
 
 class NotificationCard extends StatefulWidget {
   const NotificationCard({
-    Key key,
+    Key? key,
     this.hasBeenRead,
     this.notification,
   }) : super(key: key);
-  final UserNotification notification;
-  final bool hasBeenRead;
+  final UserNotification? notification;
+  final bool? hasBeenRead;
 
   @override
   _NotificationCardState createState() => _NotificationCardState();
@@ -246,7 +246,7 @@ class NotificationCard extends StatefulWidget {
 
 class _NotificationCardState extends State<NotificationCard> {
   final NotificatiosApiClient _notificatiosApiClient = NotificatiosApiClient();
-  bool isRead;
+  bool? isRead;
   @override
   void initState() {
     isRead = widget.hasBeenRead;
@@ -256,26 +256,26 @@ class _NotificationCardState extends State<NotificationCard> {
   @override
   Widget build(BuildContext context) {
     final ThemeData _theme = Theme.of(context);
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations? _translator = AppLocalizations.of(context);
     return Card(
       shape: Border(
           left: BorderSide(
-              color: isRead ? Colors.transparent : AppColors.primaryColor,
+              color: isRead! ? Colors.transparent : AppColors.primaryColor,
               width: 8)),
       child: ListTile(
         // leading: CircleAvatarProfile(),
-        subtitle: Text(widget.notification.notificationNotesEn ?? ""),
+        subtitle: Text(widget.notification!.notificationNotesEn ?? ""),
         title: RichText(
           text: TextSpan(
-            text: "${widget.notification.notificationDate}\t\t",
+            text: "${widget.notification!.notificationDate}\t\t",
             style: Theme.of(context).textTheme.subtitle1,
             children: <TextSpan>[
               TextSpan(
                 text: TimeOfDay(
-                        hour: int.parse(widget.notification.notificationTime
+                        hour: int.parse(widget.notification!.notificationTime
                             .toString()
                             .split(":")[0]),
-                        minute: int.parse(widget.notification.notificationTime
+                        minute: int.parse(widget.notification!.notificationTime
                             .toString()
                             .split(":")[1]))
                     .format(context),
@@ -288,10 +288,10 @@ class _NotificationCardState extends State<NotificationCard> {
           onSelected: (NotificationsActions result) async {
             if (result == NotificationsActions.read) {
               await _notificatiosApiClient
-                  .readNotification(widget.notification.notificationId)
+                  .readNotification(widget.notification!.notificationId)
                   .then((value) => setState(() {
                         isRead = value;
-                        if (isRead) {
+                        if (isRead!) {
                           context
                               .read<NotificationsBloc>()
                               .add(const GetAllUserNotifications());
@@ -301,7 +301,7 @@ class _NotificationCardState extends State<NotificationCard> {
             if (result == NotificationsActions.delete) {
               bool hasBeenDeleted;
               hasBeenDeleted = await _notificatiosApiClient
-                  .deleteNotification(widget.notification.notificationId);
+                  .deleteNotification(widget.notification!.notificationId);
 
               if (hasBeenDeleted) {
                 context
@@ -324,7 +324,7 @@ class _NotificationCardState extends State<NotificationCard> {
                       color: _theme.accentColor,
                     ),
                   ),
-                  Text(_translator.translate('mark_as_read')),
+                  Text(_translator!.translate('mark_as_read')!),
                 ],
               ),
             ),
@@ -339,7 +339,7 @@ class _NotificationCardState extends State<NotificationCard> {
                       color: _theme.accentColor,
                     ),
                   ),
-                  Text(_translator.translate('delete')),
+                  Text(_translator.translate('delete')!),
                 ])),
           ],
         ),

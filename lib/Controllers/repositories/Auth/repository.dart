@@ -8,8 +8,8 @@ import 'package:techtime/Helpers/shared_perfs_provider.dart';
 import 'package:techtime/Models/user.dart';
 
 class AuthRepo {
-  PreferenceUtils _prefs;
-  AuthApiClient _apiClient;
+  late PreferenceUtils _prefs;
+  late AuthApiClient _apiClient;
 
   AuthRepo() {
     _prefs = PreferenceUtils.getInstance();
@@ -28,7 +28,7 @@ class AuthRepo {
         await USerRepo().getProfileData();
         return user;
       } else {
-        return Future.error(data["message"]);
+        return Future.error(data["message"] as Object);
       }
     } catch (e) {
       final message = e;
@@ -44,19 +44,17 @@ class AuthRepo {
       }
     } catch (e) {
       print(e);
-      final message = e["message"];
-      return Future.error(message);
+      // final message = e["message"];
+      return Future.error("message");
     }
   }
 
-  String get currentUserToken {
+  String? get currentUserToken {
     final String userResp = _prefs
         .getValueWithKey(NetworkConstants.currentUserToken,
             hideDebugPrint: true)
         .toString();
-    if (userResp == null) {
-      return null;
-    }
+
     return userResp;
   }
 
@@ -70,7 +68,7 @@ class AuthRepo {
     return userLanguage.toUpperCase();
   }
 
-  User get currentUser {
+  User? get currentUser {
     final userResp = _prefs.getValueWithKey(NetworkConstants.currentUser,
         hideDebugPrint: true);
     if (userResp == null) {
@@ -93,12 +91,12 @@ class AuthRepo {
     }
   }
 
-  UserRole get userType {
-    UserRole role;
+  UserRole? get userType {
+    UserRole? role;
     if (currentUser != null) {
-      if (currentUser.accountTypeUser == 3) {
+      if (currentUser!.accountTypeUser == 3) {
         role = UserRole.company;
-      } else if (currentUser.accountTypeUser == 4) {
+      } else if (currentUser!.accountTypeUser == 4) {
         role = UserRole.client;
       } else {
         role = UserRole.guest;
@@ -107,8 +105,8 @@ class AuthRepo {
     return role;
   }
 
-  Future<bool> _saveUserToken(String token) async {
-    return _prefs.saveValueWithKey<String>(
+  Future<bool> _saveUserToken(String? token) async {
+    return _prefs.saveValueWithKey<String?>(
         NetworkConstants.currentUserToken, token);
   }
 

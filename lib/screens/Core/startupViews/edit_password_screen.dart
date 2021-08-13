@@ -34,7 +34,7 @@ class _EditPasswordScreen extends State<EditPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations? _translator = AppLocalizations.of(context);
     final CustomToast _customToast = CustomToast();
 
     final ThemeData _theme = Theme.of(context);
@@ -64,7 +64,7 @@ class _EditPasswordScreen extends State<EditPasswordScreen> {
                     Padding(
                       padding: const EdgeInsets.all(defaultPadding),
                       child: Text(
-                        _translator.translate("reset_password"),
+                        _translator!.translate("reset_password")!,
                         style: _theme.textTheme.subtitle2,
                       ),
                     ),
@@ -75,15 +75,15 @@ class _EditPasswordScreen extends State<EditPasswordScreen> {
                             TextFormField(
                               controller: _oldPasswordController,
                               onSaved: (newValue) =>
-                                  _oldPasswordController.text = newValue,
-                              style: _theme.textTheme.bodyText1
+                                  _oldPasswordController.text = newValue!,
+                              style: _theme.textTheme.bodyText1!
                                   .copyWith(color: AppColors.darkGreyColor),
                               decoration: InputDecoration(
                                   fillColor: Colors.white,
                                   filled: true,
                                   hintText:
                                       _translator.translate("old_password"),
-                                  hintStyle: _theme.textTheme.caption
+                                  hintStyle: _theme.textTheme.caption!
                                       .copyWith(color: AppColors.darkGreyColor),
                                   contentPadding: const EdgeInsets.only(
                                       bottom: 5, right: 8, left: 8),
@@ -97,14 +97,14 @@ class _EditPasswordScreen extends State<EditPasswordScreen> {
                                 obscureText: _obscureText,
                                 controller: _newPasswordController,
                                 onSaved: (newValue) =>
-                                    _oldPasswordController.text = newValue,
-                                style: _theme.textTheme.bodyText1
+                                    _oldPasswordController.text = newValue!,
+                                style: _theme.textTheme.bodyText1!
                                     .copyWith(color: AppColors.darkGreyColor),
                                 decoration: InputDecoration(
                                     fillColor: Colors.white,
                                     filled: true,
                                     hintText: _translator.translate("password"),
-                                    hintStyle: _theme.textTheme.caption
+                                    hintStyle: _theme.textTheme.caption!
                                         .copyWith(
                                             color: AppColors.darkGreyColor),
                                     suffixIcon: IconButton(
@@ -128,8 +128,8 @@ class _EditPasswordScreen extends State<EditPasswordScreen> {
                                 obscureText: _obscureText,
                                 controller: _repeatPasswordController,
                                 onSaved: (newValue) =>
-                                    _oldPasswordController.text = newValue,
-                                style: _theme.textTheme.bodyText1
+                                    _oldPasswordController.text = newValue!,
+                                style: _theme.textTheme.bodyText1!
                                     .copyWith(color: AppColors.darkGreyColor),
                                 decoration: InputDecoration(
                                     fillColor: Colors.white,
@@ -145,7 +145,7 @@ class _EditPasswordScreen extends State<EditPasswordScreen> {
                                         color: Colors.black,
                                       ),
                                     ),
-                                    hintStyle: _theme.textTheme.caption
+                                    hintStyle: _theme.textTheme.caption!
                                         .copyWith(
                                             color: AppColors.darkGreyColor),
                                     contentPadding: const EdgeInsets.symmetric(
@@ -189,8 +189,8 @@ class _EditPasswordScreen extends State<EditPasswordScreen> {
                                   );
                                 }
                                 return Text(
-                                  _translator.translate("confirm"),
-                                  style: _theme.textTheme.button.copyWith(
+                                  _translator.translate("confirm")!,
+                                  style: _theme.textTheme.button!.copyWith(
                                       color: _theme.scaffoldBackgroundColor),
                                 );
                               },

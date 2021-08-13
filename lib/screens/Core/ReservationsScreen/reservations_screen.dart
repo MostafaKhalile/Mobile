@@ -15,7 +15,7 @@ class ReservationsScreen extends StatefulWidget {
 
 class ReservationsScreenState extends State<ReservationsScreen>
     with SingleTickerProviderStateMixin {
-  TabController _controller;
+  TabController? _controller;
 
   @override
   void initState() {
@@ -25,14 +25,14 @@ class ReservationsScreenState extends State<ReservationsScreen>
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final ThemeData _theme = Theme.of(context);
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

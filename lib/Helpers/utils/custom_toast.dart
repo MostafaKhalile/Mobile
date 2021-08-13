@@ -17,7 +17,7 @@ class CustomToast {
               size: 30,
             ),
             Text(
-              AppLocalizations.of(context).translate("edited_successfully"),
+              AppLocalizations.of(context)!.translate("edited_successfully")!,
               style: Theme.of(context).textTheme.caption,
             )
           ],

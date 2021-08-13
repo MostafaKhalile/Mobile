@@ -11,7 +11,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  UserProfile _userProfile;
+  UserProfile? _userProfile;
   final USerRepo _userRepo = USerRepo();
   @override
   void initState() {

@@ -8,6 +8,6 @@ abstract class CompanyProfileEvent extends Equatable {
 }
 
 class GetCompanyProfile extends CompanyProfileEvent {
-  final int id;
+  final int? id;
   const GetCompanyProfile(this.id);
 }

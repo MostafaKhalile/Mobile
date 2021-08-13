@@ -21,9 +21,9 @@ import 'subViews/company_services.dart';
 
 class CompanyProfile extends StatefulWidget {
   static const String routeName = "/branch_profile";
-  final Company company;
+  final Company? company;
 
-  const CompanyProfile({Key key, this.company}) : super(key: key);
+  const CompanyProfile({Key? key, this.company}) : super(key: key);
 
   @override
   _CompanyProfileState createState() => _CompanyProfileState();
@@ -31,19 +31,19 @@ class CompanyProfile extends StatefulWidget {
 
 class _CompanyProfileState extends State<CompanyProfile>
     with SingleTickerProviderStateMixin {
-  List<String> imgList = [];
-  TabController _controller;
+  List<String?> imgList = [];
+  TabController? _controller;
   @override
   void initState() {
     _controller = TabController(length: 4, vsync: this);
     BlocProvider.of<CompanyProfileBloc>(context)
-        .add(GetCompanyProfile(widget.company.companyId));
+        .add(GetCompanyProfile(widget.company!.companyId));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context)!;
     final Size _size = MediaQuery.of(context).size;
     return Scaffold(
         body: Column(children: <Widget>[
@@ -56,12 +56,12 @@ class _CompanyProfileState extends State<CompanyProfile>
               BlocListener<CompanyProfileBloc, CompanyProfileState>(
                 listener: (context, state) {
                   if (state is CompanyProfileFinished &&
-                      state.companyProfile.companyBranches.isNotEmpty &&
-                      state.companyProfile.companyData.companyCoverImage !=
+                      state.companyProfile.companyBranches!.isNotEmpty &&
+                      state.companyProfile.companyData!.companyCoverImage !=
                           null) {
                     setState(() {
                       imgList = [
-                        state.companyProfile.companyData.companyCoverImage
+                        state.companyProfile.companyData!.companyCoverImage
                       ];
                     });
                   }
@@ -76,10 +76,10 @@ class _CompanyProfileState extends State<CompanyProfile>
                           onTap: () => Navigator.pushNamed(
                                   context, GalleryView.routeName, arguments: {
                                 'imgList': imgList,
-                                'companyName': widget.company.companyName
+                                'companyName': widget.company!.companyName
                               }),
                           child:
-                              Image.network(NetworkConstants.baseUrl + item)))
+                              Image.network(NetworkConstants.baseUrl + item!)))
                       .toList(),
                 ),
               ),
@@ -90,11 +90,11 @@ class _CompanyProfileState extends State<CompanyProfile>
                 children: [
                   const Spacer(),
                   Hero(
-                      tag: widget.company.companyName,
+                      tag: widget.company!.companyName!,
                       child: CustomCircleAvatar(
                         height: 80,
                         width: 80,
-                        image: widget.company.logo,
+                        image: widget.company!.logo,
                       )),
                   const HorizontalGap(
                     width: defaultPadding / 4,
@@ -105,9 +105,13 @@ class _CompanyProfileState extends State<CompanyProfile>
                       SizedBox(
                         width: _size.width * 0.6,
                         child: Text(
-                          widget.company.companyName,
-                          style: Theme.of(context).textTheme.subtitle1.copyWith(
-                              fontWeight: FontWeight.bold, wordSpacing: 3.5),
+                          widget.company!.companyName!,
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  wordSpacing: 3.5),
                         ),
                       ),
                       const VerticalGap(
@@ -178,7 +182,7 @@ class _CompanyProfileState extends State<CompanyProfile>
                     companyProfile: state.companyProfile,
                   ),
                   CompanyBranchesScreen(
-                    companyBranches: state.companyProfile.companyBranches,
+                    companyBranches: state.companyProfile.companyBranches!,
                   ),
                   CompanyReviewsScreen(
                     reviews: state.companyProfile.companyReviews,

@@ -20,8 +20,9 @@ import 'package:techtime/Widgets/core/vertical_gab.dart';
 
 class ReservationDetailsScreen extends StatefulWidget {
   static const String routeNAme = "/reservationDetailsScreen";
-  const ReservationDetailsScreen({Key key, this.reservation}) : super(key: key);
-  final Reservation reservation;
+  const ReservationDetailsScreen({Key? key, this.reservation})
+      : super(key: key);
+  final Reservation? reservation;
 
   @override
   _ReservationDetailsScreenState createState() =>
@@ -34,44 +35,40 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
     begin: 0,
     end: 0.5,
   );
-  AnimationController _controller;
+  late AnimationController _controller;
   bool loading = false;
   bool selected = false;
 
-  Color getThemeColor(String status) {
+  Color? getThemeColor(String? status) {
     switch (status) {
       case "Acceptable": //مؤكد من الأدمن
         {
           return AppColors.secondryColor;
         }
-        break;
       case "Processing": //مؤكد من الأدمن
         {
           return Colors.green[800];
         }
-        break;
       case "Pending..": //مؤكد من الأدمن
         {
           return AppColors.pendingColor;
         }
-        break;
       case "complete": //مؤكد من الأدمن
         {
           return AppColors.doneColor;
         }
-        break;
     }
     return Colors.grey;
   }
 
-  Color themeColor;
+  Color? themeColor;
   final ScrollController _scrollController =
       ScrollController(); // set controller on scrolling
   bool _show = true;
   @override
   void initState() {
     BlocProvider.of<ReservationdetailsBloc>(context)
-        .add(GetReservationDetails(widget.reservation.orderId));
+        .add(GetReservationDetails(widget.reservation!.orderId));
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
@@ -119,7 +116,7 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
     final Size _size = MediaQuery.of(context).size;
     final ThemeData _theme = Theme.of(context);
     final Reservation reservation = (widget.reservation != null)
-        ? widget.reservation
+        ? widget.reservation!
         : const Reservation(orderCode: "");
     themeColor = getThemeColor(reservation.orderStatus);
     return SafeArea(
@@ -163,18 +160,18 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        reservation.orderOrderDate,
+                        reservation.orderOrderDate!,
                         style: _theme.textTheme.subtitle1,
                       ),
                       Text(
-                          "${getTimePeriods(reservation?.orderOrderTime).format(context).split(' ')[0]} ${getTimePeriods(reservation?.orderOrderTime).format(context).split(' ')[1]}",
+                          "${getTimePeriods(reservation.orderOrderTime).format(context).split(' ')[0]} ${getTimePeriods(reservation.orderOrderTime).format(context).split(' ')[1]}",
                           style: _theme.textTheme.subtitle1)
                     ])),
             BlocBuilder<ReservationdetailsBloc, ReservationdetailsState>(
               builder: (context, state) {
                 Widget widget;
                 if (state is ReservationdetailsSuccess) {
-                  if (state.reservationDetails.orderService.length < 3 ||
+                  if (state.reservationDetails.orderService!.length < 3 ||
                       state.reservationDetails.orderService == null) {
                     _show = true;
                   }
@@ -193,12 +190,12 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
                               physics: const BouncingScrollPhysics(),
                               padding: const EdgeInsets.only(top: 20),
                               itemCount:
-                                  state.reservationDetails.orderService.length,
+                                  state.reservationDetails.orderService!.length,
                               separatorBuilder: (_, i) => const VerticalGap(),
                               itemBuilder: (context, i) {
                                 return OrderServiceCard(
                                   service:
-                                      state.reservationDetails.orderService[i],
+                                      state.reservationDetails.orderService![i],
                                 );
                               }),
                         ),
@@ -225,7 +222,7 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.grey[400],
+                          color: Colors.grey[400]!,
                           spreadRadius: 2,
                           blurRadius: 5),
                     ],
@@ -258,8 +255,8 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
                                   height: 15,
                                 )),
                             Text(
-                              AppLocalizations.of(context)
-                                  .translate("control_order"),
+                              AppLocalizations.of(context)!
+                                  .translate("control_order")!,
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w200,
@@ -355,7 +352,7 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
     );
   }
 
-  TimeOfDay getTimePeriods(String time) {
+  TimeOfDay getTimePeriods(String? time) {
     final TimeOfDay interval = TimeOfDay(
         hour: int.parse(time.toString().split(":")[0]),
         minute: int.parse(time.toString().split(":")[1]));
@@ -366,8 +363,8 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
 
 class OrderServiceCard extends StatelessWidget {
   const OrderServiceCard({
-    Key key,
-    this.service,
+    Key? key,
+    required this.service,
   }) : super(key: key);
 
   final OrderService service;
@@ -376,7 +373,7 @@ class OrderServiceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
     final ThemeData _theme = Theme.of(context);
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context)!;
     return Card(
         color: _theme.scaffoldBackgroundColor,
         margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -394,9 +391,9 @@ class OrderServiceCard extends StatelessWidget {
                   margin: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: (service?.imageService != null)
+                          image: (service.imageService != null)
                               ? NetworkImage(NetworkConstants.baseUrl +
-                                  service?.imageService) as ImageProvider
+                                  service.imageService!) as ImageProvider
                               : const AssetImage(placeHolderImage)),
                       borderRadius: BorderRadius.circular(defaultRadius)),
                 ),
@@ -414,7 +411,7 @@ class OrderServiceCard extends StatelessWidget {
                 ]),
                 subtitle: SizedBox(
                   width: _size.width * 0.15,
-                  child: Text(service.description,
+                  child: Text(service.description!,
                       overflow: TextOverflow.clip,
                       // textAlign: TextAlign.justify,
                       // maxLines: 4,
@@ -440,10 +437,10 @@ class OrderServiceCard extends StatelessWidget {
 
 class StepperBuilder extends StatelessWidget {
   const StepperBuilder({
-    Key key,
-    @required this.currentStep,
-    @required ThemeData theme,
-    @required this.state,
+    Key? key,
+    required this.currentStep,
+    required ThemeData theme,
+    required this.state,
   })  : _theme = theme,
         super(key: key);
 
@@ -452,7 +449,7 @@ class StepperBuilder extends StatelessWidget {
   final ReservationdetailsSuccess state;
   @override
   Widget build(BuildContext context) {
-    final status = state.reservationDetails.orderStatus;
+    final status = state.reservationDetails.orderStatus!;
     return Container(
       padding: const EdgeInsets.only(top: 10),
       height: 100,
@@ -473,7 +470,8 @@ class StepperBuilder extends StatelessWidget {
                 physics: const ClampingScrollPhysics(),
                 currentStep: currentStep,
                 controlsBuilder: (BuildContext context,
-                    {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
+                    {VoidCallback? onStepContinue,
+                    VoidCallback? onStepCancel}) {
                   return Row();
                 },
                 steps: [
@@ -482,14 +480,14 @@ class StepperBuilder extends StatelessWidget {
                       'Request',
                       style: _theme.textTheme.subtitle2,
                     ),
-                    isActive: status.assent ||
-                        status.confirm ||
-                        status.done ||
-                        status.finish,
-                    state: (status.assent ||
-                            status.confirm ||
-                            status.done ||
-                            status.finish)
+                    isActive: status.assent! ||
+                        status.confirm! ||
+                        status.done! ||
+                        status.finish!,
+                    state: (status.assent! ||
+                            status.confirm! ||
+                            status.done! ||
+                            status.finish!)
                         ? StepState.complete
                         : StepState.indexed,
                     content: Container(),
@@ -499,8 +497,8 @@ class StepperBuilder extends StatelessWidget {
                       'Arrive',
                       style: _theme.textTheme.subtitle2,
                     ),
-                    isActive: status.confirm || status.done || status.finish,
-                    state: status.confirm || status.done || status.finish
+                    isActive: status.confirm! || status.done! || status.finish!,
+                    state: status.confirm! || status.done! || status.finish!
                         ? StepState.complete
                         : StepState.disabled,
                     content: Container(),
@@ -510,8 +508,8 @@ class StepperBuilder extends StatelessWidget {
                       'Complete',
                       style: _theme.textTheme.subtitle2,
                     ),
-                    isActive: status.confirm || status.done || status.finish,
-                    state: (status.confirm || status.done || status.finish)
+                    isActive: status.confirm! || status.done! || status.finish!,
+                    state: (status.confirm! || status.done! || status.finish!)
                         ? StepState.complete
                         : StepState.disabled,
                     content: Container(),
@@ -521,9 +519,9 @@ class StepperBuilder extends StatelessWidget {
                       'Reviews',
                       style: _theme.textTheme.subtitle2,
                     ),
-                    isActive: status.finish,
+                    isActive: status.finish!,
                     state:
-                        status.finish ? StepState.complete : StepState.indexed,
+                        status.finish! ? StepState.complete : StepState.indexed,
                     content: Container(),
                   ),
                 ],
@@ -538,14 +536,14 @@ class StepperBuilder extends StatelessWidget {
 
 class ReservationInfHeaderData extends StatelessWidget {
   const ReservationInfHeaderData({
-    Key key,
-    @required this.themeColor,
-    @required this.reservation,
-    @required this.currentStatus,
+    Key? key,
+    required this.themeColor,
+    required this.reservation,
+    required this.currentStatus,
   }) : super(key: key);
 
-  final Color themeColor;
-  final String currentStatus;
+  final Color? themeColor;
+  final String? currentStatus;
   final ReservationDetails reservation;
 
   @override
@@ -579,9 +577,9 @@ class ReservationInfHeaderData extends StatelessWidget {
                               color: themeColor,
                             ),
                             child: Text(
-                              currentStatus,
+                              currentStatus!,
                               textAlign: TextAlign.center,
-                              style: _theme.textTheme.bodyText1
+                              style: _theme.textTheme.bodyText1!
                                   .copyWith(height: 1.6),
                             ),
                           )),
@@ -590,7 +588,7 @@ class ReservationInfHeaderData extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
-                        "# ${reservation.orderData.orderCode}",
+                        "# ${reservation.orderData!.orderCode}",
                         style: _theme.textTheme.headline6,
                       ),
                     ),
@@ -625,13 +623,13 @@ class ReservationInfHeaderData extends StatelessWidget {
                                   // margin: EdgeInsets.all(5),
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
-                                          image: (reservation?.orderData
+                                          image: (reservation.orderData
                                                       ?.orderImageFrom !=
                                                   null)
                                               ? NetworkImage(
                                                       NetworkConstants.baseUrl +
-                                                          reservation?.orderData
-                                                              ?.orderImageFrom)
+                                                          reservation.orderData!
+                                                              .orderImageFrom!)
                                                   as ImageProvider
                                               : const AssetImage(
                                                   placeHolderCover))),
@@ -644,13 +642,13 @@ class ReservationInfHeaderData extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      reservation.orderData.orderBranch,
+                                      reservation.orderData!.orderBranch!,
                                       style: _theme.textTheme.subtitle2,
                                     ),
                                     SizedBox(
                                       width: _size.width * 0.3,
                                       child: Text(
-                                          reservation.orderData.orderAddress ??
+                                          reservation.orderData!.orderAddress ??
                                               "",
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 3,
@@ -688,10 +686,10 @@ class ReservationInfHeaderData extends StatelessWidget {
                                 selectable: false,
                                 companyEmployee: CompanyEmployee(
                                     employeeName:
-                                        reservation.orderData.employeeName,
+                                        reservation.orderData!.employeeName,
                                     employeeId:
-                                        reservation.orderData.employeeId,
-                                    image: reservation.orderData.employeeImage,
+                                        reservation.orderData!.employeeId,
+                                    image: reservation.orderData!.employeeImage,
                                     raty: 5),
                               ),
                             ),
@@ -748,12 +746,12 @@ class ReservationInfHeaderData extends StatelessWidget {
 
 class ReservationInfoHeaderLoading extends StatelessWidget {
   const ReservationInfoHeaderLoading({
-    Key key,
-    @required this.themeColor,
-    @required this.reservation,
+    Key? key,
+    required this.themeColor,
+    required this.reservation,
   }) : super(key: key);
 
-  final Color themeColor;
+  final Color? themeColor;
   final Reservation reservation;
 
   @override
@@ -788,9 +786,9 @@ class ReservationInfoHeaderLoading extends StatelessWidget {
                                 color: themeColor,
                               ),
                               child: Text(
-                                reservation.orderStatus,
+                                reservation.orderStatus!,
                                 textAlign: TextAlign.center,
-                                style: _theme.textTheme.bodyText1
+                                style: _theme.textTheme.bodyText1!
                                     .copyWith(height: 1.6),
                               ),
                             )),
@@ -835,12 +833,12 @@ class ReservationInfoHeaderLoading extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         image: DecorationImage(
                                             image: (reservation
-                                                        ?.orderImageFrom !=
+                                                        .orderImageFrom !=
                                                     null)
                                                 ? NetworkImage(NetworkConstants
                                                             .baseUrl +
                                                         reservation
-                                                            .orderImageFrom)
+                                                            .orderImageFrom!)
                                                     as ImageProvider
                                                 : const AssetImage(
                                                     placeHolderCover))),
@@ -854,7 +852,7 @@ class ReservationInfoHeaderLoading extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        reservation.orderFrom,
+                                        reservation.orderFrom!,
                                         style: _theme.textTheme.subtitle2,
                                       ),
                                       SizedBox(

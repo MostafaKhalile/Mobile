@@ -1,20 +1,20 @@
 import 'package:equatable/equatable.dart';
 
 class OrderDateTime extends Equatable {
-  final bool open;
-  final int n;
-  final int ss;
-  final String nowTime;
-  final String startTime;
-  final String startOrder;
-  final String startOrderTime;
-  final String endOrderTime;
-  final String dayAr;
-  final String dayEn;
-  final int day;
-  final int month;
-  final String date;
-  final List<dynamic> orderTimes;
+  final bool? open;
+  final int? n;
+  final int? ss;
+  final String? nowTime;
+  final String? startTime;
+  final String? startOrder;
+  final String? startOrderTime;
+  final String? endOrderTime;
+  final String? dayAr;
+  final String? dayEn;
+  final int? day;
+  final int? month;
+  final String? date;
+  final List<dynamic>? orderTimes;
 
   const OrderDateTime({
     this.open,
@@ -34,20 +34,20 @@ class OrderDateTime extends Equatable {
   });
 
   factory OrderDateTime.fromJson(Map<String, dynamic> json) => OrderDateTime(
-        open: json['Open'] as bool,
-        n: json['N'] as int,
-        ss: json['ss'] as int,
-        nowTime: json['NowTime'] as String,
-        startTime: json['StartTime'] as String,
-        startOrder: json['StartOrder'] as String,
-        startOrderTime: json['StartOrderTime'] as String,
-        endOrderTime: json['EndOrderTime'] as String,
-        dayAr: json['DayAR'] as String,
-        dayEn: json['DayEN'] as String,
-        day: json['Day'] as int,
-        month: json['Month'] as int,
-        date: json['Date'] as String,
-        orderTimes: json['OrderTimes'] as List<dynamic>,
+        open: json['Open'] as bool?,
+        n: json['N'] as int?,
+        ss: json['ss'] as int?,
+        nowTime: json['NowTime'] as String?,
+        startTime: json['StartTime'] as String?,
+        startOrder: json['StartOrder'] as String?,
+        startOrderTime: json['StartOrderTime'] as String?,
+        endOrderTime: json['EndOrderTime'] as String?,
+        dayAr: json['DayAR'] as String?,
+        dayEn: json['DayEN'] as String?,
+        day: json['Day'] as int?,
+        month: json['Month'] as int?,
+        date: json['Date'] as String?,
+        orderTimes: json['OrderTimes'] as List<dynamic>?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -68,20 +68,20 @@ class OrderDateTime extends Equatable {
       };
 
   OrderDateTime copyWith({
-    bool open,
-    int n,
-    int ss,
-    String nowTime,
-    String startTime,
-    String startOrder,
-    String startOrderTime,
-    String endOrderTime,
-    String dayAr,
-    String dayEn,
-    int day,
-    int month,
-    String date,
-    List<String> orderTimes,
+    bool? open,
+    int? n,
+    int? ss,
+    String? nowTime,
+    String? startTime,
+    String? startOrder,
+    String? startOrderTime,
+    String? endOrderTime,
+    String? dayAr,
+    String? dayEn,
+    int? day,
+    int? month,
+    String? date,
+    List<String>? orderTimes,
   }) {
     return OrderDateTime(
       open: open ?? this.open,
@@ -105,7 +105,7 @@ class OrderDateTime extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       open,
       n,

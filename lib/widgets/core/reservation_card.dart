@@ -11,13 +11,13 @@ import 'package:techtime/Screens/Core/ReservationsScreen/reservation_details.dar
 
 class ReservationCard extends StatefulWidget {
   // final Order order;
-  final double duration;
-  final int index;
-  final int statusCode;
-  final Reservation reservation;
+  final double? duration;
+  final int? index;
+  final int? statusCode;
+  final Reservation? reservation;
 
   const ReservationCard(
-      {Key key,
+      {Key? key,
       // this.order,
       this.duration,
       this.index,
@@ -30,32 +30,28 @@ class ReservationCard extends StatefulWidget {
 }
 
 class _ReservationCardState extends State<ReservationCard> {
-  Color themeColor;
-  double start;
-  double end;
-  Locale locale;
-  Color getThemeColor(String status) {
+  Color? themeColor;
+  double? start;
+  double? end;
+  Locale? locale;
+  Color? getThemeColor(String status) {
     switch (status) {
       case "Acceptable": //مؤكد من الأدمن
         {
           return AppColors.secondryColor;
         }
-        break;
       case "Processing": //مؤكد من الأدمن
         {
           return Colors.green[800];
         }
-        break;
       case "Pending..": //مؤكد من الأدمن
         {
           return AppColors.pendingColor;
         }
-        break;
       case "complete": //مؤكد من الأدمن
         {
           return AppColors.doneColor;
         }
-        break;
     }
     return Colors.grey;
   }
@@ -65,7 +61,7 @@ class _ReservationCardState extends State<ReservationCard> {
     locale = BlocProvider.of<LocaleCubit>(context).state.locale;
     final ThemeData _theme = Theme.of(context);
     final double width = MediaQuery.of(context).size.width;
-    final Reservation reservation = (widget.reservation != null)
+    final Reservation? reservation = (widget.reservation != null)
         ? widget.reservation
         : const Reservation(orderCode: "1234");
     return GestureDetector(
@@ -89,7 +85,7 @@ class _ReservationCardState extends State<ReservationCard> {
                   0.03,
                   0.03
                 ], colors: [
-                  getThemeColor(reservation?.orderStatus ?? ""),
+                  getThemeColor(reservation?.orderStatus ?? "")!,
                   Colors.black
                 ]),
                 borderRadius: const BorderRadius.all(Radius.circular(10.0))),
@@ -117,7 +113,7 @@ class _ReservationCardState extends State<ReservationCard> {
                             child: Text(
                               reservation?.orderStatus ?? "",
                               textAlign: TextAlign.center,
-                              style: _theme.textTheme.bodyText1
+                              style: _theme.textTheme.bodyText1!
                                   .copyWith(height: 1.6),
                             ),
                           )),
@@ -150,8 +146,8 @@ class _ReservationCardState extends State<ReservationCard> {
                                                   null)
                                               ? NetworkImage(
                                                       NetworkConstants.baseUrl +
-                                                          reservation
-                                                              .orderImageFrom)
+                                                          reservation!
+                                                              .orderImageFrom!)
                                                   as ImageProvider
                                               : const AssetImage(
                                                   placeHolderCover)),
@@ -248,7 +244,7 @@ class _ReservationCardState extends State<ReservationCard> {
                               ),
                               Expanded(
                                 child: Text(
-                                  '${reservation?.orderFromTotalOrder ?? ''} - ${reservation?.orderToTotalOrder ?? ''} ${AppLocalizations.of(context).translate('EGP')}',
+                                  '${reservation?.orderFromTotalOrder ?? ''} - ${reservation?.orderToTotalOrder ?? ''} ${AppLocalizations.of(context)!.translate('EGP')}',
                                   style: _theme.textTheme.caption,
                                 ),
                               ),
@@ -270,7 +266,7 @@ class _ReservationCardState extends State<ReservationCard> {
     );
   }
 
-  TimeOfDay getTimePeriods(String time) {
+  TimeOfDay getTimePeriods(String? time) {
     final TimeOfDay interval = TimeOfDay(
         hour: int.parse(time.toString().split(":")[0]),
         minute: int.parse(time.toString().split(":")[1]));

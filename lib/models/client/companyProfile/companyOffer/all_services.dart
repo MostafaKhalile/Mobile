@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 
 class AllServices extends Equatable {
-  final int servicesId;
-  final String servicesNameAr;
-  final String servicesNameEn;
+  final int? servicesId;
+  final String? servicesNameAr;
+  final String? servicesNameEn;
   final dynamic imageService;
-  final int servicesPriceFrom;
-  final int servicesPriceTo;
-  final int servicesFullTime;
-  final String servicesDescription;
+  final int? servicesPriceFrom;
+  final int? servicesPriceTo;
+  final int? servicesFullTime;
+  final String? servicesDescription;
 
   const AllServices({
     this.servicesId,
@@ -22,14 +22,14 @@ class AllServices extends Equatable {
   });
 
   factory AllServices.fromJson(Map<String, dynamic> json) => AllServices(
-        servicesId: json['ServicesID'] as int,
-        servicesNameAr: json['ServicesNameAR'] as String,
-        servicesNameEn: json['ServicesNameEN'] as String,
+        servicesId: json['ServicesID'] as int?,
+        servicesNameAr: json['ServicesNameAR'] as String?,
+        servicesNameEn: json['ServicesNameEN'] as String?,
         imageService: json['ImageService'],
-        servicesPriceFrom: json['ServicesPriceFrom'] as int,
-        servicesPriceTo: json['ServicesPriceTo'] as int,
-        servicesFullTime: json['ServicesFullTime'] as int,
-        servicesDescription: json['ServicesDescription'] as String,
+        servicesPriceFrom: json['ServicesPriceFrom'] as int?,
+        servicesPriceTo: json['ServicesPriceTo'] as int?,
+        servicesFullTime: json['ServicesFullTime'] as int?,
+        servicesDescription: json['ServicesDescription'] as String?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -44,14 +44,14 @@ class AllServices extends Equatable {
       };
 
   AllServices copyWith({
-    int servicesId,
-    String servicesNameAr,
-    String servicesNameEn,
+    int? servicesId,
+    String? servicesNameAr,
+    String? servicesNameEn,
     dynamic imageService,
-    int servicesPriceFrom,
-    int servicesPriceTo,
-    int servicesFullTime,
-    String servicesDescription,
+    int? servicesPriceFrom,
+    int? servicesPriceTo,
+    int? servicesFullTime,
+    String? servicesDescription,
   }) {
     return AllServices(
       servicesId: servicesId ?? this.servicesId,
@@ -69,7 +69,7 @@ class AllServices extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       servicesId,
       servicesNameAr,

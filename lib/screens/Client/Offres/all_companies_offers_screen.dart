@@ -15,21 +15,21 @@ class OffersScreen extends StatefulWidget {
 class OffersScreenState extends State<OffersScreen> {
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.black),
         title: Text(
-          _translator.translate("offers"),
+          _translator.translate("offers")!,
           style: Theme.of(context)
               .textTheme
-              .headline6
+              .headline6!
               .copyWith(color: Colors.black),
         ),
       ),
       body: BlocBuilder<CompanyoffersBloc, CompanyoffersState>(
         builder: (context, state) {
-          Widget widget;
+          late Widget widget;
           if (state is CompanyoffersSuccess) {
             widget = ListView.builder(
                 padding: const EdgeInsets.all(

@@ -6,12 +6,12 @@ import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/category.dart';
 
 class TitleImageCard extends StatelessWidget {
-  final Category category;
+  final Category? category;
   final double height;
   const TitleImageCard({
-    Key key,
+    Key? key,
     this.category,
-    @required this.height,
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -36,7 +36,7 @@ class TitleImageCard extends StatelessWidget {
                   const BorderRadius.all(Radius.circular(defaultRadius)),
               image: DecorationImage(
                   image: category?.image != null
-                      ? NetworkImage(NetworkConstants.baseUrl + category.image)
+                      ? NetworkImage(NetworkConstants.baseUrl + category!.image!)
                           as ImageProvider
                       : const AssetImage(placeHolderImage),
                   colorFilter: ColorFilter.mode(

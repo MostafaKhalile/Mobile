@@ -20,9 +20,8 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
       yield WalletTotalDataLoading();
       try {
         final result = await _userRepo.getWalletTotalData();
-        if (result != null) {
-          yield WalletTotalDataSucceded(result);
-        } else {}
+
+        yield WalletTotalDataSucceded(result);
       } catch (e) {
         print(e.toString());
         yield WalletTotalDataFailed(e.toString());

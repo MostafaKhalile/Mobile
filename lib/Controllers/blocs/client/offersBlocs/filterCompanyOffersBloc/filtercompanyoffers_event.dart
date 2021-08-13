@@ -8,7 +8,7 @@ abstract class FiltercompanyoffersEvent extends Equatable {
 }
 
 class FilterCompanyOffers extends FiltercompanyoffersEvent {
-  final int id;
+  final int? id;
 
   const FilterCompanyOffers(this.id);
 }

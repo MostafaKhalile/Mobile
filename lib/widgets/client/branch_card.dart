@@ -3,22 +3,22 @@ import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/app_colors.dart';
 
 class BranchCard extends StatelessWidget {
-  final String title;
-  final String address;
-  final String image;
-  final double rating;
-  final VoidCallback onPressed;
+  final String? title;
+  final String? address;
+  final String? image;
+  final double? rating;
+  final VoidCallback? onPressed;
   final bool isSelectable;
-  final bool isSelected;
+  final bool? isSelected;
 
   const BranchCard({
-    Key key,
+    Key? key,
     this.title,
     this.address,
     this.image,
     this.rating,
     this.onPressed,
-    @required this.isSelectable,
+    required this.isSelectable,
     this.isSelected,
   }) : super(key: key);
 
@@ -52,7 +52,7 @@ class BranchCard extends StatelessWidget {
                     decoration: image != null
                         ? BoxDecoration(
                             image: DecorationImage(
-                                fit: BoxFit.fill, image: NetworkImage(image)),
+                                fit: BoxFit.fill, image: NetworkImage(image!)),
                             borderRadius: const BorderRadius.all(
                               Radius.circular(10),
                             ))
@@ -67,7 +67,7 @@ class BranchCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          title,
+                          title!,
                           style: _theme.textTheme.subtitle1,
                         ),
                         // Row(

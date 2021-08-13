@@ -15,7 +15,7 @@ import 'package:techtime/Widgets/client/custom_circle_avatar.dart';
 
 class ProfileCoverAndImage extends StatefulWidget {
   const ProfileCoverAndImage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -33,7 +33,7 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
 
   @override
   Widget build(BuildContext context) {
-    final UserProfile userData =
+    final UserProfile? userData =
         context.watch<CurrentUserProvider>().currentUser;
     final ThemeData _theme = Theme.of(context);
 
@@ -219,7 +219,7 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
     return image;
   }
 
-  Future<File> _showPicker(BuildContext context) {
+  Future<File?> _showPicker(BuildContext context) {
     return showModalBottomSheet<File>(
         context: context,
         builder: (BuildContext bc) {
@@ -229,8 +229,8 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
                 children: <Widget>[
                   ListTile(
                       leading: const Icon(Icons.photo_library),
-                      title: Text(AppLocalizations.of(context)
-                          .translate("photo_gallery")),
+                      title: Text(AppLocalizations.of(context)!
+                          .translate("photo_gallery")!),
                       onTap: () async {
                         final File image = await _imgFromGallery();
                         Navigator.pop(context, image);
@@ -238,7 +238,7 @@ class _ProfileCoverAndImageState extends State<ProfileCoverAndImage> {
                   ListTile(
                     leading: const Icon(Icons.photo_camera),
                     title:
-                        Text(AppLocalizations.of(context).translate("camera")),
+                        Text(AppLocalizations.of(context)!.translate("camera")!),
                     onTap: () async {
                       final File image = await _imgFromCamera();
                       Navigator.pop(context, image);

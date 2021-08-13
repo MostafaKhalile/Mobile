@@ -6,12 +6,12 @@ import 'info_card_title.dart';
 
 class BranchWorkingHours extends StatelessWidget {
   const BranchWorkingHours({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context)!;
     final Size _size = MediaQuery.of(context).size;
     return SizedBox(
         width: _size.width,
@@ -35,11 +35,11 @@ class BranchWorkingHours extends StatelessWidget {
 }
 
 class WorkingDayHours extends StatelessWidget {
-  final String day;
-  final String start;
-  final String end;
+  final String? day;
+  final String? start;
+  final String? end;
   const WorkingDayHours({
-    Key key,
+    Key? key,
     this.day,
     this.start,
     this.end,
@@ -54,20 +54,20 @@ class WorkingDayHours extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            day,
-            style: _theme.textTheme.subtitle1
+            day!,
+            style: _theme.textTheme.subtitle1!
                 .copyWith(fontWeight: FontWeight.bold),
           ),
           const Spacer(),
           Text(
-            start,
-            style: _theme.textTheme.subtitle1
+            start!,
+            style: _theme.textTheme.subtitle1!
                 .copyWith(fontWeight: FontWeight.bold),
           ),
           const Text("\t ــ \t"),
           Text(
-            end,
-            style: _theme.textTheme.subtitle1
+            end!,
+            style: _theme.textTheme.subtitle1!
                 .copyWith(fontWeight: FontWeight.bold),
           ),
         ],

@@ -24,9 +24,7 @@ class FiltercompanyoffersBloc
       try {
         final CompanyOffers companyOffers =
             await _offersRepo.filterOffersCompany(event.id);
-        if (companyOffers != null) {
-          yield FiltercompanyoffersSuccess(companyOffers);
-        }
+        yield FiltercompanyoffersSuccess(companyOffers);
       } catch (e) {
         print(e.toString());
       }

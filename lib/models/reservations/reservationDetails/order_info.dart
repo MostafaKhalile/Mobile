@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 
 class OrderInfo extends Equatable {
-  final int totalService;
-  final int orderFromTotal;
-  final int orderToTotal;
-  final int orderTotal;
-  final int orderResidual;
-  final int orderPaidUp;
-  final String orderOrderDate;
-  final String orderOrderTime;
+  final int? totalService;
+  final int? orderFromTotal;
+  final int? orderToTotal;
+  final int? orderTotal;
+  final int? orderResidual;
+  final int? orderPaidUp;
+  final String? orderOrderDate;
+  final String? orderOrderTime;
   final dynamic orderTwoOrderDate;
   final dynamic orderTwoOrderTime;
 
@@ -26,14 +26,14 @@ class OrderInfo extends Equatable {
   });
 
   factory OrderInfo.fromJson(Map<String, dynamic> json) => OrderInfo(
-        totalService: json['TotalService'] as int,
-        orderFromTotal: json['OrderFromTotal'] as int,
-        orderToTotal: json['OrderToTotal'] as int,
-        orderTotal: json['OrderTotal'] as int,
-        orderResidual: json['OrderResidual'] as int,
-        orderPaidUp: json['OrderPaidUp'] as int,
-        orderOrderDate: json['OrderOrderDate'] as String,
-        orderOrderTime: json['OrderOrderTime'] as String,
+        totalService: json['TotalService'] as int?,
+        orderFromTotal: json['OrderFromTotal'] as int?,
+        orderToTotal: json['OrderToTotal'] as int?,
+        orderTotal: json['OrderTotal'] as int?,
+        orderResidual: json['OrderResidual'] as int?,
+        orderPaidUp: json['OrderPaidUp'] as int?,
+        orderOrderDate: json['OrderOrderDate'] as String?,
+        orderOrderTime: json['OrderOrderTime'] as String?,
         orderTwoOrderDate: json['OrderTwoOrderDate'],
         orderTwoOrderTime: json['OrderTwoOrderTime'],
       );
@@ -52,14 +52,14 @@ class OrderInfo extends Equatable {
       };
 
   OrderInfo copyWith({
-    int totalService,
-    int orderFromTotal,
-    int orderToTotal,
-    int orderTotal,
-    int orderResidual,
-    int orderPaidUp,
-    String orderOrderDate,
-    String orderOrderTime,
+    int? totalService,
+    int? orderFromTotal,
+    int? orderToTotal,
+    int? orderTotal,
+    int? orderResidual,
+    int? orderPaidUp,
+    String? orderOrderDate,
+    String? orderOrderTime,
     dynamic orderTwoOrderDate,
     dynamic orderTwoOrderTime,
   }) {
@@ -81,7 +81,7 @@ class OrderInfo extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       totalService,
       orderFromTotal,

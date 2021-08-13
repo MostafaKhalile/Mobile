@@ -2,10 +2,10 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class Category {
-  final int categoryId;
-  final String categoryAr;
-  final String categoryEn;
-  final String image;
+  final int? categoryId;
+  final String? categoryAr;
+  final String? categoryEn;
+  final String? image;
 
   const Category({
     this.categoryId,
@@ -16,10 +16,10 @@ class Category {
 
   factory Category.fromJson(Map<String, dynamic> json) {
     return Category(
-      categoryId: json['CategoryID'] as int,
-      categoryAr: json['CategoryAR'] as String,
-      categoryEn: json['CategoryEN'] as String,
-      image: json['Image'] as String,
+      categoryId: json['CategoryID'] as int?,
+      categoryAr: json['CategoryAR'] as String?,
+      categoryEn: json['CategoryEN'] as String?,
+      image: json['Image'] as String?,
     );
   }
 

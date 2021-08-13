@@ -54,8 +54,8 @@ class _LoginPageState extends State<LoginPage> {
                       vertical: defaultPadding * 1.5),
                   child: Row(
                     children: [
-                      Text(AppLocalizations.of(context).translate('login'),
-                          style: Theme.of(context).textTheme.headline4.copyWith(
+                      Text(AppLocalizations.of(context)!.translate('login')!,
+                          style: Theme.of(context).textTheme.headline4!.copyWith(
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black,
                               )),
@@ -74,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                         indent: 50,
                       )),
                       Text("OR",
-                          style: Theme.of(context).textTheme.subtitle1.copyWith(
+                          style: Theme.of(context).textTheme.subtitle1!.copyWith(
                               color: Colors.black,
                               fontWeight: FontWeight.bold)),
                       const Expanded(
@@ -125,9 +125,9 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () => Navigator.pushNamed(
                             context, EmailForgetPassword.routeName),
                         child: Text(
-                          AppLocalizations.of(context)
-                              .translate('forgotPassword'),
-                          style: Theme.of(context).textTheme.subtitle1.copyWith(
+                          AppLocalizations.of(context)!
+                              .translate('forgotPassword')!,
+                          style: Theme.of(context).textTheme.subtitle1!.copyWith(
                               color: Colors.black, fontWeight: FontWeight.w700),
                         ),
                       ),
@@ -135,11 +135,11 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () => Navigator.pushNamed(
                               context, ClientSignupPage.routeName),
                           child: Text(
-                              AppLocalizations.of(context)
-                                  .translate('newAccount'),
+                              AppLocalizations.of(context)!
+                                  .translate('newAccount')!,
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1
+                                  .subtitle1!
                                   .copyWith(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w700))),

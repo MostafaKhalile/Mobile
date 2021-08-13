@@ -22,19 +22,19 @@ import 'components/profile_text_field.dart';
 class ProfileEdit extends StatefulWidget {
   static const String routeName = "/profile_edit";
 
-  const ProfileEdit({Key key}) : super(key: key);
+  const ProfileEdit({Key? key}) : super(key: key);
   @override
   _ProfileEditState createState() => _ProfileEditState();
 }
 
 class _ProfileEditState extends State<ProfileEdit> {
-  UserProfile _userProfile;
+  UserProfile? _userProfile;
   final CustomDialog _dialog = CustomDialog();
   final CustomToast _customToast = CustomToast();
-  TextEditingController _firstNameController;
-  TextEditingController _lastNameController;
-  TextEditingController _emailController;
-  TextEditingController _mobileController;
+  TextEditingController? _firstNameController;
+  TextEditingController? _lastNameController;
+  TextEditingController? _emailController;
+  TextEditingController? _mobileController;
   final TextEditingController _passwordController =
       TextEditingController(text: "Password");
 
@@ -43,13 +43,13 @@ class _ProfileEditState extends State<ProfileEdit> {
     _userProfile =
         Provider.of<CurrentUserProvider>(context, listen: false).currentUser;
     _firstNameController =
-        TextEditingController(text: _userProfile.firstName ?? "FirstName");
+        TextEditingController(text: _userProfile!.firstName ?? "FirstName");
     _lastNameController =
-        TextEditingController(text: _userProfile.lastName ?? "LastName");
+        TextEditingController(text: _userProfile!.lastName ?? "LastName");
     _emailController =
-        TextEditingController(text: _userProfile.email ?? "email");
+        TextEditingController(text: _userProfile!.email ?? "email");
     _mobileController =
-        TextEditingController(text: _userProfile.mobile.toString() ?? "mobile");
+        TextEditingController(text: _userProfile!.mobile.toString());
     super.initState();
   }
 
@@ -101,11 +101,10 @@ class _ProfileEditState extends State<ProfileEdit> {
                                       );
                                     } else {
                                       return SuffixTextButton(
-                                        onPressed: () =>
-                                            BlocProvider.of<EditfirstnameBloc>(
-                                                    context)
-                                                .add(EditFirstName(
-                                                    _firstNameController.text)),
+                                        onPressed: () => BlocProvider.of<
+                                                EditfirstnameBloc>(context)
+                                            .add(EditFirstName(
+                                                _firstNameController!.text)),
                                       );
                                     }
                                   },
@@ -139,7 +138,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                                             BlocProvider.of<EditLastnameBloc>(
                                                     context)
                                                 .add(EditLastName(
-                                                    _lastNameController.text)),
+                                                    _lastNameController!.text)),
                                       );
                                     }
                                   },
@@ -171,7 +170,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                                         onPressed: () => BlocProvider.of<
                                                 EditemailaddressBloc>(context)
                                             .add(EditEmailAddress(
-                                                _emailController.text)),
+                                                _emailController!.text)),
                                       );
                                     }
                                   },
@@ -205,7 +204,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                                             BlocProvider.of<EditmobileBloc>(
                                                     context)
                                                 .add(EditMobile(
-                                                    _mobileController.text)),
+                                                    _mobileController!.text)),
                                       );
                                     }
                                   },
@@ -263,27 +262,27 @@ class _ProfileEditState extends State<ProfileEdit> {
   SuffixTextButton buildFirstNameInitial(BuildContext context) {
     return SuffixTextButton(
       onPressed: () => BlocProvider.of<EditfirstnameBloc>(context)
-          .add(EditFirstName(_firstNameController.text)),
+          .add(EditFirstName(_firstNameController!.text)),
     );
   }
 }
 
 class SuffixTextButton extends StatelessWidget {
   const SuffixTextButton({
-    Key key,
-    @required this.onPressed,
+    Key? key,
+    required this.onPressed,
   }) : super(key: key);
   final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context)!;
     final ThemeData _theme = Theme.of(context);
 
     return TextButton(
         onPressed: onPressed,
         child: Text(
-          _translator.translate("update"),
-          style: _theme.textTheme.button.copyWith(fontSize: 12),
+          _translator.translate("update")!,
+          style: _theme.textTheme.button!.copyWith(fontSize: 12),
         ));
   }
 }

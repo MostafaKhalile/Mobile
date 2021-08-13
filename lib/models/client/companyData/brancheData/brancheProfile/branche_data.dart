@@ -1,17 +1,17 @@
 import 'package:equatable/equatable.dart';
 
 class BrancheData extends Equatable {
-  final int companyId;
+  final int? companyId;
   final dynamic raty;
-  final int brancheId;
-  final String brancheName;
-  final String companyImage;
-  final String branchAddressAr;
-  final String branchAddressEn;
-  final String longitude;
-  final String latitude;
-  final bool favorite;
-  final int totalBranches;
+  final int? brancheId;
+  final String? brancheName;
+  final String? companyImage;
+  final String? branchAddressAr;
+  final String? branchAddressEn;
+  final String? longitude;
+  final String? latitude;
+  final bool? favorite;
+  final int? totalBranches;
 
   const BrancheData({
     this.companyId,
@@ -29,17 +29,17 @@ class BrancheData extends Equatable {
 
   factory BrancheData.fromJson(Map<String, dynamic> json) {
     return BrancheData(
-      companyId: json['CompanyID'] as int,
+      companyId: json['CompanyID'] as int?,
       raty: json['raty'] as dynamic,
-      brancheId: json['BrancheID'] as int,
-      brancheName: json['BrancheName'] as String,
-      companyImage: json['CompanyImage'] as String,
-      branchAddressAr: json['BranchAddressAR'] as String,
-      branchAddressEn: json['BranchAddressEN'] as String,
-      longitude: json['Longitude'] as String,
-      latitude: json['Latitude'] as String,
-      favorite: json['Favorite'] as bool,
-      totalBranches: json['TotalBranches'] as int,
+      brancheId: json['BrancheID'] as int?,
+      brancheName: json['BrancheName'] as String?,
+      companyImage: json['CompanyImage'] as String?,
+      branchAddressAr: json['BranchAddressAR'] as String?,
+      branchAddressEn: json['BranchAddressEN'] as String?,
+      longitude: json['Longitude'] as String?,
+      latitude: json['Latitude'] as String?,
+      favorite: json['Favorite'] as bool?,
+      totalBranches: json['TotalBranches'] as int?,
     );
   }
 
@@ -60,17 +60,17 @@ class BrancheData extends Equatable {
   }
 
   BrancheData copyWith({
-    int companyId,
-    int raty,
-    int brancheId,
-    String brancheName,
-    String companyImage,
-    String branchAddressAr,
-    String branchAddressEn,
-    String longitude,
-    String latitude,
-    bool favorite,
-    int totalBranches,
+    int? companyId,
+    int? raty,
+    int? brancheId,
+    String? brancheName,
+    String? companyImage,
+    String? branchAddressAr,
+    String? branchAddressEn,
+    String? longitude,
+    String? latitude,
+    bool? favorite,
+    int? totalBranches,
   }) {
     return BrancheData(
       companyId: companyId ?? this.companyId,
@@ -91,7 +91,7 @@ class BrancheData extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       companyId,
       raty,

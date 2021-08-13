@@ -6,16 +6,16 @@ import 'package:techtime/Models/client/offers/company_offers.dart';
 
 class ServiceInfoCard extends StatelessWidget {
   const ServiceInfoCard({
-    Key key,
+    Key? key,
     this.service,
   }) : super(key: key);
-  final Service service;
+  final Service? service;
 
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
     final ThemeData _theme = Theme.of(context);
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context)!;
     return Card(
         color: _theme.scaffoldBackgroundColor,
         margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -35,7 +35,7 @@ class ServiceInfoCard extends StatelessWidget {
                       image: DecorationImage(
                           image: (service?.imageService != null)
                               ? NetworkImage(NetworkConstants.baseUrl +
-                                  service?.imageService) as ImageProvider
+                                  service!.imageService!) as ImageProvider
                               : const AssetImage(placeHolderImage)),
                       borderRadius: BorderRadius.circular(defaultRadius)),
                 ),
@@ -44,7 +44,7 @@ class ServiceInfoCard extends StatelessWidget {
                     Expanded(
                       child: RichText(
                         text: TextSpan(
-                          text: service.servicesNameAr,
+                          text: service!.servicesNameAr,
                           style: _theme.textTheme.subtitle2,
                         ),
                       ),
@@ -53,7 +53,7 @@ class ServiceInfoCard extends StatelessWidget {
                 ]),
                 subtitle: SizedBox(
                   width: _size.width * 0.15,
-                  child: Text(service.servicesDescription,
+                  child: Text(service!.servicesDescription!,
                       overflow: TextOverflow.clip,
                       // textAlign: TextAlign.justify,
                       // maxLines: 4,
@@ -61,11 +61,11 @@ class ServiceInfoCard extends StatelessWidget {
                 ),
                 trailing: Column(children: [
                   Text(
-                    '${service.servicesPriceFrom} - ${service.servicesPriceTo} ${_translator.translate('EGP')}',
+                    '${service!.servicesPriceFrom} - ${service!.servicesPriceTo} ${_translator.translate('EGP')}',
                     style: _theme.textTheme.caption,
                   ),
                   Text(
-                    '${service.servicesFullTime} ${_translator.translate('minute')}',
+                    '${service!.servicesFullTime} ${_translator.translate('minute')}',
                     style: _theme.textTheme.caption,
                   ),
                 ]),

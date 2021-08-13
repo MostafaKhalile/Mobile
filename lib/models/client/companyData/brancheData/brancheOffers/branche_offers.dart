@@ -3,14 +3,14 @@ import 'package:equatable/equatable.dart';
 import 'all_services.dart';
 
 class BrancheOffer extends Equatable {
-  final int offerId;
-  final String offerName;
-  final String offerImage;
-  final int totalServices;
-  final bool available;
-  final int price;
-  final int fullTime;
-  final List<AllServices> allServices;
+  final int? offerId;
+  final String? offerName;
+  final String? offerImage;
+  final int? totalServices;
+  final bool? available;
+  final int? price;
+  final int? fullTime;
+  final List<AllServices?>? allServices;
 
   const BrancheOffer({
     this.offerId,
@@ -24,18 +24,18 @@ class BrancheOffer extends Equatable {
   });
 
   factory BrancheOffer.fromJson(Map<String, dynamic> json) => BrancheOffer(
-        offerId: json['OfferId'] as int,
-        offerName: json['OfferName'] as String,
-        offerImage: json['OfferImage'] as String,
-        totalServices: json['TotalServices'] as int,
-        available: json['Available'] as bool,
-        price: json['Price'] as int,
-        fullTime: json['FullTime'] as int,
-        allServices: (json['AllServices'] as List<dynamic>)
+        offerId: json['OfferId'] as int?,
+        offerName: json['OfferName'] as String?,
+        offerImage: json['OfferImage'] as String?,
+        totalServices: json['TotalServices'] as int?,
+        available: json['Available'] as bool?,
+        price: json['Price'] as int?,
+        fullTime: json['FullTime'] as int?,
+        allServices: (json['AllServices'] as List<dynamic>?)
             ?.map((e) => e == null
                 ? null
                 : AllServices.fromJson(e as Map<String, dynamic>))
-            ?.toList(),
+            .toList(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -46,18 +46,18 @@ class BrancheOffer extends Equatable {
         'Available': available,
         'Price': price,
         'FullTime': fullTime,
-        'AllServices': allServices?.map((e) => e?.toJson())?.toList(),
+        'AllServices': allServices?.map((e) => e?.toJson()).toList(),
       };
 
   BrancheOffer copyWith({
-    int offerId,
-    String offerName,
-    String offerImage,
-    int totalServices,
-    bool available,
-    int price,
-    int fullTime,
-    List<AllServices> allServices,
+    int? offerId,
+    String? offerName,
+    String? offerImage,
+    int? totalServices,
+    bool? available,
+    int? price,
+    int? fullTime,
+    List<AllServices>? allServices,
   }) {
     return BrancheOffer(
       offerId: offerId ?? this.offerId,
@@ -75,7 +75,7 @@ class BrancheOffer extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       offerId,
       offerName,

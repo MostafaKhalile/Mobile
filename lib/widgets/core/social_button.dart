@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 
 class SocialButton extends StatelessWidget {
-  final double width;
-  final double height;
-  final Widget child;
-  final Color backgroundColor;
+  final double? width;
+  final double? height;
+  final Widget? child;
+  final Color? backgroundColor;
   const SocialButton({
     this.width,
     this.height,

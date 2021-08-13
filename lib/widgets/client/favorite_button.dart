@@ -3,16 +3,17 @@ import 'package:like_button/like_button.dart';
 import 'package:techtime/Helpers/app_colors.dart';
 
 class FavoriteButton extends StatelessWidget {
-  const FavoriteButton({Key key, this.buttonSize, this.isFavorite, this.onTap})
+  const FavoriteButton(
+      {Key? key, this.buttonSize, required this.isFavorite, this.onTap})
       : super(key: key);
-  final double buttonSize;
+  final double? buttonSize;
   final bool isFavorite;
-  final Future<bool> Function(bool) onTap;
+  final Future<bool?> Function(bool)? onTap;
 
   @override
   Widget build(BuildContext context) {
     return LikeButton(
-      size: buttonSize,
+      size: buttonSize!,
       circleColor: const CircleColor(
           start: AppColors.primaryColor, end: AppColors.errorColor),
       bubblesColor: const BubblesColor(
@@ -26,7 +27,7 @@ class FavoriteButton extends StatelessWidget {
           size: buttonSize,
         );
       },
-      onTap: onTap,
+      onTap: onTap as Future<bool> Function(bool)?,
       isLiked: isFavorite,
     );
   }

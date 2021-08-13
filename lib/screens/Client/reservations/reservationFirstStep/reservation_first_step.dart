@@ -24,15 +24,15 @@ import 'package:techtime/widgets/core/vertical_gab.dart';
 
 class ReservationFirstStep extends StatefulWidget {
   static const String routeName = "/order_first_step";
-  final List<CompanyBranche> companyBranches;
-  final int branchID;
-  final ReservationType reservationType;
+  final List<CompanyBranche>? companyBranches;
+  final int? branchID;
+  final ReservationType? reservationType;
 
   const ReservationFirstStep(
-      {Key key,
+      {Key? key,
       this.companyBranches,
       this.branchID,
-      @required this.reservationType})
+      required this.reservationType})
       : super(key: key);
 
   @override
@@ -42,20 +42,21 @@ class ReservationFirstStep extends StatefulWidget {
 class ReservationFirstStepState extends State<ReservationFirstStep> {
   final CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
   DateTime _focusedDay = DateTime.now();
-  DateTime _selectedDay;
-  OrderDateTime _selecteOrderdDay;
-  String _selecteOrderTime;
-  List<String> holidays = [];
+  DateTime? _selectedDay;
+  OrderDateTime? _selecteOrderdDay;
+  String? _selecteOrderTime;
+  List<String?> holidays = [];
   List<String> availableTimes = [];
 
-  int _selectedBranch;
-  int _selectedtime;
-  int _selectedEmployee;
-  Locale locale;
+  int? _selectedBranch;
+  int? _selectedtime;
+  int? _selectedEmployee;
+  Locale? locale;
   @override
   void initState() {
     initializeReservationProcess();
-
+    print(
+        "check ${widget.branchID} ${widget.companyBranches?.length} ${widget.reservationType}");
     locale = BlocProvider.of<LocaleCubit>(context).state.locale;
     super.initState();
   }
@@ -63,21 +64,21 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
   void initializeReservationProcess() {
     {
       if (widget.reservationType == ReservationType.service) {
-        if (widget.companyBranches.length == 1) {
-          chooseBranch(context, widget.companyBranches[0].brancheID);
+        if (widget.companyBranches!.length == 1) {
+          chooseBranch(context, widget.companyBranches![0].brancheID);
         }
         BlocProvider.of<BrancheemployeesBloc>(context)
-            .add(GetBrancheEmployees(widget.companyBranches[0].brancheID));
+            .add(GetBrancheEmployees(widget.companyBranches![0].brancheID));
       } else {
         BlocProvider.of<BrancheemployeesBloc>(context)
             .add(GetBrancheEmployees(widget.branchID));
       }
       if (widget.reservationType == ReservationType.service) {
-        if (widget.companyBranches.length == 1) {
-          chooseBranch(context, widget.companyBranches[0].brancheID);
+        if (widget.companyBranches!.length == 1) {
+          chooseBranch(context, widget.companyBranches![0].brancheID);
         }
         BlocProvider.of<OrderDateTimeBloc>(context)
-            .add(GetOrderDateTimes(widget.companyBranches[0].brancheID));
+            .add(GetOrderDateTimes(widget.companyBranches![0].brancheID));
       } else {
         BlocProvider.of<OrderDateTimeBloc>(context)
             .add(GetOrderDateTimes(widget.branchID));
@@ -89,14 +90,14 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context)!;
     final ThemeData _theme = Theme.of(context);
 
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            _translator.translate("book_appointment"),
-            style: _theme.textTheme.headline6.copyWith(color: Colors.black),
+            _translator.translate("book_appointment")!,
+            style: _theme.textTheme.headline6!.copyWith(color: Colors.black),
           ),
           iconTheme: const IconThemeData(color: Colors.black),
         ),
@@ -125,7 +126,7 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: defaultPadding),
                                             itemCount:
-                                                widget.companyBranches.length,
+                                                widget.companyBranches!.length,
                                             shrinkWrap: true,
                                             scrollDirection: Axis.horizontal,
                                             physics:
@@ -134,7 +135,7 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
                                                 const HorizontalGap(),
                                             itemBuilder: (_, i) {
                                               final brancheData =
-                                                  widget.companyBranches[i];
+                                                  widget.companyBranches![i];
                                               return BranchCard(
                                                 isSelectable: true,
                                                 isSelected:
@@ -147,7 +148,7 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
                                                 image: (brancheData.image !=
                                                         null)
                                                     ? NetworkConstants.baseUrl +
-                                                        brancheData.image
+                                                        brancheData.image!
                                                     : null,
                                                 onPressed: () {
                                                   chooseBranch(context,
@@ -191,8 +192,8 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
                                         SizedBox(
                                           height: 90,
                                           child: ListView.separated(
-                                              itemCount: _selecteOrderdDay
-                                                  .orderTimes.length,
+                                              itemCount: _selecteOrderdDay!
+                                                  .orderTimes!.length,
                                               shrinkWrap: true,
                                               scrollDirection: Axis.horizontal,
                                               physics:
@@ -204,15 +205,15 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
                                                     isSelected:
                                                         i == _selectedtime,
                                                     workingHour:
-                                                        _selecteOrderdDay
-                                                                .orderTimes[i]
+                                                        _selecteOrderdDay!
+                                                                .orderTimes![i]
                                                             as String,
                                                     onTap: () {
                                                       setState(() {
                                                         _selectedtime = i;
                                                         _selecteOrderTime =
-                                                            _selecteOrderdDay
-                                                                    .orderTimes[
+                                                            _selecteOrderdDay!
+                                                                    .orderTimes![
                                                                 i] as String;
                                                       });
                                                     },
@@ -259,7 +260,7 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
         ]);
   }
 
-  void chooseBranch(BuildContext context, int branch) {
+  void chooseBranch(BuildContext context, int? branch) {
     BlocProvider.of<BrancheemployeesBloc>(context)
         .add(GetBrancheEmployees(branch));
     BlocProvider.of<OrderDateTimeBloc>(context).add(GetOrderDateTimes(branch));
@@ -275,7 +276,7 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
   bool _validateBooking() {
     return _selecteOrderTime != null &&
         _selecteOrderdDay != null &&
-        _selectedEmployee != null &&
+        // ( _selectedEmployee != null) &&
         _selectedBranch != null;
   }
 
@@ -314,7 +315,7 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
         TableCalendar(
           locale: locale?.languageCode ?? 'en',
           onCalendarCreated: (pageController) {
-            final List<String> tempDays = [];
+            final List<String?> tempDays = [];
             for (final day in workDays) {
               if (day.open == false) tempDays.add(day.date);
             }
@@ -343,7 +344,7 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
           headerStyle: HeaderStyle(
             formatButtonVisible: false,
             titleCentered: true,
-            titleTextStyle: _theme.textTheme.subtitle1,
+            titleTextStyle: _theme.textTheme.subtitle1!,
           ),
           firstDay: kFirstDay,
           lastDay: kLastDay,
@@ -371,7 +372,7 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
               // Call `setState()` when updating the selected day
               if (_selectedBranch == null) {
                 CustomToast().buildErrorMessage(
-                    context, _translator.translate("choose_branche_first"));
+                    context, _translator.translate("choose_branche_first")!);
               } else {
                 setState(() {
                   _selectedDay = selectedDay;
@@ -472,7 +473,7 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
                     onPressed: () {
                       if (_selectedBranch == null) {
                         CustomToast().buildErrorMessage(context,
-                            _translator.translate("choose_branche_first"));
+                            _translator.translate("choose_branche_first")!);
                       } else {
                         setState(() {
                           _selectedEmployee = employees[i].employeeId;
@@ -489,8 +490,8 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
 //bottom Booking Fixed Button
 class BottomBookingButton extends StatelessWidget {
   const BottomBookingButton({
-    Key key,
-    @required this.onPressed,
+    Key? key,
+    required this.onPressed,
   }) : super(key: key);
 
   final VoidCallback onPressed;
@@ -509,7 +510,7 @@ class BottomBookingButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  AppLocalizations.of(context).translate("confirm"),
+                  AppLocalizations.of(context)!.translate("confirm")!,
                   style: Theme.of(context).textTheme.button,
                 ),
               ],
@@ -523,15 +524,15 @@ class BottomBookingButton extends StatelessWidget {
 
 class TimeSelectableCard extends StatelessWidget {
   const TimeSelectableCard({
-    Key key,
+    Key? key,
     this.onTap,
-    @required this.isSelected,
+    required this.isSelected,
     this.workingHour,
   }) : super(key: key);
 
-  final VoidCallback onTap;
-  final bool isSelected;
-  final String workingHour;
+  final VoidCallback? onTap;
+  final bool? isSelected;
+  final String? workingHour;
   @override
   Widget build(BuildContext context) {
     final ThemeData _theme = Theme.of(context);
@@ -543,7 +544,7 @@ class TimeSelectableCard extends StatelessWidget {
           height: 80,
           width: 70,
           decoration: BoxDecoration(
-              color: isSelected ?? false
+              color: isSelected!
                   ? AppColors.primaryColor
                   : _theme.scaffoldBackgroundColor,
               border: Border.all(color: _theme.accentColor),
@@ -556,10 +557,10 @@ class TimeSelectableCard extends StatelessWidget {
                       text: getTimePeriods(workingHour)
                           .format(context)
                           .split(' ')[0],
-                      style: _theme.textTheme.subtitle2.copyWith(
-                          color: isSelected ?? false
+                      style: _theme.textTheme.subtitle2!.copyWith(
+                          color: isSelected!
                               ? Colors.black
-                              : _theme.textTheme.subtitle2.color),
+                              : _theme.textTheme.subtitle2!.color),
                       children: <TextSpan>[
                         const TextSpan(
                             text: '\n',
@@ -577,7 +578,7 @@ class TimeSelectableCard extends StatelessWidget {
     );
   }
 
-  TimeOfDay getTimePeriods(String time) {
+  TimeOfDay getTimePeriods(String? time) {
     final TimeOfDay interval = TimeOfDay(
         hour: int.parse(time.toString().split(":")[0]),
         minute: int.parse(time.toString().split(":")[1]));

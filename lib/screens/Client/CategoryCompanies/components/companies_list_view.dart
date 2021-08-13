@@ -6,9 +6,9 @@ import 'package:techtime/widgets/client/custom_circle_avatar.dart';
 import 'package:techtime/widgets/client/footer_card.dart';
 
 class CompaniesListView extends StatelessWidget {
-  final List<Company> companies;
+  final List<Company>? companies;
 
-  const CompaniesListView({Key key, this.companies}) : super(key: key);
+  const CompaniesListView({Key? key, this.companies}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -18,29 +18,29 @@ class CompaniesListView extends StatelessWidget {
       padding:
           const EdgeInsets.fromLTRB(0.0, defaultPadding, 0.0, defaultPadding),
       child: ListView.builder(
-          itemCount: companies.length,
+          itemCount: companies!.length,
           itemBuilder: (_, i) {
             return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: InkWell(
                   onTap: () => Navigator.pushNamed(
                       context, CompanyProfile.routeName,
-                      arguments: companies[i]),
+                      arguments: companies![i]),
                   child: FooterCard(
                     width: size.width * 0.95,
                     height: size.height * .25,
-                    bgImage: companies[i]?.coverImage,
+                    bgImage: companies![i].coverImage,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(defaultPadding / 2),
                           child: Hero(
-                              tag: companies[i].companyName,
+                              tag: companies![i].companyName!,
                               child: CustomCircleAvatar(
                                 width: 70,
                                 height: 70,
-                                image: companies[i].logo,
+                                image: companies![i].logo,
                               )),
                         ),
                         Expanded(
@@ -49,22 +49,23 @@ class CompaniesListView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Text(
-                                companies[i].companyName,
+                                companies![i].companyName!,
                                 overflow: TextOverflow.ellipsis,
-                                style: _theme.textTheme.subtitle2
+                                style: _theme.textTheme.subtitle2!
                                     .copyWith(color: Colors.black),
                               ),
                               RichText(
                                   textScaleFactor: 0.9,
                                   text: TextSpan(
-                                    text: '${companies[i].categoryRegionEn}   ',
-                                    style: _theme.textTheme.subtitle2
+                                    text:
+                                        '${companies![i].categoryRegionEn}   ',
+                                    style: _theme.textTheme.subtitle2!
                                         .copyWith(color: Colors.black),
                                     children: <TextSpan>[
                                       TextSpan(
                                           text:
-                                              '${companies[i].categoryCityEn} ',
-                                          style: _theme.textTheme.subtitle2
+                                              '${companies![i].categoryCityEn} ',
+                                          style: _theme.textTheme.subtitle2!
                                               .copyWith(color: Colors.black)),
                                     ],
                                   )),

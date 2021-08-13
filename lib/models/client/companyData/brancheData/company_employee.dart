@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
 class CompanyEmployee extends Equatable {
-  final String image;
-  final int employeeId;
-  final String employeeName;
+  final String? image;
+  final int? employeeId;
+  final String? employeeName;
   final dynamic raty;
 
   const CompanyEmployee({
@@ -15,9 +15,9 @@ class CompanyEmployee extends Equatable {
 
   factory CompanyEmployee.fromJson(Map<String, dynamic> json) {
     return CompanyEmployee(
-      image: json['Image'] as String,
-      employeeId: json['EmployeeID'] as int,
-      employeeName: json['EmployeeName'] as String,
+      image: json['Image'] as String?,
+      employeeId: json['EmployeeID'] as int?,
+      employeeName: json['EmployeeName'] as String?,
       raty: json['raty'] as dynamic,
     );
   }
@@ -32,9 +32,9 @@ class CompanyEmployee extends Equatable {
   }
 
   CompanyEmployee copyWith({
-    String image,
-    int employeeId,
-    String employeeName,
+    String? image,
+    int? employeeId,
+    String? employeeName,
     dynamic raty,
   }) {
     return CompanyEmployee(
@@ -49,5 +49,5 @@ class CompanyEmployee extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [image, employeeId, employeeName, raty];
+  List<Object?> get props => [image, employeeId, employeeName, raty];
 }

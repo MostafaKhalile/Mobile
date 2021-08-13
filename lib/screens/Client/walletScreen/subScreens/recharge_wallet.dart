@@ -9,9 +9,9 @@ import 'package:techtime/Helpers/utils/custom_toast.dart';
 import '../components/wallet_input.dart';
 
 class RechargeWallet extends StatefulWidget {
-  final void Function(int) onAddButtonTapped;
+  final void Function(int)? onAddButtonTapped;
 
-  const RechargeWallet({Key key, this.onAddButtonTapped}) : super(key: key);
+  const RechargeWallet({Key? key, this.onAddButtonTapped}) : super(key: key);
 
   @override
   _RechargeWalletState createState() => _RechargeWalletState();
@@ -28,7 +28,7 @@ class _RechargeWalletState extends State<RechargeWallet> {
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations? _translator = AppLocalizations.of(context);
     final ThemeData _theme = Theme.of(context);
     final _currentUser = context.watch<CurrentUserProvider>().currentUser;
     return BlocConsumer<WallettransformpromocodeBloc,
@@ -47,22 +47,22 @@ class _RechargeWalletState extends State<RechargeWallet> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Text(
-                    _translator.translate("recharge_wallet"),
+                    _translator!.translate("recharge_wallet")!,
                     style: _theme.textTheme.headline5,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Text(
-                    _translator.translate("Enter_the_promo_code"),
+                    _translator.translate("Enter_the_promo_code")!,
                     style: _theme.textTheme.subtitle1,
                   ),
                 ),
                 Column(
                   children: [
                     Text(
-                      _translator.translate("promocode"),
-                      style: _theme.textTheme.caption
+                      _translator.translate("promocode")!,
+                      style: _theme.textTheme.caption!
                           .copyWith(fontWeight: FontWeight.bold),
                     ),
                     WalletInputField(
@@ -86,7 +86,7 @@ class _RechargeWalletState extends State<RechargeWallet> {
                               } else {
                                 Fluttertoast.showToast(
                                     msg: _translator
-                                        .translate("please_login_first"));
+                                        .translate("please_login_first")!);
                               }
                             },
                       child: (walletState is WallettransformpromocodeLoading)
@@ -96,7 +96,7 @@ class _RechargeWalletState extends State<RechargeWallet> {
                               child: CircularProgressIndicator(),
                             )
                           : Text(
-                              _translator.translate("confirm"),
+                              _translator.translate("confirm")!,
                               style: _theme.textTheme.button,
                             ),
                     )

@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
 class CompanyDataOffer extends Equatable {
-  final int companyId;
-  final String companyName;
-  final String companyImage;
-  final String companyCoverImage;
-  final String categoryAr;
-  final String categoryEn;
-  final int companyOffers;
+  final int? companyId;
+  final String? companyName;
+  final String? companyImage;
+  final String? companyCoverImage;
+  final String? categoryAr;
+  final String? categoryEn;
+  final int? companyOffers;
 
   const CompanyDataOffer({
     this.companyId,
@@ -21,13 +21,13 @@ class CompanyDataOffer extends Equatable {
 
   factory CompanyDataOffer.fromJson(Map<String, dynamic> json) =>
       CompanyDataOffer(
-        companyId: json['CompanyID'] as int,
-        companyName: json['CompanyName'] as String,
-        companyImage: json['CompanyImage'] as String,
-        companyCoverImage: json['CompanyCoverImage'] as String,
-        categoryAr: json['CategoryAR'] as String,
-        categoryEn: json['CategoryEN'] as String,
-        companyOffers: json['CompanyOffers'] as int,
+        companyId: json['CompanyID'] as int?,
+        companyName: json['CompanyName'] as String?,
+        companyImage: json['CompanyImage'] as String?,
+        companyCoverImage: json['CompanyCoverImage'] as String?,
+        categoryAr: json['CategoryAR'] as String?,
+        categoryEn: json['CategoryEN'] as String?,
+        companyOffers: json['CompanyOffers'] as int?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -41,13 +41,13 @@ class CompanyDataOffer extends Equatable {
       };
 
   CompanyDataOffer copyWith({
-    int companyId,
-    String companyName,
-    String companyImage,
-    String companyCoverImage,
-    String categoryAr,
-    String categoryEn,
-    int companyOffers,
+    int? companyId,
+    String? companyName,
+    String? companyImage,
+    String? companyCoverImage,
+    String? categoryAr,
+    String? categoryEn,
+    int? companyOffers,
   }) {
     return CompanyDataOffer(
       companyId: companyId ?? this.companyId,
@@ -64,7 +64,7 @@ class CompanyDataOffer extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       companyId,
       companyName,

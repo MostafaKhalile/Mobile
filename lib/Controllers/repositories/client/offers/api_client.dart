@@ -29,7 +29,7 @@ class OffersApiClient {
     }
   }
 
-  Future<CompanyOffers> filterOffersCompany(int id) async {
+  Future<CompanyOffers> filterOffersCompany(int? id) async {
     final String path =
         "${NetworkConstants.baseUrl}${NetworkConstants.filterOffersCompany}$id";
     final response = await http.post(Uri.parse(path), headers: headers);

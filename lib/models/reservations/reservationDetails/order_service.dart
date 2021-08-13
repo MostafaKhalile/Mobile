@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
 class OrderService extends Equatable {
-  final String servicesAr;
-  final String servicesEn;
-  final String imageService;
-  final int priceFrom;
-  final int priceTo;
-  final int fullTime;
-  final String description;
+  final String? servicesAr;
+  final String? servicesEn;
+  final String? imageService;
+  final int? priceFrom;
+  final int? priceTo;
+  final int? fullTime;
+  final String? description;
 
   const OrderService({
     this.servicesAr,
@@ -20,13 +20,13 @@ class OrderService extends Equatable {
   });
 
   factory OrderService.fromJson(Map<String, dynamic> json) => OrderService(
-        servicesAr: json['ServicesAR'] as String,
-        servicesEn: json['ServicesEN'] as String,
-        imageService: json['ImageService'] as String,
-        priceFrom: json['PriceFrom'] as int,
-        priceTo: json['PriceTo'] as int,
-        fullTime: json['FullTime'] as int,
-        description: json['Description'] as String,
+        servicesAr: json['ServicesAR'] as String?,
+        servicesEn: json['ServicesEN'] as String?,
+        imageService: json['ImageService'] as String?,
+        priceFrom: json['PriceFrom'] as int?,
+        priceTo: json['PriceTo'] as int?,
+        fullTime: json['FullTime'] as int?,
+        description: json['Description'] as String?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -40,13 +40,13 @@ class OrderService extends Equatable {
       };
 
   OrderService copyWith({
-    String servicesAr,
-    String servicesEn,
-    String imageService,
-    int priceFrom,
-    int priceTo,
-    int fullTime,
-    String description,
+    String? servicesAr,
+    String? servicesEn,
+    String? imageService,
+    int? priceFrom,
+    int? priceTo,
+    int? fullTime,
+    String? description,
   }) {
     return OrderService(
       servicesAr: servicesAr ?? this.servicesAr,
@@ -63,7 +63,7 @@ class OrderService extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       servicesAr,
       servicesEn,

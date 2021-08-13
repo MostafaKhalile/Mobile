@@ -1,17 +1,17 @@
 import 'package:equatable/equatable.dart';
 
 class UserNotification extends Equatable {
-  final int notificationId;
-  final String notificationNotesAr;
-  final String notificationNotesEn;
-  final bool notificationOpen;
-  final bool forOrder;
-  final int getOrderId;
-  final bool forBranche;
+  final int? notificationId;
+  final String? notificationNotesAr;
+  final String? notificationNotesEn;
+  final bool? notificationOpen;
+  final bool? forOrder;
+  final int? getOrderId;
+  final bool? forBranche;
   final dynamic getBrancheId;
-  final bool notificationView3;
-  final String notificationDate;
-  final String notificationTime;
+  final bool? notificationView3;
+  final String? notificationDate;
+  final String? notificationTime;
 
   const UserNotification({
     this.notificationId,
@@ -29,17 +29,17 @@ class UserNotification extends Equatable {
 
   factory UserNotification.fromJson(Map<String, dynamic> json) =>
       UserNotification(
-        notificationId: json['NotificationID'] as int,
-        notificationNotesAr: json['NotificationNotesAR'] as String,
-        notificationNotesEn: json['NotificationNotesEN'] as String,
-        notificationOpen: json['NotificationOpen'] as bool,
-        forOrder: json['ForOrder'] as bool,
-        getOrderId: json['GETOrderId'] as int,
-        forBranche: json['ForBranche'] as bool,
+        notificationId: json['NotificationID'] as int?,
+        notificationNotesAr: json['NotificationNotesAR'] as String?,
+        notificationNotesEn: json['NotificationNotesEN'] as String?,
+        notificationOpen: json['NotificationOpen'] as bool?,
+        forOrder: json['ForOrder'] as bool?,
+        getOrderId: json['GETOrderId'] as int?,
+        forBranche: json['ForBranche'] as bool?,
         getBrancheId: json['GETBrancheId'],
-        notificationView3: json['NotificationView3'] as bool,
-        notificationDate: json['NotificationDate'] as String,
-        notificationTime: json['NotificationTime'] as String,
+        notificationView3: json['NotificationView3'] as bool?,
+        notificationDate: json['NotificationDate'] as String?,
+        notificationTime: json['NotificationTime'] as String?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -57,17 +57,17 @@ class UserNotification extends Equatable {
       };
 
   UserNotification copyWith({
-    int notificationId,
-    String notificationNotesAr,
-    String notificationNotesEn,
-    bool notificationOpen,
-    bool forOrder,
-    int getOrderId,
-    bool forBranche,
+    int? notificationId,
+    String? notificationNotesAr,
+    String? notificationNotesEn,
+    bool? notificationOpen,
+    bool? forOrder,
+    int? getOrderId,
+    bool? forBranche,
     dynamic getBrancheId,
-    bool notificationView3,
-    String notificationDate,
-    String notificationTime,
+    bool? notificationView3,
+    String? notificationDate,
+    String? notificationTime,
   }) {
     return UserNotification(
       notificationId: notificationId ?? this.notificationId,
@@ -88,7 +88,7 @@ class UserNotification extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       notificationId,
       notificationNotesAr,

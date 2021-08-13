@@ -11,8 +11,8 @@ import 'package:techtime/Models/client_profile.dart';
 import 'api_client.dart';
 
 class USerRepo {
-  PreferenceUtils _prefs;
-  AccountApiClient _apiClient;
+  late PreferenceUtils _prefs;
+  late AccountApiClient _apiClient;
 
   USerRepo() {
     _prefs = PreferenceUtils.getInstance();
@@ -20,7 +20,7 @@ class USerRepo {
       prefs: _prefs,
     );
   }
-  UserProfile get currentUserProfile {
+  UserProfile? get currentUserProfile {
     final userResp = _prefs.getValueWithKey(
       NetworkConstants.currentUserProfile,
     );
@@ -82,7 +82,7 @@ class USerRepo {
 
   Future<bool> uploadProfilePicture(File imageFile) async {
     final bool hasBeenUploaded =
-        await _apiClient.uploadProfilePicture(imageFile) as bool;
+        await _apiClient.uploadProfilePicture(imageFile);
     if (hasBeenUploaded) {
       await getProfileData();
     }
@@ -116,7 +116,7 @@ class USerRepo {
 
   Future<Map<String, dynamic>> walletTransformPromocode(
       String promocode) async {
-    final walletTotalData =
+    final Map<String, dynamic> walletTotalData =
         await _apiClient.walletTransformPromocode(promocode);
     return walletTotalData;
   }

@@ -10,7 +10,7 @@ class SmsVerification extends StatefulWidget {
 
 class _SmsVerificationState extends State<SmsVerification> {
   bool _onEditing = true;
-  String _code;
+  String? _code;
   final Snackbar _snackBar = Snackbar();
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class _SmsVerificationState extends State<SmsVerification> {
                       } else {
                         _snackBar.showSnackBar(
                           context,
-                          AppLocalizations.of(context).translate("codeError"),
+                          AppLocalizations.of(context)!.translate("codeError")!,
                         );
                       }
                     },

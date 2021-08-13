@@ -9,9 +9,9 @@ import 'package:techtime/Models/client/category.dart';
 import 'components/companies_list_view.dart';
 
 class CategoryCompaniesScreen extends StatefulWidget {
-  final Category category;
+  final Category? category;
 
-  const CategoryCompaniesScreen({Key key, this.category}) : super(key: key);
+  const CategoryCompaniesScreen({Key? key, this.category}) : super(key: key);
 
   @override
   _CategoryCompaniesScreenState createState() =>
@@ -22,7 +22,7 @@ class _CategoryCompaniesScreenState extends State<CategoryCompaniesScreen> {
   @override
   void initState() {
     BlocProvider.of<CompanieslistBloc>(context)
-        .add(GetCompaniesList(widget.category.categoryId));
+        .add(GetCompaniesList(widget.category!.categoryId!));
     super.initState();
   }
 
@@ -84,7 +84,7 @@ class _CategoryCompaniesScreenState extends State<CategoryCompaniesScreen> {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       title: Text(
-        widget.category.categoryEn,
+        widget.category!.categoryEn!,
         style: const TextStyle(color: Colors.black),
       ),
       iconTheme: const IconThemeData(color: Colors.black),

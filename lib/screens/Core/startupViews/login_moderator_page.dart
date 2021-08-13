@@ -30,10 +30,10 @@ class LoginModeratorPage extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(
-                                AppLocalizations.of(context).translate('skip'),
+                                AppLocalizations.of(context)!.translate('skip')!,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .subtitle1
+                                    .subtitle1!
                                     .copyWith(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
@@ -78,8 +78,8 @@ class LoginModeratorPage extends StatelessWidget {
                                 onPressed: () =>
                                     Navigator.pushNamed(context, '/login'),
                                 child: Text(
-                                  AppLocalizations.of(context)
-                                      .translate('login'),
+                                  AppLocalizations.of(context)!
+                                      .translate('login')!,
                                   style: Theme.of(context).textTheme.button,
                                 ),
                               )),
@@ -91,8 +91,8 @@ class LoginModeratorPage extends StatelessWidget {
                               onPressed: () => Navigator.pushNamed(
                                   context, ClientSignupPage.routeName),
                               child: Text(
-                                AppLocalizations.of(context)
-                                    .translate('signup'),
+                                AppLocalizations.of(context)!
+                                    .translate('signup')!,
                                 style: Theme.of(context).textTheme.button,
                               ),
                             ),
@@ -104,11 +104,11 @@ class LoginModeratorPage extends StatelessWidget {
                             child: RaisedButton(
                               onPressed: () {},
                               child: Text(
-                                AppLocalizations.of(context)
-                                    .translate('companyRegister'),
+                                AppLocalizations.of(context)!
+                                    .translate('companyRegister')!,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .button
+                                    .button!
                                     .copyWith(fontSize: 14),
                               ),
                             ),

@@ -20,12 +20,12 @@ class _SearchScreenState extends State<SearchScreen> {
     'Cafe',
   ];
 
-  List<String> filteredSearchHistory;
+  late List<String> filteredSearchHistory;
 
-  String selectedTerm;
+  String? selectedTerm;
 
   List<String> filterSearchTerms({
-    @required String filter,
+    required String? filter,
   }) {
     if (filter != null && filter.isNotEmpty) {
       return _searchHistory.reversed
@@ -60,7 +60,7 @@ class _SearchScreenState extends State<SearchScreen> {
     addSearchTerm(term);
   }
 
-  FloatingSearchBarController controller;
+  FloatingSearchBarController? controller;
 
   @override
   void initState() {
@@ -71,7 +71,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void dispose() {
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -89,7 +89,7 @@ class _SearchScreenState extends State<SearchScreen> {
         physics: const BouncingScrollPhysics(),
         title: Text(
           selectedTerm ??
-              AppLocalizations.of(context).translate("search_place_holder"),
+              AppLocalizations.of(context)!.translate("search_place_holder")!,
           style: Theme.of(context).textTheme.subtitle2,
         ),
         hint: 'Search and find out...',
@@ -114,7 +114,7 @@ class _SearchScreenState extends State<SearchScreen> {
             addSearchTerm(query);
             selectedTerm = query;
           });
-          controller.close();
+          controller!.close();
         },
         builder: (context, transition) {
           return ClipRRect(
@@ -125,14 +125,14 @@ class _SearchScreenState extends State<SearchScreen> {
               child: Builder(
                 builder: (context) {
                   if (filteredSearchHistory.isEmpty &&
-                      controller.query.isEmpty) {
+                      controller!.query.isEmpty) {
                     return Container(
                       height: 56,
                       width: double.infinity,
                       alignment: Alignment.center,
                       child: Text(
-                        AppLocalizations.of(context)
-                            .translate('start_searching'),
+                        AppLocalizations.of(context)!
+                            .translate('start_searching')!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.caption,
@@ -141,16 +141,16 @@ class _SearchScreenState extends State<SearchScreen> {
                   } else if (filteredSearchHistory.isEmpty) {
                     return ListTile(
                       title: Text(
-                        controller.query,
+                        controller!.query,
                         style: Theme.of(context).textTheme.caption,
                       ),
                       leading: const Icon(Icons.search),
                       onTap: () {
                         setState(() {
-                          addSearchTerm(controller.query);
-                          selectedTerm = controller.query;
+                          addSearchTerm(controller!.query);
+                          selectedTerm = controller!.query;
                         });
-                        controller.close();
+                        controller!.close();
                       },
                     );
                   } else {
@@ -180,7 +180,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   putSearchTermFirst(term);
                                   selectedTerm = term;
                                 });
-                                controller.close();
+                                controller!.close();
                               },
                             ),
                           )
@@ -213,11 +213,11 @@ class _SearchScreenState extends State<SearchScreen> {
 }
 
 class SearchResultsListView extends StatelessWidget {
-  final String searchTerm;
+  final String? searchTerm;
 
   const SearchResultsListView({
-    Key key,
-    @required this.searchTerm,
+    Key? key,
+    required this.searchTerm,
   }) : super(key: key);
 
   @override
@@ -232,7 +232,7 @@ class SearchResultsListView extends StatelessWidget {
               size: 64,
             ),
             Text(
-              AppLocalizations.of(context).translate('start_searching'),
+              AppLocalizations.of(context)!.translate('start_searching')!,
               style: Theme.of(context).textTheme.headline5,
             )
           ],

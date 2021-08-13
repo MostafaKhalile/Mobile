@@ -18,7 +18,7 @@ class ReservationsBloc extends Bloc<ReservationsEvent, ReservationsState> {
     if (event is GetPreviousResrvations) {
       yield PreviousReservationsLoading();
       try {
-        final List<Reservation> reservations =
+        final List<Reservation>? reservations =
             await _reservationsRepo.getPreviousReservations();
         yield PreviousReservationsSuccess(reservations);
       } catch (e) {
@@ -30,7 +30,7 @@ class ReservationsBloc extends Bloc<ReservationsEvent, ReservationsState> {
     if (event is GetUpcomingResrvations) {
       yield UpcomingReservationsLoading();
       try {
-        final List<Reservation> reservations =
+        final List<Reservation>? reservations =
             await _reservationsRepo.getUpcomingReservations();
         yield UpcomingReservationsSuccess(reservations);
       } catch (e) {

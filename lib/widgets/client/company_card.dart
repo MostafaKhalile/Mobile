@@ -10,9 +10,9 @@ import 'package:techtime/screens/Client/companyProfile/company_profile.dart';
 import 'custom_circle_avatar.dart';
 
 class CompanyCard extends StatelessWidget {
-  final Company company;
+  final Company? company;
 
-  const CompanyCard({Key key, this.company}) : super(key: key);
+  const CompanyCard({Key? key, this.company}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -47,7 +47,7 @@ class CompanyCard extends StatelessWidget {
                         image: DecorationImage(
                           image: company?.coverImage != null
                               ? NetworkImage(NetworkConstants.baseUrl +
-                                  company.coverImage) as ImageProvider
+                                  company!.coverImage!) as ImageProvider
                               : const AssetImage(placeHolderCover),
                           fit: BoxFit.cover,
                         ),
@@ -72,17 +72,17 @@ class CompanyCard extends StatelessWidget {
                                 child: RichText(
                                     textScaleFactor: 0.9,
                                     text: TextSpan(
-                                      text: '${company.companyName} \n',
-                                      style: _theme.textTheme.caption
+                                      text: '${company!.companyName} \n',
+                                      style: _theme.textTheme.caption!
                                           .copyWith(height: 1.12),
                                       children: <TextSpan>[
                                         TextSpan(
                                             text:
-                                                '${company.categoryRegionEn} ',
+                                                '${company!.categoryRegionEn} ',
                                             style: _theme.textTheme.caption),
                                         TextSpan(
-                                            text: ' ${company.categoryCityEn}, '
-                                                '${AppLocalizations.of(context).translate('Egypt')}.',
+                                            text: ' ${company!.categoryCityEn}, '
+                                                '${AppLocalizations.of(context)!.translate('Egypt')}.',
                                             style: _theme.textTheme.caption),
                                       ],
                                     )),
@@ -122,7 +122,7 @@ class CompanyCard extends StatelessWidget {
                             ? Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: CustomCircleAvatar(
-                                  image: company.logo,
+                                  image: company!.logo,
                                   width: 70,
                                   height: 70,
                                 ),

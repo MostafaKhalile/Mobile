@@ -8,23 +8,13 @@ class AppBlocObserver extends BlocObserver {
   }
 
   @override
-  void onClose(BlocBase bloc) {
-    super.onClose(bloc);
-  }
-
-  @override
   void onCreate(BlocBase bloc) {
     print(bloc);
     super.onCreate(bloc);
   }
 
   @override
-  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
-    super.onError(bloc, error, stackTrace);
-  }
-
-  @override
-  void onEvent(Bloc bloc, Object event) {
+  void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
     print(event);
   }

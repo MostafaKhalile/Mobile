@@ -10,7 +10,7 @@ import 'package:techtime/Helpers/themes/theme_model.dart';
 class ClientHomeScreenAppBar extends StatelessWidget {
   final ThemeModel appTheme = ThemeModel();
   ClientHomeScreenAppBar({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -20,10 +20,10 @@ class ClientHomeScreenAppBar extends StatelessWidget {
       centerTitle: false,
       elevation: 0,
       automaticallyImplyLeading: false,
-      title: Text("${AppLocalizations.of(context).translate('hello')} User",
+      title: Text("${AppLocalizations.of(context)!.translate('hello')} User",
           style: Theme.of(context)
               .textTheme
-              .headline5
+              .headline5!
               .copyWith(color: AppColors.primaryColor)),
       bottom: PreferredSize(
           preferredSize: const Size.fromHeight(60.0),
@@ -38,10 +38,10 @@ class ClientHomeScreenAppBar extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        AppLocalizations.of(context).translate('yourLocation'),
+                        AppLocalizations.of(context)!.translate('yourLocation')!,
                         style: Theme.of(context)
                             .textTheme
-                            .subtitle2
+                            .subtitle2!
                             .copyWith(color: AppColors.darkGreyColor),
                       ),
                       const SizedBox(
@@ -53,7 +53,7 @@ class ClientHomeScreenAppBar extends StatelessWidget {
                             const Icon(
                               Icons.location_on_outlined,
                             ),
-                            Text(AppLocalizations.of(context).translate('Alex'),
+                            Text(AppLocalizations.of(context)!.translate('Alex')!,
                                 style: Theme.of(context).textTheme.headline5)
                           ])
                         ],

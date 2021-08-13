@@ -4,7 +4,7 @@ import 'order_api_client.dart';
 
 class OrdersRepository {
   final OrdersApiClient _ordersApiClient = OrdersApiClient();
-  Future<List<OrderDateTime>> getOrderDateTime(int brancheId) async {
+  Future<List<OrderDateTime>> getOrderDateTime(int? brancheId) async {
     try {
       final dataResp = await _ordersApiClient.getOrderDateTime(brancheId);
       return dataResp;

@@ -8,16 +8,16 @@ import 'package:techtime/Helpers/enums.dart';
 part 'internet_state.dart';
 
 class InternetCubit extends Cubit<InternetState> {
-  final Connectivity connectivity;
-  StreamSubscription connectivityStreamSubscription;
+  final Connectivity? connectivity;
+  late StreamSubscription connectivityStreamSubscription;
 
-  InternetCubit({@required this.connectivity}) : super(InternetLoading()) {
+  InternetCubit({required this.connectivity}) : super(InternetLoading()) {
     monitorInternetConnection();
   }
 
   StreamSubscription<ConnectivityResult> monitorInternetConnection() {
     return connectivityStreamSubscription =
-        connectivity.onConnectivityChanged.listen((connectivityResult) {
+        connectivity!.onConnectivityChanged.listen((connectivityResult) {
       if (connectivityResult == ConnectivityResult.wifi) {
         emitInternetConnected(ConnectionType.wifi);
       } else if (connectivityResult == ConnectivityResult.mobile) {

@@ -24,17 +24,17 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context)!;
 
     final ThemeData _theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.black),
         title: Text(
-          _translator.translate("forgotPassword"),
+          _translator.translate("forgotPassword")!,
           style: Theme.of(context)
               .textTheme
-              .headline6
+              .headline6!
               .copyWith(color: Colors.black),
         ),
       ),
@@ -51,8 +51,8 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                     Padding(
                         padding: const EdgeInsets.only(top: defaultPadding * 2),
                         child: Text(
-                          _translator.translate("forgotPassword"),
-                          style: _theme.textTheme.headline5
+                          _translator.translate("forgotPassword")!,
+                          style: _theme.textTheme.headline5!
                               .copyWith(fontWeight: FontWeight.bold),
                         )),
                     const VerticalGap(),
@@ -61,7 +61,7 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                     Padding(
                       padding: const EdgeInsets.all(defaultPadding),
                       child: Text(
-                        _translator.translate("enter_your_email"),
+                        _translator.translate("enter_your_email")!,
                         style: _theme.textTheme.subtitle2,
                       ),
                     ),
@@ -71,20 +71,20 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                           controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
                           onSaved: (newValue) =>
-                              _emailController.text = newValue,
+                              _emailController.text = newValue!,
                           validator: (data) {
-                            final String error =
+                            final String? error =
                                 _validator.validateEmail(context, data);
                             return error;
                           },
-                          style: _theme.textTheme.bodyText1
+                          style: _theme.textTheme.bodyText1!
                               .copyWith(color: AppColors.darkGreyColor),
                           decoration: InputDecoration(
                               fillColor: Colors.white,
                               filled: true,
                               hintText:
                                   _translator.translate("enter_your_email"),
-                              hintStyle: _theme.textTheme.caption
+                              hintStyle: _theme.textTheme.caption!
                                   .copyWith(color: AppColors.darkGreyColor),
                               contentPadding: const EdgeInsets.only(
                                   bottom: 5, right: 8, left: 8),
@@ -101,8 +101,8 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                         // ignore: deprecated_member_use
                         child: RaisedButton(
                             onPressed: () {
-                              if (_formKey.currentState.validate()) {
-                                _formKey.currentState.save();
+                              if (_formKey.currentState!.validate()) {
+                                _formKey.currentState!.save();
                                 Navigator.pushNamed(
                                     context, EmailConfirmCode.routeName,
                                     arguments: _emailController.text);
@@ -110,8 +110,8 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                             },
                             color: AppColors.primaryColor,
                             child: Text(
-                              _translator.translate("confirm"),
-                              style: _theme.textTheme.button.copyWith(
+                              _translator.translate("confirm")!,
+                              style: _theme.textTheme.button!.copyWith(
                                   color: _theme.scaffoldBackgroundColor),
                             )),
                       ),
@@ -124,7 +124,7 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                         child: RaisedButton(
                             onPressed: () => Navigator.pop(context),
                             child: Text(
-                              _translator.translate("cancel"),
+                              _translator.translate("cancel")!,
                               style: _theme.textTheme.button,
                             )),
                       ),

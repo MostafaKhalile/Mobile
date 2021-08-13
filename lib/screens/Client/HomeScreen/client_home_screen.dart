@@ -57,7 +57,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     notificationsBloc.add(const GetAllUserNotifications());
     final offersBloc = context.read<CompanyoffersBloc>();
     offersBloc.add(GetCompanyOffers());
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       Provider.of<CurrentUserProvider>(context, listen: false)
           .loadCurrentUser();
     });
@@ -69,7 +69,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     _sectionHeight = MediaQuery.of(context).size.height * 0.16;
     final _currentUser = Provider.of<CurrentUserProvider>(context).currentUser;
     final appTheme = Provider.of<ThemeModel>(context);
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context)!;
     final Size size = MediaQuery.of(context).size;
     final Snackbar _snackBar = Snackbar();
 
@@ -159,7 +159,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
             width: 10,
           ),
           Text(
-            AppLocalizations.of(context).translate('newStores'),
+            AppLocalizations.of(context)!.translate('newStores')!,
             style: Theme.of(context).textTheme.subtitle1,
           )
         ],
@@ -192,7 +192,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
                 width: 10,
               ),
               Text(
-                AppLocalizations.of(context).translate('topRated'),
+                AppLocalizations.of(context)!.translate('topRated')!,
                 style: Theme.of(context).textTheme.subtitle1,
               )
             ],
@@ -220,7 +220,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
       children: [
         SectionHeader(
           title: Text(
-            AppLocalizations.of(context).translate('categories'),
+            AppLocalizations.of(context)!.translate('categories')!,
             style: Theme.of(context).textTheme.subtitle1,
           ),
           pressed: () => Navigator.pushNamed(
@@ -286,7 +286,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
   }
 
   AppBar buildAppBar(BuildContext context, ThemeModel appTheme,
-      AppLocalizations _translator, UserProfile _currentUser) {
+      AppLocalizations _translator, UserProfile? _currentUser) {
     return AppBar(
       backgroundColor: Theme.of(context).primaryColorDark,
       centerTitle: false,
@@ -296,7 +296,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
           "${_translator.translate('hello')}${_currentUser?.firstName ?? ""} ",
           style: Theme.of(context)
               .textTheme
-              .headline6
+              .headline6!
               .copyWith(color: AppColors.primaryColor)),
       bottom: PreferredSize(
           preferredSize: const Size.fromHeight(20.0),
@@ -317,7 +317,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
                                 const Icon(
                                   Icons.location_on_outlined,
                                 ),
-                                Text(_translator.translate('Alex'),
+                                Text(_translator.translate('Alex')!,
                                     style:
                                         Theme.of(context).textTheme.subtitle2)
                               ])
@@ -337,7 +337,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
                 return IconButton(
                     icon: Badge(
                         badgeContent: Text(state
-                            .notifications.notReadNotification.length
+                            .notifications.notReadNotification!.length
                             .toString()),
                         // ignore: avoid_redundant_argument_values
                         animationType: BadgeAnimationType.slide,
@@ -370,7 +370,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
             ),
             onPressed: () {
               Fluttertoast.showToast(
-                  msg: _translator.translate("please_login_first"));
+                  msg: _translator.translate("please_login_first")!);
             },
           ),
         IconButton(
@@ -395,7 +395,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
               );
             } else {
               Fluttertoast.showToast(
-                  msg: _translator.translate("please_login_first"));
+                  msg: _translator.translate("please_login_first")!);
             }
           },
         ),
@@ -441,7 +441,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
 
 class OffersSection extends StatefulWidget {
   const OffersSection({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -457,7 +457,7 @@ class _OffersSectionState extends State<OffersSection> {
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations? _translator = AppLocalizations.of(context);
     final Size size = MediaQuery.of(context).size;
     return BlocBuilder<CompanyoffersBloc, CompanyoffersState>(
       builder: (context, state) {
@@ -472,7 +472,7 @@ class _OffersSectionState extends State<OffersSection> {
             children: [
               SectionHeader(
                 title: Text(
-                  _translator.translate("offers"),
+                  _translator!.translate("offers")!,
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 pressed: () {},
@@ -511,14 +511,14 @@ class _OffersSectionState extends State<OffersSection> {
 
 class OffersWithData extends StatelessWidget {
   const OffersWithData({
-    Key key,
-    @required this.companiesOffers,
+    Key? key,
+    required this.companiesOffers,
   }) : super(key: key);
 
   final List<CompanyDataOffer> companiesOffers;
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context)!;
     final Size size = MediaQuery.of(context).size;
     return Column(
       children: [
@@ -532,7 +532,7 @@ class OffersWithData extends StatelessWidget {
               width: 10,
             ),
             Text(
-              _translator.translate("offers"),
+              _translator.translate("offers")!,
               style: Theme.of(context).textTheme.subtitle1,
             )
           ]),

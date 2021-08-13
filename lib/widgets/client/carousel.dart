@@ -14,10 +14,10 @@ final List<dynamic> imgList = [
   {"image": 'assets/images/default_cover.png'},
   {"image": 'assets/images/default_cover.png'},
 ];
-List<T> map<T>(List list, Function handler) {
-  final List<T> result = [];
+List<T?> map<T>(List list, Function handler) {
+  final List<T?> result = [];
   for (var i = 0; i < list.length; i++) {
-    result.add(handler(i, list[i]) as T);
+    result.add(handler(i, list[i]) as T?);
   }
 
   return result;
@@ -44,7 +44,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
         if (state.ads.isNotEmpty) {
           return Stack(children: <Widget>[
             CarouselSlider(
-                items: buildCarouselItems(size, state.ads),
+                items: buildCarouselItems(size, state.ads) as List<Widget>?,
                 options: CarouselOptions(
                   onPageChanged: (index, _) {
                     setState(() {
@@ -77,7 +77,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
                                   : Colors.grey[600]),
                         );
                       },
-                    )))
+                    ) as List<Widget>))
           ]);
         } else {
           return Container();
@@ -92,7 +92,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
     });
   }
 
-  List<Widget> buildCarouselItems(Size size, List items) {
+  List<Widget?> buildCarouselItems(Size size, List items) {
     return map<Widget>(
       items,
       (index, ad) {

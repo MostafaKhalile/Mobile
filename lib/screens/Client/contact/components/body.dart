@@ -9,7 +9,7 @@ import 'package:techtime/widgets/core/vertical_gab.dart';
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context)!;
     final ThemeData _theme = Theme.of(context);
     return SizedBox(
       width: double.infinity,
@@ -23,13 +23,13 @@ class Body extends StatelessWidget {
             height: 40.0,
           ),
           Text(
-            _translator.translate("need_help?"),
-            style: _theme.textTheme.headline5
+            _translator.translate("need_help?")!,
+            style: _theme.textTheme.headline5!
                 .copyWith(fontWeight: FontWeight.bold),
           ),
           const VerticalGap(),
           Text(
-            _translator.translate("contact_us_via_customer_service"),
+            _translator.translate("contact_us_via_customer_service")!,
             style: _theme.textTheme.subtitle2,
           ),
           Padding(
@@ -48,7 +48,7 @@ class Body extends StatelessWidget {
                       height: 20,
                     ),
                     Text(
-                      _translator.translate("start_chat"),
+                      _translator.translate("start_chat")!,
                       style: _theme.textTheme.button,
                     )
                   ],

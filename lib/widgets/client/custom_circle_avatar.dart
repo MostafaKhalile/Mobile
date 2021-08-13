@@ -5,16 +5,16 @@ import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/network_constants.dart';
 
 class CustomCircleAvatar extends StatelessWidget {
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   const CustomCircleAvatar({
-    Key key,
-    @required this.image,
+    Key? key,
+    required this.image,
     this.width,
     this.height,
   }) : super(key: key);
 
-  final String image;
+  final String? image;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class CustomCircleAvatar extends StatelessWidget {
         border: Border.all(width: 2, color: AppColors.primaryColor),
         image: DecorationImage(
             image: image != null
-                ? NetworkImage(NetworkConstants.baseUrl + image)
+                ? NetworkImage(NetworkConstants.baseUrl + image!)
                     as ImageProvider
                 : const AssetImage("assets/images/default_logo.png"),
             fit: BoxFit.cover),

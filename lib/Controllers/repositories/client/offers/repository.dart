@@ -12,7 +12,7 @@ class OffersRepo {
     return userFavoriteCompanies;
   }
 
-  Future<CompanyOffers> filterOffersCompany(int id) async {
+  Future<CompanyOffers> filterOffersCompany(int? id) async {
     final companyOffers = await _apiClient.filterOffersCompany(id);
 
     return companyOffers;

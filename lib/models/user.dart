@@ -1,16 +1,16 @@
 class User {
-  int statusCode;
-  String status;
-  String message;
-  String token;
-  int userID;
-  int accountTypeUser;
-  String name;
-  String image;
-  String coverImage;
-  bool locations;
-  bool confirmedCompany;
-  String goUrl;
+  int? statusCode;
+  String? status;
+  String? message;
+  String? token;
+  int? userID;
+  int? accountTypeUser;
+  String? name;
+  String? image;
+  String? coverImage;
+  bool? locations;
+  bool? confirmedCompany;
+  String? goUrl;
 
   User(
       {this.statusCode,
@@ -27,18 +27,18 @@ class User {
       this.goUrl});
 
   User.fromJson(Map<String, dynamic> json) {
-    statusCode = json['status'] as int;
-    status = json['Status'] as String;
-    message = json['message'] as String;
-    token = json['token'] as String;
-    userID = json['UserID'] as int;
-    accountTypeUser = json['AccountTypeUser'] as int;
-    name = json['Name'] as String;
-    image = json['Image'] as String;
-    coverImage = json['CoverImage'] as String;
-    locations = json['Locations'] as bool;
-    confirmedCompany = json['ConfirmedCompany'] as bool;
-    goUrl = json['Go_url'] as String;
+    statusCode = json['status'] as int?;
+    status = json['Status'] as String?;
+    message = json['message'] as String?;
+    token = json['token'] as String?;
+    userID = json['UserID'] as int?;
+    accountTypeUser = json['AccountTypeUser'] as int?;
+    name = json['Name'] as String?;
+    image = json['Image'] as String?;
+    coverImage = json['CoverImage'] as String?;
+    locations = json['Locations'] as bool?;
+    confirmedCompany = json['ConfirmedCompany'] as bool?;
+    goUrl = json['Go_url'] as String?;
   }
 
   Map<String, dynamic> toJson() {

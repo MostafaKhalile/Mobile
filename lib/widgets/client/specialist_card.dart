@@ -9,23 +9,23 @@ import 'package:techtime/Widgets/core/vertical_gab.dart';
 
 class SpecialistCard extends StatelessWidget {
   const SpecialistCard({
-    Key key,
+    Key? key,
     this.isSelected,
     this.onPressed,
     this.selectable,
     this.companyEmployee,
   }) : super(key: key);
-  final CompanyEmployee companyEmployee;
+  final CompanyEmployee? companyEmployee;
 
-  final bool isSelected;
-  final bool selectable;
-  final VoidCallback onPressed;
+  final bool? isSelected;
+  final bool? selectable;
+  final VoidCallback? onPressed;
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
     final ThemeData _theme = Theme.of(context);
     return InkWell(
-      onTap: selectable ?? false ? onPressed : () => null,
+      onTap: selectable ?? false ? onPressed : null,
       splashColor: Colors.transparent,
       hoverColor: Colors.transparent,
       highlightColor: Colors.transparent,
@@ -42,7 +42,7 @@ class SpecialistCard extends StatelessWidget {
                       fit: BoxFit.cover,
                       image: companyEmployee?.image != null
                           ? NetworkImage(NetworkConstants.baseUrl +
-                              companyEmployee.image) as ImageProvider
+                              companyEmployee!.image!) as ImageProvider
                           : const AssetImage(
                               "assets/images/profile_photo.png")),
                   border: selectable ?? false
@@ -60,10 +60,10 @@ class SpecialistCard extends StatelessWidget {
             if (companyEmployee != null)
               SizedBox(
                   width: _size.width * 0.3,
-                  child: Text(companyEmployee.employeeName,
+                  child: Text(companyEmployee!.employeeName!,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
-                      style: _theme.textTheme.caption.copyWith(
+                      style: _theme.textTheme.caption!.copyWith(
                           fontWeight: isSelected ?? false
                               ? FontWeight.bold
                               : FontWeight.normal,
@@ -78,7 +78,7 @@ class SpecialistCard extends StatelessWidget {
               ),
             if (companyEmployee?.raty != null)
               RatingBarIndicator(
-                rating: double.parse(companyEmployee.raty.toString()),
+                rating: double.parse(companyEmployee!.raty.toString()),
                 itemBuilder: (context, index) => const Icon(
                   Icons.star,
                   color: Colors.amber,

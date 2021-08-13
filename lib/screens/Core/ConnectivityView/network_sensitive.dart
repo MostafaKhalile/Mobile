@@ -6,7 +6,7 @@ import 'package:techtime/Controllers/Cubits/NetworkCubit/internet_cubit.dart';
 import 'package:techtime/screens/Core/ConnectivityView/connectivity_page.dart';
 
 class NetworkSensitive extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
 
   const NetworkSensitive({
     this.child,

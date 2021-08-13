@@ -2,7 +2,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:platform/platform.dart';
 import 'package:android_intent/android_intent.dart';
 
-class VisitApp {
+class AppIntents {
   static Future<void> launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);

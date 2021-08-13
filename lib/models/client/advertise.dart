@@ -2,13 +2,13 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class Advertise {
-  final bool adNormal;
-  final bool adCompany;
-  final bool adBranch;
-  final int adId;
+  final bool? adNormal;
+  final bool? adCompany;
+  final bool? adBranch;
+  final int? adId;
   final dynamic titleAr;
   final dynamic titleEn;
-  final String image;
+  final String? image;
 
   const Advertise({
     this.adNormal,
@@ -22,13 +22,13 @@ class Advertise {
 
   factory Advertise.fromJson(Map<String, dynamic> json) {
     return Advertise(
-      adNormal: json['Ad-Normal'] as bool,
-      adCompany: json['Ad-Company'] as bool,
-      adBranch: json['Ad-Branch'] as bool,
-      adId: json['Ad-ID'] as int,
+      adNormal: json['Ad-Normal'] as bool?,
+      adCompany: json['Ad-Company'] as bool?,
+      adBranch: json['Ad-Branch'] as bool?,
+      adId: json['Ad-ID'] as int?,
       titleAr: json['TitleAR'] as dynamic,
       titleEn: json['TitleEN'] as dynamic,
-      image: json['Image'] as String,
+      image: json['Image'] as String?,
     );
   }
   @override

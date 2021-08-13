@@ -19,10 +19,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     if (event is FetchProfileData) {
       yield ProfileDataLoading();
       try {
-        final  UserProfile result = await _userRepo.getProfileData();
-        if (result != null) {
-          yield ProfileDataLoaded(result);
-        }
+        final UserProfile result = await _userRepo.getProfileData();
+        yield ProfileDataLoaded(result);
       } catch (e) {
         yield ProfileDataError(message: e.toString());
       }

@@ -5,7 +5,7 @@ class OrderRaty extends Equatable {
   final dynamic branchRaty;
   final dynamic serviceRaty;
   final dynamic employeeRaty;
-  final String comment;
+  final String? comment;
 
   const OrderRaty({
     this.companyRaty,
@@ -20,7 +20,7 @@ class OrderRaty extends Equatable {
         branchRaty: json['BranchRaty'],
         serviceRaty: json['ServiceRaty'],
         employeeRaty: json['EmployeeRaty'],
-        comment: json['Comment'] as String,
+        comment: json['Comment'] as String?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -36,7 +36,7 @@ class OrderRaty extends Equatable {
     dynamic branchRaty,
     dynamic serviceRaty,
     dynamic employeeRaty,
-    String comment,
+    String? comment,
   }) {
     return OrderRaty(
       companyRaty: companyRaty ?? this.companyRaty,
@@ -51,7 +51,7 @@ class OrderRaty extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       companyRaty,
       branchRaty,

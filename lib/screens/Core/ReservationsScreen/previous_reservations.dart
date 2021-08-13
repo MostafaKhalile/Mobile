@@ -17,7 +17,7 @@ class PreviousReservations extends StatefulWidget {
 }
 
 class _PreviousReservationsState extends State<PreviousReservations> {
-  UserProfile currentUser;
+  UserProfile? currentUser;
   @override
   void initState() {
     final reservations = BlocProvider.of<ReservationsBloc>(context);
@@ -36,9 +36,9 @@ class _PreviousReservationsState extends State<PreviousReservations> {
                 builder: (context, state) {
                   Widget widget;
                   if (state is PreviousReservationsSuccess) {
-                    if (state.reservations.isNotEmpty) {
+                    if (state.reservations!.isNotEmpty) {
                       widget = ListView.separated(
-                        itemCount: state.reservations.length,
+                        itemCount: state.reservations!.length,
                         padding: const EdgeInsets.symmetric(
                             vertical: defaultPadding),
                         physics: const BouncingScrollPhysics(),
@@ -46,7 +46,7 @@ class _PreviousReservationsState extends State<PreviousReservations> {
                         itemBuilder: (context, index) {
                           return ReservationCard(
                             statusCode: 22,
-                            reservation: state.reservations[index],
+                            reservation: state.reservations![index],
                           );
                         },
                       );

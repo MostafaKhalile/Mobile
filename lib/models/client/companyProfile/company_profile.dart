@@ -6,12 +6,12 @@ import 'company_branches.dart';
 import 'company_data.dart';
 
 class CompanyProfile {
-  int status;
-  CompanyData companyData;
-  List<CompanyBranche> companyBranches;
-  List<CompanyService> companyServices;
-  List<CompanyOfferInfo> companyOffers;
-  CompanyReviews companyReviews;
+  int? status;
+  CompanyData? companyData;
+  List<CompanyBranche>? companyBranches;
+  List<CompanyService>? companyServices;
+  List<CompanyOfferInfo>? companyOffers;
+  CompanyReviews? companyReviews;
 
   CompanyProfile(
       {this.status,
@@ -20,26 +20,26 @@ class CompanyProfile {
       this.companyServices});
 
   CompanyProfile.fromJson(Map<String, dynamic> json) {
-    status = json['status'] as int;
+    status = json['status'] as int?;
     companyData = json['CompanyData'] != null
         ? CompanyData.fromJson(json['CompanyData'] as Map<String, dynamic>)
         : null;
     if (json['CompanyBranches'] != null) {
       companyBranches = [];
       json['CompanyBranches'].forEach((v) {
-        companyBranches.add(CompanyBranche.fromJson(v as Map<String, dynamic>));
+        companyBranches!.add(CompanyBranche.fromJson(v as Map<String, dynamic>));
       });
     }
     if (json['CompanyServices'] != null) {
       companyServices = [];
       json['CompanyServices'].forEach((v) {
-        companyServices.add(CompanyService.fromJson(v as Map<String, dynamic>));
+        companyServices!.add(CompanyService.fromJson(v as Map<String, dynamic>));
       });
     }
     if (json['CompanyOffers'] != null) {
       companyOffers = [];
       json['CompanyOffers'].forEach((v) {
-        companyOffers.add(CompanyOfferInfo.fromJson(v as Map<String, dynamic>));
+        companyOffers!.add(CompanyOfferInfo.fromJson(v as Map<String, dynamic>));
       });
     }
     companyReviews = json['CompanyReviews'] != null
@@ -52,19 +52,19 @@ class CompanyProfile {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     if (companyData != null) {
-      data['CompanyData'] = companyData.toJson();
+      data['CompanyData'] = companyData!.toJson();
     }
     if (companyBranches != null) {
-      data['CompanyBranches'] = companyBranches.map((v) => v.toJson()).toList();
+      data['CompanyBranches'] = companyBranches!.map((v) => v.toJson()).toList();
     }
     if (companyServices != null) {
-      data['CompanyServices'] = companyServices.map((v) => v.toJson()).toList();
+      data['CompanyServices'] = companyServices!.map((v) => v.toJson()).toList();
     }
     if (companyOffers != null) {
-      data['CompanyOffers'] = companyOffers.map((v) => v.toJson()).toList();
+      data['CompanyOffers'] = companyOffers!.map((v) => v.toJson()).toList();
     }
     if (companyReviews != null) {
-      data['CompanyReviews'] = companyReviews.toJson();
+      data['CompanyReviews'] = companyReviews!.toJson();
     }
     return data;
   }

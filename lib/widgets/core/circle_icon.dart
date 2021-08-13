@@ -4,8 +4,8 @@ import 'package:techtime/Helpers/app_colors.dart';
 
 class CircleIcon extends StatelessWidget {
   const CircleIcon({
-    Key key,
-    @required this.icon,
+    Key? key,
+    required this.icon,
   }) : super(key: key);
   final String icon;
 

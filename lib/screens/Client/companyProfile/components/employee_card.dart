@@ -6,7 +6,7 @@ import 'package:techtime/widgets/core/vertical_gab.dart';
 
 class EmployeeCard extends StatelessWidget {
   const EmployeeCard({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

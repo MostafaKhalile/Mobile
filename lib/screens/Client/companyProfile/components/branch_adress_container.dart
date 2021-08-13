@@ -8,12 +8,12 @@ import 'info_card_title.dart';
 
 class BranchAddressContainer extends StatelessWidget {
   const BranchAddressContainer({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context)!;
     final ThemeData _theme = Theme.of(context);
     final Size _size = MediaQuery.of(context).size;
     return SizedBox(
@@ -51,7 +51,7 @@ class BranchAddressContainer extends StatelessWidget {
                               SizedBox(
                                   width: _size.width * 0.55,
                                   child: Text(
-                                    _translator.translate("moreBranches"),
+                                    _translator.translate("moreBranches")!,
                                     textAlign: TextAlign.start,
                                     style: _theme.textTheme.subtitle2,
                                   ))
@@ -85,7 +85,7 @@ class BranchAddressContainer extends StatelessWidget {
                           FlatButton(
                             onPressed: () {},
                             child: Text(
-                              _translator.translate("seeAll"),
+                              _translator.translate("seeAll")!,
                               style: _theme.textTheme.button,
                             ),
                           )

@@ -12,7 +12,7 @@ class ChooseBranch extends StatelessWidget {
           title: Text("تتوفر هذه الخدمات فى الفروع التالية",
               style: Theme.of(context)
                   .textTheme
-                  .headline6
+                  .headline6!
                   .copyWith(color: Colors.black)),
           automaticallyImplyLeading: false,
           excludeHeaderSemantics: true,

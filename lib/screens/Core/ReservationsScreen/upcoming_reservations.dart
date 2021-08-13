@@ -18,7 +18,7 @@ class UpcomingReservations extends StatefulWidget {
 }
 
 class UpcomingReservationsState extends State<UpcomingReservations> {
-  UserProfile currentUser;
+  UserProfile? currentUser;
   @override
   void initState() {
     final reservations = BlocProvider.of<ReservationsBloc>(context);
@@ -31,22 +31,22 @@ class UpcomingReservationsState extends State<UpcomingReservations> {
   Widget build(BuildContext context) {
     currentUser =
         Provider.of<CurrentUserProvider>(context, listen: false).currentUser;
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations? _translator = AppLocalizations.of(context);
     return Scaffold(
         body: (currentUser != null)
             ? BlocBuilder<ReservationsBloc, ReservationsState>(
                 builder: (context, state) {
                   Widget widget;
                   if (state is UpcomingReservationsSuccess) {
-                    if (state.reservations.isNotEmpty) {
+                    if (state.reservations!.isNotEmpty) {
                       widget = ListView.separated(
-                          itemCount: state.reservations.length,
+                          itemCount: state.reservations!.length,
                           padding: const EdgeInsets.symmetric(
                               vertical: defaultPadding),
                           physics: const BouncingScrollPhysics(),
                           separatorBuilder: (_, i) => const VerticalGap(),
                           itemBuilder: (context, index) {
-                            final item = state.reservations[index];
+                            final item = state.reservations![index];
 
                             return Dismissible(
                                 // Each Dismissible must contain a Key. Keys allow Flutter to
@@ -72,7 +72,7 @@ class UpcomingReservationsState extends State<UpcomingReservations> {
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                          _translator.translate("cancel"),
+                                          _translator!.translate("cancel")!,
                                           style: const TextStyle(
                                               color: Colors.white),
                                         ),
@@ -83,7 +83,7 @@ class UpcomingReservationsState extends State<UpcomingReservations> {
                                 child: ReservationCard(
                                   statusCode: 40,
                                   reservation:
-                                      state.reservations.elementAt(index),
+                                      state.reservations!.elementAt(index),
                                 ));
                           });
                     } else {
@@ -130,14 +130,14 @@ class UpcomingReservationsState extends State<UpcomingReservations> {
         .showSnackBar(SnackBar(content: Text("$item dismissed")));
   }
 
-  Future<bool> buildShowDialog(
-      BuildContext context, AppLocalizations _translator) {
+  Future<bool?> buildShowDialog(
+      BuildContext context, AppLocalizations? _translator) {
     return showDialog<bool>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(_translator.translate("are_sure_to_cancel_appointment")),
+          title: Text(_translator!.translate("are_sure_to_cancel_appointment")!),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -145,7 +145,7 @@ class UpcomingReservationsState extends State<UpcomingReservations> {
                 RaisedButton(
                   onPressed: () => Navigator.pop(context, true),
                   child: Text(
-                    _translator.translate("cancel"),
+                    _translator.translate("cancel")!,
                     style: Theme.of(context).textTheme.button,
                   ),
                 ),
@@ -156,7 +156,7 @@ class UpcomingReservationsState extends State<UpcomingReservations> {
                 RaisedButton(
                   onPressed: () => Navigator.pop(context, false),
                   child: Text(
-                    _translator.translate("confirm"),
+                    _translator.translate("confirm")!,
                     style: Theme.of(context).textTheme.button,
                   ),
                 ),

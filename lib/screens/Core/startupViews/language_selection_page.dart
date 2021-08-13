@@ -66,7 +66,7 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
                           );
                         },
                         child: Text(
-                          AppLocalizations.of(context).translate('arabic'),
+                          AppLocalizations.of(context)!.translate('arabic')!,
                           style: Theme.of(context).textTheme.button,
                         ),
                       )),
@@ -82,7 +82,7 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
                         );
                       },
                       child: Text(
-                        AppLocalizations.of(context).translate('english'),
+                        AppLocalizations.of(context)!.translate('english')!,
                         style: Theme.of(context).textTheme.button,
                       ),
                     ),

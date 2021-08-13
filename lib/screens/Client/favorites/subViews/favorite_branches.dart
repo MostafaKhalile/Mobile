@@ -8,7 +8,7 @@ import 'package:techtime/Widgets/client/branch_card.dart';
 import 'package:techtime/Widgets/core/shimmer_effect.dart';
 
 class FavoriteBranches extends StatefulWidget {
-  const FavoriteBranches({Key key}) : super(key: key);
+  const FavoriteBranches({Key? key}) : super(key: key);
 
   @override
   _FavoriteBranchesState createState() => _FavoriteBranchesState();
@@ -47,10 +47,10 @@ class _FavoriteBranchesState extends State<FavoriteBranches> {
 
 class BranchesWithData extends StatelessWidget {
   const BranchesWithData({
-    Key key,
+    Key? key,
     this.branches,
   }) : super(key: key);
-  final List<BrancheData> branches;
+  final List<BrancheData>? branches;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -59,20 +59,20 @@ class BranchesWithData extends StatelessWidget {
         ),
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
-        itemCount: branches.length,
+        itemCount: branches!.length,
         itemBuilder: (_, i) {
-          final brancheData = branches[i];
+          final brancheData = branches![i];
           return BranchCard(
             isSelectable: false,
             title: brancheData.brancheName,
             address: brancheData.branchAddressAR,
             rating: 4.8,
             image: (brancheData.companyImage != null)
-                ? NetworkConstants.baseUrl + brancheData.companyImage
+                ? NetworkConstants.baseUrl + brancheData.companyImage!
                 : null,
             onPressed: () => Navigator.pushNamed(
                 context, BranchProfile.routeName,
-                arguments: branches[i]),
+                arguments: branches![i]),
           );
         });
   }
@@ -80,10 +80,10 @@ class BranchesWithData extends StatelessWidget {
 
 class BranchesShimmer extends StatelessWidget {
   const BranchesShimmer({
-    Key key,
+    Key? key,
     this.branches,
   }) : super(key: key);
-  final List<BrancheData> branches;
+  final List<BrancheData>? branches;
   @override
   Widget build(BuildContext context) {
     return ShimmerEffect(
@@ -102,7 +102,7 @@ class BranchesShimmer extends StatelessWidget {
               rating: 4.8,
               onPressed: () => Navigator.pushNamed(
                   context, BranchProfile.routeName,
-                  arguments: branches[i]),
+                  arguments: branches![i]),
             );
           }),
     );

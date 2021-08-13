@@ -10,12 +10,12 @@ import 'package:techtime/Screens/Core/startupViews/loginScreen/login_page.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final UserProfile _currentUser =
+    final UserProfile? _currentUser =
         Provider.of<CurrentUserProvider>(context, listen: false).currentUser;
     return Drawer(
       child: ListView(
@@ -66,16 +66,17 @@ class SideMenu extends StatelessWidget {
           DrawerListTile(
             press: () async {
               if (_currentUser != null) {
-                final bool logOut = await buildShowDialog(
-                    context, AppLocalizations.of(context));
+                final bool logOut = await (buildShowDialog(
+                    context, AppLocalizations.of(context)) as Future<bool>);
                 if (logOut) _logout(context);
               } else {
                 Navigator.pushNamedAndRemoveUntil(
                     context, LoginPage.routeName, (route) => false);
               }
             },
-            title:
-                AppLocalizations.of(context).translate("signOut").toUpperCase(),
+            title: AppLocalizations.of(context)!
+                .translate("signOut")!
+                .toUpperCase(),
             svgSrc: '',
           )
         ],
@@ -91,26 +92,26 @@ class SideMenu extends StatelessWidget {
         context, LanguageSelectionPage.routeName, (route) => false);
   }
 
-  Future<bool> buildShowDialog(
-      BuildContext context, AppLocalizations _translator) {
+  Future<bool?> buildShowDialog(
+      BuildContext context, AppLocalizations? _translator) {
     return showDialog<bool>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(_translator.translate("confirm_signout")),
+          title: Text(_translator!.translate("confirm_signout")!),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.pop(context, true),
               child: Text(
-                _translator.translate("confirm"),
+                _translator.translate("confirm")!,
                 style: Theme.of(context).textTheme.button,
               ),
             ),
             TextButton(
                 onPressed: () => Navigator.pop(context, false),
                 child: Text(
-                  _translator.translate("cancel"),
+                  _translator.translate("cancel")!,
                   style: Theme.of(context).textTheme.button,
                 )),
           ],
@@ -122,11 +123,11 @@ class SideMenu extends StatelessWidget {
 
 class DrawerListTile extends StatelessWidget {
   const DrawerListTile({
-    Key key,
+    Key? key,
     // For selecting those three line once press "Command+D"
-    @required this.title,
-    @required this.svgSrc,
-    @required this.press,
+    required this.title,
+    required this.svgSrc,
+    required this.press,
   }) : super(key: key);
 
   final String title, svgSrc;

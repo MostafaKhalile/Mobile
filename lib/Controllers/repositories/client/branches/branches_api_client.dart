@@ -13,7 +13,7 @@ import 'package:techtime/Models/client/companyProfile/company_service.dart';
 class BranchesApiClient {
   AuthRepo authRepo = AuthRepo();
 
-  Future<BrancheProfile> getBrancheProfile(int id) async {
+  Future<BrancheProfile> getBrancheProfile(int? id) async {
     final String path =
         NetworkConstants.baseUrl + NetworkConstants.viewBranche + id.toString();
     final response = await http.post(Uri.parse(path), headers: {
@@ -30,7 +30,7 @@ class BranchesApiClient {
     }
   }
 
-  Future<bool> brancheAddRemoveFavorite(int id) async {
+  Future<bool?> brancheAddRemoveFavorite(int? id) async {
     final String path = NetworkConstants.baseUrl +
         NetworkConstants.brancheAddRemoveFavorite +
         id.toString();
@@ -43,13 +43,13 @@ class BranchesApiClient {
       final decoded = utf8.decode(response.bodyBytes);
       final data = json.decode(decoded);
 
-      return data['Favorite'] as bool;
+      return data['Favorite'] as bool?;
     } else {
       return false;
     }
   }
 
-  Future<List<CompanyService>> getBrancheServices(int id) async {
+  Future<List<CompanyService>> getBrancheServices(int? id) async {
     final String path = NetworkConstants.baseUrl +
         NetworkConstants.viewBranchServices +
         id.toString();
@@ -69,7 +69,7 @@ class BranchesApiClient {
     }
   }
 
-  Future<List<CompanyEmployee>> getBrancheEmployees(int id) async {
+  Future<List<CompanyEmployee>> getBrancheEmployees(int? id) async {
     final String path = NetworkConstants.baseUrl +
         NetworkConstants.viewBranchemployees +
         id.toString();
@@ -89,7 +89,7 @@ class BranchesApiClient {
     }
   }
 
-  Future<BrancheReviews> getBrancheReviews(int id) async {
+  Future<BrancheReviews> getBrancheReviews(int? id) async {
     final String path = NetworkConstants.baseUrl +
         NetworkConstants.viewBranchReviews +
         id.toString();
@@ -107,7 +107,7 @@ class BranchesApiClient {
     }
   }
 
-  Future<List<BrancheOffer>> getBrancheOffers(int id) async {
+  Future<List<BrancheOffer>> getBrancheOffers(int? id) async {
     final String path = NetworkConstants.baseUrl +
         NetworkConstants.viewBranchOffers +
         id.toString();

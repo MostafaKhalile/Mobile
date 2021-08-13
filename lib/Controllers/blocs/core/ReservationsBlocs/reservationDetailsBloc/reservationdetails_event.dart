@@ -8,7 +8,7 @@ abstract class ReservationdetailsEvent extends Equatable {
 }
 
 class GetReservationDetails extends ReservationdetailsEvent {
-  final int reservationId;
+  final int? reservationId;
 
   const GetReservationDetails(this.reservationId);
 }

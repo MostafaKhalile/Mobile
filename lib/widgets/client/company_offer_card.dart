@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 
 class CompanyOfferCard extends StatelessWidget {
-  final double width;
-  final double height;
-  final Widget child;
-  final VoidCallback onClick;
+  final double? width;
+  final double? height;
+  final Widget? child;
+  final VoidCallback? onClick;
   const CompanyOfferCard({
-    Key key,
+    Key? key,
     this.width,
     this.height,
     this.child,

@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
 class WalletPointsToPrice extends Equatable {
-  final int status;
+  final int? status;
   final dynamic message;
-  final double money;
+  final double? money;
 
   const WalletPointsToPrice({
     this.status,
@@ -13,9 +13,9 @@ class WalletPointsToPrice extends Equatable {
 
   factory WalletPointsToPrice.fromJson(Map<String, dynamic> json) {
     return WalletPointsToPrice(
-      status: json['status'] as int,
+      status: json['status'] as int?,
       message: json['message'],
-      money: json['Money'] as double,
+      money: json['Money'] as double?,
     );
   }
 
@@ -28,9 +28,9 @@ class WalletPointsToPrice extends Equatable {
   }
 
   WalletPointsToPrice copyWith({
-    int status,
+    int? status,
     dynamic message,
-    double money,
+    double? money,
   }) {
     return WalletPointsToPrice(
       status: status ?? this.status,
@@ -43,5 +43,5 @@ class WalletPointsToPrice extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [status, message, money];
+  List<Object?> get props => [status, message, money];
 }

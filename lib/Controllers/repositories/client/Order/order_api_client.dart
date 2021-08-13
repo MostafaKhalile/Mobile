@@ -9,7 +9,7 @@ import 'package:techtime/Models/client/orders/order_date_time.dart';
 class OrdersApiClient {
   AuthRepo authRepo = AuthRepo();
 
-  Future<List<OrderDateTime>> getOrderDateTime(int id) async {
+  Future<List<OrderDateTime>> getOrderDateTime(int? id) async {
     final String path = NetworkConstants.baseUrl +
         NetworkConstants.orderDateTime +
         id.toString();

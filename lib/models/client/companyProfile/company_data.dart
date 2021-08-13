@@ -1,11 +1,11 @@
 class CompanyData {
-  double raty;
-  int companyID;
-  String companyName;
-  String companyImage;
-  String companyCoverImage;
-  String categoryAR;
-  String categoryEN;
+  double? raty;
+  int? companyID;
+  String? companyName;
+  String? companyImage;
+  String? companyCoverImage;
+  String? categoryAR;
+  String? categoryEN;
 
   CompanyData(
       {this.raty,
@@ -17,13 +17,13 @@ class CompanyData {
       this.categoryEN});
 
   CompanyData.fromJson(Map<String, dynamic> json) {
-    raty = json['raty'] as double;
-    companyID = json['CompanyID'] as int;
-    companyName = json['CompanyName'] as String;
-    companyImage = json['CompanyImage'] as String;
-    companyCoverImage = json['CompanyCoverImage'] as String;
-    categoryAR = json['CategoryAR'] as String;
-    categoryEN = json['CategoryEN'] as String;
+    raty = json['raty'] as double?;
+    companyID = json['CompanyID'] as int?;
+    companyName = json['CompanyName'] as String?;
+    companyImage = json['CompanyImage'] as String?;
+    companyCoverImage = json['CompanyCoverImage'] as String?;
+    categoryAR = json['CategoryAR'] as String?;
+    categoryEN = json['CategoryEN'] as String?;
   }
 
   Map<String, dynamic> toJson() {

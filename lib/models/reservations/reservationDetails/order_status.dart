@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
 class OrderStatus extends Equatable {
-  final bool waiting;
-  final bool assent;
-  final bool assentClient;
-  final bool confirm;
-  final bool cancel;
-  final bool done;
-  final bool finish;
+  final bool? waiting;
+  final bool? assent;
+  final bool? assentClient;
+  final bool? confirm;
+  final bool? cancel;
+  final bool? done;
+  final bool? finish;
 
   const OrderStatus({
     this.waiting,
@@ -20,13 +20,13 @@ class OrderStatus extends Equatable {
   });
 
   factory OrderStatus.fromJson(Map<String, dynamic> json) => OrderStatus(
-        waiting: json['Waiting'] as bool,
-        assent: json['Assent'] as bool,
-        assentClient: json['AssentClient'] as bool,
-        confirm: json['Confirm'] as bool,
-        cancel: json['Cancel'] as bool,
-        done: json['Done'] as bool,
-        finish: json['Finish'] as bool,
+        waiting: json['Waiting'] as bool?,
+        assent: json['Assent'] as bool?,
+        assentClient: json['AssentClient'] as bool?,
+        confirm: json['Confirm'] as bool?,
+        cancel: json['Cancel'] as bool?,
+        done: json['Done'] as bool?,
+        finish: json['Finish'] as bool?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -40,13 +40,13 @@ class OrderStatus extends Equatable {
       };
 
   OrderStatus copyWith({
-    bool waiting,
-    bool assent,
-    bool assentClient,
-    bool confirm,
-    bool cancel,
-    bool done,
-    bool finish,
+    bool? waiting,
+    bool? assent,
+    bool? assentClient,
+    bool? confirm,
+    bool? cancel,
+    bool? done,
+    bool? finish,
   }) {
     return OrderStatus(
       waiting: waiting ?? this.waiting,
@@ -63,7 +63,7 @@ class OrderStatus extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       waiting,
       assent,

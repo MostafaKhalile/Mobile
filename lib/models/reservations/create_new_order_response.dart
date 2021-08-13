@@ -1,16 +1,16 @@
 import 'package:equatable/equatable.dart';
 
 class CreateNewOrderResponse extends Equatable {
-  final int status;
-  final int orderId;
+  final int? status;
+  final int? orderId;
   final dynamic message;
 
   const CreateNewOrderResponse({this.status, this.orderId, this.message});
 
   factory CreateNewOrderResponse.fromJson(Map<String, dynamic> json) =>
       CreateNewOrderResponse(
-        status: json['status'] as int,
-        orderId: json['OrderID'] as int,
+        status: json['status'] as int?,
+        orderId: json['OrderID'] as int?,
         message: json['message'],
       );
 
@@ -21,8 +21,8 @@ class CreateNewOrderResponse extends Equatable {
       };
 
   CreateNewOrderResponse copyWith({
-    int status,
-    int orderId,
+    int? status,
+    int? orderId,
     dynamic message,
   }) {
     return CreateNewOrderResponse(
@@ -36,5 +36,5 @@ class CreateNewOrderResponse extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [status, orderId, message];
+  List<Object?> get props => [status, orderId, message];
 }

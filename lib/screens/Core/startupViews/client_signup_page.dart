@@ -55,11 +55,11 @@ class _ClientSignupPageState extends State<ClientSignupPage> {
                         child: Row(
                           children: [
                             Text(
-                                AppLocalizations.of(context)
-                                    .translate('signup'),
+                                AppLocalizations.of(context)!
+                                    .translate('signup')!,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline4
+                                    .headline4!
                                     .copyWith(
                                       fontWeight: FontWeight.w700,
                                       color: Colors.black,
@@ -75,10 +75,10 @@ class _ClientSignupPageState extends State<ClientSignupPage> {
                           TextField(
                             style: Theme.of(context)
                                 .textTheme
-                                .headline6
+                                .headline6!
                                 .copyWith(color: Colors.black),
                             decoration: InputDecoration(
-                                labelText: AppLocalizations.of(context)
+                                labelText: AppLocalizations.of(context)!
                                     .translate('userName'),
                                 labelStyle:
                                     const TextStyle(color: Colors.black)),
@@ -89,10 +89,10 @@ class _ClientSignupPageState extends State<ClientSignupPage> {
                           TextField(
                             style: Theme.of(context)
                                 .textTheme
-                                .headline6
+                                .headline6!
                                 .copyWith(color: Colors.black),
                             decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)
+                              labelText: AppLocalizations.of(context)!
                                   .translate('mobile'),
                               labelStyle: const TextStyle(color: Colors.black),
                             ),
@@ -103,10 +103,10 @@ class _ClientSignupPageState extends State<ClientSignupPage> {
                           TextField(
                             style: Theme.of(context)
                                 .textTheme
-                                .headline6
+                                .headline6!
                                 .copyWith(color: Colors.black),
                             decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)
+                              labelText: AppLocalizations.of(context)!
                                   .translate('email'),
                               labelStyle: const TextStyle(color: Colors.black),
                             ),
@@ -117,11 +117,11 @@ class _ClientSignupPageState extends State<ClientSignupPage> {
                           TextField(
                             style: Theme.of(context)
                                 .textTheme
-                                .headline6
+                                .headline6!
                                 .copyWith(color: Colors.black),
                             obscureText: _obscureText,
                             decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)
+                              labelText: AppLocalizations.of(context)!
                                   .translate('password'),
                               labelStyle: const TextStyle(color: Colors.black),
                               suffixIcon: IconButton(
@@ -141,11 +141,11 @@ class _ClientSignupPageState extends State<ClientSignupPage> {
                           TextField(
                             style: Theme.of(context)
                                 .textTheme
-                                .headline6
+                                .headline6!
                                 .copyWith(color: Colors.black),
                             obscureText: _obscureText,
                             decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)
+                              labelText: AppLocalizations.of(context)!
                                   .translate('Repassword'),
                               labelStyle: const TextStyle(color: Colors.black),
                               suffixIcon: IconButton(
@@ -169,8 +169,8 @@ class _ClientSignupPageState extends State<ClientSignupPage> {
                                 onPressed: () =>
                                     Navigator.pushNamed(context, "/sms"),
                                 child: Text(
-                                  AppLocalizations.of(context)
-                                      .translate('signup'),
+                                  AppLocalizations.of(context)!
+                                      .translate('signup')!,
                                   style: Theme.of(context).textTheme.button,
                                 ),
                               )),

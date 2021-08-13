@@ -47,7 +47,7 @@ class ReservationsApiClient {
     }
   }
 
-  Future<ReservationDetails> getReservationDetails(int reservationId) async {
+  Future<ReservationDetails> getReservationDetails(int? reservationId) async {
     final String path =
         "${NetworkConstants.baseUrl}${NetworkConstants.reservationDetails}$reservationId";
     final response = await http.post(Uri.parse(path), headers: headers);
@@ -79,7 +79,7 @@ class ReservationsApiClient {
       final data = json.decode(decoded) as Map<String, dynamic>;
       return FindBranchResponse.fromJson(data);
     } else {
-      print('${json.decode(response.body)['message']}');
+      // print('${json.decode(response.body)['message']}');
       throw Future.error('${json.decode(response.body)['message']}');
     }
   }

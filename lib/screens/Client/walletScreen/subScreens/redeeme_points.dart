@@ -14,9 +14,9 @@ import 'package:techtime/Widgets/core/vertical_gab.dart';
 import '../components/wallet_input.dart';
 
 class RedeemPoints extends StatefulWidget {
-  final void Function(int) onAddButtonTapped;
+  final void Function(int)? onAddButtonTapped;
 
-  const RedeemPoints({Key key, this.onAddButtonTapped}) : super(key: key);
+  const RedeemPoints({Key? key, this.onAddButtonTapped}) : super(key: key);
 
   @override
   _RedeemPointsState createState() => _RedeemPointsState();
@@ -33,7 +33,7 @@ class _RedeemPointsState extends State<RedeemPoints> {
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations? _translator = AppLocalizations.of(context);
     final ThemeData _theme = Theme.of(context);
     final CustomToast _customToast = CustomToast();
     final _currentUser = context.watch<CurrentUserProvider>().currentUser;
@@ -56,7 +56,7 @@ class _RedeemPointsState extends State<RedeemPoints> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Text(
-                    _translator.translate("redeem_your_points"),
+                    _translator!.translate("redeem_your_points")!,
                     style: _theme.textTheme.headline5,
                   ),
                 ),
@@ -64,15 +64,15 @@ class _RedeemPointsState extends State<RedeemPoints> {
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Text(
                     _translator
-                        .translate("enter_the_number_of_points_to_transfer"),
+                        .translate("enter_the_number_of_points_to_transfer")!,
                     style: _theme.textTheme.subtitle1,
                   ),
                 ),
                 Column(
                   children: [
                     Text(
-                      _translator.translate("point"),
-                      style: _theme.textTheme.caption
+                      _translator.translate("point")!,
+                      style: _theme.textTheme.caption!
                           .copyWith(fontWeight: FontWeight.bold),
                     ),
                     WalletInputField(
@@ -96,7 +96,7 @@ class _RedeemPointsState extends State<RedeemPoints> {
                               } else {
                                 Fluttertoast.showToast(
                                     msg: _translator
-                                        .translate("please_login_first"));
+                                        .translate("please_login_first")!);
                               }
                             },
                       child: (walletState is WalletPointsToPriceLoading)
@@ -106,7 +106,7 @@ class _RedeemPointsState extends State<RedeemPoints> {
                               child: CircularProgressIndicator(),
                             )
                           : Text(
-                              _translator.translate("confirm"),
+                              _translator.translate("confirm")!,
                               style: _theme.textTheme.button,
                             ),
                     )
@@ -118,7 +118,7 @@ class _RedeemPointsState extends State<RedeemPoints> {
     );
   }
 
-  Future<void> _redeemValue(ThemeData _theme, double value) async {
+  Future<void> _redeemValue(ThemeData _theme, double? value) async {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -133,11 +133,11 @@ class _RedeemPointsState extends State<RedeemPoints> {
 
 class RedeemPointsDialog extends StatefulWidget {
   const RedeemPointsDialog({
-    Key key,
+    Key? key,
     this.value,
-    @required this.points,
+    required this.points,
   }) : super(key: key);
-  final double value;
+  final double? value;
   final String points;
 
   @override
@@ -150,7 +150,7 @@ class _RedeemPointsDialogState extends State<RedeemPointsDialog> {
   @override
   Widget build(BuildContext context) {
     final ThemeData _theme = Theme.of(context);
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations? _translator = AppLocalizations.of(context);
     return BlocConsumer<WallettransformpointsBloc, WallettransformpointsState>(
       listener: (context, state) {
         if (state is WallettransformpointsFailed) {
@@ -159,7 +159,7 @@ class _RedeemPointsDialogState extends State<RedeemPointsDialog> {
       },
       builder: (context, state) {
         return AlertDialog(
-          title: Text(AppLocalizations.of(context).translate("redeem_value")),
+          title: Text(AppLocalizations.of(context)!.translate("redeem_value")!),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -177,27 +177,27 @@ class _RedeemPointsDialogState extends State<RedeemPointsDialog> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(widget.value.toString(),
-                        style: _theme.textTheme.headline3.copyWith(
+                        style: _theme.textTheme.headline3!.copyWith(
                             fontWeight: FontWeight.bold,
                             color: _theme.accentColor)),
                     const HorizontalGap(),
                     Text(
-                      _translator.translate("EGP"),
-                      style: _theme.textTheme.caption.copyWith(
+                      _translator!.translate("EGP")!,
+                      style: _theme.textTheme.caption!.copyWith(
                           fontWeight: FontWeight.bold,
                           color: _theme.accentColor),
                     ),
                   ],
                 ),
                 Text(
-                  AppLocalizations.of(context).translate("note"),
-                  style: _theme.textTheme.caption
+                  AppLocalizations.of(context)!.translate("note")!,
+                  style: _theme.textTheme.caption!
                       .copyWith(color: _theme.accentColor),
                 ),
                 Text(
                   _translator
-                      .translate("only_you_can_redeem_multiples_of_thousand"),
-                  style: _theme.textTheme.caption
+                      .translate("only_you_can_redeem_multiples_of_thousand")!,
+                  style: _theme.textTheme.caption!
                       .copyWith(color: _theme.accentColor),
                 ),
               ],
@@ -214,7 +214,7 @@ class _RedeemPointsDialogState extends State<RedeemPointsDialog> {
                       child: CircularProgressIndicator(),
                     )
                   : Text(
-                      _translator.translate("confirm"),
+                      _translator.translate("confirm")!,
                       style: _theme.textTheme.button,
                     ),
             ),
@@ -233,8 +233,8 @@ class _RedeemPointsDialogState extends State<RedeemPointsDialog> {
     } else {
       _customToast.buildErrorMessage(
           context,
-          AppLocalizations.of(context)
-              .translate('only_you_can_redeem_multiples_of_thousand'));
+          AppLocalizations.of(context)!
+              .translate('only_you_can_redeem_multiples_of_thousand')!);
       print("valus is not valid");
     }
   }

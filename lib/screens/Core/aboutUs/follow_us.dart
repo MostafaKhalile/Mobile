@@ -7,7 +7,7 @@ import 'package:techtime/Helpers/oval_bottom_clipper.dart';
 import 'package:techtime/Helpers/utils/app_intents.dart';
 
 class FollowUsScreen extends StatelessWidget {
-  const FollowUsScreen({Key key}) : super(key: key);
+  const FollowUsScreen({Key? key}) : super(key: key);
   static const String routeName = '/follow_us';
 
   @override
@@ -38,7 +38,7 @@ class FollowUsScreen extends StatelessWidget {
 
 class FollowUsBody extends StatelessWidget {
   const FollowUsBody({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -95,7 +95,7 @@ class FollowUsBody extends StatelessWidget {
                             " Tech Time",
                             textDirection: TextDirection.ltr,
                             textAlign: TextAlign.left,
-                            style: _theme.textTheme.subtitle2.copyWith(
+                            style: _theme.textTheme.subtitle2!.copyWith(
                               color: AppColors.primaryColor,
                               fontWeight: FontWeight.bold,
                             ),
@@ -113,7 +113,7 @@ class FollowUsBody extends StatelessWidget {
 • Enjoy the booking journey through our delightful UI/UX.''',
                               textDirection: TextDirection.ltr,
                               textAlign: TextAlign.justify,
-                              style: _theme.textTheme.caption
+                              style: _theme.textTheme.caption!
                                   .copyWith(color: Colors.white),
                             ),
                           )
@@ -129,7 +129,7 @@ class FollowUsBody extends StatelessWidget {
                               'assets/svg/facebook.svg',
                               color: AppColors.primaryColor,
                             ),
-                            onPressed: () => VisitApp.callApp(
+                            onPressed: () => AppIntents.callApp(
                                 "https://www.facebook.com/TechTimeEgypt",
                                 "com.facebook.katana")),
                         IconButton(
@@ -138,7 +138,7 @@ class FollowUsBody extends StatelessWidget {
                               'assets/svg/twitter.svg',
                               color: AppColors.primaryColor,
                             ),
-                            onPressed: () => VisitApp.callApp(
+                            onPressed: () => AppIntents.callApp(
                                 "https://twitter.com/TechTimeApp1?s=09",
                                 "com.twitter.android")),
                         IconButton(
@@ -147,7 +147,7 @@ class FollowUsBody extends StatelessWidget {
                               'assets/svg/Google+.svg',
                               color: AppColors.primaryColor,
                             ),
-                            onPressed: () => VisitApp.callApp(
+                            onPressed: () => AppIntents.callApp(
                                 "https://g.page/tech-time-app", "")),
                         IconButton(
                             color: AppColors.errorColor,
@@ -155,7 +155,7 @@ class FollowUsBody extends StatelessWidget {
                               'assets/svg/linkedin.svg',
                               color: AppColors.primaryColor,
                             ),
-                            onPressed: () => VisitApp.callApp(
+                            onPressed: () => AppIntents.callApp(
                                 "https://www.linkedin.com/in/tech-time-2141701ba/",
                                 "com.linkedin.android.home.UpdateStatusActivity")),
                         IconButton(
@@ -164,7 +164,7 @@ class FollowUsBody extends StatelessWidget {
                               'assets/svg/instagram.svg',
                               color: AppColors.primaryColor,
                             ),
-                            onPressed: () => VisitApp.callApp(
+                            onPressed: () => AppIntents.callApp(
                                 "https://www.instagram.com/techtimeegypt/?igshid=8t5hzl043ae3",
                                 "com.instagram.android")),
                         IconButton(
@@ -173,7 +173,7 @@ class FollowUsBody extends StatelessWidget {
                               'assets/svg/telegram.svg',
                               color: AppColors.primaryColor,
                             ),
-                            onPressed: () => VisitApp.callApp(
+                            onPressed: () => AppIntents.callApp(
                                 "https://t.me/joinchat/UqIHHe4u80GKwZXc",
                                 "org.telegram.messenger")),
                         IconButton(
@@ -182,7 +182,7 @@ class FollowUsBody extends StatelessWidget {
                               'assets/svg/youtube.svg',
                               color: AppColors.primaryColor,
                             ),
-                            onPressed: () => VisitApp.callApp(
+                            onPressed: () => AppIntents.callApp(
                                 "https://www.youtube.com/channel/UCSRZSdPqE8kBIp7As9dlLtg",
                                 "com.google.android.youtube")),
                       ],
@@ -193,7 +193,7 @@ class FollowUsBody extends StatelessWidget {
                         "© 2021 Tech Time All rights reserved. \n Powered by TechTime",
                         textAlign: TextAlign.center,
                         textDirection: TextDirection.ltr,
-                        style: _theme.textTheme.caption
+                        style: _theme.textTheme.caption!
                             .copyWith(color: Colors.white),
                       ),
                     )

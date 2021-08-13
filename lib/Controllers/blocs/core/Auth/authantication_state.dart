@@ -33,9 +33,7 @@ class LoginSuccesseded extends AuthanticationState {
 class LoginFailed extends AuthanticationState {
   final String message;
   @override
-  const LoginFailed({@required this.message})
-      : assert(message != null),
-        super();
+  const LoginFailed({required this.message}) : super();
   @override
   List<Object> get props => [
         message,
@@ -53,9 +51,7 @@ class CheckCodeInProgress extends AuthanticationState {
 class CheckCodeSuccesseded extends AuthanticationState {
   final User user;
 
-  const CheckCodeSuccesseded({@required this.user})
-      : assert(user != null),
-        super();
+  const CheckCodeSuccesseded({required this.user}) : super();
 
   @override
   List<Object> get props => [user];
@@ -63,9 +59,7 @@ class CheckCodeSuccesseded extends AuthanticationState {
 
 class CheckCodeFailed extends AuthanticationState {
   final String message;
-  const CheckCodeFailed({@required this.message})
-      : assert(message != null),
-        super();
+  const CheckCodeFailed({required this.message}) : super();
   @override
   List<Object> get props => [message];
 }
@@ -83,9 +77,9 @@ class RegisterSuccesseded extends AuthanticationState {
 
 class RegisterFailed extends AuthanticationState {
   final String message;
-  const RegisterFailed({@required this.message,  })
-      : assert(message != null),
-        super();
+  const RegisterFailed({
+    required this.message,
+  }) : super();
   @override
   List<Object> get props => [message];
 }
@@ -100,9 +94,7 @@ class LogOutSuccesseded extends AuthanticationState {
 
 class LogOutFailed extends AuthanticationState {
   final String message;
-  const LogOutFailed({@required this.message})
-      : assert(message != null),
-        super();
+  const LogOutFailed({required this.message}) : super();
   @override
   List<Object> get props => [message];
 }

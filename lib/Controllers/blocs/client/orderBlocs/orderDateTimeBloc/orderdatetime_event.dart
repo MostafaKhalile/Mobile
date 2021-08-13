@@ -8,6 +8,6 @@ abstract class OrderDateTimeEvent extends Equatable {
 }
 
 class GetOrderDateTimes extends OrderDateTimeEvent {
-  final int branceId;
+  final int? branceId;
   const GetOrderDateTimes(this.branceId);
 }

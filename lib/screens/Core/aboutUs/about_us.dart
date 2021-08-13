@@ -8,7 +8,7 @@ import 'package:techtime/Helpers/oval_bottom_clipper.dart';
 
 class AboutUsScreen extends StatelessWidget {
   static const String routeName = "/about_us";
-  const AboutUsScreen({Key key}) : super(key: key);
+  const AboutUsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class AboutUsScreen extends StatelessWidget {
 
 class AboutUsBody extends StatelessWidget {
   const AboutUsBody({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -75,7 +75,7 @@ class AboutUsBody extends StatelessWidget {
                           color: Colors.black,
                           fontWeight: FontWeight.bold)),
                   Text("V ${AppInfo.version}",
-                      style: _theme.textTheme.caption.copyWith(
+                      style: _theme.textTheme.caption!.copyWith(
                           color: Colors.black,
                           letterSpacing: 1.5,
                           fontWeight: FontWeight.bold))
@@ -158,7 +158,7 @@ class AboutUsBody extends StatelessWidget {
                           "© 2021 Tech Time All rights reserved. \n Powered by TechTime",
                           textAlign: TextAlign.center,
                           textDirection: TextDirection.ltr,
-                          style: _theme.textTheme.caption
+                          style: _theme.textTheme.caption!
                               .copyWith(color: Colors.white),
                         ),
                       )
@@ -172,10 +172,10 @@ class AboutUsBody extends StatelessWidget {
 
 class BusinessOptionTile extends StatelessWidget {
   const BusinessOptionTile({
-    Key key,
-    @required this.icon,
-    @required this.header,
-    @required this.body,
+    Key? key,
+    required this.icon,
+    required this.header,
+    required this.body,
   }) : super(key: key);
   final IconData icon;
   final String header;
@@ -200,7 +200,7 @@ class BusinessOptionTile extends StatelessWidget {
           title: Text(header,
               textDirection: TextDirection.ltr,
               textAlign: TextAlign.left,
-              style: _theme.textTheme.caption.copyWith(
+              style: _theme.textTheme.caption!.copyWith(
                 color: AppColors.primaryColor,
                 fontWeight: FontWeight.bold,
               )),
@@ -220,12 +220,12 @@ class BusinessOptionTile extends StatelessWidget {
 
 class AboustSection extends StatelessWidget {
   const AboustSection({
-    Key key,
+    Key? key,
     this.header,
     this.paragraph,
   }) : super(key: key);
-  final String header;
-  final String paragraph;
+  final String? header;
+  final String? paragraph;
 
   @override
   Widget build(BuildContext context) {
@@ -236,10 +236,10 @@ class AboustSection extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            header,
+            header!,
             textDirection: TextDirection.ltr,
             textAlign: TextAlign.left,
-            style: _theme.textTheme.subtitle2.copyWith(
+            style: _theme.textTheme.subtitle2!.copyWith(
               color: AppColors.primaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -251,7 +251,7 @@ class AboustSection extends StatelessWidget {
               $paragraph''',
               textDirection: TextDirection.ltr,
               textAlign: TextAlign.justify,
-              style: _theme.textTheme.caption.copyWith(color: Colors.white),
+              style: _theme.textTheme.caption!.copyWith(color: Colors.white),
             ),
           )
         ],

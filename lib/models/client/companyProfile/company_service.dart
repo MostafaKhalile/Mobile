@@ -1,17 +1,17 @@
 import 'package:equatable/equatable.dart';
 
 class CompanyService extends Equatable {
-  final String image;
+  final String? image;
   final dynamic servicesId;
-  final String nameServicesAr;
-  final String nameServicesEn;
+  final String? nameServicesAr;
+  final String? nameServicesEn;
   final dynamic fullTime;
   final dynamic serviceTimeM;
   final dynamic serviceTimeH;
   final dynamic serviceTimeD;
   final dynamic priceFrom;
   final dynamic priceTo;
-  final String description;
+  final String? description;
   final dynamic raty;
 
   const CompanyService({
@@ -31,17 +31,17 @@ class CompanyService extends Equatable {
 
   factory CompanyService.fromJson(Map<String, dynamic> json) {
     return CompanyService(
-      image: json['Image'] as String,
+      image: json['Image'] as String?,
       servicesId: json['ServicesID'] as dynamic,
-      nameServicesAr: json['NameServicesAR'] as String,
-      nameServicesEn: json['NameServicesEN'] as String,
+      nameServicesAr: json['NameServicesAR'] as String?,
+      nameServicesEn: json['NameServicesEN'] as String?,
       fullTime: json['FullTime'] as dynamic,
       serviceTimeM: json['ServiceTimeM'] as dynamic,
       serviceTimeH: json['ServiceTimeH'] as dynamic,
       serviceTimeD: json['ServiceTimeD'] as dynamic,
       priceFrom: json['PriceFrom'] as dynamic,
       priceTo: json['PriceTo'] as dynamic,
-      description: json['Description'] as String,
+      description: json['Description'] as String?,
       raty: json['raty'] as dynamic,
     );
   }
@@ -64,17 +64,17 @@ class CompanyService extends Equatable {
   }
 
   CompanyService copyWith({
-    String image,
+    String? image,
     dynamic servicesId,
-    String nameServicesAr,
-    String nameServicesEn,
+    String? nameServicesAr,
+    String? nameServicesEn,
     dynamic fullTime,
     dynamic serviceTimeM,
     dynamic serviceTimeH,
     dynamic serviceTimeD,
     dynamic priceFrom,
     dynamic priceTo,
-    String description,
+    String? description,
     dynamic raty,
   }) {
     return CompanyService(
@@ -97,7 +97,7 @@ class CompanyService extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       image,
       servicesId,

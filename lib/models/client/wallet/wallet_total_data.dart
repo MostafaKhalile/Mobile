@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 
 class WalletTotalData extends Equatable {
-  final int status;
+  final int? status;
   final dynamic message;
-  final double money;
-  final int points;
-  final double creditor;
+  final double? money;
+  final int? points;
+  final double? creditor;
 
   const WalletTotalData({
     this.status,
@@ -17,11 +17,11 @@ class WalletTotalData extends Equatable {
 
   factory WalletTotalData.fromJson(Map<String, dynamic> json) {
     return WalletTotalData(
-      status: json['status'] as int,
+      status: json['status'] as int?,
       message: json['message'],
-      money: json['Money'] as double,
-      points: json['Points'] as int,
-      creditor: json['Creditor'] as double,
+      money: json['Money'] as double?,
+      points: json['Points'] as int?,
+      creditor: json['Creditor'] as double?,
     );
   }
 
@@ -36,11 +36,11 @@ class WalletTotalData extends Equatable {
   }
 
   WalletTotalData copyWith({
-    int status,
+    int? status,
     dynamic message,
-    double money,
-    int points,
-    double creditor,
+    double? money,
+    int? points,
+    double? creditor,
   }) {
     return WalletTotalData(
       status: status ?? this.status,
@@ -55,5 +55,5 @@ class WalletTotalData extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [status, message, money, points, creditor];
+  List<Object?> get props => [status, message, money, points, creditor];
 }

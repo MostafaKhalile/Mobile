@@ -11,9 +11,9 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
     bottomAppBarColor: Colors.white,
     iconTheme: iconThemeData(),
     tabBarTheme: TabBarTheme(
-        unselectedLabelStyle: textTheme().subtitle1.apply(fontFamily: 'cocon'),
+        unselectedLabelStyle: textTheme().subtitle1!.apply(fontFamily: 'cocon'),
         labelColor: Colors.white,
-        labelStyle: textTheme().subtitle1.apply(fontFamily: 'cocon')),
+        labelStyle: textTheme().subtitle1!.apply(fontFamily: 'cocon')),
     // ignore: deprecated_member_use
     cursorColor: AppColors.primaryColor,
     scaffoldBackgroundColor: Colors.black,

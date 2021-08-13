@@ -5,7 +5,6 @@ import 'package:path/path.dart';
 import 'package:async/async.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:flutter/material.dart';
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Helpers/shared_perfs_provider.dart';
@@ -17,8 +16,8 @@ class AccountApiClient {
   final AuthRepo _authRepo = AuthRepo();
 
   AccountApiClient({
-    @required this.prefs,
-  }) : assert(prefs != null);
+    required this.prefs,
+  });
   Future getProfileData() async {
     const String _path =
         NetworkConstants.baseUrl + NetworkConstants.userProfileAPI;
@@ -35,9 +34,8 @@ class AccountApiClient {
         return Future.error(data);
       }
     } catch (e) {
-      if (e.response != null) {
-      } else {}
       return Future.error("error");
+      // json.decode(utf8.decode(resp.bodyBytes))['message']
     }
   }
 
@@ -56,11 +54,11 @@ class AccountApiClient {
       if (respData["status"] == 201) {
         return true;
       } else {
-        return Future.error(
-            json.decode(utf8.decode(resp.bodyBytes))['message']);
+        return Future.error("Error");
       }
     } catch (e) {
-      return Future.error(json.decode(utf8.decode(e as List<int>))['message']);
+      return Future.error("Error");
+      // json.decode(utf8.decode(resp.bodyBytes))['message']
     }
   }
 
@@ -79,11 +77,11 @@ class AccountApiClient {
       if (respData["status"] == 201) {
         return true;
       } else {
-        return Future.error(
-            json.decode(utf8.decode(resp.bodyBytes))['message']);
+        return Future.error("Error");
       }
     } catch (e) {
-      return Future.error(json.decode(utf8.decode(e as List<int>))['message']);
+      return Future.error("Error");
+      // json.decode(utf8.decode(resp.bodyBytes))['message']
     }
   }
 
@@ -99,11 +97,11 @@ class AccountApiClient {
       if (respData["status"] == 201) {
         return true;
       } else {
-        return Future.error(
-            json.decode(utf8.decode(resp.bodyBytes))['message']);
+        return Future.error("Error");
       }
     } catch (e) {
-      return Future.error(json.decode(utf8.decode(e as List<int>))['message']);
+      return Future.error("Error");
+      // json.decode(utf8.decode(resp.bodyBytes))['message']
     }
   }
 
@@ -121,11 +119,13 @@ class AccountApiClient {
       if (respData["status"] == 201) {
         return true;
       } else {
-        return Future.error(
-            json.decode(utf8.decode(resp.bodyBytes))['message']);
+        return Future.error("Error");
+        // json.decode(utf8.decode(resp.bodyBytes))['message']
       }
     } catch (e) {
-      return Future.error(json.decode(utf8.decode(e as List<int>))['message']);
+      return Future.error("Error");
+      // json.decode(utf8.decode(resp.bodyBytes))['message']
+      // "Error"
     }
   }
 
@@ -146,16 +146,14 @@ class AccountApiClient {
       if (respData["status"] == 200) {
         return true;
       } else {
-        return Future.error(
-            json.decode(utf8.decode(resp.bodyBytes))['message']);
+        return Future.error("Error");
       }
     } catch (e) {
-      return Future.error(json.decode(utf8.decode(e as List<int>))['message']);
+      return Future.error("Error");
     }
   }
 
-  Future uploadProfilePicture(File imageFile) async {
-    bool hasBeenUploaded;
+  Future<bool> uploadProfilePicture(File imageFile) async {
     // open a bytestream
     final stream =
         // ignore: deprecated_member_use
@@ -186,11 +184,8 @@ class AccountApiClient {
     // ignore: void_checks
     response.stream.transform(utf8.decoder).listen((value) {
       if (json.decode(value)['status'] == 201) {
-        hasBeenUploaded = true;
-      } else {
-        hasBeenUploaded = false;
-      }
-      return hasBeenUploaded;
+      } else {}
+      return;
     });
     return true;
   }
@@ -298,16 +293,16 @@ class AccountApiClient {
         "PromoCode": promocode
       });
       final respData =
-          json.decode(utf8.decode(resp.bodyBytes)) as Map<String, dynamic>;
+          json.decode(utf8.decode(resp.bodyBytes)) as Map<String, dynamic>?;
 
-      return respData;
+      return respData!;
     } catch (e) {
       return Future.error(e);
     }
   }
 
   void logOut() {}
-  String get currentToken {
+  String? get currentToken {
     return _authRepo.currentUserToken;
   }
 }

@@ -4,17 +4,17 @@ import 'package:techtime/Helpers/app_colors.dart';
 
 class ProfileTextField extends StatelessWidget {
   const ProfileTextField({
-    Key key,
-    @required ThemeData theme,
-    @required this.controller,
-    @required this.suffixWidget,
+    Key? key,
+    required ThemeData theme,
+    required this.controller,
+    required this.suffixWidget,
     this.enabled,
   })  : _theme = theme,
         super(key: key);
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final ThemeData _theme;
-  final bool enabled;
+  final bool? enabled;
   final Widget suffixWidget;
 
   @override
@@ -28,11 +28,11 @@ class ProfileTextField extends StatelessWidget {
                 controller: controller,
                 enabled: enabled,
                 cursorColor: AppColors.primaryColor,
-                style: _theme.textTheme.caption.copyWith(
+                style: _theme.textTheme.caption!.copyWith(
                     fontWeight: FontWeight.bold, color: _theme.accentColor),
                 decoration: InputDecoration(
                     contentPadding: const EdgeInsets.only(left: 30, right: 30),
-                    hintStyle: _theme.textTheme.caption.copyWith(
+                    hintStyle: _theme.textTheme.caption!.copyWith(
                         fontWeight: FontWeight.bold, color: _theme.accentColor),
                     enabledBorder: InputBorder.none,
                     border: InputBorder.none,

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 
 class HorizontalGap extends StatelessWidget {
-  final double width;
+  final double? width;
   const HorizontalGap({
-    Key key,
+    Key? key,
     this.width,
   }) : super(key: key);
 

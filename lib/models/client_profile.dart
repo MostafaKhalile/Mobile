@@ -1,19 +1,19 @@
 import 'package:equatable/equatable.dart';
 
 class UserProfile extends Equatable {
-  final String image;
+  final String? image;
   final dynamic coverImage;
   final dynamic raty;
   final dynamic typeCategoryAr;
   final dynamic typeCategoryEn;
-  final String firstName;
-  final String lastName;
-  final String email;
-  final int mobile;
-  final String cityAr;
-  final String cityEn;
-  final String regionAr;
-  final String regionEn;
+  final String? firstName;
+  final String? lastName;
+  final String? email;
+  final int? mobile;
+  final String? cityAr;
+  final String? cityEn;
+  final String? regionAr;
+  final String? regionEn;
 
   const UserProfile({
     this.image,
@@ -33,19 +33,19 @@ class UserProfile extends Equatable {
 
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     return UserProfile(
-      image: json['Image'] as String,
+      image: json['Image'] as String?,
       coverImage: json['CoverImage'],
       raty: json['raty'] as dynamic,
       typeCategoryAr: json['TypeCategoryAR'],
       typeCategoryEn: json['TypeCategoryEN'],
-      firstName: json['First_name'] as String,
-      lastName: json['Last_name'] as String,
-      email: json['Email'] as String,
-      mobile: json['Mobile'] as int,
-      cityAr: json['CityAR'] as String,
-      cityEn: json['CityEN'] as String,
-      regionAr: json['RegionAR'] as String,
-      regionEn: json['RegionEN'] as String,
+      firstName: json['First_name'] as String?,
+      lastName: json['Last_name'] as String?,
+      email: json['Email'] as String?,
+      mobile: json['Mobile'] as int?,
+      cityAr: json['CityAR'] as String?,
+      cityEn: json['CityEN'] as String?,
+      regionAr: json['RegionAR'] as String?,
+      regionEn: json['RegionEN'] as String?,
     );
   }
 
@@ -71,7 +71,7 @@ class UserProfile extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       image,
       coverImage,

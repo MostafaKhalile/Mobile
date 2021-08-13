@@ -41,7 +41,7 @@ import 'screens/Core/startupViews/sms_verification_screen.dart';
 class RouteGenerator {
   Route<dynamic> generateRoute(RouteSettings settings) {
     // Getting arguments passed in while calling Navigator.pushNamed
-    final args = settings.arguments;
+    final dynamic args = settings.arguments;
 
     switch (settings.name) {
       case '/':
@@ -111,75 +111,61 @@ class RouteGenerator {
           fullscreenDialog: true,
           builder: (_) => GalleryView(
             imgList: (args as Map)["imgList"] as List<String>,
-            companyName: (args as Map)["companyName"] as String,
+            companyName: args["companyName"] as String,
           ),
         );
       case BranchProfile.routeName:
         return CupertinoPageRoute(
             builder: (_) => BranchProfile(
-                  branche: args as CompanyBranche,
+                  branche: args as CompanyBranche?,
                 ));
-        break;
       case ReservationFirstStep.routeName:
         return CupertinoPageRoute(
           fullscreenDialog: true,
           builder: (_) => ReservationFirstStep(
-              companyBranches:
-                  (args as Map)["CompanyBranches"] as List<CompanyBranche>,
-              reservationType:
-                  (args as Map)["ReservationType"] as ReservationType,
-              branchID: (args as Map)["branchID"] as int),
+              companyBranches: args["CompanyBranches"] as List<CompanyBranche>?,
+              reservationType: args["ReservationType"] as ReservationType?,
+              branchID: args["branchID"] as int?),
         );
-        break;
       case TableReservation.routeName:
         return CupertinoPageRoute(
           fullscreenDialog: true,
           builder: (_) => const TableReservation(),
         );
-        break;
       case SearchScreen.routeName:
         return CupertinoPageRoute(
             fullscreenDialog: true, builder: (_) => SearchScreen());
-        break;
       case Notifications.routeName:
         return CupertinoPageRoute(
             fullscreenDialog: true,
             builder: (_) => Notifications(
                   notifications: args as AllNotifications,
                 ));
-        break;
       case FavoritesScreen.routeName:
         return CupertinoPageRoute(
             fullscreenDialog: true, builder: (_) => const FavoritesScreen());
-        break;
       case OffersScreen.routeName:
         return CupertinoPageRoute(
             fullscreenDialog: true, builder: (_) => OffersScreen());
-        break;
 
       case CompanyOffersScreen.routeName:
         return MaterialPageRoute(
             fullscreenDialog: true,
             builder: (_) => CompanyOffersScreen(
-                  companyOffer: args as CompanyDataOffer,
+                  companyOffer: args as CompanyDataOffer?,
                 ));
-        break;
       case ContactUS.routeName:
         return CupertinoPageRoute(
             fullscreenDialog: true, builder: (_) => ContactUS());
-        break;
       case AboutUsScreen.routeName:
         return CupertinoPageRoute(
             fullscreenDialog: true, builder: (_) => const AboutUsScreen());
-        break;
       case FollowUsScreen.routeName:
         return CupertinoPageRoute(
             fullscreenDialog: true, builder: (_) => const FollowUsScreen());
-        break;
       case EmailForgetPassword.routeName:
         return CupertinoPageRoute(
             fullscreenDialog: true, builder: (_) => EmailForgetPassword());
-        break;
       case EmailConfirmCode.routeName:
         return CupertinoPageRoute(
           fullscreenDialog: true,
@@ -187,13 +173,11 @@ class RouteGenerator {
             emailAddress: args as String,
           ),
         );
-        break;
       case ProfileEdit.routeName:
         return PageTransition(
             type: PageTransitionType.bottomToTop,
             duration: const Duration(milliseconds: 300),
             child: const ProfileEdit());
-        break;
       default:
         // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();

@@ -5,10 +5,10 @@ import 'package:techtime/Models/client_profile.dart';
 
 class CurrentUserProvider extends ChangeNotifier {
   final USerRepo _userRepo = USerRepo();
-  UserProfile _user;
-  UserProfile _userData;
-  UserProfile get currentUser => _userData;
-  UserProfile loadCurrentUser() {
+  UserProfile? _user;
+  UserProfile? _userData;
+  UserProfile? get currentUser => _userData;
+  UserProfile? loadCurrentUser() {
     try {
       _userData = _userRepo.currentUserProfile;
    

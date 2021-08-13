@@ -2,13 +2,13 @@ import 'package:equatable/equatable.dart';
 
 class Review extends Equatable {
   final dynamic image;
-  final String name;
-  final bool orderService;
-  final int totalServices;
-  final int totalOffers;
-  final String date;
+  final String? name;
+  final bool? orderService;
+  final int? totalServices;
+  final int? totalOffers;
+  final String? date;
   final dynamic raty;
-  final String comment;
+  final String? comment;
 
   const Review({
     this.image,
@@ -22,18 +22,18 @@ class Review extends Equatable {
   });
 
   factory Review.fromJson(Map<String, dynamic> json) => Review(
-        image: json['Image'] as String,
-        name: json['Name'] as String,
-        orderService: json['OrderService'] as bool,
-        totalServices: json['TotalServices'] as int,
-        totalOffers: json['TotalOffers'] as int,
-        date: json['Date'] as String,
+        image: json['Image'] as String?,
+        name: json['Name'] as String?,
+        orderService: json['OrderService'] as bool?,
+        totalServices: json['TotalServices'] as int?,
+        totalOffers: json['TotalOffers'] as int?,
+        date: json['Date'] as String?,
         raty: json['raty'] as dynamic,
-        comment: json['Comment'] as String,
+        comment: json['Comment'] as String?,
       );
 
   Map<String, dynamic> toJson() => {
-        'Image': image as String,
+        'Image': image as String?,
         'Name': name,
         'OrderService': orderService,
         'TotalServices': totalServices,
@@ -45,13 +45,13 @@ class Review extends Equatable {
 
   Review copyWith({
     dynamic image,
-    String name,
-    bool orderService,
-    int totalServices,
-    int totalOffers,
-    String date,
-    int raty,
-    String comment,
+    String? name,
+    bool? orderService,
+    int? totalServices,
+    int? totalOffers,
+    String? date,
+    int? raty,
+    String? comment,
   }) {
     return Review(
       image: image ?? this.image,
@@ -69,7 +69,7 @@ class Review extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       image,
       name,

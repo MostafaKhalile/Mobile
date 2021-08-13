@@ -47,7 +47,7 @@ class APICompaniesRepository {
     }
   }
 
-  Future<CompanyProfile> companyView(int id) async {
+  Future<CompanyProfile> companyView(int? id) async {
     final response = await http.post(
         Uri.parse(NetworkConstants.baseUrl +
             NetworkConstants.companyView +
@@ -63,7 +63,7 @@ class APICompaniesRepository {
       print(
           "#Company Profile response is ${companyProfile.companyBranches} ${companyProfile.companyOffers} ${companyProfile.companyReviews} ${companyProfile.companyServices}");
 
-      return CompanyProfile.fromJson(data as Map<String, dynamic>);
+      return CompanyProfile.fromJson(data);
     } else {
       throw Exception('${json.decode(response.body)}');
     }

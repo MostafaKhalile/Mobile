@@ -1,11 +1,11 @@
 part of 'authantication_bloc.dart';
 
 abstract class AuthanticationEvent extends Equatable {
-  final Key key;
+  final Key? key;
   const AuthanticationEvent(this.key);
 
   @override
-  List<Object> get props => [key];
+  List<Object?> get props => [key];
 }
 
 /*
@@ -21,7 +21,7 @@ class StartLogin extends AuthanticationEvent {
     this.email,
     this.password,
     this.fcmToken, {
-    Key key,
+    Key? key,
   }) : super(key);
 
   @override
@@ -32,7 +32,7 @@ class StartLogin extends AuthanticationEvent {
 
 */
 class StartLogOut extends AuthanticationEvent {
-  const StartLogOut({Key key}) : super(key);
+  const StartLogOut({Key? key}) : super(key);
 }
 
 // class RegisterNewUser extends AuthanticationEvent {

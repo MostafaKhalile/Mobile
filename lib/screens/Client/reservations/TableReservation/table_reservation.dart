@@ -7,7 +7,7 @@ import 'package:techtime/Widgets/core/vertical_gab.dart';
 
 class TableReservation extends StatefulWidget {
   static const String routeName = "/table_reservation";
-  const TableReservation({Key key}) : super(key: key);
+  const TableReservation({Key? key}) : super(key: key);
 
   @override
   _TableReservationState createState() => _TableReservationState();
@@ -21,15 +21,15 @@ class _TableReservationState extends State<TableReservation> {
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations _translator = AppLocalizations.of(context)!;
     final ThemeData _theme = Theme.of(context);
-    String dropdownValue;
+    String? dropdownValue;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          _translator.translate("book_your_table"),
-          style: _theme.textTheme.headline6.copyWith(color: Colors.black),
+          _translator.translate("book_your_table")!,
+          style: _theme.textTheme.headline6!.copyWith(color: Colors.black),
         ),
         iconTheme: const IconThemeData(color: Colors.black),
       ),
@@ -42,7 +42,7 @@ class _TableReservationState extends State<TableReservation> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  _translator.translate("seats_no"),
+                  _translator.translate("seats_no")!,
                   style: _theme.textTheme.caption,
                 ),
                 Row(
@@ -85,19 +85,20 @@ class _TableReservationState extends State<TableReservation> {
                 hintText: "Ex. Insert your dob",
               ),
               onTap: () async {
-                DateTime date = DateTime(1900);
-                TimeOfDay time = TimeOfDay.now();
+                DateTime? date = DateTime(1900);
+                TimeOfDay? time = TimeOfDay.now();
                 FocusScope.of(context).requestFocus(FocusNode());
 
-                date = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: kFirstDay,
-                    lastDate: DateTime(kNow.year, kNow.month + 6, kNow.day));
-                time = await showTimePicker(
+                date = await (showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: kFirstDay,
+                        lastDate: DateTime(kNow.year, kNow.month + 6, kNow.day))
+                    as Future<DateTime>);
+                time = await (showTimePicker(
                   initialTime: TimeOfDay.now(),
                   context: context,
-                );
+                ) as Future<TimeOfDay>);
                 dateCtl.text =
                     "${DateFormat('dd-MM-y').format(date)}\t${time.format(context)}";
               },
@@ -106,8 +107,8 @@ class _TableReservationState extends State<TableReservation> {
             DropdownButton<String>(
               isExpanded: true,
               value: dropdownValue,
-              hint: Text(_translator.translate("select_booking_type")),
-              onChanged: (String newValue) {
+              hint: Text(_translator.translate("select_booking_type")!),
+              onChanged: (String? newValue) {
                 setState(() {
                   dropdownValue = newValue;
                 });
@@ -143,7 +144,7 @@ class _TableReservationState extends State<TableReservation> {
                 onPressed: () => {},
                 disabledColor: Colors.black38,
                 child: Text(
-                  _translator.translate("book_now"),
+                  _translator.translate("book_now")!,
                   style: Theme.of(context).textTheme.button,
                 ),
               ))

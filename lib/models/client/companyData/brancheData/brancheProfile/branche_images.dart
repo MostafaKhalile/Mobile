@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
 class BrancheImage extends Equatable {
-  final String image;
+  final String? image;
 
   const BrancheImage({this.image});
 
   factory BrancheImage.fromJson(Map<String, dynamic> json) {
     return BrancheImage(
-      image: json['Image'] as String,
+      image: json['Image'] as String?,
     );
   }
 
@@ -18,7 +18,7 @@ class BrancheImage extends Equatable {
   }
 
   BrancheImage copyWith({
-    String image,
+    String? image,
   }) {
     return BrancheImage(
       image: image ?? this.image,
@@ -29,5 +29,5 @@ class BrancheImage extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [image];
+  List<Object?> get props => [image];
 }

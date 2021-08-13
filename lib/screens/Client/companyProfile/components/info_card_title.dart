@@ -4,11 +4,11 @@ import 'package:techtime/widgets/core/horizontal_gap.dart';
 
 class InfoCardHeader extends StatelessWidget {
   const InfoCardHeader({
-    Key key,
-    @required this.title,
-    @required this.icon,
+    Key? key,
+    required this.title,
+    required this.icon,
   }) : super(key: key);
-  final String title;
+  final String? title;
   final IconData icon;
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class InfoCardHeader extends StatelessWidget {
             width: defaultPadding / 4,
           ),
           Text(
-            title,
+            title!,
             style: Theme.of(context).textTheme.headline6,
           )
         ],

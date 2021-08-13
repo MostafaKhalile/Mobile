@@ -9,7 +9,7 @@ import 'branches_api_client.dart';
 
 class BranchesRepository {
   final BranchesApiClient _branchesApiClient = BranchesApiClient();
-  Future<BrancheProfile> getBrancheProfileData(int brancheId) async {
+  Future<BrancheProfile> getBrancheProfileData(int? brancheId) async {
     try {
       final dataResp = await _branchesApiClient.getBrancheProfile(brancheId);
       return dataResp;
@@ -18,17 +18,18 @@ class BranchesRepository {
     }
   }
 
-  Future<bool> brancheAddRemoveFavorite(int brancheId) async {
+  Future<bool?> brancheAddRemoveFavorite(int? brancheId) async {
     try {
       final dataResp =
           await _branchesApiClient.brancheAddRemoveFavorite(brancheId);
+      print(dataResp);
       return dataResp;
     } catch (e) {
       return Future.error(e.toString());
     }
   }
 
-  Future<List<CompanyService>> getBrancheServices(int brancheId) async {
+  Future<List<CompanyService>> getBrancheServices(int? brancheId) async {
     try {
       final dataResp = await _branchesApiClient.getBrancheServices(brancheId);
       return dataResp;
@@ -37,16 +38,17 @@ class BranchesRepository {
     }
   }
 
-  Future<List<CompanyEmployee>> getBrancheEmployees(int brancheId) async {
+  Future<List<CompanyEmployee>> getBrancheEmployees(int? brancheId) async {
     try {
       final dataResp = await _branchesApiClient.getBrancheEmployees(brancheId);
+      print(dataResp);
       return dataResp;
     } catch (e) {
       return Future.error(e.toString());
     }
   }
 
-  Future<BrancheReviews> getBrancheReviews(int branheId) async {
+  Future<BrancheReviews> getBrancheReviews(int? branheId) async {
     try {
       final dataResp = await _branchesApiClient.getBrancheReviews(branheId);
       return dataResp;
@@ -55,7 +57,7 @@ class BranchesRepository {
     }
   }
 
-  Future<List<BrancheOffer>> getBrancheOffers(int brancheId) async {
+  Future<List<BrancheOffer>> getBrancheOffers(int? brancheId) async {
     try {
       final dataResp = await _branchesApiClient.getBrancheOffers(brancheId);
       return dataResp;

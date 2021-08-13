@@ -5,17 +5,17 @@ import 'package:techtime/Helpers/network_constants.dart';
 
 class FooterCard extends StatelessWidget {
   const FooterCard({
-    Key key,
-    @required this.width,
-    @required this.height,
+    Key? key,
+    required this.width,
+    required this.height,
     this.bgImage,
     this.child,
   }) : super(key: key);
 
   final double width;
   final double height;
-  final String bgImage;
-  final Widget child;
+  final String? bgImage;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class FooterCard extends StatelessWidget {
           image: DecorationImage(
             image: bgImage != null
                 ? NetworkImage(
-                    NetworkConstants.baseUrl + bgImage,
+                    NetworkConstants.baseUrl + bgImage!,
                   ) as ImageProvider
                 : const AssetImage(placeHolderCover),
             fit: BoxFit.fill,

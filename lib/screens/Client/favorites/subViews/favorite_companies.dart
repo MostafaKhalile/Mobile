@@ -10,7 +10,7 @@ import 'package:techtime/Widgets/core/shimmer_effect.dart';
 
 class FavoriteCompanies extends StatefulWidget {
   const FavoriteCompanies({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -53,8 +53,8 @@ class _FavoriteCompaniesState extends State<FavoriteCompanies> {
 
 class FavoriteCompaniesWithData extends StatelessWidget {
   const FavoriteCompaniesWithData({
-    Key key,
-    @required this.companies,
+    Key? key,
+    required this.companies,
   }) : super(key: key);
 
   final List<Company> companies;
@@ -79,14 +79,14 @@ class FavoriteCompaniesWithData extends StatelessWidget {
                   child: FooterCard(
                     width: size.width * 0.95,
                     height: size.height * .25,
-                    bgImage: companies[i]?.coverImage,
+                    bgImage: companies[i].coverImage,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(defaultPadding / 2),
                           child: Hero(
-                              tag: companies[i].companyName,
+                              tag: companies[i].companyName!,
                               child: CustomCircleAvatar(
                                 width: 80,
                                 height: 80,
@@ -99,22 +99,22 @@ class FavoriteCompaniesWithData extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Text(
-                                companies[i].companyName,
+                                companies[i].companyName!,
                                 overflow: TextOverflow.ellipsis,
-                                style: _theme.textTheme.subtitle2
+                                style: _theme.textTheme.subtitle2!
                                     .copyWith(color: Colors.black),
                               ),
                               RichText(
                                   textScaleFactor: 0.9,
                                   text: TextSpan(
                                     text: '${companies[i].categoryRegionEn}   ',
-                                    style: _theme.textTheme.subtitle2
+                                    style: _theme.textTheme.subtitle2!
                                         .copyWith(color: Colors.black),
                                     children: <TextSpan>[
                                       TextSpan(
                                           text:
                                               '${companies[i].categoryCityEn} ',
-                                          style: _theme.textTheme.subtitle2
+                                          style: _theme.textTheme.subtitle2!
                                               .copyWith(color: Colors.black)),
                                     ],
                                   )),
@@ -132,7 +132,7 @@ class FavoriteCompaniesWithData extends StatelessWidget {
 
 class FavoriteCompaniesShimmer extends StatelessWidget {
   const FavoriteCompaniesShimmer({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -173,19 +173,19 @@ class FavoriteCompaniesShimmer extends StatelessWidget {
                                 Text(
                                   "",
                                   overflow: TextOverflow.ellipsis,
-                                  style: _theme.textTheme.subtitle2
+                                  style: _theme.textTheme.subtitle2!
                                       .copyWith(color: Colors.black),
                                 ),
                                 RichText(
                                     textScaleFactor: 0.9,
                                     text: TextSpan(
                                       text: '',
-                                      style: _theme.textTheme.subtitle2
+                                      style: _theme.textTheme.subtitle2!
                                           .copyWith(color: Colors.black),
                                       children: <TextSpan>[
                                         TextSpan(
                                             text: '',
-                                            style: _theme.textTheme.subtitle2
+                                            style: _theme.textTheme.subtitle2!
                                                 .copyWith(color: Colors.black)),
                                       ],
                                     )),

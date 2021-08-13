@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 
 class VerticalGap extends StatelessWidget {
-  final double height;
+  final double? height;
   const VerticalGap({
-    Key key,
+    Key? key,
     this.height,
   }) : super(key: key);
 

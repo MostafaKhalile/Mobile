@@ -12,7 +12,7 @@ class ReservationsInitial extends ReservationsState {}
 class PreviousReservationsLoading extends ReservationsState {}
 
 class PreviousReservationsSuccess extends ReservationsState {
-  final List<Reservation> reservations;
+  final List<Reservation>? reservations;
 
   const PreviousReservationsSuccess(this.reservations);
 }
@@ -25,7 +25,7 @@ class PreviousReservationsFaild extends ReservationsState {
 class UpcomingReservationsLoading extends ReservationsState {}
 
 class UpcomingReservationsSuccess extends ReservationsState {
-  final List<Reservation> reservations;
+  final List<Reservation>? reservations;
 
   const UpcomingReservationsSuccess(this.reservations);
 }

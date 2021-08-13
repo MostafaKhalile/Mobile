@@ -4,12 +4,12 @@ import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/network_constants.dart';
 
 class OfferCardBody extends StatelessWidget {
-  final String image;
-  final String title;
-  final String subtitle;
-  final String hint;
+  final String? image;
+  final String? title;
+  final String? subtitle;
+  final String? hint;
   const OfferCardBody({
-    Key key,
+    Key? key,
     this.image,
     this.title,
     this.subtitle,
@@ -30,7 +30,7 @@ class OfferCardBody extends StatelessWidget {
                 image: DecorationImage(
                     fit: BoxFit.cover,
                     image: (image != null)
-                        ? NetworkImage(NetworkConstants.baseUrl + image)
+                        ? NetworkImage(NetworkConstants.baseUrl + image!)
                             as ImageProvider
                         : const AssetImage(
                             placeHolderImage,
@@ -46,16 +46,16 @@ class OfferCardBody extends StatelessWidget {
               // textAlign: TextAlign.start,
               text: TextSpan(
                 text: "$title\n",
-                style: _theme.textTheme.subtitle2
+                style: _theme.textTheme.subtitle2!
                     .copyWith(fontWeight: FontWeight.bold),
                 children: <TextSpan>[
                   TextSpan(
                       text: "$hint\n",
-                      style: _theme.textTheme.caption
+                      style: _theme.textTheme.caption!
                           .copyWith(color: Colors.white)),
                   TextSpan(
                       text: "$subtitle\n",
-                      style: _theme.textTheme.bodyText2
+                      style: _theme.textTheme.bodyText2!
                           .copyWith(color: Colors.white)),
                 ],
               ),

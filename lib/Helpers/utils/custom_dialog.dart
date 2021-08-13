@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomDialog {
-  Future<bool> buildFullScreenDialog(BuildContext context, Widget child) {
+  Future<bool?> buildFullScreenDialog(BuildContext context, Widget child) {
     return showDialog<bool>(
       // useSafeArea: true,
       context: context,

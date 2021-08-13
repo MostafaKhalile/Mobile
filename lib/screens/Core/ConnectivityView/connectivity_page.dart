@@ -8,7 +8,7 @@ import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 class ConnectivityPage extends StatefulWidget {
   final Widget parent;
 
-  const ConnectivityPage({Key key, @required this.parent}) : super(key: key);
+  const ConnectivityPage({Key? key, required this.parent}) : super(key: key);
   @override
   _ConnectivityPageState createState() => _ConnectivityPageState();
 }
@@ -19,7 +19,7 @@ class _ConnectivityPageState extends State<ConnectivityPage> {
   @override
   Widget build(BuildContext context) {
     final ThemeData _theme = Theme.of(context);
-    final AppLocalizations _translator = AppLocalizations.of(context);
+    final AppLocalizations? _translator = AppLocalizations.of(context);
     return BlocConsumer<InternetCubit, InternetState>(
         listener: (context, state) {
       if (state is InternetConnected) Navigator.pop(context);
@@ -43,7 +43,7 @@ class _ConnectivityPageState extends State<ConnectivityPage> {
                       text: TextSpan(
                           style: _theme.textTheme.headline5,
                           text:
-                              "${_translator.translate("looks_like_you're_offline")} \n",
+                              "${_translator!.translate("looks_like_you're_offline")} \n",
                           children: [
                             TextSpan(
                                 style: _theme.textTheme.subtitle1,

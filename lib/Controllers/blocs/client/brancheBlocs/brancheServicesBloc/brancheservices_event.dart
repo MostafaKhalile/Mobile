@@ -8,7 +8,7 @@ abstract class BrancheservicesEvent extends Equatable {
 }
 
 class GetBrancheservices extends BrancheservicesEvent {
-  final int branchId;
+  final int? branchId;
 
   const GetBrancheservices(this.branchId);
 }

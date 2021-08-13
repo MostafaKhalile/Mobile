@@ -1,21 +1,21 @@
 import 'package:equatable/equatable.dart';
 
 class OrderData extends Equatable {
-  final bool user;
-  final int orderId;
-  final bool orderTypeServices;
-  final String orderFrom;
-  final String orderImageFrom;
-  final int branchId;
-  final String orderBranch;
-  final String orderCode;
-  final int orderMobile;
-  final String orderAddress;
-  final String longitude;
-  final String latitude;
-  final int employeeId;
-  final String employeeImage;
-  final String employeeName;
+  final bool? user;
+  final int? orderId;
+  final bool? orderTypeServices;
+  final String? orderFrom;
+  final String? orderImageFrom;
+  final int? branchId;
+  final String? orderBranch;
+  final String? orderCode;
+  final int? orderMobile;
+  final String? orderAddress;
+  final String? longitude;
+  final String? latitude;
+  final int? employeeId;
+  final String? employeeImage;
+  final String? employeeName;
   final dynamic raty;
 
   const OrderData({
@@ -38,21 +38,21 @@ class OrderData extends Equatable {
   });
 
   factory OrderData.fromJson(Map<String, dynamic> json) => OrderData(
-        user: json['User'] as bool,
-        orderId: json['OrderID'] as int,
-        orderTypeServices: json['OrderTypeServices'] as bool,
-        orderFrom: json['OrderFrom'] as String,
-        orderImageFrom: json['OrderImageFrom'] as String,
-        branchId: json['BranchID'] as int,
-        orderBranch: json['OrderBranch'] as String,
-        orderCode: json['OrderCode'] as String,
-        orderMobile: json['OrderMobile'] as int,
-        orderAddress: json['OrderAddress'] as String,
-        longitude: json['Longitude'] as String,
-        latitude: json['Latitude'] as String,
-        employeeId: json['EmployeeID'] as int,
-        employeeImage: json['EmployeeImage'] as String,
-        employeeName: json['EmployeeName'] as String,
+        user: json['User'] as bool?,
+        orderId: json['OrderID'] as int?,
+        orderTypeServices: json['OrderTypeServices'] as bool?,
+        orderFrom: json['OrderFrom'] as String?,
+        orderImageFrom: json['OrderImageFrom'] as String?,
+        branchId: json['BranchID'] as int?,
+        orderBranch: json['OrderBranch'] as String?,
+        orderCode: json['OrderCode'] as String?,
+        orderMobile: json['OrderMobile'] as int?,
+        orderAddress: json['OrderAddress'] as String?,
+        longitude: json['Longitude'] as String?,
+        latitude: json['Latitude'] as String?,
+        employeeId: json['EmployeeID'] as int?,
+        employeeImage: json['EmployeeImage'] as String?,
+        employeeName: json['EmployeeName'] as String?,
         raty: json['raty'],
       );
 
@@ -76,21 +76,21 @@ class OrderData extends Equatable {
       };
 
   OrderData copyWith({
-    bool user,
-    int orderId,
-    bool orderTypeServices,
-    String orderFrom,
-    String orderImageFrom,
-    int branchId,
-    String orderBranch,
-    String orderCode,
-    int orderMobile,
-    String orderAddress,
-    String longitude,
-    String latitude,
-    int employeeId,
-    String employeeImage,
-    String employeeName,
+    bool? user,
+    int? orderId,
+    bool? orderTypeServices,
+    String? orderFrom,
+    String? orderImageFrom,
+    int? branchId,
+    String? orderBranch,
+    String? orderCode,
+    int? orderMobile,
+    String? orderAddress,
+    String? longitude,
+    String? latitude,
+    int? employeeId,
+    String? employeeImage,
+    String? employeeName,
     dynamic raty,
   }) {
     return OrderData(
@@ -117,7 +117,7 @@ class OrderData extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       user,
       orderId,

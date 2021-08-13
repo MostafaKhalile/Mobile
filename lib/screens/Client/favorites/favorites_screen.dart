@@ -6,14 +6,14 @@ import 'subViews/favorite_branches.dart';
 class FavoritesScreen extends StatefulWidget {
   static const String routeName = '/favorites';
 
-  const FavoritesScreen({Key key}) : super(key: key);
+  const FavoritesScreen({Key? key}) : super(key: key);
   @override
   _FavoritesScreenState createState() => _FavoritesScreenState();
 }
 
 class _FavoritesScreenState extends State<FavoritesScreen>
     with SingleTickerProviderStateMixin {
-  TabController _controller;
+  TabController? _controller;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
         appBar: AppBar(
           title: Text(
             'Favorites',
-            style: _theme.textTheme.headline6.copyWith(color: Colors.black),
+            style: _theme.textTheme.headline6!.copyWith(color: Colors.black),
           ),
           iconTheme: const IconThemeData(color: Colors.black),
           bottom: TabBar(
@@ -32,9 +32,9 @@ class _FavoritesScreenState extends State<FavoritesScreen>
             controller: _controller,
             indicatorColor: Colors.black,
             indicatorWeight: 4,
-            unselectedLabelStyle: _theme.textTheme.subtitle2
+            unselectedLabelStyle: _theme.textTheme.subtitle2!
                 .copyWith(fontWeight: FontWeight.bold),
-            labelStyle: _theme.textTheme.subtitle2
+            labelStyle: _theme.textTheme.subtitle2!
                 .copyWith(fontWeight: FontWeight.bold),
             tabs: const [
               Tab(

@@ -4,8 +4,8 @@ import 'package:techtime/Widgets/core/vertical_gab.dart';
 
 class SubTitle extends StatelessWidget {
   const SubTitle({
-    Key key,
-    @required this.text,
+    Key? key,
+    required this.text,
   }) : super(key: key);
 
   final String text;
@@ -24,7 +24,7 @@ class SubTitle extends StatelessWidget {
             children: [
               Text(
                 text,
-                style: _theme.textTheme.subtitle1
+                style: _theme.textTheme.subtitle1!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
             ],
