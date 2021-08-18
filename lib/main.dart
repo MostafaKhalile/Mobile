@@ -27,9 +27,11 @@ import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_points_to_
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_total_data_bloc/wallet_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_transform_points_blob/wallettransformpoints_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/wallet_blocs/wallet_transform_promocode_bloc/wallettransformpromocode_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/core/ReservationsBlocs/newServicesReservation/newservicesreservation_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/core/ReservationsBlocs/reservationDetailsBloc/reservationdetails_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/core/ReservationsBlocs/reservations/reservations_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/core/notificationsBloc/notifications_bloc.dart';
+import 'package:techtime/Controllers/Services/ReservationServices/reservation_service.dart';
 import 'package:techtime/Controllers/providers/current_user_provider.dart';
 
 import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
@@ -235,6 +237,9 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => OrderDateTimeBloc(orderRepository)),
           BlocProvider(create: (context) => OrderTimesBloc()),
           BlocProvider<LocaleCubit>(create: (context) => LocaleCubit()),
+          BlocProvider<NewservicesreservationBloc>(
+              create: (context) =>
+                  NewservicesreservationBloc(ServicesReservation())),
         ],
         child: BlocBuilder<LocaleCubit, LocaleState>(
           buildWhen: (previousState, currentState) =>

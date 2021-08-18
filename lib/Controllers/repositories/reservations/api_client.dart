@@ -4,6 +4,7 @@ import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:techtime/Models/Params/create_order_first_step_params.dart';
 import 'package:techtime/Models/reservations/create_new_order_response.dart';
 import 'package:techtime/Models/reservations/find_branch_response.dart';
 import 'package:techtime/Models/reservations/reservationDetails/reservation_details.dart';
@@ -84,14 +85,31 @@ class ReservationsApiClient {
     }
   }
 
-  Future<CreateNewOrderResponse> createNewOrder(int branchId) async {
+//###First Step For Creating  Services Reservation
+  Future<bool> createNewOrder(
+      int branchId, CreateOrderFirstStepParams params) async {
     final String path =
         "${NetworkConstants.baseUrl}${NetworkConstants.createNewOrder}$branchId";
-    final response = await http.post(Uri.parse(path), headers: headers);
+
+    final request = http.MultipartRequest('POST', Uri.parse(path));
+    request.fields.addAll(params.toJson());
+    request.headers.addAll(headers);
+
+    final http.StreamedResponse streamedResponse = await request.send();
+    final response = await http.Response.fromStream(streamedResponse);
+
+    print(response.body);
+
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
       final data = json.decode(decoded) as Map<String, dynamic>;
-      return CreateNewOrderResponse.fromJson(data);
+      final responseObject = CreateNewOrderResponse.fromJson(data);
+      print(responseObject.message);
+      if (responseObject.orderId != null) {
+        return true;
+      } else {
+        return false;
+      }
     } else {
       throw Future.error('${json.decode(response.body)['message']}');
     }

@@ -686,10 +686,13 @@ class ReservationInfHeaderData extends StatelessWidget {
                                 selectable: false,
                                 companyEmployee: CompanyEmployee(
                                     employeeName:
-                                        reservation.orderData!.employeeName,
+                                        reservation.orderData!.employeeName ??
+                                            reservation.orderData!.orderBranch,
                                     employeeId:
-                                        reservation.orderData!.employeeId,
-                                    image: reservation.orderData!.employeeImage,
+                                        reservation.orderData!.employeeId ?? 0,
+                                    image: reservation
+                                            .orderData!.employeeImage ??
+                                        reservation.orderData!.orderImageFrom,
                                     raty: 5),
                               ),
                             ),
@@ -697,44 +700,6 @@ class ReservationInfHeaderData extends StatelessWidget {
                         ],
                       ),
                     ),
-                    // Expanded(
-                    //     flex: 3,
-                    //     child: Container(
-                    //       height: 100,
-                    //       padding: const EdgeInsets.symmetric(horizontal: 10),
-                    //       child: Column(
-                    //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    //         crossAxisAlignment: CrossAxisAlignment.start,
-                    //         children: [
-                    //           const Spacer(),
-                    //           Expanded(
-                    //             child: Text(
-                    //               "# ${reservation.orderData.orderCode}",
-                    //             ),
-                    //           ),
-                    //           Row(
-                    //             children: [
-                    //               Expanded(
-                    //                 child: IconButton(
-                    //                   icon:
-                    //                       const Icon(Icons.location_on_rounded),
-                    //                   onPressed: () {},
-                    //                 ),
-                    //               ),
-                    //               Expanded(
-                    //                 child: IconButton(
-                    //                   icon: const Icon(
-                    //                     Icons.call,
-                    //                   ),
-                    //                   onPressed: () {},
-                    //                 ),
-                    //               ),
-                    //             ],
-                    //           ),
-                    //           const Spacer(),
-                    //         ],
-                    //       ),
-                    //     )),
                   ],
                 ),
               ],

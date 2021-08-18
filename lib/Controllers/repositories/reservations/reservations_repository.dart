@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:techtime/Models/reservations/create_new_order_response.dart';
+import 'package:techtime/Models/Params/create_order_first_step_params.dart';
 import 'package:techtime/Models/reservations/find_branch_response.dart';
 import 'package:techtime/Models/reservations/reservation.dart';
 import 'package:techtime/Models/reservations/reservationDetails/reservation_details.dart';
@@ -32,8 +32,9 @@ class ReservationsRepo {
     return response;
   }
 
-  Future<CreateNewOrderResponse> createNewOrder(int branchId) async {
-    final response = await _apiClient.createNewOrder(branchId);
+  Future<bool> createNewOrder(
+      int branchId, CreateOrderFirstStepParams params) async {
+    final response = await _apiClient.createNewOrder(branchId, params);
     return response;
   }
 }

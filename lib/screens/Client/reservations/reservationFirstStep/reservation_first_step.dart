@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:techtime/Controllers/BLoCs/client/brancheBlocs/branchEmployeesBloc/brancheemployees_bloc.dart';
 import 'package:techtime/Controllers/BLoCs/client/orderBlocs/orderDateTimeBloc/orderdatetime_bloc.dart';
+import 'package:techtime/Controllers/BLoCs/core/ReservationsBlocs/newServicesReservation/newservicesreservation_bloc.dart';
 import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
 
 import 'package:techtime/Helpers/app_consts.dart';
@@ -11,6 +12,7 @@ import 'package:techtime/Helpers/enums.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Helpers/utils/custom_toast.dart';
+import 'package:techtime/Models/Params/create_order_first_step_params.dart';
 import 'package:techtime/Models/client/companyData/brancheData/company_employee.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
 import 'package:techtime/Models/client/orders/order_date_time.dart';
@@ -250,14 +252,46 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
                       )))
             ])),
         persistentFooterButtons: [
-          BottomBookingButton(
-            onPressed: () {
-              final bool isValid = _validateBooking();
-              // Navigator.pushNamed(context, TableReservation.routeName);
-              print("Booking $isValid ");
+          BlocListener<NewservicesreservationBloc, NewservicesreservationState>(
+            listener: (context, state) {
+              if (state is NewservicesreservationSuccess) {
+                print("Reservation Succeded");
+              } else if (state is NewservicesreservationFailure) {
+                print("Reservation Error ${state.failure}");
+              }
             },
+            child: BottomBookingButton(
+              onPressed: () {
+                final bool isValid = _validateBooking();
+                if (isValid) {
+                  print(
+                      "Booking valid ${getTimePeriods(_selecteOrderTime).format(context).split(' ')[0]} $_selectedBranch   ${_selecteOrderdDay!.date.toString()}  $_selectedEmployee");
+                  BlocProvider.of<NewservicesreservationBloc>(context).add(
+                      CreateNewServicesOrderFirstStep(
+                          _selectedBranch!,
+                          const CreateOrderFirstStepParams().copyWith(
+                              employeeRequest: _selectedEmployee.toString(),
+                              orderDate: _selecteOrderdDay!.date.toString(),
+                              orderTime: getTimePeriods(_selecteOrderTime)
+                                  .format(context)
+                                  .split(' ')[0]
+                                  .toString(),
+                              totalOrderFrom: "150",
+                              totalOrderTo: "250")));
+                }
+                // Navigator.pushNamed(context, TableReservation.routeName);
+              },
+            ),
           )
         ]);
+  }
+
+  TimeOfDay getTimePeriods(String? time) {
+    final TimeOfDay interval = TimeOfDay(
+        hour: int.parse(time.toString().split(":")[0]),
+        minute: int.parse(time.toString().split(":")[1]));
+
+    return interval;
   }
 
   void chooseBranch(BuildContext context, int? branch) {
@@ -276,7 +310,7 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
   bool _validateBooking() {
     return _selecteOrderTime != null &&
         _selecteOrderdDay != null &&
-        // ( _selectedEmployee != null) &&
+        // (_selectedEmployee != null) &&
         _selectedBranch != null;
   }
 

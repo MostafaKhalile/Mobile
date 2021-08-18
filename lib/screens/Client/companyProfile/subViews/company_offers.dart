@@ -10,7 +10,6 @@ import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/client/companyProfile/companyOffer/company_offer.dart';
 import 'package:techtime/Models/client/companyProfile/company_profile.dart';
-import 'package:techtime/Models/client/offers/company_offers.dart';
 import 'package:techtime/Screens/Client/reservations/reservationFirstStep/reservation_first_step.dart';
 
 class CompanyOffers extends StatefulWidget {
