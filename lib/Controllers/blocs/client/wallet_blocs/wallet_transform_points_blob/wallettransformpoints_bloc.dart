@@ -26,7 +26,6 @@ class WallettransformpointsBloc
           yield WallettransformpointsFailed(result['message'].toString());
         }
       } catch (e) {
-        print(e.toString());
         yield WallettransformpointsFailed(e.toString());
       }
     }

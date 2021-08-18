@@ -23,7 +23,6 @@ class EditmobileBloc extends Bloc<EditmobileEvent, EditmobileState> {
           yield EditMobilesuccess();
         }
       } catch (e) {
-        print(e.toString());
         yield EditMobileFaild(e.toString());
       }
     }

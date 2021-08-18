@@ -23,7 +23,6 @@ class EditfirstnameBloc extends Bloc<EditfirstnameEvent, EditfirstnameState> {
           yield EditFirstNamesuccess();
         }
       } catch (e) {
-        print(e.toString());
         yield EditFirstNameFaild(e.toString());
       }
     }

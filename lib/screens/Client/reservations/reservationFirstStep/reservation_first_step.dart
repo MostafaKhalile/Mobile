@@ -15,6 +15,7 @@ import 'package:techtime/Helpers/utils/custom_toast.dart';
 import 'package:techtime/Models/Params/create_order_first_step_params.dart';
 import 'package:techtime/Models/client/companyData/brancheData/company_employee.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
+import 'package:techtime/Models/client/companyProfile/company_service.dart';
 import 'package:techtime/Models/client/orders/order_date_time.dart';
 import 'package:techtime/Screens/Client/branchProfile/branch_profile.dart';
 import 'package:techtime/Widgets/client/specialist_card.dart';
@@ -29,12 +30,14 @@ class ReservationFirstStep extends StatefulWidget {
   final List<CompanyBranche>? companyBranches;
   final int? branchID;
   final ReservationType? reservationType;
+  final List<CompanyService>? selectedServices;
 
   const ReservationFirstStep(
       {Key? key,
       this.companyBranches,
       this.branchID,
-      required this.reservationType})
+      required this.reservationType,
+      this.selectedServices})
       : super(key: key);
 
   @override

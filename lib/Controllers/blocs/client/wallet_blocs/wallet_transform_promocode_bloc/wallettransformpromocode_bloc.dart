@@ -27,7 +27,6 @@ class WallettransformpromocodeBloc
           yield WallettransformpromocodeFailed(result['message'].toString());
         }
       } catch (e) {
-        print(e.toString());
         yield WallettransformpromocodeFailed(e.toString());
       }
     }

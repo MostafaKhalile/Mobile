@@ -23,7 +23,6 @@ class OrderDateTimeBloc extends Bloc<OrderDateTimeEvent, OrderDateTimeState> {
             await _orderRepository.getOrderDateTime(event.branceId);
         yield OrderDateTimeSuccess(orderDateTimes);
       } catch (e) {
-        print(e.toString());
         yield OrderDateTimeFaild(e.toString());
       }
     }

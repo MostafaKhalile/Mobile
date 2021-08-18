@@ -24,7 +24,6 @@ class BrancheemployeesBloc
             await _branchesRepo.getBrancheEmployees(event.branchId);
         yield BrancheemployeesSuccess(companies);
       } catch (e) {
-        print(e.toString());
         yield BrancheemployeesFaild(e.toString());
       }
     }

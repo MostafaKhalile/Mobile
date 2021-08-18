@@ -25,7 +25,6 @@ class BrancheWorkingDaysBloc
             await _branchesRepo.getBrancheWorkingDays(event.branchId);
         yield BrancheWorkingDaysSuccess(workingDays);
       } catch (e) {
-        print(e.toString());
         yield BrancheWorkingDaysFaild(e.toString());
       }
     }

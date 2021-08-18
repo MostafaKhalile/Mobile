@@ -43,7 +43,6 @@ class AuthRepo {
         return true;
       }
     } catch (e) {
-      print(e);
       // final message = e["message"];
       return Future.error("message");
     }
@@ -86,9 +85,8 @@ class AuthRepo {
         NetworkConstants.currentUserToken,
         NetworkConstants.currentUserProfile,
       ]);
-    } catch (e) {
-      print(e);
-    }
+      // ignore: empty_catches
+    } catch (e) {}
   }
 
   UserRole? get userType {

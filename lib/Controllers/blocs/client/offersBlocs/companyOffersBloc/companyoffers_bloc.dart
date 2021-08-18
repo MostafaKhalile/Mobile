@@ -23,7 +23,6 @@ class CompanyoffersBloc extends Bloc<CompanyoffersEvent, CompanyoffersState> {
             await _offersRepo.getAllCompaniesOffers();
         yield CompanyoffersSuccess(companyOffers);
       } catch (e) {
-        print(e.toString());
         yield CompanyoffersFaild(e.toString());
       }
     }

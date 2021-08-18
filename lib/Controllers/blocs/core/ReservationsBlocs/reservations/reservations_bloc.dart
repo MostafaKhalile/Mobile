@@ -22,7 +22,6 @@ class ReservationsBloc extends Bloc<ReservationsEvent, ReservationsState> {
             await _reservationsRepo.getPreviousReservations();
         yield PreviousReservationsSuccess(reservations);
       } catch (e) {
-        print(e.toString());
         yield PreviousReservationsFaild(e.toString());
       }
     }
@@ -34,7 +33,6 @@ class ReservationsBloc extends Bloc<ReservationsEvent, ReservationsState> {
             await _reservationsRepo.getUpcomingReservations();
         yield UpcomingReservationsSuccess(reservations);
       } catch (e) {
-        print(e.toString());
         yield UpcomingReservationsFaild(e.toString());
       }
     }

@@ -22,7 +22,6 @@ class BranchesRepository {
     try {
       final dataResp =
           await _branchesApiClient.brancheAddRemoveFavorite(brancheId);
-      print(dataResp);
       return dataResp;
     } catch (e) {
       return Future.error(e.toString());
@@ -41,7 +40,6 @@ class BranchesRepository {
   Future<List<CompanyEmployee>> getBrancheEmployees(int? brancheId) async {
     try {
       final dataResp = await _branchesApiClient.getBrancheEmployees(brancheId);
-      print(dataResp);
       return dataResp;
     } catch (e) {
       return Future.error(e.toString());

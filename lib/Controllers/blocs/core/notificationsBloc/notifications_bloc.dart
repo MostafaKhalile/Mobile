@@ -23,7 +23,6 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
             await _notificationsRepo.getUserNotifications();
         yield NotificationsSuccess(notifications);
       } catch (e) {
-        print(e.toString());
         yield NotificationsFaild(e.toString());
       }
     }

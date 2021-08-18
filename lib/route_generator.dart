@@ -5,6 +5,7 @@ import 'package:techtime/Helpers/enums.dart';
 import 'package:techtime/Models/client/category.dart';
 import 'package:techtime/Models/client/company.dart';
 import 'package:techtime/Models/client/companyProfile/company_branches.dart';
+import 'package:techtime/Models/client/companyProfile/company_service.dart';
 import 'package:techtime/Models/client/offers/company_offer.dart';
 import 'package:techtime/Models/notifications/all_notifications.dart';
 import 'package:techtime/Screens/Client/Offres/all_companies_offers_screen.dart';
@@ -123,9 +124,11 @@ class RouteGenerator {
         return CupertinoPageRoute(
           fullscreenDialog: true,
           builder: (_) => ReservationFirstStep(
-              companyBranches: args["CompanyBranches"] as List<CompanyBranche>?,
-              reservationType: args["ReservationType"] as ReservationType?,
-              branchID: args["branchID"] as int?),
+            companyBranches: args["CompanyBranches"] as List<CompanyBranche>?,
+            reservationType: args["ReservationType"] as ReservationType?,
+            branchID: args["branchID"] as int?,
+            selectedServices: args["services"] as List<CompanyService>,
+          ),
         );
       case TableReservation.routeName:
         return CupertinoPageRoute(

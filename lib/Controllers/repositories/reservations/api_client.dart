@@ -86,13 +86,37 @@ class ReservationsApiClient {
   }
 
 //###First Step For Creating  Services Reservation
-  Future<bool> createNewOrder(
+  Future<CreateNewOrderResponse> createNewOrder(
       int branchId, CreateOrderFirstStepParams params) async {
     final String path =
         "${NetworkConstants.baseUrl}${NetworkConstants.createNewOrder}$branchId";
 
     final request = http.MultipartRequest('POST', Uri.parse(path));
     request.fields.addAll(params.toJson());
+    request.headers.addAll(headers);
+
+    final http.StreamedResponse streamedResponse = await request.send();
+    final response = await http.Response.fromStream(streamedResponse);
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      final decoded = utf8.decode(response.bodyBytes);
+      final data = json.decode(decoded) as Map<String, dynamic>;
+      final responseObject = CreateNewOrderResponse.fromJson(data);
+      print(responseObject.message);
+      return responseObject;
+    } else {
+      throw Future.error('${json.decode(response.body)['message']}');
+    }
+  }
+
+  Future<bool> createServicesOrderSecondStep(int orderId) async {
+    final String path =
+        "${NetworkConstants.baseUrl}${NetworkConstants.createNewOrderSecondStep}$orderId";
+
+    final request = http.MultipartRequest('POST', Uri.parse(path));
+    // request.fields.addAll(params.toJson());
     request.headers.addAll(headers);
 
     final http.StreamedResponse streamedResponse = await request.send();

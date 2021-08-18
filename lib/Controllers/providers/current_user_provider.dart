@@ -11,11 +11,10 @@ class CurrentUserProvider extends ChangeNotifier {
   UserProfile? loadCurrentUser() {
     try {
       _userData = _userRepo.currentUserProfile;
-   
+
       notifyListeners();
       return _user;
     } catch (e) {
-      print("ERROR $e");
       return null;
     }
   }

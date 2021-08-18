@@ -23,7 +23,6 @@ class EditpasswordBloc extends Bloc<EditpasswordEvent, EditpasswordState> {
           yield Editpasswordsuccess();
         }
       } catch (e) {
-        print(e.toString());
         yield EditpasswordFaild(e.toString());
       }
     }

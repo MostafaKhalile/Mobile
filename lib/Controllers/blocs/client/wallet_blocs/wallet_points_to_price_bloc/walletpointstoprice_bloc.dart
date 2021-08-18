@@ -27,7 +27,6 @@ class WalletpointstopriceBloc
           yield WalletPointsToPriceFailed(pointsToPrice.message.toString());
         }
       } catch (e) {
-        print(e.toString());
         yield WalletPointsToPriceFailed(e.toString());
       }
     }

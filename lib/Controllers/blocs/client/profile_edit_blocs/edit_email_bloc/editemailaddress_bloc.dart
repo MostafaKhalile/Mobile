@@ -24,7 +24,6 @@ class EditemailaddressBloc
           yield EditEmailAddresssuccess();
         }
       } catch (e) {
-        print(e.toString());
         yield EditEmailAddressFaild(e.toString());
       }
     }

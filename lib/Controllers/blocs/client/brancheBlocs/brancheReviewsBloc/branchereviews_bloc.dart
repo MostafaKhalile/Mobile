@@ -23,7 +23,6 @@ class BranchereviewsBloc
         final companies = await _branchesRepo.getBrancheReviews(event.branchId);
         yield BrancheReviewsSuccess(companies);
       } catch (e) {
-        print(e.toString());
         yield BrancheReviewsFaild(e.toString());
       }
     }

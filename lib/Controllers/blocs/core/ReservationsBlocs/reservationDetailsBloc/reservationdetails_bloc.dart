@@ -25,7 +25,6 @@ class ReservationdetailsBloc
             await _reservationsRepo.getReservationDetails(event.reservationId);
         yield ReservationdetailsSuccess(reservationDetails);
       } catch (e) {
-        print(e.toString());
         yield ReservationdetailsFaild(e.toString());
       }
     }

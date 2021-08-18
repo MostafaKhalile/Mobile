@@ -20,14 +20,12 @@ class FiltercompanyoffersBloc
   ) async* {
     if (event is FilterCompanyOffers) {
       yield FiltercompanyoffersLoading();
-      print(event.id);
       try {
         final CompanyOffers companyOffers =
             await _offersRepo.filterOffersCompany(event.id);
         yield FiltercompanyoffersSuccess(companyOffers);
-      } catch (e) {
-        print(e.toString());
-      }
+        // ignore: empty_catches
+      } catch (e) {}
     }
   }
 }

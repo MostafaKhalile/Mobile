@@ -24,7 +24,6 @@ class BrancheProfileBloc
             await _branchesRepo.getBrancheProfileData(event.id);
         yield BrancheProfileSuccess(brancheProfile);
       } catch (e) {
-        print("Error Message here $e");
         yield BrancheProfileFailed(e.toString());
       }
     }

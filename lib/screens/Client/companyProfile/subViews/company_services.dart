@@ -141,7 +141,8 @@ class CompanyServicesState extends State<CompanyServices> {
                 .toString()
                 .contains(element.brancheID.toString()))
             .toList(),
-        "ReservationType": ReservationType.service
+        "ReservationType": ReservationType.service,
+        "services": _checked
       });
     } else {
       print("not Valid");

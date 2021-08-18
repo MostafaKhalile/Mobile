@@ -23,7 +23,6 @@ class EditLastnameBloc extends Bloc<EditLastnameEvent, EditLastnameState> {
           yield EditLastNamesuccess();
         }
       } catch (e) {
-        print(e.toString());
         yield EditLastNameFaild(e.toString());
       }
     }

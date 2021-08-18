@@ -191,7 +191,6 @@ class AccountApiClient {
   }
 
   Future<bool> uploadCover(File imageFile) async {
-    print("Start Uploading Image File");
     // open a bytestream
     final stream =
         // ignore: deprecated_member_use

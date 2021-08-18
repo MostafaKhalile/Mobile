@@ -84,7 +84,6 @@ class AuthanticationBloc
 
   @override
   Future<void> close() {
-    print("## AuthanticationBloc was Closed ##");
     return super.close();
   }
 }

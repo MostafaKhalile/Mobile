@@ -23,7 +23,6 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
 
         yield WalletTotalDataSucceded(result);
       } catch (e) {
-        print(e.toString());
         yield WalletTotalDataFailed(e.toString());
       }
     }
