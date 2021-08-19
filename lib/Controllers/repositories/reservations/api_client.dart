@@ -111,31 +111,37 @@ class ReservationsApiClient {
     }
   }
 
-  Future<bool> createServicesOrderSecondStep(int orderId) async {
+  Future<bool> createServicesOrderSecondStep(int orderId, List services) async {
     final String path =
         "${NetworkConstants.baseUrl}${NetworkConstants.createNewOrderSecondStep}$orderId";
 
     final request = http.MultipartRequest('POST', Uri.parse(path));
-    // request.fields.addAll(params.toJson());
     request.headers.addAll(headers);
+    print(services.length);
+    // ignore: avoid_function_literals_in_foreach_calls
+    final Map<String, String> selectedServices = {};
+    for (var x = 0; x < services.length; x++) {
+      selectedServices['ServiceID'] = services[x].servicesId.toString();
+    }
+
+    print("${request.fields}  $selectedServices");
+    request.fields.addAll(selectedServices);
 
     final http.StreamedResponse streamedResponse = await request.send();
     final response = await http.Response.fromStream(streamedResponse);
 
-    print(response.body);
+    print(" second step respnse ${response.body}");
 
     if (response.statusCode == 200) {
       final decoded = utf8.decode(response.bodyBytes);
       final data = json.decode(decoded) as Map<String, dynamic>;
-      final responseObject = CreateNewOrderResponse.fromJson(data);
-      print(responseObject.message);
-      if (responseObject.orderId != null) {
+      if (data['status'] == 201) {
         return true;
       } else {
         return false;
       }
     } else {
-      throw Future.error('${json.decode(response.body)['message']}');
+      throw Future.error('${json.decode(response.body)}');
     }
   }
 }

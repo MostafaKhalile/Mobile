@@ -4,7 +4,7 @@ import 'package:techtime/Models/reservations/create_new_order_response.dart';
 
 abstract class ReservationController {
   Future createNewOrder(int id, CreateOrderFirstStepParams params);
-  Future<bool> createNewOrderSecondStep(List items);
+  Future<bool> createNewOrderSecondStep(int id, List items);
 }
 
 class ServicesReservation extends ReservationController {
@@ -17,9 +17,8 @@ class ServicesReservation extends ReservationController {
   }
 
   @override
-  Future<bool> createNewOrderSecondStep(List items) {
-    // TODO: implement createNewOrderSecondStep
-    throw UnimplementedError();
+  Future<bool> createNewOrderSecondStep(int id, List items) {
+    return _reservationsRepo.createServicesOrderSecondStep(id, items);
   }
 }
 
@@ -31,7 +30,7 @@ class OfferReservation extends ReservationController {
   }
 
   @override
-  Future<bool> createNewOrderSecondStep(List items) {
+  Future<bool> createNewOrderSecondStep(int id, List items) {
     // TODO: implement createNewOrderSecondStep
     throw UnimplementedError();
   }

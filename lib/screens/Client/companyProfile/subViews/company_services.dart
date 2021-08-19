@@ -125,6 +125,7 @@ class CompanyServicesState extends State<CompanyServices> {
     for (var x = 0; x < _checked.length; x++) {
       params['ServiceID'] = services[x].servicesId.toString();
     }
+    print("find a branch for ${params.length}");
 
     final FindBranchResponse validation =
         await ReservationsRepo().findBranchForReservation(params);

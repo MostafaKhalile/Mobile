@@ -39,8 +39,9 @@ class ReservationsRepo {
     return response;
   }
 
-  Future<bool> createServicesOrderSecondStep(int orderId) async {
-    final response = await _apiClient.createServicesOrderSecondStep(orderId);
+  Future<bool> createServicesOrderSecondStep(int orderId, List services) async {
+    final response =
+        await _apiClient.createServicesOrderSecondStep(orderId, services);
     return response;
   }
 }

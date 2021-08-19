@@ -258,8 +258,15 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
           BlocListener<NewservicesreservationBloc, NewservicesreservationState>(
             listener: (context, state) {
               if (state is NewservicesreservationSuccess) {
-                print("Reservation Succeded");
-              } else if (state is NewservicesreservationFailure) {
+                BlocProvider.of<NewservicesreservationBloc>(context).add(
+                    CreateNewServicesOrderSecondStep(
+                        state.response.orderId!, widget.selectedServices!));
+              }
+              if (state is ServicesReservationSecondStepSuccess) {
+                CustomToast().buildSuccessMessage(context);
+                Navigator.pop(context);
+              }
+              if (state is NewservicesreservationFailure) {
                 print("Reservation Error ${state.failure}");
               }
             },

@@ -14,4 +14,9 @@ class CreateNewServicesOrderFirstStep extends NewservicesreservationEvent {
   const CreateNewServicesOrderFirstStep(this.branchId, this.params);
 }
 
-class CreateNewServicesOrderSecondStep extends NewservicesreservationEvent {}
+class CreateNewServicesOrderSecondStep extends NewservicesreservationEvent {
+  final int orderId;
+  final List<CompanyService> selectedservices;
+
+  const CreateNewServicesOrderSecondStep(this.orderId, this.selectedservices);
+}
