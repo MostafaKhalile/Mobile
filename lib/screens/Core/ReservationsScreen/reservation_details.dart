@@ -31,11 +31,11 @@ class ReservationDetailsScreen extends StatefulWidget {
 
 class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
     with TickerProviderStateMixin {
-  final Tween<double> turnsTween = Tween<double>(
+  final Tween<double> doubleArrowRotatingController = Tween<double>(
     begin: 0,
     end: 0.5,
   );
-  late AnimationController _controller;
+  late AnimationController _bottomModalAnimator;
   bool loading = false;
   bool selected = false;
 
@@ -69,7 +69,7 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
   void initState() {
     BlocProvider.of<ReservationdetailsBloc>(context)
         .add(GetReservationDetails(widget.reservation!.orderId));
-    _controller = AnimationController(
+    _bottomModalAnimator = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
@@ -80,7 +80,7 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
   @override
   void dispose() {
     _scrollController.removeListener(() {});
-    _controller.dispose();
+    _bottomModalAnimator.dispose();
     super.dispose();
   }
 
@@ -238,9 +238,9 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
                             : () {
                                 setState(() {
                                   if (!selected) {
-                                    _controller.forward();
+                                    _bottomModalAnimator.forward();
                                   } else {
-                                    _controller.reverse();
+                                    _bottomModalAnimator.reverse();
                                   }
                                   selected = !selected;
                                 });
@@ -249,7 +249,8 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             RotationTransition(
-                                turns: turnsTween.animate(_controller),
+                                turns: doubleArrowRotatingController
+                                    .animate(_bottomModalAnimator),
                                 child: SvgPicture.asset(
                                   "assets/svg/double_arrow.svg",
                                   height: 15,

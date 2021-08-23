@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:techtime/Controllers/BLoCs/core/notificationsBloc/notifications_bloc.dart';
@@ -32,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    notificationsBloc = context.read<NotificationsBloc>();
+    // notificationsBloc = context.read<NotificationsBloc>();
     _authRepo = AuthRepo();
     _isSignedIn = _authRepo.currentUserToken != "null";
     _userRole = _authRepo.userType;
