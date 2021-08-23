@@ -4,7 +4,7 @@ import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/validation.dart';
-import 'package:techtime/screens/Core/startupViews/emailForgetPassworProcess/email_confirm_code.dart';
+import 'package:techtime/screens/shared/startupViews/emailForgetPassworProcess/email_confirm_code.dart';
 import 'package:techtime/widgets/core/vertical_gab.dart';
 
 class EmailForgetPassword extends StatefulWidget {

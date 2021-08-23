@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/Screens/Core/startupViews/client_signup_page.dart';
-import 'package:techtime/Screens/Core/startupViews/emailForgetPassworProcess/email_forget_password.dart';
+import 'package:techtime/Screens/shared/startupViews/client_signup_page.dart';
+import 'package:techtime/Screens/shared/startupViews/emailForgetPassworProcess/email_forget_password.dart';
 import 'package:techtime/widgets/core/horizontal_gap.dart';
 import 'package:techtime/widgets/core/social_button.dart';
 
@@ -32,9 +32,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     fit: BoxFit.fill),
               ),
-              child:
-                  Column(children: <
-                      Widget>[
+              child: Column(children: <Widget>[
                 Row(
                   children: [
                     Padding(
@@ -55,10 +53,11 @@ class _LoginPageState extends State<LoginPage> {
                   child: Row(
                     children: [
                       Text(AppLocalizations.of(context)!.translate('login')!,
-                          style: Theme.of(context).textTheme.headline4!.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black,
-                              )),
+                          style:
+                              Theme.of(context).textTheme.headline4!.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black,
+                                  )),
                     ],
                   ),
                 ),
@@ -74,9 +73,12 @@ class _LoginPageState extends State<LoginPage> {
                         indent: 50,
                       )),
                       Text("OR",
-                          style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold)),
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold)),
                       const Expanded(
                           child: Divider(
                         thickness: 2.0,
@@ -127,8 +129,12 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text(
                           AppLocalizations.of(context)!
                               .translate('forgotPassword')!,
-                          style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                              color: Colors.black, fontWeight: FontWeight.w700),
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w700),
                         ),
                       ),
                       TextButton(

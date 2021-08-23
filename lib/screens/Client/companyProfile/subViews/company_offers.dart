@@ -54,27 +54,6 @@ class CompanyOffersState extends State<CompanyOffers> {
                     padding:
                         const EdgeInsets.symmetric(vertical: defaultPadding),
                     child: Column(children: <Widget>[
-                      // CheckboxGroup(
-                      //   activeColor: AppColors.primaryColor,
-                      //   checkColor: _theme.primaryColorDark,
-                      //   // ignore: avoid_redundant_argument_values
-                      //   orientation: GroupedButtonsOrientation.VERTICAL,
-                      //   onSelected: (List selected) => setState(() {
-                      //     _checked = selected as List<String>;
-                      //   }),
-                      //   labels:
-                      //       widget.companyProfile.companyOffers!.map((element) {
-                      //     return element.toJson().toString();
-                      //   }).toList(),
-                      //   checked: _checked,
-                      //   itemBuilder: (Checkbox cb, Text txt, int i) {
-                      //     return OfferCard(
-                      //       cb: cb,
-                      //       companyOffer:
-                      //           widget.companyProfile.companyOffers![i],
-                      //     );
-                      //   },
-                      // ),
                       SizedBox(
                           height: _size.height,
                           child: CustomGroupedCheckbox<CompanyOfferInfo>(

@@ -5,8 +5,8 @@ import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 import 'package:techtime/Controllers/providers/current_user_provider.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Models/client_profile.dart';
-import 'package:techtime/Screens/Core/startupViews/language_selection_page.dart';
-import 'package:techtime/Screens/Core/startupViews/loginScreen/login_page.dart';
+import 'package:techtime/Screens/shared/startupViews/language_selection_page.dart';
+import 'package:techtime/Screens/shared/startupViews/loginScreen/login_page.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({

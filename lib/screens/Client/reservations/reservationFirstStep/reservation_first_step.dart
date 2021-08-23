@@ -60,8 +60,7 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
   @override
   void initState() {
     initializeReservationProcess();
-    print(
-        "check ${widget.branchID} ${widget.companyBranches?.length} ${widget.reservationType}");
+
     locale = BlocProvider.of<LocaleCubit>(context).state.locale;
     super.initState();
   }
@@ -274,8 +273,8 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
               onPressed: () {
                 final bool isValid = _validateBooking();
                 if (isValid) {
-                  print(
-                      "Booking valid ${getTimePeriods(_selecteOrderTime).format(context).split(' ')[0]} $_selectedBranch   ${_selecteOrderdDay!.date.toString()}  $_selectedEmployee");
+                  final PriceRange priceRange = getPriceRange();
+                  print(priceRange.toJson().toString());
                   BlocProvider.of<NewservicesreservationBloc>(context).add(
                       CreateNewServicesOrderFirstStep(
                           _selectedBranch!,
@@ -286,14 +285,34 @@ class ReservationFirstStepState extends State<ReservationFirstStep> {
                                   .format(context)
                                   .split(' ')[0]
                                   .toString(),
-                              totalOrderFrom: "150",
-                              totalOrderTo: "250")));
+                              totalOrderFrom:
+                                  priceRange.totalOrderFrom.toString(),
+                              totalOrderTo:
+                                  priceRange.totalOrderTo.toString())));
                 }
                 // Navigator.pushNamed(context, TableReservation.routeName);
               },
             ),
           )
         ]);
+  }
+
+  PriceRange getPriceRange() {
+    int priceTo = 0;
+    int priceFrom = 0;
+    // ignore: avoid_function_literals_in_foreach_calls
+    widget.selectedServices!.forEach((element) {
+      priceFrom += int.parse(element.priceFrom.toString());
+    });
+    // ignore: avoid_function_literals_in_foreach_calls
+    widget.selectedServices!.forEach((element) {
+      priceTo += int.parse(element.priceTo.toString());
+    });
+    widget.selectedServices!
+        .map((e) => priceTo + int.parse(e.priceTo.toString()));
+
+    return PriceRange(
+        totalOrderFrom: priceFrom.toString(), totalOrderTo: priceTo.toString());
   }
 
   TimeOfDay getTimePeriods(String? time) {
@@ -628,5 +647,24 @@ class TimeSelectableCard extends StatelessWidget {
         minute: int.parse(time.toString().split(":")[1]));
 
     return interval;
+  }
+}
+
+class PriceRange {
+  String? totalOrderFrom;
+  String? totalOrderTo;
+
+  PriceRange({this.totalOrderFrom, this.totalOrderTo});
+
+  PriceRange.fromJson(Map<String, dynamic> json) {
+    totalOrderFrom = json['totalOrderFrom'] as String;
+    totalOrderTo = json['totalOrderTo'] as String;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['totalOrderFrom'] = totalOrderFrom;
+    data['totalOrderTo'] = totalOrderTo;
+    return data;
   }
 }

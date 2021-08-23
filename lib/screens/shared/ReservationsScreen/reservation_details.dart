@@ -1,9 +1,11 @@
 import 'package:enhance_stepper/enhance_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:techtime/Controllers/BLoCs/core/ReservationsBlocs/reservationDetailsBloc/reservationdetails_bloc.dart';
 import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/app_consts.dart';
@@ -65,6 +67,7 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
   final ScrollController _scrollController =
       ScrollController(); // set controller on scrolling
   bool _show = true;
+  int currentStep = 0;
   @override
   void initState() {
     BlocProvider.of<ReservationdetailsBloc>(context)
@@ -83,33 +86,6 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
     _bottomModalAnimator.dispose();
     super.dispose();
   }
-
-  void showFloationButton() {
-    setState(() {
-      _show = true;
-    });
-  }
-
-  void hideFloationButton() {
-    setState(() {
-      _show = false;
-    });
-  }
-
-  Future<void> handleScroll() async => _scrollController.addListener(() {
-        if (_scrollController.position.userScrollDirection ==
-                ScrollDirection.reverse &&
-            selected == false) {
-          hideFloationButton();
-        }
-        if (_scrollController.position.userScrollDirection ==
-                ScrollDirection.forward &&
-            selected == false) {
-          showFloationButton();
-        }
-      });
-
-  int currentStep = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -211,11 +187,8 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
           ],
         ),
         floatingActionButton: AnimatedOpacity(
-            // If the widget is visible, animate to 0.0 (invisible).
-            // If the widget is hidden, animate to 1.0 (fully visible).
             opacity: _show ? 1.0 : 0.0,
             duration: const Duration(milliseconds: 500),
-            // The green box must be a child of the AnimatedOpacity widget.
             child: Container(
                 height: 100.0,
                 width: 100.0,
@@ -283,51 +256,71 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
                   topRight: Radius.circular(defaultRadius),
                   topLeft: Radius.circular(defaultRadius))),
           child: Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            alignment: WrapAlignment.spaceAround,
-            runAlignment: WrapAlignment.center,
-            direction: Axis.vertical,
-            children: [
-              AnimatedOpacity(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              alignment: WrapAlignment.spaceAround,
+              runAlignment: WrapAlignment.center,
+              direction: Axis.vertical,
+              children: [
+                AnimatedOpacity(
                   // If the widget is visible, animate to 0.0 (invisible).
                   // If the widget is hidden, animate to 1.0 (fully visible).
                   opacity: selected ? 1.0 : 0.0,
                   duration: const Duration(milliseconds: 500),
                   // The green box must be a child of the AnimatedOpacity widget.
                   child: SizedBox(
-                    height: double.infinity,
-                    width: _size.width,
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Row(
+                      height: double.infinity,
+                      width: _size.width,
+                      child: BlocBuilder<ReservationdetailsBloc,
+                          ReservationdetailsState>(
+                        builder: (context, state) {
+                          return Stack(
                             children: [
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.location_on_rounded,
-                                  size: 30,
-                                  semanticLabel: "Get Directions",
-                                  color: Colors.redAccent,
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Row(
+                                  children: [
+                                    if (state is ReservationdetailsSuccess)
+                                      IconButton(
+                                        icon: const Icon(
+                                          Icons.location_on_rounded,
+                                          size: 30,
+                                          semanticLabel: "Get Directions",
+                                          color: Colors.redAccent,
+                                        ),
+                                        onPressed: () => openMapsSheet(
+                                          context,
+                                          state.reservationDetails.orderData!
+                                              .latitude!,
+                                          state.reservationDetails.orderData!
+                                              .longitude!,
+                                        ),
+                                      )
+                                    else
+                                      Container(),
+                                    if (state is ReservationdetailsSuccess)
+                                      IconButton(
+                                          icon: const Icon(
+                                            Icons.call,
+                                            size: 30,
+                                          ),
+                                          color: Colors.green,
+                                          onPressed: () {
+                                            FlutterPhoneDirectCaller.callNumber(
+                                                state.reservationDetails
+                                                    .orderData!.orderMobile
+                                                    .toString());
+                                          })
+                                    else
+                                      Container()
+                                  ],
                                 ),
-                                onPressed: () {},
-                              ),
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.call,
-                                  size: 30,
-                                ),
-                                color: Colors.green,
-                                onPressed: () {},
                               ),
                             ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )),
-            ],
-          ),
+                          );
+                        },
+                      )),
+                ),
+              ]),
         ),
         persistentFooterButtons: [
           SizedBox(
@@ -351,6 +344,70 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen>
         ],
       ),
     );
+  }
+
+  void showFloationButton() {
+    setState(() {
+      _show = true;
+    });
+  }
+
+  void hideFloationButton() {
+    setState(() {
+      _show = false;
+    });
+  }
+
+  Future<void> handleScroll() async => _scrollController.addListener(() {
+        if (_scrollController.position.userScrollDirection ==
+                ScrollDirection.reverse &&
+            selected == false) {
+          hideFloationButton();
+        }
+        if (_scrollController.position.userScrollDirection ==
+                ScrollDirection.forward &&
+            selected == false) {
+          showFloationButton();
+        }
+      });
+  Future<void> openMapsSheet(
+      BuildContext context, String lat, String long) async {
+    try {
+      final coords = Coords(double.parse(lat), double.parse(long));
+      final title = widget.reservation!.orderFrom;
+      final availableMaps = await MapLauncher.installedMaps;
+
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+            child: SingleChildScrollView(
+              child: SizedBox(
+                child: Wrap(
+                  children: <Widget>[
+                    for (var map in availableMaps)
+                      ListTile(
+                        onTap: () => map.showMarker(
+                          coords: coords,
+                          title: title!,
+                        ),
+                        title: Text(map.mapName),
+                        leading: SvgPicture.asset(
+                          map.icon,
+                          height: 30.0,
+                          width: 30.0,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
   }
 
   TimeOfDay getTimePeriods(String? time) {
@@ -666,7 +723,7 @@ class ReservationInfHeaderData extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const Spacer(),
+                    // const Spacer(),
                     const SizedBox(
                       height: 80,
                       child: VerticalDivider(
@@ -839,7 +896,7 @@ class ReservationInfoHeaderLoading extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const Spacer(),
+                      // const Spacer(),
                       const SizedBox(
                         height: 80,
                         child: VerticalDivider(

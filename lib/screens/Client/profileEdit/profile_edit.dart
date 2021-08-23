@@ -15,7 +15,7 @@ import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/utils/custom_dialog.dart';
 import 'package:techtime/Helpers/utils/custom_toast.dart';
 import 'package:techtime/Models/client_profile.dart';
-import 'package:techtime/Screens/Core/startupViews/edit_password_screen.dart';
+import 'package:techtime/Screens/shared/startupViews/edit_password_screen.dart';
 import 'components/cover_and_image.dart';
 import 'components/profile_text_field.dart';
 

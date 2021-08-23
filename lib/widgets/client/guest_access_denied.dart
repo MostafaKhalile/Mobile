@@ -1,6 +1,6 @@
 import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/Screens/Core/startupViews/loginScreen/login_page.dart';
+import 'package:techtime/Screens/shared/startupViews/loginScreen/login_page.dart';
 import 'package:flutter/material.dart';
 
 class GuestUserAccessDeniedScreen extends StatelessWidget {

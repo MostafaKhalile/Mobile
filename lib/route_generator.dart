@@ -11,33 +11,33 @@ import 'package:techtime/Models/notifications/all_notifications.dart';
 import 'package:techtime/Screens/Client/Offres/all_companies_offers_screen.dart';
 import 'package:techtime/Screens/Client/Offres/company_offers_screen.dart';
 import 'package:techtime/Screens/Client/favorites/favorites_screen.dart';
+import 'package:techtime/Screens/company/company_main_screen.dart';
 
-import 'package:techtime/Screens/Core/aboutUs/about_us.dart';
-import 'package:techtime/Screens/Core/aboutUs/follow_us.dart';
+import 'package:techtime/Screens/shared/aboutUs/about_us.dart';
+import 'package:techtime/Screens/shared/aboutUs/follow_us.dart';
+import 'package:techtime/Screens/shared/startupViews/client_signup_page.dart';
+import 'package:techtime/Widgets/core/gallery_view.dart';
 
 import 'package:techtime/screens/Client/contact/contact_us.dart';
 import 'package:techtime/screens/Client/profileEdit/profile_edit.dart';
-import 'package:techtime/screens/Core/ConnectivityView/network_sensitive.dart';
-import 'package:techtime/screens/Core/notifications/notifications.dart';
-import 'package:techtime/screens/Core/search_screen.dart';
-import 'package:techtime/screens/Core/startupViews/emailForgetPassworProcess/email_confirm_code.dart';
-import 'package:techtime/screens/Core/startupViews/emailForgetPassworProcess/email_forget_password.dart';
-import 'package:techtime/screens/Core/startupViews/loginScreen/login_page.dart';
-import 'package:techtime/widgets/core/gallery_view.dart';
+import 'package:techtime/screens/shared/ConnectivityView/network_sensitive.dart';
+import 'package:techtime/screens/shared/notifications/notifications.dart';
+import 'package:techtime/screens/shared/search_screen.dart';
+import 'package:techtime/screens/shared/startupViews/emailForgetPassworProcess/email_confirm_code.dart';
+import 'package:techtime/screens/shared/startupViews/emailForgetPassworProcess/email_forget_password.dart';
+import 'package:techtime/screens/shared/startupViews/loginScreen/login_page.dart';
 
 import 'Screens/Client/branchProfile/branch_profile.dart';
 import 'Screens/Client/reservations/TableReservation/table_reservation.dart';
 import 'Screens/Client/reservations/reservationFirstStep/reservation_first_step.dart';
-import 'Screens/Core/startupViews/splash_screen_page.dart';
-import 'Screens/company/company_main_screen.dart';
+import 'Screens/shared/startupViews/splash_screen_page.dart';
 import 'screens/Client/Categories/client_categories_screen.dart';
 import 'screens/Client/CategoryCompanies/category_companies.dart';
 import 'screens/Client/companyProfile/company_profile.dart';
 import 'screens/Client/home_page.dart';
-import 'screens/Core/startupViews/client_signup_page.dart';
-import 'screens/Core/startupViews/language_selection_page.dart';
-import 'screens/Core/startupViews/login_moderator_page.dart';
-import 'screens/Core/startupViews/sms_verification_screen.dart';
+import 'screens/shared/startupViews/language_selection_page.dart';
+import 'screens/shared/startupViews/login_moderator_page.dart';
+import 'screens/shared/startupViews/sms_verification_screen.dart';
 
 class RouteGenerator {
   Route<dynamic> generateRoute(RouteSettings settings) {

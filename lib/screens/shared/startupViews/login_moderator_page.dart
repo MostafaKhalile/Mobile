@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/network_constants.dart';
-import 'package:techtime/Screens/Core/startupViews/client_signup_page.dart';
-import 'package:techtime/screens/Core/ConnectivityView/network_sensitive.dart';
+import 'package:techtime/Screens/shared/startupViews/client_signup_page.dart';
+import 'package:techtime/screens/shared/ConnectivityView/network_sensitive.dart';
 
 class LoginModeratorPage extends StatelessWidget {
   @override
@@ -30,7 +30,8 @@ class LoginModeratorPage extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(
-                                AppLocalizations.of(context)!.translate('skip')!,
+                                AppLocalizations.of(context)!
+                                    .translate('skip')!,
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle1!

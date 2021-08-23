@@ -54,14 +54,13 @@ class CompanyServicesState extends State<CompanyServices> {
           child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: defaultPadding, horizontal: defaultPadding / 2),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
                 child: Column(children: <Widget>[
                   SizedBox(
                       height: _size.height,
                       child: CustomGroupedCheckbox<CompanyService>(
                           controller: customController,
-                          isScroll: true,
                           values: widget.companyProfile.companyServices!,
                           itemBuilder: (ctx, index, selected, isDisabled) {
                             return ServiceCard(
@@ -106,7 +105,7 @@ class CompanyServicesState extends State<CompanyServices> {
   void _bookHandler(UserProfile? _currentUser) {
     if (_currentUser != null) {
       _checked.isNotEmpty
-          ? isValidReservation()
+          ? validateReservation()
           : Fluttertoast.showToast(
               msg: AppLocalizations.of(context)!
                   .translate("please_select_service_first")!);
@@ -116,7 +115,7 @@ class CompanyServicesState extends State<CompanyServices> {
     }
   }
 
-  Future<bool> isValidReservation() async {
+  Map<String, String> generateRequestParameters() {
     final services = _checked;
     final params = {
       "CompanyID": widget.companyProfile.companyData!.companyID.toString(),
@@ -125,20 +124,30 @@ class CompanyServicesState extends State<CompanyServices> {
     for (var x = 0; x < _checked.length; x++) {
       params['ServiceID'] = services[x].servicesId.toString();
     }
-    print("find a branch for ${params.length}");
+    return params;
+  }
 
-    final FindBranchResponse validation =
+  void validateReservation() {
+    final branches = widget.companyProfile.companyBranches;
+    if (branches!.length > 1) {
+      checkBranchsWithSelectedServices();
+    } else {
+      navigateToNextScreen({
+        "CompanyBranches": widget.companyProfile.companyBranches!,
+        "ReservationType": ReservationType.service,
+        "services": _checked
+      });
+    }
+  }
+
+  Future checkBranchsWithSelectedServices() async {
+    final params = generateRequestParameters();
+    final FindBranchResponse response =
         await ReservationsRepo().findBranchForReservation(params);
-    if (validation.branchId!.isNotEmpty) {
-      print("valid with branches ${validation.branchId}");
-      print(widget.companyProfile.companyBranches!
-          .where((element) => validation.branchId
-              .toString()
-              .contains(element.brancheID.toString()))
-          .toList());
-      Navigator.pushNamed(context, ReservationFirstStep.routeName, arguments: {
+    if (response.branchId!.isNotEmpty) {
+      navigateToNextScreen({
         "CompanyBranches": widget.companyProfile.companyBranches!
-            .where((element) => validation.branchId
+            .where((element) => response.branchId
                 .toString()
                 .contains(element.brancheID.toString()))
             .toList(),
@@ -146,11 +155,13 @@ class CompanyServicesState extends State<CompanyServices> {
         "services": _checked
       });
     } else {
-      print("not Valid");
+      Fluttertoast.showToast(msg: response.message!);
     }
-
-    return true;
   }
+
+  void navigateToNextScreen(Map<String, dynamic> arguments) =>
+      Navigator.pushNamed(context, ReservationFirstStep.routeName,
+          arguments: arguments);
 }
 
 class ServiceCard extends StatelessWidget {

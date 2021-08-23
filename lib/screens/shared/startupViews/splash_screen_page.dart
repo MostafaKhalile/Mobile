@@ -9,10 +9,10 @@ import 'package:techtime/Controllers/Repositories/Auth/repository.dart';
 
 import 'package:techtime/Helpers/enums.dart';
 import 'package:techtime/Helpers/network_constants.dart';
-import 'package:techtime/Screens/Core/notifications/notifications.dart';
+import 'package:techtime/Screens/shared/notifications/notifications.dart';
 import 'package:techtime/Screens/company/company_main_screen.dart';
 import 'package:techtime/screens/Client/home_page.dart';
-import 'package:techtime/screens/Core/startupViews/language_selection_page.dart';
+import 'package:techtime/screens/shared/startupViews/language_selection_page.dart';
 
 import '../../../main.dart';
 

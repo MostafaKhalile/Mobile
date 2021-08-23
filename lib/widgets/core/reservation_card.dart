@@ -7,7 +7,7 @@ import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/network_constants.dart';
 import 'package:techtime/Models/reservations/reservation.dart';
-import 'package:techtime/Screens/Core/ReservationsScreen/reservation_details.dart';
+import 'package:techtime/Screens/shared/ReservationsScreen/reservation_details.dart';
 
 class ReservationCard extends StatefulWidget {
   // final Order order;

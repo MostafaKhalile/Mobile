@@ -11,10 +11,10 @@ import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Models/client_profile.dart';
 import 'package:techtime/Screens/Client/contact/contact_us.dart';
 import 'package:techtime/Screens/Client/profileEdit/profile_edit.dart';
-import 'package:techtime/Screens/Core/aboutUs/about_us.dart';
-import 'package:techtime/Screens/Core/aboutUs/follow_us.dart';
-import 'package:techtime/Screens/Core/startupViews/language_selection_page.dart';
-import 'package:techtime/Screens/Core/startupViews/loginScreen/login_page.dart';
+import 'package:techtime/Screens/shared/aboutUs/about_us.dart';
+import 'package:techtime/Screens/shared/aboutUs/follow_us.dart';
+import 'package:techtime/Screens/shared/startupViews/language_selection_page.dart';
+import 'package:techtime/Screens/shared/startupViews/loginScreen/login_page.dart';
 
 class ProfileControls extends StatefulWidget {
   const ProfileControls({

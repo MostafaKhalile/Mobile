@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
-import 'package:techtime/Screens/Core/ReservationsScreen/previous_reservations.dart';
+import 'package:techtime/Screens/shared/ReservationsScreen/previous_reservations.dart';
 
 import 'upcoming_reservations.dart';
 

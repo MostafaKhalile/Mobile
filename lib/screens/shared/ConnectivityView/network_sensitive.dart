@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techtime/Controllers/Cubits/NetworkCubit/internet_cubit.dart';
-import 'package:techtime/screens/Core/ConnectivityView/connectivity_page.dart';
+import 'package:techtime/screens/shared/ConnectivityView/connectivity_page.dart';
 
 class NetworkSensitive extends StatelessWidget {
   final Widget? child;
