@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
+import 'package:techtime/Helpers/app_colors.dart';
 
 import 'order_data.dart';
 import 'order_info.dart';
@@ -42,6 +44,31 @@ class ReservationDetails extends Equatable {
             ?.map((e) => OrderRaty.fromJson(e as Map<String, dynamic>))
             .toList(),
       );
+  Color? getThemeColor(String? status) {
+    switch (status) {
+      case "Acceptable": //مؤكد من الأدمن
+        {
+          return AppColors.secondryColor;
+        }
+      case "Processing": //مؤكد من الأدمن
+        {
+          return Colors.green[800];
+        }
+      case "Pending..": //مؤكد من الأدمن
+        {
+          return AppColors.pendingColor;
+        }
+      case "Been completed ": //مؤكد من الأدمن
+        {
+          return Colors.lightGreen;
+        }
+      case "complete": //مؤكد من الأدمن
+        {
+          return AppColors.doneColor;
+        }
+    }
+    return Colors.grey;
+  }
 
   Map<String, dynamic> toJson() => {
         'OrderData': orderData?.toJson(),

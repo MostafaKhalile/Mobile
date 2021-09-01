@@ -28,7 +28,7 @@ ButtonThemeData buttonThemeData() {
   return ButtonThemeData(
     height: 50,
     buttonColor: Colors.black,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
   );
 }
 

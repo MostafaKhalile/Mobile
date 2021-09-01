@@ -1,6 +1,5 @@
 import 'package:package_info_plus/package_info_plus.dart';
 
-//TODO : check validity of this
 // ignore: avoid_classes_with_only_static_members
 class AppInfo {
   static PackageInfo? _packageInfo;

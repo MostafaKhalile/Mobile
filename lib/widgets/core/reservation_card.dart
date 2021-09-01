@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techtime/Controllers/Cubits/LocaleCubit/locale_cubit.dart';
-import 'package:techtime/Helpers/app_colors.dart';
 import 'package:techtime/Helpers/app_consts.dart';
 import 'package:techtime/Helpers/localization/app_localizations_delegates.dart';
 import 'package:techtime/Helpers/network_constants.dart';
+import 'package:techtime/Helpers/utils/path_skew_cut.dart';
 import 'package:techtime/Models/reservations/reservation.dart';
-import 'package:techtime/Screens/shared/ReservationsScreen/reservation_details.dart';
+import 'package:techtime/Models/reservations/reservationDetails/reservation_details.dart';
+import 'package:techtime/Screens/shared/reservationDetails/reservation_details.dart';
 
 class ReservationCard extends StatefulWidget {
   // final Order order;
@@ -34,27 +35,6 @@ class _ReservationCardState extends State<ReservationCard> {
   double? start;
   double? end;
   Locale? locale;
-  Color? getThemeColor(String status) {
-    switch (status) {
-      case "Acceptable": //مؤكد من الأدمن
-        {
-          return AppColors.secondryColor;
-        }
-      case "Processing": //مؤكد من الأدمن
-        {
-          return Colors.green[800];
-        }
-      case "Pending..": //مؤكد من الأدمن
-        {
-          return AppColors.pendingColor;
-        }
-      case "complete": //مؤكد من الأدمن
-        {
-          return AppColors.doneColor;
-        }
-    }
-    return Colors.grey;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +65,8 @@ class _ReservationCardState extends State<ReservationCard> {
                   0.03,
                   0.03
                 ], colors: [
-                  getThemeColor(reservation?.orderStatus ?? "")!,
+                  const ReservationDetails()
+                      .getThemeColor(reservation?.orderStatus ?? "")!,
                   Colors.black
                 ]),
                 borderRadius: const BorderRadius.all(Radius.circular(10.0))),
@@ -106,7 +87,7 @@ class _ReservationCardState extends State<ReservationCard> {
                             width: width * 0.35,
                             height: 30,
                             decoration: BoxDecoration(
-                                color: getThemeColor(
+                                color: const ReservationDetails().getThemeColor(
                                     reservation?.orderStatus ?? ""),
                                 borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(10.0))),
@@ -273,21 +254,4 @@ class _ReservationCardState extends State<ReservationCard> {
 
     return interval;
   }
-}
-
-class SkewCut extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(size.width, 0);
-
-    path.lineTo(size.width - 20, size.height);
-    path.lineTo(0, size.height);
-    path.close();
-
-    return path;
-  }
-
-  @override
-  bool shouldReclip(SkewCut oldClipper) => false;
 }

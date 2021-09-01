@@ -157,8 +157,7 @@ class _ProfileControlsState extends State<ProfileControls> {
 
   Future<void> _logout(BuildContext context) async {
     await AuthRepo().logout();
-    Provider.of<CurrentUserProvider>(context, listen: false)
-        .loadCurrentUser(); //TODO : add await here if lohin/Logout crashes
+    Provider.of<CurrentUserProvider>(context, listen: false).loadCurrentUser();
     Navigator.pushNamedAndRemoveUntil(
         context, LanguageSelectionPage.routeName, (route) => false);
   }

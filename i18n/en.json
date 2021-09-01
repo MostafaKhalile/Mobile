@@ -39,9 +39,11 @@
     "minute": "minute",
     "offer_services_details": "offer services details",
     "control_order": "contol\norder",
+    "end_order": "End Order",
     "info": "Info",
     "reviews": "Reviews",
     "no_reviews": "No Reviews Yet !",
+    "add_comment": "Add comment",
     "viewAll": "view all",
     "topRated": "Top Rated",
     "newStores": "new Stores",
@@ -126,5 +128,11 @@
     "select_time": "select time",
     "edited_successfully": "done editing successfully",
     "photo_gallery": "Gallery",
-    "camera": "Camera"
+    "camera": "Camera",
+    "payment": "Payment",
+    "withdraw_from_wallet": "Withdraw from the wallet",
+    "company": "Company",
+    "branch": "Branch",
+    "the_service": "Service"
+
 }

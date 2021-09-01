@@ -54,8 +54,10 @@
     "minute": "دقيقة",
     "offer_services_details": "تفاصيل خدمات العرض",
     "control_order": "التحكم\nبالطلب",
+    "end_order": "إنهاء الطلب",
     "info": "المعلومات",
     "reviews": "المراجعات",
+    "add_comment": "أضف تعليقاً",
     "no_reviews": "لا يوجد تقييمات بعد !",
     "address": "العنوان",
     "workingHours": "ساعات العمل",
@@ -128,5 +130,11 @@
     "select_time": "اختر الوقت",
     "edited_successfully": "تم التعديل بنجاح",
     "photo_gallery": "معرض الصور",
-    "camera": "الكاميرا"
+    "camera": "الكاميرا",
+    "payment": "الدفع",
+    "withdraw_from_wallet": "اسحب من المحفظة",
+    "company": "الشركة",
+    "branch": "الفرع",
+    "the_service": "الخدمة"
+
 }
